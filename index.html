@@ -740,7 +740,7 @@
         <div class="panel-body">
           <p><span class="chip">Handle: @greysquirr3l</span></p>
           <ul class="sidebar-list">
-            <li>Focus: making Claude uncomfortable since 2023</li>
+            <li>Focus: making Claude uncomfortable since 2025</li>
             <li>Stack: Rust, Go, TypeScript</li>
             <li>Status: shipping weird but useful things</li>
           </ul>
@@ -775,25 +775,6 @@
       </aside>
 
       <section class="grid">
-        <article class="panel">
-          <div class="panel-head">CANVAS SPINNER ENGINE</div>
-          <div class="panel-body spinner-wrap">
-            <canvas id="spinner" width="620" height="260" aria-label="Retro spinner canvas"></canvas>
-            <div class="controls">
-              <label class="control-row">
-                <span>Speed</span>
-                <output id="speed-out" for="speed">1.4x</output>
-              </label>
-              <input id="speed" type="range" min="5" max="30" step="1" value="14" />
-              <label class="control-row">
-                <span>Particle Count</span>
-                <output id="count-out" for="count">24</output>
-              </label>
-              <input id="count" type="range" min="8" max="48" step="1" value="24" />
-            </div>
-          </div>
-        </article>
-
         <article class="panel">
           <div class="panel-head">GITHUB STATS + HEATMAP</div>
           <div class="panel-body">
@@ -859,28 +840,9 @@
           </div>
         </article>
 
-        <article class="panel row-2 grid">
+        <article class="panel">
+          <div class="panel-head">GUESTBOOK</div>
           <div class="panel-body">
-            <div class="panel-head" style="margin: -14px -14px 12px">METER + PROGRESS</div>
-            <p>How much chaos is currently loaded:</p>
-            <div class="bar">
-              <meter id="chaos-meter" min="0" max="100" low="30" high="75" optimum="100" value="67"></meter>
-            </div>
-            <p class="small">Chaos Score: <output id="chaos-out">67</output>%</p>
-            <button class="btn" id="boost">Boost Chaos</button>
-          </div>
-          <div class="panel-body">
-            <div class="panel-head" style="margin: -14px -14px 12px">FAKE LOADING BAR</div>
-            <p>Simulated profile glitter loading:</p>
-            <progress id="load" max="100" value="8"></progress>
-            <p class="small">Load: <output id="load-out">8</output>%</p>
-            <button class="btn" id="load-btn">Load More</button>
-          </div>
-        </article>
-
-        <article class="panel row-2 grid">
-          <div class="panel-body">
-            <div class="panel-head" style="margin: -14px -14px 12px">GUESTBOOK (TEMPLATE)</div>
             <form id="guestbook">
               <label for="nickname">Nickname</label>
               <input id="nickname" type="text" maxlength="24" placeholder="xX_neon_coder_Xx" list="name-suggestions" required />
@@ -893,24 +855,17 @@
               <label for="message">Message</label>
               <textarea id="message" rows="4" maxlength="120" placeholder="leave some glitter in the comments" required></textarea>
               <button class="btn" type="submit">Sign Guestbook</button>
-              <button class="btn" type="button" id="clear-guestbook">Clear Local Guestbook Data</button>
-              <p class="small">Stored locally in your browser only.</p>
+              <p class="small">Opens GitHub — requires a GitHub account. Entries are public issues.</p>
             </form>
             <ol id="entries"></ol>
-          </div>
-
-          <div class="panel-body">
-            <div class="panel-head" style="margin: -14px -14px 12px">POPOVER + DIALOG</div>
-            <p>Native UI layers, no component library.</p>
-            <button popovertarget="tip-pop">Open Popover Tip</button>
-            <button class="btn" id="open-dialog" style="margin-top: 10px">Launch Modal</button>
-            <div id="tip-pop" popover>
-              Tip: use modern APIs, then decorate with retro styles.
-            </div>
           </div>
         </article>
       </section>
     </main>
+
+    <div id="tip-pop" popover>
+      Tip: use modern APIs, then decorate with retro styles.
+    </div>
 
     <dialog id="about-dialog">
       <form method="dialog">
@@ -925,71 +880,10 @@
     </dialog>
 
     <template id="entry-template">
-      <li><strong class="entry-name"></strong>: <span class="entry-text"></span></li>
+      <li><strong class="entry-name"></strong> <span class="entry-gh"></span>: <span class="entry-text"></span></li>
     </template>
 
     <script>
-      const spinner = document.getElementById("spinner");
-      const ctx = spinner.getContext("2d");
-      const speed = document.getElementById("speed");
-      const count = document.getElementById("count");
-      const speedOut = document.getElementById("speed-out");
-      const countOut = document.getElementById("count-out");
-
-      let t = 0;
-
-      function drawSpinner() {
-        t += Number(speed.value) * 0.002;
-        const particleCount = Number(count.value);
-        speedOut.value = (Number(speed.value) / 10).toFixed(1) + "x";
-        countOut.value = String(particleCount);
-
-        ctx.clearRect(0, 0, spinner.width, spinner.height);
-
-        const centerX = spinner.width / 2;
-        const centerY = spinner.height / 2;
-
-        for (let i = 0; i < particleCount; i += 1) {
-          const ratio = i / particleCount;
-          const angle = t * 4 + ratio * Math.PI * 2;
-          const radius = 35 + 60 * (0.5 + 0.5 * Math.sin(t + ratio * 6));
-          const x = centerX + Math.cos(angle) * radius;
-          const y = centerY + Math.sin(angle) * (radius * 0.5);
-          const hue = (ratio * 360 + t * 120) % 360;
-
-          ctx.beginPath();
-          ctx.arc(x, y, 3 + ratio * 6, 0, Math.PI * 2);
-          ctx.fillStyle = "hsla(" + hue + " 100% 62% / " + (0.25 + ratio * 0.75) + ")";
-          ctx.fill();
-        }
-
-        ctx.font = "20px VT323";
-        ctx.fillStyle = "rgba(248, 255, 107, 0.95)";
-        ctx.fillText("LOADING YOUR PROFILE CUSTOMIZATION...", 130, 242);
-
-        requestAnimationFrame(drawSpinner);
-      }
-
-      drawSpinner();
-
-      const load = document.getElementById("load");
-      const loadOut = document.getElementById("load-out");
-      const loadBtn = document.getElementById("load-btn");
-      loadBtn.addEventListener("click", () => {
-        const next = Math.min(100, Number(load.value) + 17);
-        load.value = next;
-        loadOut.value = String(next);
-      });
-
-      const chaosMeter = document.getElementById("chaos-meter");
-      const chaosOut = document.getElementById("chaos-out");
-      const boost = document.getElementById("boost");
-      boost.addEventListener("click", () => {
-        const next = Math.min(100, Number(chaosMeter.value) + 5);
-        chaosMeter.value = next;
-        chaosOut.value = String(next);
-      });
-
       const guestbook = document.getElementById("guestbook");
       const nickname = document.getElementById("nickname");
       const message = document.getElementById("message");
