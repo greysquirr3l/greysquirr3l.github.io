@@ -6,7 +6,7 @@
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' https: data:; connect-src https://api.github.com; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' https: data:; connect-src https://api.github.com https://github.com; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests"
     />
     <title>greysquirr3l's Profile Page</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -887,71 +887,54 @@
       const guestbook = document.getElementById("guestbook");
       const nickname = document.getElementById("nickname");
       const message = document.getElementById("message");
-      const clearGuestbookBtn = document.getElementById("clear-guestbook");
       const entries = document.getElementById("entries");
       const entryTemplate = document.getElementById("entry-template");
-      const GUESTBOOK_KEY = "greysquirr3l_guestbook_entries";
-
-      function loadGuestbookEntries() {
-        try {
-          const raw = localStorage.getItem(GUESTBOOK_KEY);
-          if (!raw) return [];
-          const parsed = JSON.parse(raw);
-          if (!Array.isArray(parsed)) return [];
-          return parsed.filter((entry) => {
-            return entry && typeof entry.name === "string" && typeof entry.text === "string";
-          }).map((entry) => {
-            return {
-              name: entry.name.slice(0, 24),
-              text: entry.text.slice(0, 120)
-            };
-          });
-        } catch (_error) {
-          return [];
-        }
-      }
 
       function normalizeGuestbookText(value, maxLength) {
         return value.replace(/[\u0000-\u001F\u007F]/g, "").trim().slice(0, maxLength);
       }
 
-      function saveGuestbookEntries(entryList) {
-        localStorage.setItem(GUESTBOOK_KEY, JSON.stringify(entryList));
-      }
-
-      function renderGuestbook(entryList) {
+      function renderGuestbook(issues) {
         entries.innerHTML = "";
-        entryList.forEach((entry) => {
+        issues.forEach((issue) => {
           const item = entryTemplate.content.firstElementChild.cloneNode(true);
-          item.querySelector(".entry-name").textContent = entry.name;
-          item.querySelector(".entry-text").textContent = entry.text;
+          item.querySelector(".entry-name").textContent = issue.user.login;
+          const ghLink = item.querySelector(".entry-gh");
+          ghLink.textContent = "(@" + issue.user.login + ")";
+          ghLink.style.fontSize = "18px";
+          ghLink.style.color = "var(--sub)";
+          item.querySelector(".entry-text").textContent = issue.body || "";
           entries.appendChild(item);
         });
       }
 
-      let guestbookEntries = loadGuestbookEntries();
-      renderGuestbook(guestbookEntries);
+      async function loadGuestbookIssues() {
+        try {
+          const resp = await fetch(
+            "https://api.github.com/repos/greysquirr3l/greysquirr3l.github.io/issues?labels=guestbook&state=open&per_page=25",
+            { headers: { Accept: "application/vnd.github+json" } }
+          );
+          if (!resp.ok) return;
+          const issues = await resp.json();
+          if (Array.isArray(issues)) renderGuestbook(issues);
+        } catch (_e) { /* silent — metrics still load */ }
+      }
+
+      loadGuestbookIssues();
 
       guestbook.addEventListener("submit", (event) => {
         event.preventDefault();
-
         const name = normalizeGuestbookText(nickname.value, 24);
         const text = normalizeGuestbookText(message.value, 120);
         if (!name || !text) return;
 
-        guestbookEntries = [{ name, text }, ...guestbookEntries].slice(0, 25);
-        saveGuestbookEntries(guestbookEntries);
-        renderGuestbook(guestbookEntries);
-        message.value = "";
-      });
-
-      clearGuestbookBtn.addEventListener("click", () => {
-        const shouldClear = window.confirm("Clear all guestbook entries stored in this browser?");
-        if (!shouldClear) return;
-
-        guestbookEntries = [];
-        localStorage.removeItem(GUESTBOOK_KEY);
-        renderGuestbook(guestbookEntries);
+        const title = encodeURIComponent("Guestbook: " + name);
+        const body = encodeURIComponent(text);
+        const url = "https://github.com/greysquirr3l/greysquirr3l.github.io/issues/new"
+          + "?title=" + title
+          + "&body=" + body
+          + "&labels=guestbook";
+        window.open(url, "_blank", "noopener,noreferrer");
       });
 
       const aboutDialog = document.getElementById("about-dialog");
