@@ -1,0 +1,1464 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' https: data:; connect-src https://api.github.com; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests"
+    />
+    <title>greysquirr3l's Profile Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-1: #04050a;
+        --bg-2: #090d1a;
+        --panel: #0f1530;
+        --panel-2: #121b3d;
+        --line: #2efec8;
+        --line-soft: rgba(46, 254, 200, 0.4);
+        --text: #ecfffb;
+        --sub: #9fd7ca;
+        --warn: #f8ff6b;
+        --hot: #ff5aa5;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        color: var(--text);
+        font-family: "VT323", monospace;
+        font-size: 24px;
+        line-height: 1.2;
+        background:
+          radial-gradient(circle at 12% 10%, rgba(255, 90, 165, 0.18), transparent 34%),
+          radial-gradient(circle at 88% 0%, rgba(46, 254, 200, 0.2), transparent 32%),
+          repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.03) 0 1px,
+            transparent 1px 4px
+          ),
+          linear-gradient(180deg, var(--bg-2), var(--bg-1));
+        padding: 24px;
+      }
+
+      .layout {
+        width: min(1040px, 100%);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 16px;
+      }
+
+      .panel {
+        border: 2px solid var(--line);
+        background: linear-gradient(180deg, var(--panel), var(--panel-2));
+        box-shadow:
+          0 0 0 2px #000,
+          0 0 16px rgba(46, 254, 200, 0.25);
+        border-radius: 8px;
+        overflow: clip;
+      }
+
+      .panel-head {
+        font-family: "Press Start 2P", monospace;
+        font-size: 12px;
+        letter-spacing: 0.04em;
+        background: linear-gradient(90deg, #031d17, #1a0f2d);
+        border-bottom: 2px solid var(--line-soft);
+        padding: 14px 12px;
+      }
+
+      .panel-body {
+        padding: 14px;
+      }
+
+      .blink {
+        animation: blink 1s steps(2, jump-none) infinite;
+      }
+
+      @keyframes blink {
+        50% {
+          opacity: 0.4;
+        }
+      }
+
+      .glitch {
+        position: relative;
+        display: inline-block;
+        color: var(--hot);
+      }
+
+      .glitch::before,
+      .glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        color: var(--hot);
+      }
+
+      .glitch::before {
+        clip-path: polygon(0 20%, 100% 20%, 100% 40%, 0 40%);
+        color: #0ff;
+        animation: glitch-a 2.6s steps(2, jump-none) infinite;
+      }
+
+      .glitch::after {
+        clip-path: polygon(0 58%, 100% 58%, 100% 78%, 0 78%);
+        color: #ff0060;
+        animation: glitch-b 3.1s steps(2, jump-none) infinite;
+      }
+
+      @keyframes glitch-a {
+        0%, 72%, 76%, 100% { transform: translateX(0);           opacity: 0; }
+        73%                { transform: translateX(-4px) skewX(-4deg); opacity: 1; }
+        74%                { transform: translateX(4px);          opacity: 1; }
+        75%                { transform: translateX(-2px);         opacity: 1; }
+      }
+
+      @keyframes glitch-b {
+        0%, 55%, 60%, 100% { transform: translateX(0);           opacity: 0; }
+        56%                { transform: translateX(5px) skewX(3deg);  opacity: 1; }
+        57%                { transform: translateX(-3px);         opacity: 1; }
+        59%                { transform: translateX(2px);          opacity: 1; }
+      }
+
+      .hero {
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        margin: 0;
+        font-family: "Press Start 2P", monospace;
+        font-size: clamp(20px, 3vw, 30px);
+        line-height: 1.4;
+        color: var(--warn);
+        text-shadow:
+          0 0 8px rgba(248, 255, 107, 0.5),
+          2px 2px 0 #000;
+      }
+
+      .subline {
+        color: var(--sub);
+        margin-top: 10px;
+      }
+
+      .star {
+        display: inline-block;
+        animation: pop 0.7s ease both;
+      }
+
+      .star:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+
+      .star:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+
+      @keyframes pop {
+        from {
+          opacity: 0;
+          transform: translateY(8px) scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .sidebar-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .sidebar-list li + li {
+        margin-top: 10px;
+      }
+
+      .chip {
+        display: inline-block;
+        padding: 2px 8px;
+        border: 1px solid var(--line-soft);
+        border-radius: 999px;
+        color: var(--warn);
+        font-size: 20px;
+      }
+
+      .spinner-wrap {
+        display: grid;
+        gap: 10px;
+        justify-items: center;
+      }
+
+      canvas {
+        display: block;
+        width: min(320px, 100%);
+        height: auto;
+        border: 2px solid var(--line-soft);
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.45);
+      }
+
+      .controls {
+        display: grid;
+        gap: 10px;
+        width: 100%;
+      }
+
+      .control-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 10px;
+      }
+
+      input,
+      button,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      input[type="range"] {
+        width: 100%;
+        accent-color: var(--hot);
+      }
+
+      .btn,
+      button[popovertarget] {
+        border: 2px outset var(--line);
+        background: linear-gradient(180deg, #1b2c64, #13214a);
+        color: var(--text);
+        padding: 6px 12px;
+        cursor: pointer;
+      }
+
+      .btn:active,
+      button[popovertarget]:active {
+        border-style: inset;
+      }
+
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+
+      .row-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .bar {
+        width: 100%;
+      }
+
+      progress,
+      meter {
+        width: 100%;
+        height: 20px;
+      }
+
+      output {
+        color: var(--warn);
+      }
+
+      details {
+        border: 2px solid var(--line-soft);
+        border-radius: 8px;
+        padding: 8px 10px;
+        background: rgba(5, 7, 18, 0.7);
+      }
+
+      summary {
+        cursor: pointer;
+        font-family: "Press Start 2P", monospace;
+        font-size: 11px;
+      }
+
+      #guestbook {
+        display: grid;
+        gap: 8px;
+      }
+
+      textarea,
+      input[type="text"] {
+        width: 100%;
+        border: 2px inset #2b457c;
+        background: #090f22;
+        color: var(--text);
+        padding: 8px;
+      }
+
+      #entries {
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      #entries li {
+        margin-bottom: 8px;
+      }
+
+      [popover] {
+        border: 2px solid var(--line);
+        background: #101a3a;
+        color: var(--text);
+        padding: 12px;
+        max-width: 320px;
+      }
+
+      dialog {
+        border: 2px solid var(--line);
+        background: linear-gradient(180deg, #121d43, #0b122b);
+        color: var(--text);
+        width: min(540px, 94vw);
+      }
+
+      dialog::backdrop {
+        background: rgba(0, 0, 0, 0.6);
+      }
+
+      .small {
+        color: var(--sub);
+        font-size: 20px;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .stat-tile {
+        border: 2px solid var(--line-soft);
+        border-radius: 8px;
+        padding: 10px;
+        background: rgba(7, 12, 28, 0.8);
+      }
+
+      .stat-label {
+        font-family: "Press Start 2P", monospace;
+        font-size: 10px;
+        color: var(--sub);
+        margin-bottom: 8px;
+      }
+
+      .stat-value {
+        font-size: 34px;
+        color: var(--warn);
+      }
+
+      .chart-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .chart-card {
+        border: 2px solid var(--line-soft);
+        border-radius: 8px;
+        background: rgba(3, 7, 19, 0.95);
+        padding: 10px;
+      }
+
+      .chart-title {
+        font-family: "Press Start 2P", monospace;
+        font-size: 10px;
+        color: var(--sub);
+        margin-bottom: 10px;
+      }
+
+      .bar-list {
+        display: grid;
+        gap: 8px;
+      }
+
+      .bar-row {
+        display: grid;
+        gap: 5px;
+      }
+
+      .bar-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        font-size: 19px;
+      }
+
+      .bar-track {
+        height: 10px;
+        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(16, 24, 50, 0.9);
+        overflow: hidden;
+      }
+
+      .bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #18a487, #30e0bd);
+      }
+
+      .chart-empty {
+        font-size: 19px;
+        color: var(--sub);
+      }
+
+      .heatmap-wrap {
+        border: 2px solid var(--line-soft);
+        border-radius: 8px;
+        padding: 10px;
+        background: rgba(3, 7, 19, 0.95);
+      }
+
+      .heatmap-calendar {
+        display: grid;
+        grid-template-columns: 18px auto;
+        gap: 7px;
+        align-items: start;
+      }
+
+      .heatmap-days {
+        display: grid;
+        grid-template-rows: repeat(7, 12px);
+        gap: 3px;
+        font-size: 11px;
+        color: var(--sub);
+        font-family: "Press Start 2P", monospace;
+      }
+
+      .heatmap-grid {
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-rows: repeat(7, 12px);
+        grid-auto-columns: 12px;
+        gap: 3px;
+      }
+
+      .heat-cell {
+        width: 12px;
+        height: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 2px;
+      }
+
+      .future {
+        opacity: 0.35;
+      }
+
+      .level-0 {
+        background: #1a2038;
+      }
+
+      .level-1 {
+        background: #1b5f53;
+      }
+
+      .level-2 {
+        background: #18a487;
+      }
+
+      .level-3 {
+        background: #30e0bd;
+      }
+
+      .stats-note {
+        margin-top: 8px;
+        font-size: 20px;
+        color: var(--sub);
+      }
+
+      @media (max-width: 860px) {
+        body {
+          padding: 12px;
+        }
+
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .row-2 {
+          grid-template-columns: 1fr;
+        }
+
+        .stats-grid,
+        .chart-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .blink,
+        .star {
+          animation: none;
+        }
+      }
+
+      .sidebar-link {
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        width: 100%;
+      }
+
+      .quick-links {
+        margin-top: 8px;
+      }
+
+      .pinned-repos-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 10px;
+      }
+
+      .repo-card {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        border: 2px solid var(--line-soft);
+        border-radius: 8px;
+        padding: 10px;
+        background: rgba(7, 12, 28, 0.8);
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .repo-card:hover,
+      .repo-card:focus-visible {
+        border-color: var(--line);
+        outline: none;
+      }
+
+      .repo-card-name {
+        font-family: "Press Start 2P", monospace;
+        font-size: 10px;
+        color: var(--warn);
+        word-break: break-all;
+      }
+
+      .repo-card-desc {
+        font-size: 19px;
+        color: var(--sub);
+        flex: 1;
+      }
+
+      .repo-card-meta {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 19px;
+      }
+
+      .align-tag {
+        display: inline-block;
+        border: 1px solid var(--line-soft);
+        border-radius: 999px;
+        padding: 2px 8px;
+        font-size: 16px;
+        color: var(--warn);
+        background: rgba(0, 0, 0, 0.35);
+      }
+
+      .align-lawful-good {
+        color: #9affc2;
+        border-color: rgba(154, 255, 194, 0.55);
+        background: rgba(21, 64, 42, 0.45);
+      }
+
+      .align-neutral-good {
+        color: #90ffd6;
+        border-color: rgba(144, 255, 214, 0.55);
+        background: rgba(14, 62, 54, 0.45);
+      }
+
+      .align-chaotic-good {
+        color: #7af2ff;
+        border-color: rgba(122, 242, 255, 0.55);
+        background: rgba(9, 43, 64, 0.45);
+      }
+
+      .align-lawful-neutral {
+        color: #b8d4ff;
+        border-color: rgba(184, 212, 255, 0.55);
+        background: rgba(19, 34, 64, 0.45);
+      }
+
+      .align-true-neutral {
+        color: #e8f1ff;
+        border-color: rgba(232, 241, 255, 0.55);
+        background: rgba(52, 56, 64, 0.45);
+      }
+
+      .align-chaotic-neutral {
+        color: #ffc8ff;
+        border-color: rgba(255, 200, 255, 0.55);
+        background: rgba(60, 24, 64, 0.45);
+      }
+
+      .align-lawful-evil {
+        color: #ff9ab8;
+        border-color: rgba(255, 154, 184, 0.55);
+        background: rgba(64, 19, 37, 0.45);
+      }
+
+      .align-neutral-evil {
+        color: #ff8d9a;
+        border-color: rgba(255, 141, 154, 0.55);
+        background: rgba(64, 18, 26, 0.45);
+      }
+
+      .align-chaotic-evil {
+        color: #ff7474;
+        border-color: rgba(255, 116, 116, 0.55);
+        background: rgba(64, 14, 14, 0.45);
+      }
+
+      .vcounter-section {
+        margin-top: 14px;
+      }
+
+      .vcounter-board {
+        display: flex;
+        gap: 2px;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        background: #050500;
+        border: 2px inset #444;
+        box-shadow:
+          inset 0 0 18px #000,
+          0 0 10px rgba(255, 220, 0, 0.18);
+        border-radius: 8px;
+        padding: 8px 12px;
+      }
+
+      .dwheel-clip {
+        width: 30px;
+        height: 44px;
+        overflow: hidden;
+        position: relative;
+        background: #0d0d00;
+        border: 1px solid rgba(255, 220, 0, 0.15);
+        border-radius: 2px;
+      }
+
+      .dwheel-clip::before,
+      .dwheel-clip::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 10px;
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      .dwheel-clip::before {
+        top: 0;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), transparent);
+      }
+
+      .dwheel-clip::after {
+        bottom: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+      }
+
+      .dstrip {
+        display: flex;
+        flex-direction: column;
+        will-change: transform;
+      }
+
+      .dcell {
+        width: 30px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Press Start 2P", monospace;
+        font-size: 18px;
+        color: #ffe600;
+        text-shadow:
+          0 0 8px rgba(255, 220, 0, 0.9),
+          0 0 20px rgba(255, 180, 0, 0.4);
+        flex-shrink: 0;
+        line-height: 1;
+      }
+
+      .dwheel-sep {
+        font-family: "Press Start 2P", monospace;
+        font-size: 14px;
+        color: rgba(255, 220, 0, 0.6);
+        padding: 0 1px;
+        align-self: center;
+      }
+
+      .vcounter-label {
+        font-family: "Press Start 2P", monospace;
+        font-size: 9px;
+        color: var(--sub);
+        margin-bottom: 6px;
+        letter-spacing: 0.08em;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="panel hero">
+      <div class="panel-head">
+        <span class="star">WELCOME</span>
+        <span class="star">TO</span>
+        <span class="star">GITHUB.PAGES</span>
+      </div>
+      <div class="panel-body">
+        <h1>greysquirr3l's Profile Page</h1>
+        <p class="subline">
+          Agent of <span class="glitch" data-text="Chaos">Chaos</span>
+        </p>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="panel">
+        <div class="panel-head">PROFILE SIDEBAR</div>
+        <div class="panel-body">
+          <p><span class="chip">Handle: @greysquirr3l</span></p>
+          <ul class="sidebar-list">
+            <li>Focus: making Claude uncomfortable since 2023</li>
+            <li>Stack: Rust, Go, TypeScript</li>
+            <li>Status: shipping weird but useful things</li>
+          </ul>
+          <details style="margin-top: 12px">
+            <summary>Profile Note</summary>
+            <p>This page keeps an old-school look with practical GitHub data.</p>
+          </details>
+          <button class="btn" id="open-about" style="margin-top: 12px">
+            About This Page
+          </button>
+          <div class="panel-head" style="margin: 14px -14px 8px; padding-left: 12px">QUICK LINKS</div>
+          <ul class="sidebar-list quick-links">
+            <li>
+              <a class="btn sidebar-link" href="https://github.com/greysquirr3l" target="_blank" rel="noopener noreferrer">GitHub Profile</a>
+            </li>
+            <li>
+              <a class="btn sidebar-link" href="https://github.com/greysquirr3l?tab=repositories" target="_blank" rel="noopener noreferrer">All Repos</a>
+            </li>
+            <li>
+              <a class="btn sidebar-link" href="https://github.com/greysquirr3l?tab=followers" target="_blank" rel="noopener noreferrer">Followers</a>
+            </li>
+            <li>
+              <a class="btn sidebar-link" href="https://github.com/greysquirr3l?tab=stars" target="_blank" rel="noopener noreferrer">Starred</a>
+            </li>
+          </ul>
+          <div class="panel-head" style="margin: 14px -14px 8px; padding-left: 12px">VISITOR COUNTER</div>
+          <div class="vcounter-section">
+            <div class="vcounter-label">YOU ARE VISITOR #</div>
+            <div class="vcounter-board" id="vcounter-board"></div>
+          </div>
+        </div>
+      </aside>
+
+      <section class="grid">
+        <article class="panel">
+          <div class="panel-head">CANVAS SPINNER ENGINE</div>
+          <div class="panel-body spinner-wrap">
+            <canvas id="spinner" width="620" height="260" aria-label="Retro spinner canvas"></canvas>
+            <div class="controls">
+              <label class="control-row">
+                <span>Speed</span>
+                <output id="speed-out" for="speed">1.4x</output>
+              </label>
+              <input id="speed" type="range" min="5" max="30" step="1" value="14" />
+              <label class="control-row">
+                <span>Particle Count</span>
+                <output id="count-out" for="count">24</output>
+              </label>
+              <input id="count" type="range" min="8" max="48" step="1" value="24" />
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">GITHUB STATS + HEATMAP</div>
+          <div class="panel-body">
+            <div class="stats-grid">
+              <div class="stat-tile">
+                <div class="stat-label">PUBLIC REPOS</div>
+                <div class="stat-value" id="public-repos">-</div>
+              </div>
+              <div class="stat-tile">
+                <div class="stat-label">TOTAL STARS</div>
+                <div class="stat-value" id="total-stars">-</div>
+              </div>
+              <div class="stat-tile">
+                <div class="stat-label">FOLLOWERS</div>
+                <div class="stat-value" id="followers">-</div>
+              </div>
+              <div class="stat-tile">
+                <div class="stat-label">UPDATED REPOS (90D)</div>
+                <div class="stat-value" id="active-repos">-</div>
+              </div>
+            </div>
+
+            <div class="chart-grid" style="margin-top: 12px">
+              <div class="chart-card">
+                <div class="chart-title">TOP LANGUAGES (BY REPO BYTES)</div>
+                <div class="bar-list" id="lang-bars">
+                  <div class="chart-empty">Loading language data…</div>
+                </div>
+              </div>
+              <div class="chart-card">
+                <div class="chart-title">TOP REPOS (BY STARS)</div>
+                <div class="bar-list" id="repo-bars">
+                  <div class="chart-empty">Loading repo data…</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="heatmap-wrap" style="margin-top: 12px">
+              <div class="stat-label">PUBLIC EVENT HEATMAP (WEEK / DAY)</div>
+              <div class="heatmap-calendar">
+                <div class="heatmap-days" aria-hidden="true">
+                  <span>S</span>
+                  <span>M</span>
+                  <span>T</span>
+                  <span>W</span>
+                  <span>T</span>
+                  <span>F</span>
+                  <span>S</span>
+                </div>
+                <div class="heatmap-grid" id="heatmap-grid"></div>
+              </div>
+              <div class="stats-note" id="heatmap-note">Loading event activity…</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">TOP REPOS</div>
+          <div class="panel-body">
+            <div class="pinned-repos-grid" id="pinned-repos-grid">
+              <div class="chart-empty">Loading top repos…</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel row-2 grid">
+          <div class="panel-body">
+            <div class="panel-head" style="margin: -14px -14px 12px">METER + PROGRESS</div>
+            <p>How much chaos is currently loaded:</p>
+            <div class="bar">
+              <meter id="chaos-meter" min="0" max="100" low="30" high="75" optimum="100" value="67"></meter>
+            </div>
+            <p class="small">Chaos Score: <output id="chaos-out">67</output>%</p>
+            <button class="btn" id="boost">Boost Chaos</button>
+          </div>
+          <div class="panel-body">
+            <div class="panel-head" style="margin: -14px -14px 12px">FAKE LOADING BAR</div>
+            <p>Simulated profile glitter loading:</p>
+            <progress id="load" max="100" value="8"></progress>
+            <p class="small">Load: <output id="load-out">8</output>%</p>
+            <button class="btn" id="load-btn">Load More</button>
+          </div>
+        </article>
+
+        <article class="panel row-2 grid">
+          <div class="panel-body">
+            <div class="panel-head" style="margin: -14px -14px 12px">GUESTBOOK (TEMPLATE)</div>
+            <form id="guestbook">
+              <label for="nickname">Nickname</label>
+              <input id="nickname" type="text" maxlength="24" placeholder="xX_neon_coder_Xx" list="name-suggestions" required />
+              <datalist id="name-suggestions">
+                <option value="pixel_ghost"></option>
+                <option value="crt_kid"></option>
+                <option value="dialup_dream"></option>
+              </datalist>
+
+              <label for="message">Message</label>
+              <textarea id="message" rows="4" maxlength="120" placeholder="leave some glitter in the comments" required></textarea>
+              <button class="btn" type="submit">Sign Guestbook</button>
+              <button class="btn" type="button" id="clear-guestbook">Clear Local Guestbook Data</button>
+              <p class="small">Stored locally in your browser only.</p>
+            </form>
+            <ol id="entries"></ol>
+          </div>
+
+          <div class="panel-body">
+            <div class="panel-head" style="margin: -14px -14px 12px">POPOVER + DIALOG</div>
+            <p>Native UI layers, no component library.</p>
+            <button popovertarget="tip-pop">Open Popover Tip</button>
+            <button class="btn" id="open-dialog" style="margin-top: 10px">Launch Modal</button>
+            <div id="tip-pop" popover>
+              Tip: use modern APIs, then decorate with retro styles.
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <dialog id="about-dialog">
+      <form method="dialog">
+        <h2 style="font-family: 'Press Start 2P', monospace; font-size: 13px">ABOUT THIS BUILD</h2>
+        <p>
+          This page uses HTML5 features including canvas rendering, dialog,
+          popover, progress, meter, output, template cloning, datalist,
+          async GitHub API data loading, and a generated activity heatmap.
+        </p>
+        <button class="btn" value="close">Close</button>
+      </form>
+    </dialog>
+
+    <template id="entry-template">
+      <li><strong class="entry-name"></strong>: <span class="entry-text"></span></li>
+    </template>
+
+    <script>
+      const spinner = document.getElementById("spinner");
+      const ctx = spinner.getContext("2d");
+      const speed = document.getElementById("speed");
+      const count = document.getElementById("count");
+      const speedOut = document.getElementById("speed-out");
+      const countOut = document.getElementById("count-out");
+
+      let t = 0;
+
+      function drawSpinner() {
+        t += Number(speed.value) * 0.002;
+        const particleCount = Number(count.value);
+        speedOut.value = (Number(speed.value) / 10).toFixed(1) + "x";
+        countOut.value = String(particleCount);
+
+        ctx.clearRect(0, 0, spinner.width, spinner.height);
+
+        const centerX = spinner.width / 2;
+        const centerY = spinner.height / 2;
+
+        for (let i = 0; i < particleCount; i += 1) {
+          const ratio = i / particleCount;
+          const angle = t * 4 + ratio * Math.PI * 2;
+          const radius = 35 + 60 * (0.5 + 0.5 * Math.sin(t + ratio * 6));
+          const x = centerX + Math.cos(angle) * radius;
+          const y = centerY + Math.sin(angle) * (radius * 0.5);
+          const hue = (ratio * 360 + t * 120) % 360;
+
+          ctx.beginPath();
+          ctx.arc(x, y, 3 + ratio * 6, 0, Math.PI * 2);
+          ctx.fillStyle = "hsla(" + hue + " 100% 62% / " + (0.25 + ratio * 0.75) + ")";
+          ctx.fill();
+        }
+
+        ctx.font = "20px VT323";
+        ctx.fillStyle = "rgba(248, 255, 107, 0.95)";
+        ctx.fillText("LOADING YOUR PROFILE CUSTOMIZATION...", 130, 242);
+
+        requestAnimationFrame(drawSpinner);
+      }
+
+      drawSpinner();
+
+      const load = document.getElementById("load");
+      const loadOut = document.getElementById("load-out");
+      const loadBtn = document.getElementById("load-btn");
+      loadBtn.addEventListener("click", () => {
+        const next = Math.min(100, Number(load.value) + 17);
+        load.value = next;
+        loadOut.value = String(next);
+      });
+
+      const chaosMeter = document.getElementById("chaos-meter");
+      const chaosOut = document.getElementById("chaos-out");
+      const boost = document.getElementById("boost");
+      boost.addEventListener("click", () => {
+        const next = Math.min(100, Number(chaosMeter.value) + 5);
+        chaosMeter.value = next;
+        chaosOut.value = String(next);
+      });
+
+      const guestbook = document.getElementById("guestbook");
+      const nickname = document.getElementById("nickname");
+      const message = document.getElementById("message");
+      const clearGuestbookBtn = document.getElementById("clear-guestbook");
+      const entries = document.getElementById("entries");
+      const entryTemplate = document.getElementById("entry-template");
+      const GUESTBOOK_KEY = "greysquirr3l_guestbook_entries";
+
+      function loadGuestbookEntries() {
+        try {
+          const raw = localStorage.getItem(GUESTBOOK_KEY);
+          if (!raw) return [];
+          const parsed = JSON.parse(raw);
+          if (!Array.isArray(parsed)) return [];
+          return parsed.filter((entry) => {
+            return entry && typeof entry.name === "string" && typeof entry.text === "string";
+          }).map((entry) => {
+            return {
+              name: entry.name.slice(0, 24),
+              text: entry.text.slice(0, 120)
+            };
+          });
+        } catch (_error) {
+          return [];
+        }
+      }
+
+      function normalizeGuestbookText(value, maxLength) {
+        return value.replace(/[\u0000-\u001F\u007F]/g, "").trim().slice(0, maxLength);
+      }
+
+      function saveGuestbookEntries(entryList) {
+        localStorage.setItem(GUESTBOOK_KEY, JSON.stringify(entryList));
+      }
+
+      function renderGuestbook(entryList) {
+        entries.innerHTML = "";
+        entryList.forEach((entry) => {
+          const item = entryTemplate.content.firstElementChild.cloneNode(true);
+          item.querySelector(".entry-name").textContent = entry.name;
+          item.querySelector(".entry-text").textContent = entry.text;
+          entries.appendChild(item);
+        });
+      }
+
+      let guestbookEntries = loadGuestbookEntries();
+      renderGuestbook(guestbookEntries);
+
+      guestbook.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const name = normalizeGuestbookText(nickname.value, 24);
+        const text = normalizeGuestbookText(message.value, 120);
+        if (!name || !text) return;
+
+        guestbookEntries = [{ name, text }, ...guestbookEntries].slice(0, 25);
+        saveGuestbookEntries(guestbookEntries);
+        renderGuestbook(guestbookEntries);
+        message.value = "";
+      });
+
+      clearGuestbookBtn.addEventListener("click", () => {
+        const shouldClear = window.confirm("Clear all guestbook entries stored in this browser?");
+        if (!shouldClear) return;
+
+        guestbookEntries = [];
+        localStorage.removeItem(GUESTBOOK_KEY);
+        renderGuestbook(guestbookEntries);
+      });
+
+      const aboutDialog = document.getElementById("about-dialog");
+      document.getElementById("open-about").addEventListener("click", () => {
+        aboutDialog.showModal();
+      });
+      document.getElementById("open-dialog").addEventListener("click", () => {
+        aboutDialog.showModal();
+      });
+
+      const username = "greysquirr3l";
+
+      function daysAgo(date) {
+        const now = Date.now();
+        const then = date.getTime();
+        return Math.floor((now - then) / (1000 * 60 * 60 * 24));
+      }
+
+      function normalizeActivity(count) {
+        if (count === 0) return 0;
+        if (count <= 1) return 1;
+        if (count <= 3) return 2;
+        return 3;
+      }
+
+      function hashString(value) {
+        let hash = 0;
+        for (let i = 0; i < value.length; i += 1) {
+          hash = (hash * 31 + value.charCodeAt(i)) >>> 0;
+        }
+        return hash;
+      }
+
+      function getRepoAlignment(repo) {
+        const alignments = [
+          "Lawful Good",
+          "Neutral Good",
+          "Chaotic Good",
+          "Lawful Neutral",
+          "True Neutral",
+          "Chaotic Neutral",
+          "Lawful Evil",
+          "Neutral Evil",
+          "Chaotic Evil"
+        ];
+
+        const seed = [
+          repo.full_name || "",
+          String(repo.stargazers_count || 0),
+          repo.language || "none"
+        ].join("|");
+
+        const index = hashString(seed) % alignments.length;
+        return alignments[index];
+      }
+
+      function toAlignmentClass(alignment) {
+        return "align-" + alignment.toLowerCase().replace(/\s+/g, "-");
+      }
+
+      function renderBarChart(container, rows, maxValue) {
+        container.innerHTML = "";
+        if (!rows.length || maxValue <= 0) {
+          const empty = document.createElement("div");
+          empty.className = "chart-empty";
+          empty.textContent = "No data available";
+          container.appendChild(empty);
+          return;
+        }
+
+        rows.forEach((row) => {
+          const rowEl = document.createElement("div");
+          rowEl.className = "bar-row";
+
+          const top = document.createElement("div");
+          top.className = "bar-top";
+
+          const label = document.createElement("span");
+          label.textContent = row.label;
+
+          const value = document.createElement("span");
+          value.textContent = row.value;
+
+          top.appendChild(label);
+          top.appendChild(value);
+
+          const track = document.createElement("div");
+          track.className = "bar-track";
+
+          const fill = document.createElement("div");
+          fill.className = "bar-fill";
+          fill.style.width = Math.max(6, Math.round((row.numericValue / maxValue) * 100)) + "%";
+
+          track.appendChild(fill);
+          rowEl.appendChild(top);
+          rowEl.appendChild(track);
+          container.appendChild(rowEl);
+        });
+      }
+
+      async function fetchJson(url, timeoutMs = 7000) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+        try {
+          const response = await fetch(url, {
+            signal: controller.signal,
+            headers: {
+              Accept: "application/vnd.github+json"
+            }
+          });
+
+          if (!response.ok) {
+            throw new Error("GitHub API request failed: " + response.status);
+          }
+
+          return response.json();
+        } finally {
+          clearTimeout(timeoutId);
+        }
+      }
+
+      async function loadGitHubStats() {
+        const reposEl = document.getElementById("public-repos");
+        const starsEl = document.getElementById("total-stars");
+        const followersEl = document.getElementById("followers");
+        const activeEl = document.getElementById("active-repos");
+        const langBars = document.getElementById("lang-bars");
+        const repoBars = document.getElementById("repo-bars");
+        const heatmapGrid = document.getElementById("heatmap-grid");
+        const heatmapNote = document.getElementById("heatmap-note");
+        const pinnedGrid = document.getElementById("pinned-repos-grid");
+
+        try {
+          const [user, repos, events] = await Promise.all([
+            fetchJson("https://api.github.com/users/" + username),
+            fetchJson("https://api.github.com/users/" + username + "/repos?per_page=100&sort=updated"),
+            fetchJson("https://api.github.com/users/" + username + "/events/public?per_page=100")
+          ]);
+
+          const totalStars = repos.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0);
+          const activeRepos = repos.filter((repo) => {
+            const updated = new Date(repo.pushed_at || repo.updated_at);
+            return daysAgo(updated) <= 90;
+          }).length;
+
+          reposEl.textContent = String(user.public_repos ?? 0);
+          starsEl.textContent = String(totalStars);
+          followersEl.textContent = String(user.followers ?? 0);
+          activeEl.textContent = String(activeRepos);
+
+          const languageTotals = repos.reduce((acc, repo) => {
+            if (!repo.language) return acc;
+            const current = acc.get(repo.language) || 0;
+            acc.set(repo.language, current + (repo.size || 0));
+            return acc;
+          }, new Map());
+
+          const languageRows = Array.from(languageTotals.entries())
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 6)
+            .map(([language, value]) => ({
+              label: language,
+              value: String(value) + " KB",
+              numericValue: value
+            }));
+
+          const repoRows = [...repos]
+            .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0))
+            .slice(0, 6)
+            .map((repo) => ({
+              label: repo.name,
+              value: String(repo.stargazers_count || 0) + " stars",
+              numericValue: repo.stargazers_count || 0
+            }));
+
+          const maxLanguage = languageRows.length ? Math.max(...languageRows.map((row) => row.numericValue)) : 0;
+          const maxRepoStars = repoRows.length ? Math.max(...repoRows.map((row) => row.numericValue)) : 0;
+
+          renderBarChart(langBars, languageRows, maxLanguage);
+          renderBarChart(repoBars, repoRows, maxRepoStars);
+
+          const topRepos = [...repos]
+            .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0))
+            .slice(0, 6);
+
+          pinnedGrid.innerHTML = "";
+          if (!topRepos.length) {
+            const empty = document.createElement("div");
+            empty.className = "chart-empty";
+            empty.textContent = "No repos found";
+            pinnedGrid.appendChild(empty);
+          } else {
+            topRepos.forEach((repo) => {
+              const card = document.createElement("a");
+              card.className = "repo-card";
+              card.href = "https://github.com/" + username + "/" + repo.name;
+              card.target = "_blank";
+              card.rel = "noopener noreferrer";
+
+              const nameEl = document.createElement("div");
+              nameEl.className = "repo-card-name";
+              nameEl.textContent = repo.name;
+
+              const descEl = document.createElement("div");
+              descEl.className = "repo-card-desc";
+              descEl.textContent = repo.description || "";
+
+              const metaEl = document.createElement("div");
+              metaEl.className = "repo-card-meta";
+
+              if (repo.language) {
+                const langChip = document.createElement("span");
+                langChip.className = "chip";
+                langChip.textContent = repo.language;
+                metaEl.appendChild(langChip);
+              }
+
+              const alignmentTag = document.createElement("span");
+              const alignment = getRepoAlignment(repo);
+              alignmentTag.className = "align-tag " + toAlignmentClass(alignment);
+              alignmentTag.textContent = alignment;
+              metaEl.appendChild(alignmentTag);
+
+              const starsEl2 = document.createElement("span");
+              starsEl2.textContent = "\u2605 " + String(repo.stargazers_count || 0);
+              metaEl.appendChild(starsEl2);
+
+              card.appendChild(nameEl);
+              card.appendChild(descEl);
+              card.appendChild(metaEl);
+              pinnedGrid.appendChild(card);
+            });
+          }
+
+          const weeks = 20;
+          const totalCells = weeks * 7;
+          const today = new Date();
+          const endDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+          const startSunday = new Date(endDay);
+          startSunday.setDate(endDay.getDate() - ((weeks - 1) * 7) - endDay.getDay());
+
+          const countsByDay = new Map();
+
+          events.forEach((event) => {
+            const key = new Date(event.created_at).toISOString().slice(0, 10);
+            countsByDay.set(key, (countsByDay.get(key) || 0) + 1);
+          });
+
+          heatmapGrid.innerHTML = "";
+          let totalEvents = 0;
+
+          for (let index = 0; index < totalCells; index += 1) {
+            const date = new Date(startSunday);
+            date.setDate(startSunday.getDate() + index);
+            const key = date.toISOString().slice(0, 10);
+            const count = countsByDay.get(key) || 0;
+            const isFuture = date > endDay;
+            if (!isFuture) totalEvents += count;
+
+            const cell = document.createElement("div");
+            cell.className = "heat-cell level-" + normalizeActivity(count);
+            if (isFuture) cell.classList.add("future");
+            cell.title = key + ": " + String(count) + " public events";
+            heatmapGrid.appendChild(cell);
+          }
+
+          heatmapNote.textContent = "Loaded " + totalEvents + " events across " + String(weeks) + " weeks.";
+        } catch (_error) {
+          renderBarChart(langBars, [], 0);
+          renderBarChart(repoBars, [], 0);
+          pinnedGrid.innerHTML = "<div class=\"chart-empty\">Could not load repo data.</div>";
+          heatmapGrid.innerHTML = "";
+          for (let i = 0; i < 140; i += 1) {
+            const fallback = document.createElement("div");
+            fallback.className = "heat-cell level-0";
+            heatmapGrid.appendChild(fallback);
+          }
+          heatmapNote.textContent = "Could not load GitHub API data right now. Retry when online.";
+        }
+      }
+
+      loadGitHubStats();
+
+      // ── Visitor Counter ────────────────────────────────────────────────
+      (function () {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+        const CELL_H = 44;
+        const board = document.getElementById("vcounter-board");
+        if (!board) return;
+
+        const fakeNum = 1048576 + Math.floor(Math.random() * 7500000);
+        const digits = String(fakeNum).padStart(7, "0").split("").map(Number);
+
+        // After which wheel indices to insert a comma: X,XXX,XXX
+        const COMMA_AFTER = new Set([0, 3]);
+        const wheels = [];
+
+        for (let wi = 0; wi < 7; wi += 1) {
+          const clip = document.createElement("div");
+          clip.className = "dwheel-clip";
+
+          const strip = document.createElement("div");
+          strip.className = "dstrip";
+
+          // Two reps of 0-9 for seamless modulo loop
+          for (let rep = 0; rep < 2; rep += 1) {
+            for (let d = 0; d < 10; d += 1) {
+              const cell = document.createElement("div");
+              cell.className = "dcell";
+              cell.textContent = String(d);
+              strip.appendChild(cell);
+            }
+          }
+
+          clip.appendChild(strip);
+          board.appendChild(clip);
+
+          if (COMMA_AFTER.has(wi)) {
+            const sep = document.createElement("span");
+            sep.className = "dwheel-sep";
+            sep.textContent = ",";
+            board.appendChild(sep);
+          }
+
+          wheels.push({
+            strip,
+            pos: digits[wi],
+            vel: 0.5 + Math.random() * 1.2,
+            slideX: 0
+          });
+        }
+
+        function scheduleEvent(w) {
+          const delay = 800 + Math.random() * 5000;
+          setTimeout(() => fireEvent(w), delay);
+        }
+
+        function fireEvent(w) {
+          const roll = Math.random();
+          if (roll < 0.40) {
+            // Wild spin
+            w.vel = 30 + Math.random() * 50;
+            setTimeout(() => {
+              w.vel = 0.5 + Math.random() * 1.2;
+              scheduleEvent(w);
+            }, 300 + Math.random() * 1000);
+          } else if (roll < 0.60) {
+            // Brief reverse
+            w.vel = -(5 + Math.random() * 10);
+            setTimeout(() => {
+              w.vel = 0.5 + Math.random() * 1.2;
+              scheduleEvent(w);
+            }, 150 + Math.random() * 350);
+          } else if (roll < 0.82) {
+            // Horizontal glitch slide
+            w.slideX = (Math.random() > 0.5 ? 1 : -1) * (14 + Math.random() * 18);
+            scheduleEvent(w);
+          } else {
+            // Stutter: alternating fast / dead stop
+            let n = 0;
+            const stutter = setInterval(() => {
+              w.vel = (n % 2 === 0) ? (15 + Math.random() * 20) : 0;
+              n += 1;
+              if (n >= 8) {
+                clearInterval(stutter);
+                w.vel = 0.5 + Math.random() * 1.2;
+                scheduleEvent(w);
+              }
+            }, 80 + Math.floor(Math.random() * 80));
+          }
+        }
+
+        wheels.forEach((w) => scheduleEvent(w));
+
+        let lastTs2 = null;
+
+        function tickCounter(ts) {
+          const dt = lastTs2 === null ? 16 : Math.min(ts - lastTs2, 50);
+          lastTs2 = ts;
+          const dtSec = dt / 1000;
+          const slideDecay = Math.pow(0.82, dt / 16);
+
+          wheels.forEach((w) => {
+            w.pos += w.vel * dtSec;
+            w.pos = ((w.pos % 10) + 10) % 10;
+
+            w.slideX *= slideDecay;
+            if (Math.abs(w.slideX) < 0.3) w.slideX = 0;
+
+            const yPx = w.pos * CELL_H;
+            w.strip.style.transform =
+              "translateY(-" + yPx.toFixed(2) + "px) translateX(" + w.slideX.toFixed(2) + "px)";
+          });
+
+          requestAnimationFrame(tickCounter);
+        }
+
+        requestAnimationFrame(tickCounter);
+      }());
+    </script>
+  </body>
+</html>
