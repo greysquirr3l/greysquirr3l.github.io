@@ -813,7 +813,7 @@
             </div>
 
             <div class="heatmap-wrap" style="margin-top: 12px">
-              <div class="stat-label">PUBLIC EVENT HEATMAP (WEEK / DAY)</div>
+              <div class="stat-label">PUBLIC EVENT HEATMAP (20W SAMPLE)</div>
               <div class="heatmap-calendar">
                 <div class="heatmap-days" aria-hidden="true">
                   <span>S</span>
@@ -1066,11 +1066,25 @@
         const pinnedGrid = document.getElementById("pinned-repos-grid");
 
         try {
-          const [user, repos, events] = await Promise.all([
+          const [user, repos] = await Promise.all([
             fetchJson("https://api.github.com/users/" + username),
-            fetchJson("https://api.github.com/users/" + username + "/repos?per_page=100&sort=updated"),
-            fetchJson("https://api.github.com/users/" + username + "/events/public?per_page=100")
+            fetchJson("https://api.github.com/users/" + username + "/repos?per_page=100&sort=updated")
           ]);
+
+          let events = [];
+          try {
+            const eventPages = await Promise.all([1, 2, 3].map((page) => {
+              return fetchJson(
+                "https://api.github.com/users/" + username + "/events/public?per_page=100&page=" + String(page)
+              );
+            }));
+
+            events = eventPages.flat().filter((event) => {
+              return event && typeof event.created_at === "string";
+            });
+          } catch (_eventError) {
+            events = [];
+          }
 
           const totalStars = repos.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0);
           const activeRepos = repos.filter((repo) => {
@@ -1195,11 +1209,12 @@
             const cell = document.createElement("div");
             cell.className = "heat-cell level-" + normalizeActivity(count);
             if (isFuture) cell.classList.add("future");
-            cell.title = key + ": " + String(count) + " public events";
+            cell.title = key + ": " + String(count) + " sampled public events";
             heatmapGrid.appendChild(cell);
           }
 
-          heatmapNote.textContent = "Loaded " + totalEvents + " events across " + String(weeks) + " weeks.";
+          heatmapNote.textContent =
+            "Loaded " + totalEvents + " sampled events (latest 300) across " + String(weeks) + " weeks.";
         } catch (_error) {
           renderBarChart(langBars, [], 0);
           renderBarChart(repoBars, [], 0);
