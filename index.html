@@ -523,7 +523,7 @@
 
       .pinned-repos-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
         gap: 10px;
       }
 
@@ -561,19 +561,34 @@
       .repo-card-meta {
         display: flex;
         align-items: center;
-        flex-wrap: wrap;
-        gap: 10px;
-        font-size: 19px;
+        flex-wrap: nowrap;
+        gap: 4px;
+        font-size: 14px;
+        min-width: 0;
+      }
+
+      .repo-card .chip {
+        padding: 1px 5px;
+        font-size: 12px;
+        white-space: nowrap;
       }
 
       .align-tag {
         display: inline-block;
         border: 1px solid var(--line-soft);
         border-radius: 999px;
-        padding: 2px 8px;
-        font-size: 16px;
+        padding: 1px 5px;
+        font-size: 12px;
         color: var(--warn);
         background: rgba(0, 0, 0, 0.35);
+        white-space: nowrap;
+      }
+
+      .repo-stars {
+        margin-left: auto;
+        font-size: 14px;
+        white-space: nowrap;
+        flex-shrink: 0;
       }
 
       .align-lawful-good {
@@ -951,9 +966,9 @@
       }
 
       function normalizeActivity(count) {
-        if (count === 0) return 0;
-        if (count <= 1) return 1;
-        if (count <= 3) return 2;
+        if (count <= 0) return 0;
+        if (count <= 2) return 1;
+        if (count <= 6) return 2;
         return 3;
       }
 
@@ -1171,6 +1186,7 @@
               metaEl.appendChild(alignmentTag);
 
               const starsEl2 = document.createElement("span");
+              starsEl2.className = "repo-stars";
               starsEl2.textContent = "\u2605 " + String(repo.stargazers_count || 0);
               metaEl.appendChild(starsEl2);
 
@@ -1183,35 +1199,56 @@
 
           const weeks = 20;
           const totalCells = weeks * 7;
-          const today = new Date();
-          const endDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-          const startSunday = new Date(endDay);
-          startSunday.setDate(endDay.getDate() - ((weeks - 1) * 7) - endDay.getDay());
+          const now = new Date();
+          const endDayUtc = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+          const startSundayUtc = new Date(endDayUtc);
+          startSundayUtc.setUTCDate(endDayUtc.getUTCDate() - ((weeks - 1) * 7) - endDayUtc.getUTCDay());
 
           const countsByDay = new Map();
+          const contributionEventTypes = new Set([
+            "PushEvent",
+            "PullRequestEvent",
+            "IssuesEvent",
+            "PullRequestReviewEvent",
+            "CreateEvent",
+            "CommitCommentEvent"
+          ]);
 
           events.forEach((event) => {
-            const key = new Date(event.created_at).toISOString().slice(0, 10);
+            if (!contributionEventTypes.has(event.type)) return;
+            const key = String(event.created_at).slice(0, 10);
             countsByDay.set(key, (countsByDay.get(key) || 0) + 1);
           });
+
+          const dayCells = [];
+          let maxDaily = 0;
+
+          for (let index = 0; index < totalCells; index += 1) {
+            const date = new Date(startSundayUtc);
+            date.setUTCDate(startSundayUtc.getUTCDate() + index);
+            const key = date.toISOString().slice(0, 10);
+            const count = countsByDay.get(key) || 0;
+            const isFuture = date.getTime() > endDayUtc.getTime();
+            if (!isFuture && count > maxDaily) maxDaily = count;
+            dayCells.push({ key, count, isFuture });
+          }
 
           heatmapGrid.innerHTML = "";
           let totalEvents = 0;
 
-          for (let index = 0; index < totalCells; index += 1) {
-            const date = new Date(startSunday);
-            date.setDate(startSunday.getDate() + index);
-            const key = date.toISOString().slice(0, 10);
-            const count = countsByDay.get(key) || 0;
-            const isFuture = date > endDay;
+          dayCells.forEach((day) => {
+            const key = day.key;
+            const count = day.count;
+            const isFuture = day.isFuture;
             if (!isFuture) totalEvents += count;
 
             const cell = document.createElement("div");
-            cell.className = "heat-cell level-" + normalizeActivity(count);
+            const scaledCount = maxDaily > 0 ? Math.ceil((count / maxDaily) * 8) : 0;
+            cell.className = "heat-cell level-" + normalizeActivity(scaledCount);
             if (isFuture) cell.classList.add("future");
             cell.title = key + ": " + String(count) + " sampled public events";
             heatmapGrid.appendChild(cell);
-          }
+          });
 
           heatmapNote.textContent =
             "Loaded " + totalEvents + " sampled events (latest 300) across " + String(weeks) + " weeks.";
