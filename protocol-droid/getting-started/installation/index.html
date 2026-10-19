@@ -88,9 +88,8 @@ for the exact pin. A <code dir="auto">cargo</code> invocation that picks a diffe
 will be auto-redirected by the file, so a clone of the repo is reproducible
 end-to-end.</p>
 <h2 id="feature-flags">Feature flags</h2>
-<p>The default build pulls in everything you need to write a server or a
-client, including all schema revisions and all transports. The
-non-default features are additive and do not change behaviour on the
+<p>The default build is the domain, the IR, every codec, and the stdio
+transport. Everything else is additive and does not change behaviour on the
 default path:</p>
 
 
@@ -125,7 +124,13 @@ default path:</p>
 
 
 
-<table><thead><tr><th>Feature</th><th>What it adds</th></tr></thead><tbody><tr><td><code dir="auto">http</code></td><td>Streamable HTTP transport (client and server)</td></tr><tr><td><code dir="auto">oauth</code></td><td>OAuth 2.1 resource server, PKCE client, CIMD registration</td></tr><tr><td><code dir="auto">legacy-sse</code></td><td>Legacy HTTP+SSE binding (<code dir="auto">2024-11-05</code>)</td></tr><tr><td><code dir="auto">a2a</code></td><td>A2A v1.0 server, client, and cross-protocol bridge</td></tr><tr><td><code dir="auto">acp</code></td><td>Agent Client Protocol (experimental)</td></tr><tr><td><code dir="auto">cli</code></td><td>The <code dir="auto">protocol-droid</code> binary</td></tr></tbody></table>
+
+
+
+
+<table><thead><tr><th>Feature</th><th>What it adds</th></tr></thead><tbody><tr><td><code dir="auto">stdio</code></td><td>The stdio transport, server and client. <strong>On by default</strong></td></tr><tr><td><code dir="auto">http</code></td><td>Streamable HTTP and the <code dir="auto">2026-07-28</code> stateless lifecycle, client and server</td></tr><tr><td><code dir="auto">legacy-sse</code></td><td>The deprecated <code dir="auto">2024-11-05</code> HTTP+SSE transport, client and server. Implies <code dir="auto">http</code></td></tr><tr><td><code dir="auto">oauth</code></td><td>The OAuth 2.1 resource server and client (PKCE, discovery, registration, refresh, browser sign-in). Implies <code dir="auto">http</code></td></tr><tr><td><code dir="auto">random-ids</code></td><td>CSPRNG session ids instead of a counter. An HTTP server needs ids from somewhere</td></tr><tr><td><code dir="auto">a2a</code></td><td>The A2A v1.0 server, client, and cross-protocol bridge. Implies <code dir="auto">http</code></td></tr><tr><td><code dir="auto">acp-experimental</code></td><td>Zed’s Agent Client Protocol v1.25.0. Pre-1.0, no semver guarantee</td></tr></tbody></table>
+<p>The CLI is a separate crate (<code dir="auto">protocol-droid-cli</code>); its <code dir="auto">bridge</code> feature, on by
+default, pulls in <code dir="auto">http</code>, <code dir="auto">stdio</code>, <code dir="auto">legacy-sse</code>, <code dir="auto">random-ids</code> and <code dir="auto">oauth</code>.</p>
 <p>All schema revisions are <em>always</em> compiled. They are data, not optional
 features — a <code dir="auto">--no-default-features</code> build still speaks every revision,
 it just does not bring transports or OAuth along with it.</p>

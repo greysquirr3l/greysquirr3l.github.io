@@ -102,7 +102,12 @@ two-change re-enable path is documented at the top of
 <h2 id="what-verify-packaging-does">What <code dir="auto">verify packaging</code> does</h2>
 <p><code dir="auto">verify packaging</code> runs <code dir="auto">cargo publish --dry-run</code> for
 each crate in dependency order:</p>
-<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="text"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">protocol-droid-schema → protocol-droid → protocol-droid-macros → protocol-droid-cli</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="protocol-droid-schema → protocol-droid → protocol-droid-macros → protocol-droid-cli"><div></div></button></div></figure></div>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="text"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">protocol-droid-schema → protocol-droid-macros → protocol-droid → protocol-droid-cli</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="protocol-droid-schema → protocol-droid-macros → protocol-droid → protocol-droid-cli"><div></div></button></div></figure></div>
+<p>The order is the dependency graph, not the directory listing.
+<code dir="auto">protocol-droid</code> depends on both the schema and the macros, so both have to be
+on the registry first; the CLI depends on the library. Publishing the macros
+after the library fails, because crates.io cannot resolve a dependency that does
+not exist yet.</p>
 <p>A failed dry-run is a failed release: a manifest typo, a
 missing path dep, a <code dir="auto">rust-version</code> that is not the
 intended floor all surface here, before anything is
