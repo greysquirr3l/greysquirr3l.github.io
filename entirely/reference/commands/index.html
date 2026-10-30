@@ -1,0 +1,644 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-3enyosyr"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Commands | Entirely</title><link rel="canonical" href="https://greysquirr3l.github.io/entirely/reference/commands/"/><link rel="sitemap" href="/entirely/sitemap-index.xml"/><link rel="shortcut icon" href="/entirely/favicon.png" type="image/png"/><meta name="generator" content="Astro v7.4.4"/><meta name="generator" content="Starlight v0.42.7"/><meta property="og:title" content="Commands"/><meta property="og:type" content="article"/><meta property="og:url" content="https://greysquirr3l.github.io/entirely/reference/commands/"/><meta property="og:locale" content="en"/><meta property="og:description" content="Every command the extension contributes, where it appears, and whether it changes anything on Entire."/><meta property="og:site_name" content="Entirely"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Every command the extension contributes, where it appears, and whether it changes anything on Entire."/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/entirely/_astro/print.ehPL0gv-.css" media="print"><link rel="stylesheet" href="/entirely/_astro/common.hRmV8O6o.css"><style>@layer starlight.components{svg:where(.astro-ia5hxuil){color:var(--sl-icon-color);font-size:var(--sl-icon-size,1em);width:1em;height:1em;overflow:visible}}
+</style><script type="module" src="/entirely/_astro/page.cNngjUgL.js"></script></head><body class="astro-3enyosyr"><a class="sl-skip-link astro-gnknwdnk" href="#_top">Skip to content</a><div class="page sl-flex astro-6sms7n4h"><header class="header astro-6sms7n4h"><div class="header astro-ns7vkkd7"><div class="title-wrapper sl-flex astro-ns7vkkd7"><a href="/entirely/" class="site-title sl-flex astro-x5mbklid"><img class="astro-x5mbklid" alt="Entirely" src="/entirely/_astro/logo.z-aAVHo_.png" width="256" height="256"><span class="astro-x5mbklid" translate="no">Entirely</span></a></div><div class="sl-flex print:hidden astro-ns7vkkd7"><site-search class="astro-ns7vkkd7 astro-gjnw6c5p" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"><button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-gjnw6c5p"><svg aria-hidden="true" class="astro-gjnw6c5p astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-gjnw6c5p" aria-hidden="true">Search</span><kbd class="sl-hidden md:sl-flex astro-gjnw6c5p" style="display: none;"><kbd class="astro-gjnw6c5p">Ctrl</kbd><kbd class="astro-gjnw6c5p">K</kbd></kbd></button><dialog style="padding:0" aria-label="Search" class="astro-gjnw6c5p"><div class="dialog-frame sl-flex astro-gjnw6c5p"><button data-close-modal class="sl-flex md:sl-hidden astro-gjnw6c5p">Cancel</button><div class="search-container astro-gjnw6c5p"><div id="starlight__search" class="astro-gjnw6c5p"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/entirely/_astro/Search.astro_astro_type_script_index_0_lang.CLB3NnqZ.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-ns7vkkd7"><div class="sl-flex social-icons astro-ns7vkkd7"><a href="https://github.com/greysquirr3l/entirely-vscode" rel="me" class="sl-flex astro-jc3ax64a"><span class="sr-only astro-jc3ax64a">GitHub</span><svg aria-hidden="true" class="astro-jc3ax64a astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-qnwdaibt"><span class="sr-only astro-qnwdaibt">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-qnwdaibt astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-qnwdaibt"><option value="dark" class="astro-qnwdaibt">Dark</option><option value="light" class="astro-qnwdaibt">Light</option><option value="auto" selected class="astro-qnwdaibt">Auto</option></select><svg aria-hidden="true" class="icon caret astro-qnwdaibt astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script><script type="module">var e=class extends HTMLElement{constructor(){super();let e=this.querySelector(`select`);e&&(e.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=e.currentTarget.value)}),window.addEventListener(`pageshow`,t=>{if(!t.persisted)return;let n=e.querySelector(`option[selected]`)?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}};customElements.define(`starlight-lang-select`,e);</script></div></div></header><nav class="sidebar print:hidden astro-6sms7n4h" aria-label="Main"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-zh2vr3y3"><svg aria-hidden="true" class="open-menu astro-zh2vr3y3 astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-zh2vr3y3 astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-zh2vr3y3">Menu</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-6sms7n4h"><div class="sidebar-content sl-flex astro-6sms7n4h"><sl-sidebar-state-persist data-hash="1jkujv0" class="astro-xnaxgmmr"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-l7di5gml"><li class="astro-l7di5gml"><details open class="astro-l7di5gml"><summary class="astro-l7di5gml"><span class="group-label astro-l7di5gml"><span class="large astro-l7di5gml">Getting started</span></span><svg aria-hidden="true" class="caret astro-l7di5gml astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-l7di5gml"><li class="astro-l7di5gml"><a href="/entirely/getting-started/introduction/" class="astro-l7di5gml"><span class="astro-l7di5gml">Introduction</span></a></li><li class="astro-l7di5gml"><a href="/entirely/getting-started/installation/" class="astro-l7di5gml"><span class="astro-l7di5gml">Installation</span></a></li><li class="astro-l7di5gml"><a href="/entirely/getting-started/quickstart/" class="astro-l7di5gml"><span class="astro-l7di5gml">Quickstart</span></a></li><li class="astro-l7di5gml"><a href="/entirely/getting-started/sign-in/" class="astro-l7di5gml"><span class="astro-l7di5gml">Sign in</span></a></li></ul></details></li><li class="astro-l7di5gml"><details open class="astro-l7di5gml"><summary class="astro-l7di5gml"><span class="group-label astro-l7di5gml"><span class="large astro-l7di5gml">Guides</span></span><svg aria-hidden="true" class="caret astro-l7di5gml astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul class="astro-l7di5gml"><li class="astro-l7di5gml"><a href="/entirely/guides/sessions-and-checkpoints/" class="astro-l7di5gml"><span class="astro-l7di5gml">Sessions and checkpoints</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/trails-and-review/" class="astro-l7di5gml"><span class="astro-l7di5gml">Trails and review</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/search/" class="astro-l7di5gml"><span class="astro-l7di5gml">Search</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/activity-dispatch-recap/" class="astro-l7di5gml"><span class="astro-l7di5gml">Activity, dispatch and recap</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/agent-integrations/" class="astro-l7di5gml"><span class="astro-l7di5gml">Manage Agent Integrations</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/integrations-and-mcp/" class="astro-l7di5gml"><span class="astro-l7di5gml">Integrations and the MCP server</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/plugins/" class="astro-l7di5gml"><span class="astro-l7di5gml">Run and install plugins</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/control-plane/" class="astro-l7di5gml"><span class="astro-l7di5gml">Use the control plane</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/history-import/" class="astro-l7di5gml"><span class="astro-l7di5gml">History import</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/blame-and-why/" class="astro-l7di5gml"><span class="astro-l7di5gml">Blame and why this line</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/doctor-and-diagnostics/" class="astro-l7di5gml"><span class="astro-l7di5gml">Diagnose problems</span></a></li></ul></details></li><li class="astro-l7di5gml"><details open class="astro-l7di5gml"><summary class="astro-l7di5gml"><span class="group-label astro-l7di5gml"><span class="large astro-l7di5gml">Reference</span></span><svg aria-hidden="true" class="caret astro-l7di5gml astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul class="astro-l7di5gml"><li class="astro-l7di5gml"><a href="/entirely/reference/commands/" aria-current="page" class="astro-l7di5gml"><span class="astro-l7di5gml">Commands</span></a></li><li class="astro-l7di5gml"><a href="/entirely/reference/settings/" class="astro-l7di5gml"><span class="astro-l7di5gml">Settings</span></a></li><li class="astro-l7di5gml"><a href="/entirely/reference/views/" class="astro-l7di5gml"><span class="astro-l7di5gml">Views</span></a></li><li class="astro-l7di5gml"><a href="/entirely/reference/status-bar/" class="astro-l7di5gml"><span class="astro-l7di5gml">Status bar</span></a></li><li class="astro-l7di5gml"><a href="/entirely/reference/cli-commands-used/" class="astro-l7di5gml"><span class="astro-l7di5gml">CLI commands used</span></a></li><li class="astro-l7di5gml"><a href="/entirely/reference/coverage/" class="astro-l7di5gml"><span class="astro-l7di5gml">CLI coverage</span></a></li></ul></details></li><li class="astro-l7di5gml"><details open class="astro-l7di5gml"><summary class="astro-l7di5gml"><span class="group-label astro-l7di5gml"><span class="large astro-l7di5gml">Concepts</span></span><svg aria-hidden="true" class="caret astro-l7di5gml astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul class="astro-l7di5gml"><li class="astro-l7di5gml"><a href="/entirely/concepts/how-entirely-works/" class="astro-l7di5gml"><span class="astro-l7di5gml">How Entirely works</span></a></li><li class="astro-l7di5gml"><a href="/entirely/concepts/privacy-and-redaction/" class="astro-l7di5gml"><span class="astro-l7di5gml">Privacy and redaction</span></a></li><li class="astro-l7di5gml"><a href="/entirely/concepts/accounts-and-contexts/" class="astro-l7di5gml"><span class="astro-l7di5gml">Accounts and contexts</span></a></li><li class="astro-l7di5gml"><a href="/entirely/concepts/remote-windows/" class="astro-l7di5gml"><span class="astro-l7di5gml">Remote windows</span></a></li></ul></details></li><li class="astro-l7di5gml"><details open class="astro-l7di5gml"><summary class="astro-l7di5gml"><span class="group-label astro-l7di5gml"><span class="large astro-l7di5gml">Contributing</span></span><svg aria-hidden="true" class="caret astro-l7di5gml astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul class="astro-l7di5gml"><li class="astro-l7di5gml"><a href="/entirely/contributing/development/" class="astro-l7di5gml"><span class="astro-l7di5gml">Development</span></a></li><li class="astro-l7di5gml"><a href="/entirely/contributing/testing/" class="astro-l7di5gml"><span class="astro-l7di5gml">Testing</span></a></li><li class="astro-l7di5gml"><a href="/entirely/contributing/architecture/" class="astro-l7di5gml"><span class="astro-l7di5gml">Architecture</span></a></li><li class="astro-l7di5gml"><a href="/entirely/contributing/release/" class="astro-l7di5gml"><span class="astro-l7di5gml">Release</span></a></li><li class="astro-l7di5gml"><a href="/entirely/contributing/security/" class="astro-l7di5gml"><span class="astro-l7di5gml">Security</span></a></li></ul></details></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-d5kan7zm"><div class="social-icons astro-d5kan7zm"><a href="https://github.com/greysquirr3l/entirely-vscode" rel="me" class="sl-flex astro-jc3ax64a"><span class="sr-only astro-jc3ax64a">GitHub</span><svg aria-hidden="true" class="astro-jc3ax64a astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-qnwdaibt"><span class="sr-only astro-qnwdaibt">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-qnwdaibt astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-qnwdaibt"><option value="dark" class="astro-qnwdaibt">Dark</option><option value="light" class="astro-qnwdaibt">Light</option><option value="auto" selected class="astro-qnwdaibt">Auto</option></select><svg aria-hidden="true" class="icon caret astro-qnwdaibt astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-6sms7n4h"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-qbeejnwa"><aside class="right-sidebar-container print:hidden astro-qbeejnwa"><div class="right-sidebar astro-qbeejnwa"><div class="lg:sl-hidden astro-5rwmuiht"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-ak2ced4x"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-ak2ced4x"><details id="starlight__mobile-toc" class="astro-ak2ced4x"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-ak2ced4x"><span class="toggle sl-flex astro-ak2ced4x">On this page<svg aria-hidden="true" class="caret astro-ak2ced4x astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-ak2ced4x"></span></summary><div class="dropdown astro-ak2ced4x"><ul class="isMobile astro-o6xywcm4" style="--depth: 0;"><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#_top" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Overview</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#setup-status-and-diagnostics" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Setup, status and diagnostics</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#account" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Account</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#sessions" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Sessions</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#checkpoints-blame-and-search" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Checkpoints, blame and search</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#trails-and-review" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Trails and review</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#activity-dispatch-and-recap" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Activity, dispatch and recap</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#control-plane" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Control plane</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#plugins-integrations-and-mcp" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Plugins, integrations and MCP</span></a></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/entirely/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-5rwmuiht"><div class="sl-container astro-5rwmuiht"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-o6xywcm4" style="--depth: 0;"><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#_top" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Overview</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#setup-status-and-diagnostics" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Setup, status and diagnostics</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#account" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Account</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#sessions" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Sessions</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#checkpoints-blame-and-search" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Checkpoints, blame and search</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#trails-and-review" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Trails and review</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#activity-dispatch-and-recap" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Activity, dispatch and recap</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#control-plane" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Control plane</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#plugins-integrations-and-mcp" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Plugins, integrations and MCP</span></a></li></ul></nav></starlight-toc><script type="module" src="/entirely/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane astro-qbeejnwa"><main data-pagefind-body class="astro-3enyosyr" lang="en" dir="ltr"><div class="content-panel astro-rvfe4vl3"><div class="sl-container astro-rvfe4vl3"><h1 id="_top" class="astro-nrc6puut">Commands</h1></div></div><div class="content-panel astro-rvfe4vl3"><div class="sl-container astro-rvfe4vl3"><div class="sl-markdown-content"><p>Entirely contributes 63 commands. All of them share the category <code dir="auto">Entirely</code>, so the Command Palette shows each as <strong>Entirely: &lt;title&gt;</strong>. The table below was generated from <code dir="auto">contributes.commands</code> and <code dir="auto">contributes.menus</code> in <code dir="auto">package.json</code>, then each description was checked against <code dir="auto">src/</code>.</p>
+<p>Reading the tables:</p>
+<ul>
+<li><strong>Where</strong> lists the places beyond the palette. <code dir="auto">view title</code> is the toolbar of a view, <code dir="auto">inline</code> is the icon on a tree row, <code dir="auto">context</code> is a right-click menu, <code dir="auto">editor</code> is the editor’s context menu or title bar.</li>
+<li><strong>Changes</strong> says whether the command changes anything on Entire, in the repository or in your settings. <em>Read</em> means it only reads. <em>Confirms</em> means a modal prompt names what will change and nothing runs until you agree. <em>Asks for input, no confirmation</em> means you pick or type something and the command then runs without a further prompt. See <a href="/entirely/concepts/privacy-and-redaction/">Privacy and redaction</a> for what the extension keeps out of its logs.</li>
+<li><strong>Hidden</strong> commands are registered with <code dir="auto">commandPalette: false</code>. They exist for menus, tree rows and links, and never show in the palette.</li>
+</ul>
+<p>Several commands that have a menu entry are also in the palette, for example <strong>Entirely: Create Repository</strong>. The ones that are not are marked <em>hidden</em>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="setup-status-and-diagnostics">Setup, status and diagnostics</h2><a class="sl-anchor-link" href="#setup-status-and-diagnostics"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Setup, status and diagnostics”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Palette title</th>
+<th>Id</th>
+<th>Where</th>
+<th>Changes</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entirely: Refresh</td>
+<td><code dir="auto">entirely.refresh</code></td>
+<td>palette</td>
+<td>Read</td>
+<td>Re-reads the CLI for workspace, session and checkpoint state.</td>
+</tr>
+<tr>
+<td>Entirely: Open Settings</td>
+<td><code dir="auto">entirely.openSettings</code></td>
+<td>palette</td>
+<td>Read</td>
+<td>Opens the Settings editor filtered to Entirely.</td>
+</tr>
+<tr>
+<td>Entirely: Entirely Status</td>
+<td><code dir="auto">entirely.statusBar</code></td>
+<td>status bar click; hidden</td>
+<td>Depends on state</td>
+<td>The status bar’s click action. See <a href="/entirely/reference/status-bar/">Status bar</a>.</td>
+</tr>
+<tr>
+<td>Entirely: Set Up Entire</td>
+<td><code dir="auto">entirely.setUp</code></td>
+<td>palette</td>
+<td>Asks for input, no confirmation</td>
+<td>Shows a message with a <strong>Set Up</strong> button (not a modal), then a picker of the agents from <code dir="auto">entire agent list</code>, then runs <code dir="auto">entire enable</code> for that agent with no further prompt. Installs hooks so agent sessions are recorded.</td>
+</tr>
+<tr>
+<td>Entirely: Set Up Agent Integrations</td>
+<td><code dir="auto">entirely.manageAgents</code></td>
+<td>palette</td>
+<td>Confirms</td>
+<td>Lists the agents the CLI supports, marks the installed ones, and installs or removes one. The prompt says the CLI will write the agent’s hook configuration into the repository. See <a href="/entirely/guides/agent-integrations/">Agent integrations</a>.</td>
+</tr>
+<tr>
+<td>Entirely: Add the Entire CLI to the Terminal PATH</td>
+<td><code dir="auto">entirely.repairTerminalPath</code></td>
+<td>palette</td>
+<td>Confirms</td>
+<td>Writes <code dir="auto">terminal.integrated.env.&lt;platform&gt;</code> so the integrated terminal can run <code dir="auto">entire</code>. You pick the settings scope first. Running it again removes the entry.</td>
+</tr>
+<tr>
+<td>Entirely: Check Where Checkpoints Are Uploaded</td>
+<td><code dir="auto">entirely.checkpointDestination</code></td>
+<td>palette</td>
+<td>Read</td>
+<td>Reports the repository checkpoints go to and whether the CLI can reach it.</td>
+</tr>
+<tr>
+<td>Entirely: Doctor: Copy a Diagnostic Report</td>
+<td><code dir="auto">entirely.doctor</code></td>
+<td>palette</td>
+<td>Read</td>
+<td>Writes a report of CLI version, repository state, effective settings and last error to the output channel, then offers <strong>Copy to Clipboard</strong>.</td>
+</tr>
+<tr>
+<td>Entirely: Doctor: Show the CLI’s Full Diagnostic Output</td>
+<td><code dir="auto">entirely.showCliDoctorOutput</code></td>
+<td>palette</td>
+<td>Read</td>
+<td>Shows the bare <code dir="auto">entire doctor</code> output. Never run with a fix flag.</td>
+</tr>
+<tr>
+<td>Entirely: Doctor: Show the Last Entire CLI Output</td>
+<td><code dir="auto">entirely.dumpCliOutput</code></td>
+<td>palette</td>
+<td>Read</td>
+<td>Dumps the recorded output of the last CLI call. This is the explicit way to see a payload that the output channel keeps out by default.</td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="/entirely/guides/doctor-and-diagnostics/">Doctor and diagnostics</a>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="account">Account</h2><a class="sl-anchor-link" href="#account"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Account”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Palette title</th>
+<th>Id</th>
+<th>Where</th>
+<th>Changes</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entirely: Sign In to Entire</td>
+<td><code dir="auto">entirely.signIn</code></td>
+<td>Account view title (when signed out)</td>
+<td>Account</td>
+<td>Runs <code dir="auto">entire login</code>. You choose a browser or a device code; the device-code choice is offered only when the CLI supports it.</td>
+</tr>
+<tr>
+<td>Entirely: Sign Out of Entire</td>
+<td><code dir="auto">entirely.signOut</code></td>
+<td>Account view title (when signed in)</td>
+<td>Confirms</td>
+<td>Runs <code dir="auto">entire logout</code>. The prompt warns that every saved login is signed out.</td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="/entirely/concepts/accounts-and-contexts/">Accounts and contexts</a>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="sessions">Sessions</h2><a class="sl-anchor-link" href="#sessions"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Sessions”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Palette title</th>
+<th>Id</th>
+<th>Where</th>
+<th>Changes</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entirely: Show Sessions</td>
+<td><code dir="auto">entirely.showSessions</code></td>
+<td>palette</td>
+<td>Read</td>
+<td>Reveals the Sessions view.</td>
+</tr>
+<tr>
+<td>Entirely: Show Session Details</td>
+<td><code dir="auto">entirely.selectSession</code></td>
+<td>session row click; hidden</td>
+<td>Read</td>
+<td>Fills the Session view with the selected session: agent, model, tokens, files touched, tool calls.</td>
+</tr>
+<tr>
+<td>Entirely: Open Session Transcript</td>
+<td><code dir="auto">entirely.openTranscript</code></td>
+<td>Sessions inline icon (session and imported-session rows)</td>
+<td>Read</td>
+<td>Opens the transcript in a read-only editor. Transcript text is never written to the output channel.</td>
+</tr>
+<tr>
+<td>Entirely: Show Only This Workspace’s Session</td>
+<td><code dir="auto">entirely.showOwnSession</code></td>
+<td>Sessions view title (when showing all)</td>
+<td>Read</td>
+<td>Filters the tree to the session of this workspace (<code dir="auto">entire session current</code>).</td>
+</tr>
+<tr>
+<td>Entirely: Show All Sessions</td>
+<td><code dir="auto">entirely.showAllSessions</code></td>
+<td>Sessions view title (when filtered)</td>
+<td>Read</td>
+<td>Removes the filter.</td>
+</tr>
+<tr>
+<td>Entirely: Resume Session</td>
+<td><code dir="auto">entirely.resumeSession</code></td>
+<td>Sessions context menu, group <code dir="auto">2_lifecycle</code></td>
+<td>Confirms</td>
+<td>Resumes a branch’s session in an editor terminal and watches the session list for it to become active.</td>
+</tr>
+<tr>
+<td>Entirely: Attach Session to a Commit</td>
+<td><code dir="auto">entirely.attachSession</code></td>
+<td>Sessions context menu</td>
+<td>Confirms</td>
+<td>Links a session to a commit with <code dir="auto">entire session attach</code>. Attaching to a pushed commit uploads the transcript.</td>
+</tr>
+<tr>
+<td>Entirely: Adopt Session from Another Worktree</td>
+<td><code dir="auto">entirely.adoptSession</code></td>
+<td>Sessions context menu</td>
+<td>Confirms</td>
+<td>Adopts a session from another worktree with <code dir="auto">entire session adopt</code>.</td>
+</tr>
+<tr>
+<td>Entirely: Stop Session</td>
+<td><code dir="auto">entirely.stopSession</code></td>
+<td>Sessions context menu, group <code dir="auto">3_destructive</code></td>
+<td>Confirms</td>
+<td>Ends a live session with <code dir="auto">entire session stop</code>.</td>
+</tr>
+<tr>
+<td>Entirely: Import Past Agent History as Read-Only Checkpoints</td>
+<td><code dir="auto">entirely.importHistory</code></td>
+<td>palette</td>
+<td>Confirms</td>
+<td>Previews, then imports one agent’s past sessions with <code dir="auto">entire import</code>. The CLI marks the command experimental. See <a href="/entirely/guides/history-import/">History import</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="/entirely/guides/sessions-and-checkpoints/">Sessions and checkpoints</a>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="checkpoints-blame-and-search">Checkpoints, blame and search</h2><a class="sl-anchor-link" href="#checkpoints-blame-and-search"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Checkpoints, blame and search”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Palette title</th>
+<th>Id</th>
+<th>Where</th>
+<th>Changes</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entirely: Open Checkpoint Diff</td>
+<td><code dir="auto">entirely.openCheckpointFile</code></td>
+<td>checkpoint file rows; hidden</td>
+<td>Read</td>
+<td>Opens a checkpoint’s file in the native diff editor.</td>
+</tr>
+<tr>
+<td>Entirely: Explain Checkpoint</td>
+<td><code dir="auto">entirely.explainCheckpoint</code></td>
+<td>checkpoint rows; hidden</td>
+<td>Read</td>
+<td>Runs <code dir="auto">entire checkpoint explain</code> for one checkpoint and shows it.</td>
+</tr>
+<tr>
+<td>Entirely: Search Checkpoints</td>
+<td><code dir="auto">entirely.searchCheckpoints</code></td>
+<td>Checkpoints view title</td>
+<td>Read</td>
+<td>Filters the checkpoint tree with <code dir="auto">entire checkpoint search</code>. The query is redacted from the logged command line.</td>
+</tr>
+<tr>
+<td>Entirely: Clear Checkpoint Search</td>
+<td><code dir="auto">entirely.clearCheckpointSearch</code></td>
+<td>Checkpoints view title (while a filter is active)</td>
+<td>Read</td>
+<td>Removes the filter.</td>
+</tr>
+<tr>
+<td>Entirely: Search Past Work and Code</td>
+<td><code dir="auto">entirely.searchWork</code></td>
+<td>Search view title</td>
+<td>Read</td>
+<td>Runs <code dir="auto">entire search</code> (work) or <code dir="auto">--code</code>, in the scope set by <code dir="auto">entirely.searchScope</code>.</td>
+</tr>
+<tr>
+<td>Entirely: Clear Search Results</td>
+<td><code dir="auto">entirely.clearSearch</code></td>
+<td>Search view title (while results show)</td>
+<td>Read</td>
+<td>Clears the Search view.</td>
+</tr>
+<tr>
+<td>Entirely: Open Search Result</td>
+<td><code dir="auto">entirely.openSearchResult</code></td>
+<td>Search result rows; hidden</td>
+<td>Read</td>
+<td>Opens the result.</td>
+</tr>
+<tr>
+<td>Entirely: Why Does This Line Exist?</td>
+<td><code dir="auto">entirely.whyThisLine</code></td>
+<td>Editor context menu</td>
+<td>Read</td>
+<td>Asks <code dir="auto">entire why</code> which agent edit introduced the line under the cursor.</td>
+</tr>
+<tr>
+<td>Entirely: Blame This File</td>
+<td><code dir="auto">entirely.blameFile</code></td>
+<td>Editor context menu (saved files only)</td>
+<td>Read</td>
+<td>Runs <code dir="auto">entire blame</code> and marks each line as attributed, recorded but not synced, or not attributed. Offers to save an unsaved file first.</td>
+</tr>
+<tr>
+<td>Entirely: Clear Blame</td>
+<td><code dir="auto">entirely.clearBlame</code></td>
+<td>palette</td>
+<td>Read</td>
+<td>Removes the blame decorations.</td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="/entirely/guides/search/">Search</a> and <a href="/entirely/guides/blame-and-why/">Blame and why</a>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="trails-and-review">Trails and review</h2><a class="sl-anchor-link" href="#trails-and-review"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Trails and review”</span></a></div>
+<p>Merge, check out, link and unlink confirm in a modal prompt that names what they change. The merge runs a dry run first and reports blockers before it asks. Approve runs right after you pick the change, and comment runs right after you type the text, so neither confirms. The timeout is <code dir="auto">entirely.trailActionTimeout</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Palette title</th>
+<th>Id</th>
+<th>Where</th>
+<th>Changes</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entirely: Approve a Change on a Trail</td>
+<td><code dir="auto">entirely.trailApprove</code></td>
+<td>palette</td>
+<td>Asks for input, no confirmation</td>
+<td><code dir="auto">entire trail approve</code>, run as soon as you pick the change. No message is sent.</td>
+</tr>
+<tr>
+<td>Entirely: Comment on a Change on a Trail</td>
+<td><code dir="auto">entirely.trailComment</code></td>
+<td>palette</td>
+<td>Asks for input, no confirmation</td>
+<td>Posts a comment (<code dir="auto">trail comment add</code>) as soon as you enter the text. If the CLI refuses a comment from an agent session, the note is posted as a finding (<code dir="auto">trail finding add</code>) instead and you are told. Comment bodies are redacted from the logged command line.</td>
+</tr>
+<tr>
+<td>Entirely: Merge a Change on a Trail</td>
+<td><code dir="auto">entirely.trailMerge</code></td>
+<td>palette</td>
+<td>Confirms</td>
+<td><code dir="auto">entire trail merge</code>, after a dry run that names what will be merged.</td>
+</tr>
+<tr>
+<td>Entirely: Check Out a Change on a Trail</td>
+<td><code dir="auto">entirely.trailCheckout</code></td>
+<td>palette</td>
+<td>Confirms</td>
+<td><code dir="auto">entire trail checkout</code>. Warns about unsaved files because the checkout moves the working tree.</td>
+</tr>
+<tr>
+<td>Entirely: Link a Branch to a Trail</td>
+<td><code dir="auto">entirely.trailLink</code></td>
+<td>palette</td>
+<td>Confirms</td>
+<td><code dir="auto">entire trail link</code>.</td>
+</tr>
+<tr>
+<td>Entirely: Unlink a Branch from a Trail</td>
+<td><code dir="auto">entirely.trailUnlink</code></td>
+<td>palette</td>
+<td>Confirms</td>
+<td><code dir="auto">entire trail unlink</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="/entirely/guides/trails-and-review/">Trails and review</a>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="activity-dispatch-and-recap">Activity, dispatch and recap</h2><a class="sl-anchor-link" href="#activity-dispatch-and-recap"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Activity, dispatch and recap”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Palette title</th>
+<th>Id</th>
+<th>Where</th>
+<th>Changes</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entirely: Open Activity</td>
+<td><code dir="auto">entirely.openActivity</code></td>
+<td>palette</td>
+<td>Read</td>
+<td>Reveals and loads the Activity view.</td>
+</tr>
+<tr>
+<td>Entirely: Refresh Activity</td>
+<td><code dir="auto">entirely.refreshActivity</code></td>
+<td>Activity view title</td>
+<td>Read</td>
+<td>Re-reads <code dir="auto">entire activity</code>.</td>
+</tr>
+<tr>
+<td>Entirely: Show Recent Sessions in Activity</td>
+<td><code dir="auto">entirely.showActivitySessions</code></td>
+<td>Activity view title (when listing commits)</td>
+<td>Read</td>
+<td>Switches the listing to sessions.</td>
+</tr>
+<tr>
+<td>Entirely: Show Recent Commits in Activity</td>
+<td><code dir="auto">entirely.showActivityCommits</code></td>
+<td>Activity view title (when listing sessions)</td>
+<td>Read</td>
+<td>Switches the listing to commits.</td>
+</tr>
+<tr>
+<td>Entirely: Generate Dispatch</td>
+<td><code dir="auto">entirely.generateDispatch</code></td>
+<td>Activity view title</td>
+<td>Confirms</td>
+<td>Runs <code dir="auto">entire dispatch</code> once, after a confirmation. It is never started again after a timeout.</td>
+</tr>
+<tr>
+<td>Entirely: Copy Dispatch</td>
+<td><code dir="auto">entirely.copyDispatch</code></td>
+<td>Editor title bar (generated <code dir="auto">.md</code> dispatch documents)</td>
+<td>Read</td>
+<td>Copies the generated dispatch text.</td>
+</tr>
+<tr>
+<td>Entirely: Show Recap</td>
+<td><code dir="auto">entirely.showRecap</code></td>
+<td>palette</td>
+<td>Read</td>
+<td>Runs <code dir="auto">entire recap</code> for a period you pick.</td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="/entirely/guides/activity-dispatch-recap/">Activity, dispatch and recap</a>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="control-plane">Control plane</h2><a class="sl-anchor-link" href="#control-plane"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Control plane”</span></a></div>
+<p>The delete, visibility and access commands are hidden from the palette and live on tree rows. Every change confirms, runs once, and is read back afterwards. A change that times out is reported as done only if the CLI now lists it that way. Create and delete paths were tested against a fake CLI only; they are not verified against a live Entire account. See <a href="/entirely/guides/control-plane/">Control plane</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Palette title</th>
+<th>Id</th>
+<th>Where</th>
+<th>Changes</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entirely: Open Control Plane</td>
+<td><code dir="auto">entirely.openControlPlane</code></td>
+<td>palette</td>
+<td>Read</td>
+<td>Reveals and loads the Control Plane view.</td>
+</tr>
+<tr>
+<td>Entirely: Refresh Control Plane</td>
+<td><code dir="auto">entirely.refreshControlPlane</code></td>
+<td>Control Plane view title</td>
+<td>Read</td>
+<td>Re-lists organisations, projects, repositories and clusters.</td>
+</tr>
+<tr>
+<td>Entirely: Create Repository</td>
+<td><code dir="auto">entirely.createRepository</code></td>
+<td>Control Plane view title; project row context</td>
+<td>Confirms</td>
+<td><code dir="auto">entire repo create</code>.</td>
+</tr>
+<tr>
+<td>Entirely: Change Repository Visibility</td>
+<td><code dir="auto">entirely.setRepositoryVisibility</code></td>
+<td>repository row context; hidden</td>
+<td>Confirms</td>
+<td><code dir="auto">entire repo edit</code>, visibility only.</td>
+</tr>
+<tr>
+<td>Entirely: Delete Repository</td>
+<td><code dir="auto">entirely.deleteRepository</code></td>
+<td>repository row context; hidden</td>
+<td>Confirms</td>
+<td><code dir="auto">entire repo delete</code>. Deleting with mirrors waits for the mirrors to go.</td>
+</tr>
+<tr>
+<td>Entirely: Delete Project</td>
+<td><code dir="auto">entirely.deleteProject</code></td>
+<td>project row context; hidden</td>
+<td>Confirms</td>
+<td><code dir="auto">entire project delete</code>.</td>
+</tr>
+<tr>
+<td>Entirely: Delete Organisation</td>
+<td><code dir="auto">entirely.deleteOrganisation</code></td>
+<td>organisation row context; hidden</td>
+<td>Confirms</td>
+<td><code dir="auto">entire org delete</code>.</td>
+</tr>
+<tr>
+<td>Entirely: Give Access</td>
+<td><code dir="auto">entirely.grantAccess</code></td>
+<td>organisation, project, repository and access row context; hidden</td>
+<td>Confirms</td>
+<td><code dir="auto">grant add</code> on the row’s scope.</td>
+</tr>
+<tr>
+<td>Entirely: Remove Access</td>
+<td><code dir="auto">entirely.revokeAccess</code></td>
+<td>grant row context; hidden</td>
+<td>Confirms</td>
+<td><code dir="auto">grant remove</code> on the row’s scope.</td>
+</tr>
+<tr>
+<td>Entirely: Call the Entire API</td>
+<td><code dir="auto">entirely.runApiCall</code></td>
+<td>Control Plane view title</td>
+<td>Confirms for non-GET</td>
+<td><code dir="auto">entire api</code>: one call at a time, path confined to <code dir="auto">/api</code>, no retry. A GET runs without a prompt.</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="plugins-integrations-and-mcp">Plugins, integrations and MCP</h2><a class="sl-anchor-link" href="#plugins-integrations-and-mcp"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Plugins, integrations and MCP”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Palette title</th>
+<th>Id</th>
+<th>Where</th>
+<th>Changes</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entirely: Run Plugin Command</td>
+<td><code dir="auto">entirely.runPluginCommand</code></td>
+<td>palette</td>
+<td>Confirms</td>
+<td>Runs an installed plugin by name, as the login the extension acts as. The CLI’s built-in command names are refused. Arguments are redacted from the log.</td>
+</tr>
+<tr>
+<td>Entirely: Install Plugin</td>
+<td><code dir="auto">entirely.installPlugin</code></td>
+<td>palette</td>
+<td>Confirms</td>
+<td><code dir="auto">entire plugin install</code>.</td>
+</tr>
+<tr>
+<td>Entirely: Refresh Integrations</td>
+<td><code dir="auto">entirely.refreshIntegrations</code></td>
+<td>Integrations view title</td>
+<td>Read</td>
+<td>Re-checks plugins and the MCP server per workspace folder.</td>
+</tr>
+<tr>
+<td>Entirely: Install Plugin</td>
+<td><code dir="auto">entirely.installIntegration</code></td>
+<td>Integrations inline icon (row with a missing plugin)</td>
+<td>Confirms</td>
+<td>Installs that row’s plugin. It has the same title as the palette command above.</td>
+</tr>
+<tr>
+<td>Entirely: Turn On MCP Server</td>
+<td><code dir="auto">entirely.enableMcpIntegration</code></td>
+<td>Integrations inline icon (row where MCP is off)</td>
+<td>Confirms</td>
+<td>Sets <code dir="auto">entirely.mcpServerEnabled</code> in the narrowest scope that takes effect: the folder, then the workspace, then your user settings.</td>
+</tr>
+<tr>
+<td>Entirely: Add MCP Server to Project Configuration</td>
+<td><code dir="auto">entirely.addMcpToProject</code></td>
+<td>Integrations inline icon (row where it can be added)</td>
+<td>Confirms</td>
+<td>Adds the Entire server to the project’s <code dir="auto">.mcp.json</code>. Never writes a credential or the CLI path.</td>
+</tr>
+<tr>
+<td>Entirely: Start MCP Server</td>
+<td><code dir="auto">entirely.startMcpServer</code></td>
+<td>palette</td>
+<td>Confirms, only if the setting is off</td>
+<td>Starts <code dir="auto">entire mcp</code> for the editor’s agent. The editor owns the process. If <code dir="auto">entirely.mcpServerEnabled</code> is off, a modal says “The Entire MCP server is turned off.” and, on <strong>Turn On</strong>, sets it in your user settings.</td>
+</tr>
+<tr>
+<td>Entirely: Copy MCP Server Configuration</td>
+<td><code dir="auto">entirely.copyMcpConfig</code></td>
+<td>palette</td>
+<td>Read</td>
+<td>Copies the server definition to the clipboard.</td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="/entirely/guides/plugins/">Plugins</a> and <a href="/entirely/guides/integrations-and-mcp/">Integrations and MCP</a>. Plugin install and the live MCP server are covered by tests against fake CLIs. They have not been verified against a live Entire account.</p>
+</div><footer class="sl-flex astro-fd7qzg56"><div class="meta sl-flex astro-fd7qzg56"></div><div class="pagination-links print:hidden astro-5rs4d7me" dir="ltr"><a href="/entirely/guides/doctor-and-diagnostics/" rel="prev" class="astro-5rs4d7me"><svg aria-hidden="true" class="astro-5rs4d7me astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span class="astro-5rs4d7me">Previous<br class="astro-5rs4d7me"><span class="link-title astro-5rs4d7me">Diagnose problems</span></span></a><a href="/entirely/reference/settings/" rel="next" class="astro-5rs4d7me"><svg aria-hidden="true" class="astro-5rs4d7me astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-5rs4d7me">Next<br class="astro-5rs4d7me"><span class="link-title astro-5rs4d7me">Settings</span></span></a></div></footer></div></div></main></div></div></div></div></body></html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-3enyosyr"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Use the control plane | Entirely</title><link rel="canonical" href="https://greysquirr3l.github.io/entirely/guides/control-plane/"/><link rel="sitemap" href="/entirely/sitemap-index.xml"/><link rel="shortcut icon" href="/entirely/favicon.png" type="image/png"/><meta name="generator" content="Astro v7.4.4"/><meta name="generator" content="Starlight v0.42.7"/><meta property="og:title" content="Use the control plane"/><meta property="og:type" content="article"/><meta property="og:url" content="https://greysquirr3l.github.io/entirely/guides/control-plane/"/><meta property="og:locale" content="en"/><meta property="og:description" content="Browse projects, repositories, organisations and clusters, and change them from the editor with confirmations that name the target and the login."/><meta property="og:site_name" content="Entirely"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Browse projects, repositories, organisations and clusters, and change them from the editor with confirmations that name the target and the login."/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/entirely/_astro/print.ehPL0gv-.css" media="print"><link rel="stylesheet" href="/entirely/_astro/common.hRmV8O6o.css"><style>@layer starlight.components{svg:where(.astro-ia5hxuil){color:var(--sl-icon-color);font-size:var(--sl-icon-size,1em);width:1em;height:1em;overflow:visible}}
+</style><script type="module" src="/entirely/_astro/page.cNngjUgL.js"></script><style>@layer starlight.components{.sl-steps{--bullet-size:calc(var(--sl-line-height) * 1rem);--bullet-margin:.375rem;counter-reset:steps-counter var(--sl-steps-start,0);padding-inline-start:0;list-style:none}.sl-steps>li{counter-increment:steps-counter;padding-inline-start:calc(var(--bullet-size) + 1rem);min-height:calc(var(--bullet-size) + var(--bullet-margin));padding-bottom:1px;position:relative}.sl-steps>li+li{margin-top:0}.sl-steps>li:before{content:counter(steps-counter);top:0;width:var(--bullet-size);height:var(--bullet-size);line-height:var(--bullet-size);font-size:var(--sl-text-xs);text-align:center;color:var(--sl-color-white);background-color:var(--sl-color-gray-6);box-shadow:inset 0 0 0 1px var(--sl-color-gray-5);border-radius:99rem;font-weight:600;position:absolute;inset-inline-start:0}.sl-steps>li:after{--guide-width:1px;content:"";top:calc(var(--bullet-size) + var(--bullet-margin));bottom:var(--bullet-margin);width:var(--guide-width);background-color:var(--sl-color-hairline-light);position:absolute;inset-inline-start:calc((var(--bullet-size) - var(--guide-width)) / 2)}}@layer starlight.content{.sl-steps>li>:first-child{--lh:calc(1em * var(--sl-line-height));--shift-y:calc(.5 * (var(--bullet-size) - var(--lh)));transform:translateY(var(--shift-y));margin-bottom:var(--shift-y)}.sl-steps>li>:first-child:where(h1,h2,h3,h4,h5,h6){--lh:calc(1em * var(--sl-line-height-headings))}@supports (--prop:1lh){.sl-steps>li>:first-child{--lh:1lh}}}
+</style><style>@layer starlight.components{.card:where(.astro-7g7zmsw6){--sl-card-border:var(--sl-color-purple);--sl-card-bg:var(--sl-color-purple-low);border:1px solid var(--sl-color-gray-5);background-color:var(--sl-color-black);flex-direction:column;gap:clamp(.5rem,.125rem + 1vw,1rem);padding:clamp(1rem,.125rem + 3vw,2.5rem)}.card:where(.astro-7g7zmsw6):nth-child(4n+1){--sl-card-border:var(--sl-color-orange);--sl-card-bg:var(--sl-color-orange-low)}.card:where(.astro-7g7zmsw6):nth-child(4n+3){--sl-card-border:var(--sl-color-green);--sl-card-bg:var(--sl-color-green-low)}.card:where(.astro-7g7zmsw6):nth-child(4n+4){--sl-card-border:var(--sl-color-red);--sl-card-bg:var(--sl-color-red-low)}.card:where(.astro-7g7zmsw6):nth-child(4n+5){--sl-card-border:var(--sl-color-blue);--sl-card-bg:var(--sl-color-blue-low)}.title:where(.astro-7g7zmsw6){font-weight:600;font-size:var(--sl-text-h4);color:var(--sl-color-white);line-height:var(--sl-line-height-headings);align-items:center;gap:1rem}.card:where(.astro-7g7zmsw6) .icon:where(.astro-7g7zmsw6){border:1px solid var(--sl-card-border);background-color:var(--sl-card-bg);border-radius:.25rem;flex-shrink:0;padding:.2em}.card:where(.astro-7g7zmsw6) .body:where(.astro-7g7zmsw6){font-size:clamp(var(--sl-text-sm), calc(.5rem + 1vw), var(--sl-text-body));margin:0}.card-grid:where(.astro-qvhjg3ew){grid-template-columns:100%;gap:1rem;display:grid}.card-grid:where(.astro-qvhjg3ew)>*{margin-top:0!important}@media (width>=50rem){.card-grid:where(.astro-qvhjg3ew){grid-template-columns:1fr 1fr;gap:1.5rem}.stagger:where(.astro-qvhjg3ew){--stagger-height:5rem;padding-bottom:var(--stagger-height)}.stagger:where(.astro-qvhjg3ew)>:nth-child(2n){transform:translateY(var(--stagger-height))}}.sl-link-card:where(.astro-inxn3e33){border:1px solid var(--sl-color-gray-5);box-shadow:var(--sl-shadow-sm);border-radius:.5rem;grid-template-columns:1fr auto;gap:.5rem;padding:1rem;display:grid;position:relative}a:where(.astro-inxn3e33){line-height:var(--sl-line-height-headings);text-decoration:none}a:where(.astro-inxn3e33):before{content:"";position:absolute;inset:0}.stack:where(.astro-inxn3e33){flex-direction:column;gap:.5rem}.title:where(.astro-inxn3e33){color:var(--sl-color-white);font-weight:600;font-size:var(--sl-text-lg)}.description:where(.astro-inxn3e33){color:var(--sl-color-gray-3);line-height:1.5}.icon:where(.astro-inxn3e33){color:var(--sl-color-gray-3)}.sl-link-card:where(.astro-inxn3e33):hover{background:var(--sl-color-gray-7,var(--sl-color-gray-6));border-color:var(--sl-color-gray-2)}.sl-link-card:where(.astro-inxn3e33):hover .icon:where(.astro-inxn3e33){color:var(--sl-color-white)}}
+</style></head><body class="astro-3enyosyr"><a class="sl-skip-link astro-gnknwdnk" href="#_top">Skip to content</a><div class="page sl-flex astro-6sms7n4h"><header class="header astro-6sms7n4h"><div class="header astro-ns7vkkd7"><div class="title-wrapper sl-flex astro-ns7vkkd7"><a href="/entirely/" class="site-title sl-flex astro-x5mbklid"><img class="astro-x5mbklid" alt="Entirely" src="/entirely/_astro/logo.z-aAVHo_.png" width="256" height="256"><span class="astro-x5mbklid" translate="no">Entirely</span></a></div><div class="sl-flex print:hidden astro-ns7vkkd7"><site-search class="astro-ns7vkkd7 astro-gjnw6c5p" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"><button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-gjnw6c5p"><svg aria-hidden="true" class="astro-gjnw6c5p astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-gjnw6c5p" aria-hidden="true">Search</span><kbd class="sl-hidden md:sl-flex astro-gjnw6c5p" style="display: none;"><kbd class="astro-gjnw6c5p">Ctrl</kbd><kbd class="astro-gjnw6c5p">K</kbd></kbd></button><dialog style="padding:0" aria-label="Search" class="astro-gjnw6c5p"><div class="dialog-frame sl-flex astro-gjnw6c5p"><button data-close-modal class="sl-flex md:sl-hidden astro-gjnw6c5p">Cancel</button><div class="search-container astro-gjnw6c5p"><div id="starlight__search" class="astro-gjnw6c5p"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/entirely/_astro/Search.astro_astro_type_script_index_0_lang.CLB3NnqZ.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-ns7vkkd7"><div class="sl-flex social-icons astro-ns7vkkd7"><a href="https://github.com/greysquirr3l/entirely-vscode" rel="me" class="sl-flex astro-jc3ax64a"><span class="sr-only astro-jc3ax64a">GitHub</span><svg aria-hidden="true" class="astro-jc3ax64a astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-qnwdaibt"><span class="sr-only astro-qnwdaibt">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-qnwdaibt astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-qnwdaibt"><option value="dark" class="astro-qnwdaibt">Dark</option><option value="light" class="astro-qnwdaibt">Light</option><option value="auto" selected class="astro-qnwdaibt">Auto</option></select><svg aria-hidden="true" class="icon caret astro-qnwdaibt astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script><script type="module">var e=class extends HTMLElement{constructor(){super();let e=this.querySelector(`select`);e&&(e.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=e.currentTarget.value)}),window.addEventListener(`pageshow`,t=>{if(!t.persisted)return;let n=e.querySelector(`option[selected]`)?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}};customElements.define(`starlight-lang-select`,e);</script></div></div></header><nav class="sidebar print:hidden astro-6sms7n4h" aria-label="Main"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-zh2vr3y3"><svg aria-hidden="true" class="open-menu astro-zh2vr3y3 astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-zh2vr3y3 astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-zh2vr3y3">Menu</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-6sms7n4h"><div class="sidebar-content sl-flex astro-6sms7n4h"><sl-sidebar-state-persist data-hash="1jkujv0" class="astro-xnaxgmmr"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-l7di5gml"><li class="astro-l7di5gml"><details open class="astro-l7di5gml"><summary class="astro-l7di5gml"><span class="group-label astro-l7di5gml"><span class="large astro-l7di5gml">Getting started</span></span><svg aria-hidden="true" class="caret astro-l7di5gml astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-l7di5gml"><li class="astro-l7di5gml"><a href="/entirely/getting-started/introduction/" class="astro-l7di5gml"><span class="astro-l7di5gml">Introduction</span></a></li><li class="astro-l7di5gml"><a href="/entirely/getting-started/installation/" class="astro-l7di5gml"><span class="astro-l7di5gml">Installation</span></a></li><li class="astro-l7di5gml"><a href="/entirely/getting-started/quickstart/" class="astro-l7di5gml"><span class="astro-l7di5gml">Quickstart</span></a></li><li class="astro-l7di5gml"><a href="/entirely/getting-started/sign-in/" class="astro-l7di5gml"><span class="astro-l7di5gml">Sign in</span></a></li></ul></details></li><li class="astro-l7di5gml"><details open class="astro-l7di5gml"><summary class="astro-l7di5gml"><span class="group-label astro-l7di5gml"><span class="large astro-l7di5gml">Guides</span></span><svg aria-hidden="true" class="caret astro-l7di5gml astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul class="astro-l7di5gml"><li class="astro-l7di5gml"><a href="/entirely/guides/sessions-and-checkpoints/" class="astro-l7di5gml"><span class="astro-l7di5gml">Sessions and checkpoints</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/trails-and-review/" class="astro-l7di5gml"><span class="astro-l7di5gml">Trails and review</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/search/" class="astro-l7di5gml"><span class="astro-l7di5gml">Search</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/activity-dispatch-recap/" class="astro-l7di5gml"><span class="astro-l7di5gml">Activity, dispatch and recap</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/agent-integrations/" class="astro-l7di5gml"><span class="astro-l7di5gml">Manage Agent Integrations</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/integrations-and-mcp/" class="astro-l7di5gml"><span class="astro-l7di5gml">Integrations and the MCP server</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/plugins/" class="astro-l7di5gml"><span class="astro-l7di5gml">Run and install plugins</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/control-plane/" aria-current="page" class="astro-l7di5gml"><span class="astro-l7di5gml">Use the control plane</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/history-import/" class="astro-l7di5gml"><span class="astro-l7di5gml">History import</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/blame-and-why/" class="astro-l7di5gml"><span class="astro-l7di5gml">Blame and why this line</span></a></li><li class="astro-l7di5gml"><a href="/entirely/guides/doctor-and-diagnostics/" class="astro-l7di5gml"><span class="astro-l7di5gml">Diagnose problems</span></a></li></ul></details></li><li class="astro-l7di5gml"><details open class="astro-l7di5gml"><summary class="astro-l7di5gml"><span class="group-label astro-l7di5gml"><span class="large astro-l7di5gml">Reference</span></span><svg aria-hidden="true" class="caret astro-l7di5gml astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul class="astro-l7di5gml"><li class="astro-l7di5gml"><a href="/entirely/reference/commands/" class="astro-l7di5gml"><span class="astro-l7di5gml">Commands</span></a></li><li class="astro-l7di5gml"><a href="/entirely/reference/settings/" class="astro-l7di5gml"><span class="astro-l7di5gml">Settings</span></a></li><li class="astro-l7di5gml"><a href="/entirely/reference/views/" class="astro-l7di5gml"><span class="astro-l7di5gml">Views</span></a></li><li class="astro-l7di5gml"><a href="/entirely/reference/status-bar/" class="astro-l7di5gml"><span class="astro-l7di5gml">Status bar</span></a></li><li class="astro-l7di5gml"><a href="/entirely/reference/cli-commands-used/" class="astro-l7di5gml"><span class="astro-l7di5gml">CLI commands used</span></a></li><li class="astro-l7di5gml"><a href="/entirely/reference/coverage/" class="astro-l7di5gml"><span class="astro-l7di5gml">CLI coverage</span></a></li></ul></details></li><li class="astro-l7di5gml"><details open class="astro-l7di5gml"><summary class="astro-l7di5gml"><span class="group-label astro-l7di5gml"><span class="large astro-l7di5gml">Concepts</span></span><svg aria-hidden="true" class="caret astro-l7di5gml astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul class="astro-l7di5gml"><li class="astro-l7di5gml"><a href="/entirely/concepts/how-entirely-works/" class="astro-l7di5gml"><span class="astro-l7di5gml">How Entirely works</span></a></li><li class="astro-l7di5gml"><a href="/entirely/concepts/privacy-and-redaction/" class="astro-l7di5gml"><span class="astro-l7di5gml">Privacy and redaction</span></a></li><li class="astro-l7di5gml"><a href="/entirely/concepts/accounts-and-contexts/" class="astro-l7di5gml"><span class="astro-l7di5gml">Accounts and contexts</span></a></li><li class="astro-l7di5gml"><a href="/entirely/concepts/remote-windows/" class="astro-l7di5gml"><span class="astro-l7di5gml">Remote windows</span></a></li></ul></details></li><li class="astro-l7di5gml"><details open class="astro-l7di5gml"><summary class="astro-l7di5gml"><span class="group-label astro-l7di5gml"><span class="large astro-l7di5gml">Contributing</span></span><svg aria-hidden="true" class="caret astro-l7di5gml astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul class="astro-l7di5gml"><li class="astro-l7di5gml"><a href="/entirely/contributing/development/" class="astro-l7di5gml"><span class="astro-l7di5gml">Development</span></a></li><li class="astro-l7di5gml"><a href="/entirely/contributing/testing/" class="astro-l7di5gml"><span class="astro-l7di5gml">Testing</span></a></li><li class="astro-l7di5gml"><a href="/entirely/contributing/architecture/" class="astro-l7di5gml"><span class="astro-l7di5gml">Architecture</span></a></li><li class="astro-l7di5gml"><a href="/entirely/contributing/release/" class="astro-l7di5gml"><span class="astro-l7di5gml">Release</span></a></li><li class="astro-l7di5gml"><a href="/entirely/contributing/security/" class="astro-l7di5gml"><span class="astro-l7di5gml">Security</span></a></li></ul></details></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-d5kan7zm"><div class="social-icons astro-d5kan7zm"><a href="https://github.com/greysquirr3l/entirely-vscode" rel="me" class="sl-flex astro-jc3ax64a"><span class="sr-only astro-jc3ax64a">GitHub</span><svg aria-hidden="true" class="astro-jc3ax64a astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-qnwdaibt"><span class="sr-only astro-qnwdaibt">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-qnwdaibt astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-qnwdaibt"><option value="dark" class="astro-qnwdaibt">Dark</option><option value="light" class="astro-qnwdaibt">Light</option><option value="auto" selected class="astro-qnwdaibt">Auto</option></select><svg aria-hidden="true" class="icon caret astro-qnwdaibt astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-6sms7n4h"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-qbeejnwa"><aside class="right-sidebar-container print:hidden astro-qbeejnwa"><div class="right-sidebar astro-qbeejnwa"><div class="lg:sl-hidden astro-5rwmuiht"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-ak2ced4x"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-ak2ced4x"><details id="starlight__mobile-toc" class="astro-ak2ced4x"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-ak2ced4x"><span class="toggle sl-flex astro-ak2ced4x">On this page<svg aria-hidden="true" class="caret astro-ak2ced4x astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-ak2ced4x"></span></summary><div class="dropdown astro-ak2ced4x"><ul class="isMobile astro-o6xywcm4" style="--depth: 0;"><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#_top" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Overview</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#open-the-view" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Open the view</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#commands" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Commands</span></a><ul class="isMobile astro-o6xywcm4" style="--depth: 1;"><li style="--depth: 1;" class="astro-o6xywcm4"><a href="#the-confirmation" style="--depth: 1;" class="astro-o6xywcm4"><span style="--depth: 1;" class="astro-o6xywcm4">The confirmation</span></a></li><li style="--depth: 1;" class="astro-o6xywcm4"><a href="#repositories-with-mirrors" style="--depth: 1;" class="astro-o6xywcm4"><span style="--depth: 1;" class="astro-o6xywcm4">Repositories with mirrors</span></a></li></ul></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#how-success-is-judged" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">How success is judged</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#mirrored-repositories-and-github-access" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Mirrored repositories and GitHub access</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#call-the-entire-api" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Call the Entire API</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#settings" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Settings</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#failure-messages" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Failure messages</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#related" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Related</span></a></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/entirely/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-5rwmuiht"><div class="sl-container astro-5rwmuiht"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-o6xywcm4" style="--depth: 0;"><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#_top" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Overview</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#open-the-view" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Open the view</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#commands" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Commands</span></a><ul class="astro-o6xywcm4" style="--depth: 1;"><li style="--depth: 1;" class="astro-o6xywcm4"><a href="#the-confirmation" style="--depth: 1;" class="astro-o6xywcm4"><span style="--depth: 1;" class="astro-o6xywcm4">The confirmation</span></a></li><li style="--depth: 1;" class="astro-o6xywcm4"><a href="#repositories-with-mirrors" style="--depth: 1;" class="astro-o6xywcm4"><span style="--depth: 1;" class="astro-o6xywcm4">Repositories with mirrors</span></a></li></ul></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#how-success-is-judged" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">How success is judged</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#mirrored-repositories-and-github-access" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Mirrored repositories and GitHub access</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#call-the-entire-api" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Call the Entire API</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#settings" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Settings</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#failure-messages" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Failure messages</span></a></li><li style="--depth: 0;" class="astro-o6xywcm4"><a href="#related" style="--depth: 0;" class="astro-o6xywcm4"><span style="--depth: 0;" class="astro-o6xywcm4">Related</span></a></li></ul></nav></starlight-toc><script type="module" src="/entirely/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane astro-qbeejnwa"><main data-pagefind-body class="astro-3enyosyr" lang="en" dir="ltr"><div class="content-panel astro-rvfe4vl3"><div class="sl-container astro-rvfe4vl3"><h1 id="_top" class="astro-nrc6puut">Use the control plane</h1></div></div><div class="content-panel astro-rvfe4vl3"><div class="sl-container astro-rvfe4vl3"><div class="sl-markdown-content">
+<p>The <strong>Control Plane</strong> view lists the projects, repositories, organisations and clusters the acting login can see, and who has access to each. Commands on its items create, change and delete things on Entire.</p>
+<aside aria-label="Changes are tested only against a fake CLI" class="starlight-aside starlight-aside--caution"><p class="starlight-aside__title" aria-hidden="true"><svg aria-hidden="true" class="starlight-aside__icon astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 16a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm10.67 1.47-8.05-14a3 3 0 0 0-5.24 0l-8 14A3 3 0 0 0 3.94 22h16.12a3 3 0 0 0 2.61-4.53Zm-1.73 2a1 1 0 0 1-.88.51H3.94a1 1 0 0 1-.88-.51 1 1 0 0 1 0-1l8-14a1 1 0 0 1 1.78 0l8.05 14a1 1 0 0 1 .05 1.02v-.02ZM12 8a1 1 0 0 0-1 1v4a1 1 0 0 0 2 0V9a1 1 0 0 0-1-1Z"/></svg>Changes are tested only against a fake CLI</p><div class="starlight-aside__content"><p>The project, repository, organisation and cluster listings were read from the real CLI. The access (grant) listings were not seen succeeding for an account that could read them, so their row shape is taken from the CLI’s help text. The changes (create, delete, visibility, grant, revoke) and <code dir="auto">entire api</code> writes were tested only against a fake CLI. Nothing mutating has been run against a real Entire account. Expect rough edges, and try a throwaway project first.</p></div></aside>
+<p>These commands change Entire for everyone who uses it, not only your workspace. Every one asks first and names what it affects and the login it acts as.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="open-the-view">Open the view</h2><a class="sl-anchor-link" href="#open-the-view"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Open the view”</span></a></div>
+<p>Run <strong>Entirely: Open Control Plane</strong> (<code dir="auto">entirely.openControlPlane</code>), or open the <strong>Control Plane</strong> view in the Entirely container. <strong>Entirely: Refresh Control Plane</strong> reads it again.</p>
+<p>The first row says “Acting as …”: the login every change from this view is made as. If no login is available, the view says so and asks you to sign in. Nothing polls. Each level is read when you expand it and again on refresh.</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Contains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Projects</td>
+<td>Repositories, then an <strong>Access</strong> node listing who holds a role on the project.</td>
+</tr>
+<tr>
+<td>Organisations</td>
+<td>An access list for each organisation.</td>
+</tr>
+<tr>
+<td>Clusters</td>
+<td>Slug, jurisdiction, whether it is the default; the host is in the tooltip.</td>
+</tr>
+</tbody>
+</table>
+<p>A repository shows its visibility and state. Expanding a repository lists its access. A level that cannot be read shows “Could not read the …” with the reason, and an empty one says “No … are visible to this login.”</p>
+<p>Roles come from the CLI’s help, never from a list in the extension. For repositories and projects they are <code dir="auto">reader</code>, <code dir="auto">writer</code>, <code dir="auto">admin</code>; for organisations <code dir="auto">owner</code>, <code dir="auto">admin</code>, <code dir="auto">member</code>; for visibility <code dir="auto">public</code>, <code dir="auto">private</code>. Those are what the CLI 0.12.2 printed. Your CLI’s help decides.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="commands">Commands</h2><a class="sl-anchor-link" href="#commands"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Commands”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Where</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Entirely: Create Repository</strong></td>
+<td>Project</td>
+<td>Asks for a name and, if the CLI lists them, a visibility.</td>
+</tr>
+<tr>
+<td><strong>Entirely: Change Repository Visibility</strong></td>
+<td>Repository</td>
+<td>Offers the visibilities other than the current one.</td>
+</tr>
+<tr>
+<td><strong>Entirely: Delete Repository</strong></td>
+<td>Repository</td>
+<td>Deletes it, with its history on Entire.</td>
+</tr>
+<tr>
+<td><strong>Entirely: Delete Project</strong></td>
+<td>Project</td>
+<td>Deletes the project. The dialog says how many repositories it holds.</td>
+</tr>
+<tr>
+<td><strong>Entirely: Delete Organisation</strong></td>
+<td>Organisation</td>
+<td>Deletes it. Its members lose the access it gave them.</td>
+</tr>
+<tr>
+<td><strong>Entirely: Give Access</strong></td>
+<td>Project, repository, organisation, or Access node</td>
+<td>Asks for a grantee and a role.</td>
+</tr>
+<tr>
+<td><strong>Entirely: Remove Access</strong></td>
+<td>A person under Access</td>
+<td>Removes their direct access.</td>
+</tr>
+<tr>
+<td><strong>Entirely: Call the Entire API</strong></td>
+<td>Command Palette</td>
+<td>Sends one <code dir="auto">entire api</code> request.</td>
+</tr>
+</tbody>
+</table>
+<p>The commands are in the item context menus. Create, grant and the other management actions are in the “manage” group, and the deletions are in a separate destructive group.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="the-confirmation">The confirmation</h3><a class="sl-anchor-link" href="#the-confirmation"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “The confirmation”</span></a></div>
+<p>Every change shows a modal dialog before anything runs. It contains:</p>
+<ul>
+<li>The target, named in the title, for example “Delete the repository /et/acme/web?”.</li>
+<li>“Acting as alice (login <a href="mailto:alice@us.auth.entire.io">alice@us.auth.entire.io</a>).” (or just the handle when it equals the login name).</li>
+<li>The words “The change is made on Entire for everyone who uses it, not only in this workspace.”</li>
+<li>For deletions: “It cannot be undone from the editor.”</li>
+</ul>
+<p>The login is worked out just before the question, and the same login is handed to the command, so the dialog never names one login while the command runs as another.</p>
+<p>Grantees are written <code dir="auto">provider:handle</code>, for example <code dir="auto">github:alice</code>. Repository names use letters, digits, dots, dashes and underscores, and start with a letter or digit.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="repositories-with-mirrors">Repositories with mirrors</h3><a class="sl-anchor-link" href="#repositories-with-mirrors"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Repositories with mirrors”</span></a></div>
+<p><code dir="auto">entire repo delete</code> refuses a repository that has mirrors on other clusters unless told to delete them too. When that happens, Entirely asks a second question, in plainer words: “Every mirror of it on other clusters is deleted too.” The button reads <strong>Delete Repository and Mirrors</strong>. If you decline, nothing is deleted and the message says the repository has mirrors.</p>
+<p>The second step needs a flag the CLI’s <code dir="auto">repo delete</code> help describes. Without it, Entirely says to update the CLI and does nothing. Deleting with mirrors waits for them to go, so a large one may need a higher <code dir="auto">entirely.controlPlaneTimeout</code>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="how-success-is-judged">How success is judged</h2><a class="sl-anchor-link" href="#how-success-is-judged"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “How success is judged”</span></a></div>
+<p>Exit status alone does not decide. After a change, Entirely reads the relevant listing again and compares.</p>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>Counted as done when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create repository</td>
+<td>The project now lists the repository.</td>
+</tr>
+<tr>
+<td>Delete repository, project or organisation</td>
+<td>The listing no longer has it.</td>
+</tr>
+<tr>
+<td>Change visibility</td>
+<td>The repository is listed with the new visibility.</td>
+</tr>
+<tr>
+<td>Give access</td>
+<td>The grantee is listed with the role you chose.</td>
+</tr>
+<tr>
+<td>Remove access</td>
+<td>The grantee was matched to a <strong>direct</strong> grant in a listing read before the request, and is gone from a listing read after.</td>
+</tr>
+</tbody>
+</table>
+<p>Outcomes are reported in plain terms:</p>
+<ul>
+<li><strong>Done:</strong> “The Entire CLI now lists it that way.”</li>
+<li><strong>Could not …:</strong> the CLI failed, or reported success while the listing says otherwise (“the Entire CLI reported success but still lists …”).</li>
+<li><strong>Accepted but unverified:</strong> “The Entire CLI accepted the request to … as …, but the result could not be checked: …”. The CLI accepted the request but the result could not be read back, for example because the listing failed.</li>
+</ul>
+<p>Revoke is stricter. If the grantee was not matched to a direct grant before the request, for instance a row that only has an id, a successful exit is reported as unconfirmed rather than done. Access a person inherits from elsewhere is not removed by revoking a direct grant, and does not count against it.</p>
+<p>If a change times out, Entirely reads the listing back. It reports done only if the CLI now lists it that way, and otherwise says it may still be running.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="mirrored-repositories-and-github-access">Mirrored repositories and GitHub access</h2><a class="sl-anchor-link" href="#mirrored-repositories-and-github-access"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Mirrored repositories and GitHub access”</span></a></div>
+<p>A repository that mirrors a GitHub repository has no Entire path, and the CLI’s delete and edit commands refuse it. The view shows it with the tooltip “is a mirror and is managed upstream”. It has no children, and delete, visibility and grant commands decline with a message. Visibility “follows the repository it mirrors”.</p>
+<p>Access on a GitHub-mirrored project can’t be changed through these commands. The CLI refuses with “Project access on a GitHub-mirrored project is a read-only projection of GitHub; grants are managed by the source”. Treat the Access lists there as read-only. A personal GitHub account has no account-wide membership, so a repository collaborator can’t be given project access this way. See <a href="/entirely/concepts/accounts-and-contexts/">Accounts and contexts</a>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="call-the-entire-api">Call the Entire API</h2><a class="sl-anchor-link" href="#call-the-entire-api"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Call the Entire API”</span></a></div>
+<p><strong>Entirely: Call the Entire API</strong> sends one request through <code dir="auto">entire api</code>.</p>
+<ol role="list" class="sl-steps">
+<li>
+<p>Enter a path, such as <code dir="auto">/api/v1/clusters</code>.</p>
+<p>It must start with a single slash. No spaces, backslashes, control characters or <code dir="auto">.</code> and <code dir="auto">..</code> segments (including <code dir="auto">%2e</code>), and not <code dir="auto">//</code>.</p>
+</li>
+<li>
+<p>Pick a method: <code dir="auto">GET</code>, <code dir="auto">POST</code>, <code dir="auto">PUT</code>, <code dir="auto">PATCH</code> or <code dir="auto">DELETE</code>.</p>
+</li>
+<li>
+<p>Pick a backend, if the CLI’s help names more than one.</p>
+</li>
+<li>
+<p>Confirm, unless it is a <code dir="auto">GET</code>.</p>
+<p>A <code dir="auto">GET</code> runs as typed. Any other method opens a dialog naming the method, the path, the backend and the login: “A request that is not a read can change or delete things on Entire, and the extension cannot tell what this one does.”</p>
+</li>
+<li>
+<p>Read the response.</p>
+<p>It opens in a read-only document headed with the method, path and login. JSON is pretty-printed.</p>
+</li>
+</ol>
+<p>The call runs once and is never retried, because a repeated write is a second write. No view, poller or watcher can reach it. The response and the path are kept out of the output channel. Body fields, headers and file input are not exposed.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="settings">Settings</h2><a class="sl-anchor-link" href="#settings"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Settings”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>Range</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">entirely.controlPlaneTimeout</code></td>
+<td><code dir="auto">60</code></td>
+<td>5 to 900</td>
+<td>Seconds to wait for each CLI call from the view and its commands: a listing, a change or an API call. A change that times out is read back before it is reported.</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="failure-messages">Failure messages</h2><a class="sl-anchor-link" href="#failure-messages"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Failure messages”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Message</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“No Entire login is available, so Entirely cannot say who this would be done as. Sign in first.”</td>
+<td>No acting login.</td>
+</tr>
+<tr>
+<td>“A control plane change is already running.”</td>
+<td>One change at a time.</td>
+</tr>
+<tr>
+<td>“this version of the Entire CLI has no ‘COMMAND’ command; update the CLI”</td>
+<td>The command is missing from <code dir="auto">agent-help</code>.</td>
+</tr>
+<tr>
+<td>“the Entire CLI is not installed; install it to manage repositories, projects and organisations”</td>
+<td>No CLI found.</td>
+</tr>
+<tr>
+<td>“this version of the Entire CLI does not describe a way to delete mirrors together with the repo”</td>
+<td>No cascade flag in the CLI’s help.</td>
+</tr>
+<tr>
+<td>“‘VALUE’ is not a role/visibility the CLI offers (…)”</td>
+<td>The value is not in the CLI’s own list.</td>
+</tr>
+</tbody>
+</table>
+<p>Flags are read from <code dir="auto">entire agent-help</code> for each command at the time of the call and never kept. A flag the help does not describe stops the call instead of being guessed.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="related">Related</h2><a class="sl-anchor-link" href="#related"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Related”</span></a></div>
+<ul>
+<li><a href="/entirely/concepts/accounts-and-contexts/">Accounts and contexts</a></li>
+<li><a href="/entirely/concepts/privacy-and-redaction/">Privacy and redaction</a></li>
+<li><a href="/entirely/concepts/how-entirely-works/">How Entirely works</a></li>
+<li><a href="/entirely/reference/views/">Views reference</a></li>
+<li><a href="/entirely/reference/commands/">Commands reference</a></li>
+<li><a href="/entirely/reference/cli-commands-used/">CLI commands used</a></li>
+<li><a href="/entirely/reference/coverage/">Coverage</a></li>
+<li><a href="/entirely/guides/doctor-and-diagnostics/">Doctor and diagnostics</a></li>
+</ul></div><footer class="sl-flex astro-fd7qzg56"><div class="meta sl-flex astro-fd7qzg56"></div><div class="pagination-links print:hidden astro-5rs4d7me" dir="ltr"><a href="/entirely/guides/plugins/" rel="prev" class="astro-5rs4d7me"><svg aria-hidden="true" class="astro-5rs4d7me astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span class="astro-5rs4d7me">Previous<br class="astro-5rs4d7me"><span class="link-title astro-5rs4d7me">Run and install plugins</span></span></a><a href="/entirely/guides/history-import/" rel="next" class="astro-5rs4d7me"><svg aria-hidden="true" class="astro-5rs4d7me astro-ia5hxuil" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-5rs4d7me">Next<br class="astro-5rs4d7me"><span class="link-title astro-5rs4d7me">History import</span></span></a></div></footer></div></div></main></div></div></div></div></body></html>
