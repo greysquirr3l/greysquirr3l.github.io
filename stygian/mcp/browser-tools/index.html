@@ -1,0 +1,961 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-y4n5rscn"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Browser MCP Tools | stygian</title><link rel="canonical" href="https://greysquirr3l.github.io/stygian/mcp/browser-tools/"/><link rel="sitemap" href="/stygian/sitemap-index.xml"/><link rel="shortcut icon" href="/stygian/favicon.png" type="image/png"/><meta name="generator" content="Astro v7.4.5"/><meta name="generator" content="Starlight v0.42.8"/><meta property="og:title" content="Browser MCP Tools"/><meta property="og:type" content="article"/><meta property="og:url" content="https://greysquirr3l.github.io/stygian/mcp/browser-tools/"/><meta property="og:locale" content="en"/><meta property="og:description" content="High-performance web scraping toolkit for Rust"/><meta property="og:site_name" content="stygian"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="High-performance web scraping toolkit for Rust"/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/stygian/_astro/print.ehPL0gv-.css" media="print"><link rel="stylesheet" href="/stygian/_astro/common.B5bAlOho.css"><style>@layer starlight.components{svg:where(.astro-ermouj5c){color:var(--sl-icon-color);font-size:var(--sl-icon-size,1em);width:1em;height:1em;overflow:visible}}
+</style><script type="module" src="/stygian/_astro/page.D52QqX1q.js"></script></head><body class="astro-y4n5rscn"><a class="sl-skip-link astro-wabrupto" href="#_top">Skip to content</a><div class="page sl-flex astro-ix7cyrp5"><header class="header astro-ix7cyrp5"><div class="header astro-dgprvyty"><div class="title-wrapper sl-flex astro-dgprvyty"><a href="/stygian/" class="site-title sl-flex astro-su67xwyv"><img class="astro-su67xwyv" alt="stygian" src="/stygian/_astro/logo.DMHMKW8T.png" width="256" height="170"><span class="astro-su67xwyv" translate="no">stygian</span></a></div><div class="sl-flex print:hidden astro-dgprvyty"><site-search class="astro-dgprvyty astro-r6oqptsv" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"><button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-r6oqptsv"><svg aria-hidden="true" class="astro-r6oqptsv astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-r6oqptsv" aria-hidden="true">Search</span><kbd class="sl-hidden md:sl-flex astro-r6oqptsv" style="display: none;"><kbd class="astro-r6oqptsv">Ctrl</kbd><kbd class="astro-r6oqptsv">K</kbd></kbd></button><dialog style="padding:0" aria-label="Search" class="astro-r6oqptsv"><div class="dialog-frame sl-flex astro-r6oqptsv"><button data-close-modal class="sl-flex md:sl-hidden astro-r6oqptsv">Cancel</button><div class="search-container astro-r6oqptsv"><div id="starlight__search" class="astro-r6oqptsv"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/stygian/_astro/Search.astro_astro_type_script_index_0_lang.D7CNTmhQ.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-dgprvyty"><div class="sl-flex social-icons astro-dgprvyty"><a href="https://github.com/greysquirr3l/stygian" rel="me" class="sl-flex astro-7bvow46s"><span class="sr-only astro-7bvow46s">GitHub</span><svg aria-hidden="true" class="astro-7bvow46s astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-hhvesjpw"><span class="sr-only astro-hhvesjpw">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-hhvesjpw astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-hhvesjpw"><option value="dark" class="astro-hhvesjpw">Dark</option><option value="light" class="astro-hhvesjpw">Light</option><option value="auto" selected class="astro-hhvesjpw">Auto</option></select><svg aria-hidden="true" class="icon caret astro-hhvesjpw astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script><script type="module">var e=class extends HTMLElement{constructor(){super();let e=this.querySelector(`select`);e&&(e.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=e.currentTarget.value)}),window.addEventListener(`pageshow`,t=>{if(!t.persisted)return;let n=e.querySelector(`option[selected]`)?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}};customElements.define(`starlight-lang-select`,e);</script></div></div></header><nav class="sidebar print:hidden astro-ix7cyrp5" aria-label="Main"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-owup563u"><svg aria-hidden="true" class="open-menu astro-owup563u astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-owup563u astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-owup563u">Menu</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-ix7cyrp5"><div class="sidebar-content sl-flex astro-ix7cyrp5"><sl-sidebar-state-persist data-hash="00ae72z" class="astro-kdoejvr5"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-scnrn6wu"><li class="astro-scnrn6wu"><a href="/stygian/introduction/" class="large astro-scnrn6wu"><span class="astro-scnrn6wu">Introduction</span></a></li><li class="astro-scnrn6wu"><details open class="astro-scnrn6wu"><summary class="astro-scnrn6wu"><span class="group-label astro-scnrn6wu"><span class="large astro-scnrn6wu">The Graph Engine</span></span><svg aria-hidden="true" class="caret astro-scnrn6wu astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-scnrn6wu"><li class="astro-scnrn6wu"><a href="/stygian/graph/architecture/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Architecture</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/pipelines/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Building Pipelines</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/adapters/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Built-in Adapters</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/production-adapters/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Production Adapters</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/signing/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Request Signing</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/graphql-plugins/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">GraphQL Plugins</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/custom-adapters/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Custom Adapters</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/distributed/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Distributed Execution</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/escalation/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Tiered Escalation Pipeline</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/resilience/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Resilience &amp; Fallback Chains</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/data-sinks/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Data Sinks (DataSinkPort)</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/scrape-exchange/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Scrape Exchange Integration</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/observability/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Observability</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/performance/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Performance Tuning</span></a></li></ul></details></li><li class="astro-scnrn6wu"><details open class="astro-scnrn6wu"><summary class="astro-scnrn6wu"><span class="group-label astro-scnrn6wu"><span class="large astro-scnrn6wu">Browser Automation</span></span><svg aria-hidden="true" class="caret astro-scnrn6wu astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul class="astro-scnrn6wu"><li class="astro-scnrn6wu"><a href="/stygian/browser/overview/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Browser Automation Overview</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/browser/configuration/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Configuration</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/browser/stealth/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Stealth, TLS Fingerprints, and Diagnostics</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/browser/pool/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Browser Pool</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/browser/page-operations/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Page Operations</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/browser/dom-query/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">DOM Query API</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/browser/extract/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Structured Extraction — `#[derive(Extract)]`</span></a></li></ul></details></li><li class="astro-scnrn6wu"><details open class="astro-scnrn6wu"><summary class="astro-scnrn6wu"><span class="group-label astro-scnrn6wu"><span class="large astro-scnrn6wu">Proxy Rotation</span></span><svg aria-hidden="true" class="caret astro-scnrn6wu astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul class="astro-scnrn6wu"><li class="astro-scnrn6wu"><a href="/stygian/proxy/overview/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Proxy Rotation Overview</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/proxy/strategies/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Rotation Strategies</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/proxy/sticky-sessions/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Sticky Sessions</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/proxy/health-circuit-breaker/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Health Checking &amp; Circuit Breaker</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/proxy/integrations/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Ecosystem Integrations</span></a></li></ul></details></li><li class="astro-scnrn6wu"><details open class="astro-scnrn6wu"><summary class="astro-scnrn6wu"><span class="group-label astro-scnrn6wu"><span class="large astro-scnrn6wu">Charon Diagnostics</span></span><svg aria-hidden="true" class="caret astro-scnrn6wu astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul class="astro-scnrn6wu"><li class="astro-scnrn6wu"><a href="/stygian/charon/overview/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Charon Overview</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/charon/getting-started/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Getting Started</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/charon/slo-policy/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">SLO &amp; Policy Planning</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/charon/operations/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Operations &amp; Runbooks</span></a></li></ul></details></li><li class="astro-scnrn6wu"><details open class="astro-scnrn6wu"><summary class="astro-scnrn6wu"><span class="group-label astro-scnrn6wu"><span class="large astro-scnrn6wu">Reference</span></span><svg aria-hidden="true" class="caret astro-scnrn6wu astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul class="astro-scnrn6wu"><li class="astro-scnrn6wu"><a href="/stygian/reference/charon-release/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Charon Release Notes</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/reference/backwards-compatibility/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Backwards Compatibility Policy</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/reference/env-vars/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Environment Variables</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/reference/security-policy/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Security Policy</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/reference/testing/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Testing &amp; Coverage</span></a></li></ul></details></li><li class="astro-scnrn6wu"><details open class="astro-scnrn6wu"><summary class="astro-scnrn6wu"><span class="group-label astro-scnrn6wu"><span class="large astro-scnrn6wu">MCP — Model Context Protocol</span></span><svg aria-hidden="true" class="caret astro-scnrn6wu astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="5"></sl-sidebar-restore><ul class="astro-scnrn6wu"><li class="astro-scnrn6wu"><a href="/stygian/mcp/overview/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">MCP — Model Context Protocol</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/mcp/graph-tools/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Graph MCP Tools</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/mcp/browser-tools/" aria-current="page" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Browser MCP Tools</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/mcp/proxy-tools/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Proxy MCP Tools</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/mcp/plugin-tools/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Plugin MCP Tools</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/mcp/plugin-persistence-pattern/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Plugin Persistence Pattern</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/mcp/aggregator/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">The stygian-mcp Aggregator</span></a></li></ul></details></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-ouqakbey"><div class="social-icons astro-ouqakbey"><a href="https://github.com/greysquirr3l/stygian" rel="me" class="sl-flex astro-7bvow46s"><span class="sr-only astro-7bvow46s">GitHub</span><svg aria-hidden="true" class="astro-7bvow46s astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-hhvesjpw"><span class="sr-only astro-hhvesjpw">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-hhvesjpw astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-hhvesjpw"><option value="dark" class="astro-hhvesjpw">Dark</option><option value="light" class="astro-hhvesjpw">Light</option><option value="auto" selected class="astro-hhvesjpw">Auto</option></select><svg aria-hidden="true" class="icon caret astro-hhvesjpw astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-ix7cyrp5"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-w5fwjuwe"><aside class="right-sidebar-container print:hidden astro-w5fwjuwe"><div class="right-sidebar astro-w5fwjuwe"><div class="lg:sl-hidden astro-3arxgg77"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-rxol2rta"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-rxol2rta"><details id="starlight__mobile-toc" class="astro-rxol2rta"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-rxol2rta"><span class="toggle sl-flex astro-rxol2rta">On this page<svg aria-hidden="true" class="caret astro-rxol2rta astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-rxol2rta"></span></summary><div class="dropdown astro-rxol2rta"><ul class="isMobile astro-za52fwcw" style="--depth: 0;"><li style="--depth: 0;" class="astro-za52fwcw"><a href="#_top" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Overview</span></a></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#enabling" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Enabling</span></a></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#session-lifecycle" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Session lifecycle</span></a></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#tools" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Tools</span></a><ul class="isMobile astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_acquire" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_acquire</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_navigate" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_navigate</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_eval" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_eval</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_screenshot" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_screenshot</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_content" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_content</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_attach-requires-mcp-attach-feature" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_attach (requires mcp-attach feature)</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_auth_session" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_auth_session</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_session_save" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_session_save</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_session_restore" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_session_restore</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_humanize" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_humanize</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_query" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_query</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_extract" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_extract</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_extract_with_fallback" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_extract_with_fallback</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_extract_resilient" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_extract_resilient</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_find_similar" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_find_similar</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_verify_stealth" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_verify_stealth</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_release" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_release</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#pool_stats" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">pool_stats</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_acquire_and_extract" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_acquire_and_extract</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#live-attach-test-end-to-end" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Live Attach Test (End-to-End)</span></a></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#resources" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Resources</span></a></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/stygian/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-3arxgg77"><div class="sl-container astro-3arxgg77"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-za52fwcw" style="--depth: 0;"><li style="--depth: 0;" class="astro-za52fwcw"><a href="#_top" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Overview</span></a></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#enabling" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Enabling</span></a></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#session-lifecycle" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Session lifecycle</span></a></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#tools" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Tools</span></a><ul class="astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_acquire" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_acquire</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_navigate" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_navigate</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_eval" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_eval</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_screenshot" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_screenshot</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_content" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_content</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_attach-requires-mcp-attach-feature" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_attach (requires mcp-attach feature)</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_auth_session" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_auth_session</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_session_save" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_session_save</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_session_restore" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_session_restore</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_humanize" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_humanize</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_query" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_query</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_extract" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_extract</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_extract_with_fallback" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_extract_with_fallback</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_extract_resilient" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_extract_resilient</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_find_similar" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_find_similar</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_verify_stealth" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_verify_stealth</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_release" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_release</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#pool_stats" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">pool_stats</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#browser_acquire_and_extract" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">browser_acquire_and_extract</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#live-attach-test-end-to-end" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Live Attach Test (End-to-End)</span></a></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#resources" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Resources</span></a></li></ul></nav></starlight-toc><script type="module" src="/stygian/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane astro-w5fwjuwe"><main data-pagefind-body class="astro-y4n5rscn" lang="en" dir="ltr"><div class="content-panel astro-sc4pvnli"><div class="sl-container astro-sc4pvnli"><h1 id="_top" class="astro-3aqmbasx">Browser MCP Tools</h1></div></div><div class="content-panel astro-sc4pvnli"><div class="sl-container astro-sc4pvnli"><div class="sl-markdown-content"><p><code dir="auto">stygian-browser</code> exposes browser automation tools including a runner-first acquisition path plus pool stats.</p>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="enabling">Enabling</h2><a class="sl-anchor-link" href="#enabling"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Enabling”</span></a></div>
+<div class="expressive-code"><link rel="stylesheet" href="/stygian/_astro/ec.w36nc.css"><script type="module" src="/stygian/_astro/ec.0vx5m.js"></script><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="toml"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">[dependencies]</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">stygian-browser</span><span style="--0:#D6DEEB;--1:#403F53"> = { </span><span style="--0:#C5E478;--1:#3B61B0">version</span><span style="--0:#D6DEEB;--1:#403F53"> = </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">*</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#C5E478;--1:#3B61B0">features</span><span style="--0:#D6DEEB;--1:#403F53"> = [</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">mcp</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">] }</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="[dependencies]stygian-browser = { version = &quot;*&quot;, features = [&quot;mcp&quot;] }"><div></div></button></div></figure></div>
+<p>To run as a standalone MCP server:</p>
+<div class="expressive-code"><figure class="frame is-terminal not-content"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="sh"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3B61B0">cargo</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">run</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--example</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">mcp_server</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">-p</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">stygian-browser</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--features</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">mcp</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="cargo run --example mcp_server -p stygian-browser --features mcp"><div></div></button></div></figure></div>
+<p>When using the <a href="/stygian/mcp/aggregator/">aggregator</a>, tools keep their <code dir="auto">browser_</code> prefix.</p>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="session-lifecycle">Session lifecycle</h2><a class="sl-anchor-link" href="#session-lifecycle"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Session lifecycle”</span></a></div>
+<p>Browser sessions are identified by a <code dir="auto">session_id</code> (ULID string). The lifecycle is:</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="text"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">browser_acquire → browser_navigate → browser_eval / browser_screenshot / browser_content → browser_release</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="browser_acquire → browser_navigate → browser_eval / browser_screenshot / browser_content → browser_release"><div></div></button></div></figure></div>
+<p>Always call <code dir="auto">browser_release</code> when done; unreleased sessions hold a browser process open
+against the pool’s <code dir="auto">max</code> limit.</p>
+<p>Runner-first alternative:</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="text"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">browser_acquire_and_extract</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="browser_acquire_and_extract"><div></div></button></div></figure></div>
+<p>Use this tool when you want acquisition strategy escalation and extraction in one call.
+The <code dir="auto">mode</code> field accepts <code dir="auto">fast</code>, <code dir="auto">resilient</code>, <code dir="auto">hostile</code>, and <code dir="auto">investigate</code>.</p>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="tools">Tools</h2><a class="sl-anchor-link" href="#tools"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Tools”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_acquire"><code dir="auto">browser_acquire</code></h3><a class="sl-anchor-link" href="#browser_acquire"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_acquire”</span></a></div>
+<p>Acquire a browser session from the warm pool. Returns within ~100 ms for warm pools, ~2 s for
+cold launch.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">stealth_level</code></td>
+<td>string</td>
+<td></td>
+<td><code dir="auto">none</code> | <code dir="auto">basic</code> | <code dir="auto">advanced</code> (default: <code dir="auto">advanced</code>)</td>
+</tr>
+<tr>
+<td><code dir="auto">tls_profile</code></td>
+<td>string</td>
+<td></td>
+<td>TLS fingerprint profile name — e.g. <code dir="auto">chrome131</code>, <code dir="auto">firefox133</code>, <code dir="auto">safari18</code>, <code dir="auto">edge131</code></td>
+</tr>
+<tr>
+<td><code dir="auto">webrtc_policy</code></td>
+<td>string</td>
+<td></td>
+<td><code dir="auto">allow_all</code> | <code dir="auto">disable_non_proxied</code> | <code dir="auto">block_all</code> (default from pool config)</td>
+</tr>
+<tr>
+<td><code dir="auto">cdp_fix_mode</code></td>
+<td>string</td>
+<td></td>
+<td>CDP leak mitigation mode: <code dir="auto">addBinding</code> | <code dir="auto">isolatedWorld</code> | <code dir="auto">enableDisable</code> | <code dir="auto">none</code></td>
+</tr>
+<tr>
+<td><code dir="auto">proxy</code></td>
+<td>string</td>
+<td></td>
+<td>Proxy URL for this session — e.g. <code dir="auto">http://user:pass@proxy:8080</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"session_id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">01HV4...</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"requested_metadata"</span><span style="--0:#D6DEEB;--1:#403F53">: {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"stealth_level"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">advanced</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"tls_profile"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">chrome131</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;session_id&quot;: &quot;01HV4...&quot;,  &quot;requested_metadata&quot;: {    &quot;stealth_level&quot;: &quot;advanced&quot;,    &quot;tls_profile&quot;: &quot;chrome131&quot;  }}"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_navigate"><code dir="auto">browser_navigate</code></h3><a class="sl-anchor-link" href="#browser_navigate"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_navigate”</span></a></div>
+<p>Navigate the browser to a URL and wait for the page to load.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">session_id</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Session ID from <code dir="auto">browser_acquire</code></td>
+</tr>
+<tr>
+<td><code dir="auto">url</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Target URL</td>
+</tr>
+<tr>
+<td><code dir="auto">timeout_secs</code></td>
+<td>integer</td>
+<td></td>
+<td>Navigation timeout in seconds (default: 30)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"title"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">Example Domain</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"url"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">https://example.com</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;title&quot;: &quot;Example Domain&quot;,  &quot;url&quot;: &quot;https://example.com&quot;}"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_eval"><code dir="auto">browser_eval</code></h3><a class="sl-anchor-link" href="#browser_eval"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_eval”</span></a></div>
+<p>Evaluate arbitrary JavaScript in the page context and return the result.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">session_id</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Session ID</td>
+</tr>
+<tr>
+<td><code dir="auto">script</code></td>
+<td>string</td>
+<td>✓</td>
+<td>JavaScript expression to evaluate</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"result"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">42</span><span style="--0:#D6DEEB;--1:#403F53"> }</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{ &quot;result&quot;: 42 }"><div></div></button></div></figure></div>
+<p><strong>Example — extracting all links:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"script"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">Array.from(document.querySelectorAll('a')).map(a =&gt; a.href)</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;script&quot;: &quot;Array.from(document.querySelectorAll(&#x27;a&#x27;)).map(a => a.href)&quot;}"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_screenshot"><code dir="auto">browser_screenshot</code></h3><a class="sl-anchor-link" href="#browser_screenshot"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_screenshot”</span></a></div>
+<p>Capture a full-page screenshot as a base64-encoded PNG.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">session_id</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Session ID</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"data"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">iVBORw0KGgoAAAANSUhEUgAA...</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> }</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{ &quot;data&quot;: &quot;iVBORw0KGgoAAAANSUhEUgAA...&quot; }"><div></div></button></div></figure></div>
+<p>The returned <code dir="auto">data</code> field is a standard base64 PNG suitable for embedding in an <code dir="auto">&lt;img&gt;</code> tag or
+writing directly to a <code dir="auto">.png</code> file.</p>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_content"><code dir="auto">browser_content</code></h3><a class="sl-anchor-link" href="#browser_content"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_content”</span></a></div>
+<p>Retrieve the current page’s full outer HTML.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">session_id</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Session ID</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"html"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">&lt;!DOCTYPE html&gt;&lt;html&gt;...&lt;/html&gt;</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> }</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{ &quot;html&quot;: &quot;<!DOCTYPE html><html>...</html>&quot; }"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_attach-requires-mcp-attach-feature"><code dir="auto">browser_attach</code> <em>(requires <code dir="auto">mcp-attach</code> feature)</em></h3><a class="sl-anchor-link" href="#browser_attach-requires-mcp-attach-feature"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_attach (requires mcp-attach feature)”</span></a></div>
+<p>Attach an MCP session to an existing DevTools websocket endpoint (<code dir="auto">cdp_ws</code>) or
+use the extension bridge contract path (<code dir="auto">extension_bridge</code>, currently not implemented).</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">mode</code></td>
+<td>string</td>
+<td>✓</td>
+<td><code dir="auto">cdp_ws</code> | <code dir="auto">extension_bridge</code></td>
+</tr>
+<tr>
+<td><code dir="auto">endpoint</code></td>
+<td>string</td>
+<td></td>
+<td>Required for <code dir="auto">cdp_ws</code>; DevTools websocket URL</td>
+</tr>
+<tr>
+<td><code dir="auto">profile_hint</code></td>
+<td>string</td>
+<td></td>
+<td>Optional label for external profile identity</td>
+</tr>
+<tr>
+<td><code dir="auto">target_profile</code></td>
+<td>string</td>
+<td></td>
+<td>Optional tuning profile: <code dir="auto">default</code> | <code dir="auto">reddit</code></td>
+</tr>
+</tbody>
+</table>
+<p><code dir="auto">cdp_ws</code> returns a new MCP <code dir="auto">session_id</code> that can be used with the normal
+browser lifecycle tools (<code dir="auto">browser_navigate</code>, <code dir="auto">browser_eval</code>, <code dir="auto">browser_content</code>,
+<code dir="auto">browser_screenshot</code>, <code dir="auto">browser_release</code>).</p>
+<p><strong>Example (<code dir="auto">cdp_ws</code>):</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"mode"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">cdp_ws</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"endpoint"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">ws://127.0.0.1:9222/devtools/browser/abcd1234</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"target_profile"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">default</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;mode&quot;: &quot;cdp_ws&quot;,  &quot;endpoint&quot;: &quot;ws://127.0.0.1:9222/devtools/browser/abcd1234&quot;,  &quot;target_profile&quot;: &quot;default&quot;}"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_auth_session"><code dir="auto">browser_auth_session</code></h3><a class="sl-anchor-link" href="#browser_auth_session"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_auth_session”</span></a></div>
+<p>High-level auth/session wrapper for common login workflows. This tool orchestrates
+<code dir="auto">browser_session_save</code> and <code dir="auto">browser_session_restore</code>, with optional post-step
+human-like interaction via <code dir="auto">browser_humanize</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">session_id</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Session ID</td>
+</tr>
+<tr>
+<td><code dir="auto">mode</code></td>
+<td>string</td>
+<td>✓</td>
+<td><code dir="auto">capture</code> | <code dir="auto">resume</code></td>
+</tr>
+<tr>
+<td><code dir="auto">file_path</code></td>
+<td>string</td>
+<td></td>
+<td>Optional snapshot file path</td>
+</tr>
+<tr>
+<td><code dir="auto">ttl_secs</code></td>
+<td>integer</td>
+<td></td>
+<td>Optional TTL in seconds when <code dir="auto">mode = capture</code></td>
+</tr>
+<tr>
+<td><code dir="auto">navigate_to_origin</code></td>
+<td>boolean</td>
+<td></td>
+<td>When resuming, navigate to snapshot origin first (default: <code dir="auto">true</code>)</td>
+</tr>
+<tr>
+<td><code dir="auto">interaction_level</code></td>
+<td>string</td>
+<td></td>
+<td>Optional interaction pass: <code dir="auto">none</code> | <code dir="auto">low</code> | <code dir="auto">medium</code> | <code dir="auto">high</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Capture example:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"session_id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">01HV4...</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"mode"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">capture</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"file_path"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">/tmp/reddit-session.json</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"ttl_secs"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">86400</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"interaction_level"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">none</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;session_id&quot;: &quot;01HV4...&quot;,  &quot;mode&quot;: &quot;capture&quot;,  &quot;file_path&quot;: &quot;/tmp/reddit-session.json&quot;,  &quot;ttl_secs&quot;: 86400,  &quot;interaction_level&quot;: &quot;none&quot;}"><div></div></button></div></figure></div>
+<p><strong>Resume example:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"session_id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">01HV5...</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"mode"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">resume</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"file_path"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">/tmp/reddit-session.json</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"navigate_to_origin"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;session_id&quot;: &quot;01HV5...&quot;,  &quot;mode&quot;: &quot;resume&quot;,  &quot;file_path&quot;: &quot;/tmp/reddit-session.json&quot;,  &quot;navigate_to_origin&quot;: true}"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_session_save"><code dir="auto">browser_session_save</code></h3><a class="sl-anchor-link" href="#browser_session_save"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_session_save”</span></a></div>
+<p>Capture the current page auth/session state (cookies + localStorage) and store
+it in memory and optionally on disk.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">session_id</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Session ID</td>
+</tr>
+<tr>
+<td><code dir="auto">ttl_secs</code></td>
+<td>integer</td>
+<td></td>
+<td>Optional snapshot TTL</td>
+</tr>
+<tr>
+<td><code dir="auto">file_path</code></td>
+<td>string</td>
+<td></td>
+<td>Optional output path for snapshot JSON</td>
+</tr>
+<tr>
+<td><code dir="auto">include_snapshot</code></td>
+<td>boolean</td>
+<td></td>
+<td>Include full snapshot payload in response (default: <code dir="auto">false</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"session_id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">01HV4...</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"origin"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">https://example.com</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"cookie_count"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">5</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"local_storage_keys"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">3</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"ttl_secs"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">3600</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"saved_to_file"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">/tmp/session.json</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;session_id&quot;: &quot;01HV4...&quot;,  &quot;origin&quot;: &quot;https://example.com&quot;,  &quot;cookie_count&quot;: 5,  &quot;local_storage_keys&quot;: 3,  &quot;ttl_secs&quot;: 3600,  &quot;saved_to_file&quot;: &quot;/tmp/session.json&quot;}"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_session_restore"><code dir="auto">browser_session_restore</code></h3><a class="sl-anchor-link" href="#browser_session_restore"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_session_restore”</span></a></div>
+<p>Restore session state from one of three sources: inline snapshot payload,
+snapshot file, or the in-memory snapshot saved previously for the same session.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">session_id</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Session ID</td>
+</tr>
+<tr>
+<td><code dir="auto">snapshot</code></td>
+<td>object</td>
+<td></td>
+<td>Inline <code dir="auto">SessionSnapshot</code> JSON</td>
+</tr>
+<tr>
+<td><code dir="auto">file_path</code></td>
+<td>string</td>
+<td></td>
+<td>Path to snapshot JSON file</td>
+</tr>
+<tr>
+<td><code dir="auto">use_saved</code></td>
+<td>boolean</td>
+<td></td>
+<td>Use in-memory saved snapshot if no inline/file source provided (default: <code dir="auto">true</code>)</td>
+</tr>
+<tr>
+<td><code dir="auto">navigate_to_origin</code></td>
+<td>boolean</td>
+<td></td>
+<td>Navigate to snapshot origin before applying state (default: <code dir="auto">true</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"session_id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">01HV4...</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"source"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">saved</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"origin"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">https://example.com</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"cookie_count"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">5</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"local_storage_keys"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">3</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"snapshot_expired"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">false</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;session_id&quot;: &quot;01HV4...&quot;,  &quot;source&quot;: &quot;saved&quot;,  &quot;origin&quot;: &quot;https://example.com&quot;,  &quot;cookie_count&quot;: 5,  &quot;local_storage_keys&quot;: 3,  &quot;snapshot_expired&quot;: false}"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_humanize"><code dir="auto">browser_humanize</code></h3><a class="sl-anchor-link" href="#browser_humanize"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_humanize”</span></a></div>
+<p>Run a human-like interaction sequence on the current page (scroll, mouse, key
+activity) to reduce robotic behavior patterns.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">session_id</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Session ID</td>
+</tr>
+<tr>
+<td><code dir="auto">level</code></td>
+<td>string</td>
+<td></td>
+<td><code dir="auto">none</code> | <code dir="auto">low</code> | <code dir="auto">medium</code> | <code dir="auto">high</code> (default: <code dir="auto">low</code>)</td>
+</tr>
+<tr>
+<td><code dir="auto">viewport_width</code></td>
+<td>number</td>
+<td></td>
+<td>Viewport width used for interaction simulation (default: <code dir="auto">1366</code>)</td>
+</tr>
+<tr>
+<td><code dir="auto">viewport_height</code></td>
+<td>number</td>
+<td></td>
+<td>Viewport height used for interaction simulation (default: <code dir="auto">768</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"session_id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">01HV4...</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"level"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">low</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"viewport_width"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">1366</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"viewport_height"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">768</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"applied"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;session_id&quot;: &quot;01HV4...&quot;,  &quot;level&quot;: &quot;low&quot;,  &quot;viewport_width&quot;: 1366,  &quot;viewport_height&quot;: 768,  &quot;applied&quot;: true}"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_query"><code dir="auto">browser_query</code></h3><a class="sl-anchor-link" href="#browser_query"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_query”</span></a></div>
+<p>Query all elements matching a CSS selector and return their text content (and optionally named
+attributes) as a structured list. Does not require deserialising the full page HTML.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">session_id</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Session ID from <code dir="auto">browser_acquire</code></td>
+</tr>
+<tr>
+<td><code dir="auto">url</code></td>
+<td>string</td>
+<td>✓</td>
+<td>URL to navigate to before querying</td>
+</tr>
+<tr>
+<td><code dir="auto">selector</code></td>
+<td>string</td>
+<td>✓</td>
+<td>CSS selector — e.g. <code dir="auto">"article.post h2"</code></td>
+</tr>
+<tr>
+<td><code dir="auto">fields</code></td>
+<td>object</td>
+<td></td>
+<td>Map of <code dir="auto">{ "name": "attr_name" }</code> pairs — extra attribute values to include per node</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">[</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"text"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">Post title</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"href"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">https://example.com/post-1</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"text"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">Another title</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"href"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">https://example.com/post-2</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> }</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">]</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="[  { &quot;text&quot;: &quot;Post title&quot;, &quot;href&quot;: &quot;https://example.com/post-1&quot; },  { &quot;text&quot;: &quot;Another title&quot;, &quot;href&quot;: &quot;https://example.com/post-2&quot; }]"><div></div></button></div></figure></div>
+<p>When <code dir="auto">fields</code> is omitted, each item contains only <code dir="auto">"text"</code> (the element’s <code dir="auto">textContent</code>).</p>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_extract"><code dir="auto">browser_extract</code></h3><a class="sl-anchor-link" href="#browser_extract"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_extract”</span></a></div>
+<p>Extract structured records from a page using a root selector + per-field schema. Equivalent
+to calling <code dir="auto">page.extract_all::&lt;T&gt;()</code> with an inline schema definition.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">session_id</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Session ID</td>
+</tr>
+<tr>
+<td><code dir="auto">url</code></td>
+<td>string</td>
+<td>✓</td>
+<td>URL to navigate to before extracting</td>
+</tr>
+<tr>
+<td><code dir="auto">root_selector</code></td>
+<td>string</td>
+<td>✓</td>
+<td>CSS selector for the repeating container element</td>
+</tr>
+<tr>
+<td><code dir="auto">schema</code></td>
+<td>object</td>
+<td>✓</td>
+<td>Map of field name to <code dir="auto">{ selector, attr?, required? }</code> field descriptor</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Schema field descriptor:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">selector</code></td>
+<td>string</td>
+<td>✓</td>
+<td>CSS selector scoped to the root element</td>
+</tr>
+<tr>
+<td><code dir="auto">attr</code></td>
+<td>string</td>
+<td></td>
+<td>If present, captures this attribute instead of <code dir="auto">textContent</code></td>
+</tr>
+<tr>
+<td><code dir="auto">required</code></td>
+<td>boolean</td>
+<td></td>
+<td><code dir="auto">true</code> (default) — omit or set to <code dir="auto">false</code> for optional fields</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">[</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"title"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">Example post</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"url"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">https://example.com/post-1</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"author"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">Alice</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"date"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">2025-01-15</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">]</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="[  {    &quot;title&quot;: &quot;Example post&quot;,    &quot;url&quot;: &quot;https://example.com/post-1&quot;,    &quot;author&quot;: &quot;Alice&quot;,    &quot;date&quot;: &quot;2025-01-15&quot;  }]"><div></div></button></div></figure></div>
+<p><strong>Example call:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"session_id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">01HV4...</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"url"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">https://news.example.com</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"root_selector"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">article.story</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"schema"</span><span style="--0:#D6DEEB;--1:#403F53">: {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"title"</span><span style="--0:#D6DEEB;--1:#403F53">: { </span><span style="--0:#7FDBCA;--1:#096E72">"selector"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">h2</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"url"</span><span style="--0:#D6DEEB;--1:#403F53">: { </span><span style="--0:#7FDBCA;--1:#096E72">"selector"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">h2 a</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"attr"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">href</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"author"</span><span style="--0:#D6DEEB;--1:#403F53">: { </span><span style="--0:#7FDBCA;--1:#096E72">"selector"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">span.author</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"date"</span><span style="--0:#D6DEEB;--1:#403F53">: { </span><span style="--0:#7FDBCA;--1:#096E72">"selector"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">time</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"attr"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">datetime</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"required"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">false</span><span style="--0:#D6DEEB;--1:#403F53"> }</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;session_id&quot;: &quot;01HV4...&quot;,  &quot;url&quot;: &quot;https://news.example.com&quot;,  &quot;root_selector&quot;: &quot;article.story&quot;,  &quot;schema&quot;: {    &quot;title&quot;: { &quot;selector&quot;: &quot;h2&quot; },    &quot;url&quot;: { &quot;selector&quot;: &quot;h2 a&quot;, &quot;attr&quot;: &quot;href&quot; },    &quot;author&quot;: { &quot;selector&quot;: &quot;span.author&quot; },    &quot;date&quot;: { &quot;selector&quot;: &quot;time&quot;, &quot;attr&quot;: &quot;datetime&quot;, &quot;required&quot;: false }  }}"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_extract_with_fallback"><code dir="auto">browser_extract_with_fallback</code></h3><a class="sl-anchor-link" href="#browser_extract_with_fallback"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_extract_with_fallback”</span></a></div>
+<p>Structured extraction with multiple root selectors. Selectors are tried in order,
+and the first selector that yields results is used.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">session_id</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Session ID</td>
+</tr>
+<tr>
+<td><code dir="auto">url</code></td>
+<td>string</td>
+<td>✓</td>
+<td>URL to navigate to before extracting</td>
+</tr>
+<tr>
+<td><code dir="auto">root_selectors</code></td>
+<td>array[string]</td>
+<td>✓</td>
+<td>Candidate root selectors in priority order</td>
+</tr>
+<tr>
+<td><code dir="auto">schema</code></td>
+<td>object</td>
+<td>✓</td>
+<td>Same schema object used by <code dir="auto">browser_extract</code></td>
+</tr>
+<tr>
+<td><code dir="auto">timeout_secs</code></td>
+<td>number</td>
+<td></td>
+<td>Navigation/extraction timeout (default: 30)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong> same structured <code dir="auto">results</code> array as <code dir="auto">browser_extract</code>, plus the selected root selector.</p>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_extract_resilient"><code dir="auto">browser_extract_resilient</code></h3><a class="sl-anchor-link" href="#browser_extract_resilient"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_extract_resilient”</span></a></div>
+<p>Structured extraction mode that tolerates partial records by skipping invalid root
+nodes instead of failing the full extraction call.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">session_id</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Session ID</td>
+</tr>
+<tr>
+<td><code dir="auto">url</code></td>
+<td>string</td>
+<td>✓</td>
+<td>URL to navigate to before extracting</td>
+</tr>
+<tr>
+<td><code dir="auto">root_selector</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Root selector for repeated record containers</td>
+</tr>
+<tr>
+<td><code dir="auto">schema</code></td>
+<td>object</td>
+<td>✓</td>
+<td>Same schema object used by <code dir="auto">browser_extract</code></td>
+</tr>
+<tr>
+<td><code dir="auto">timeout_secs</code></td>
+<td>number</td>
+<td></td>
+<td>Navigation/extraction timeout (default: 30)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"url"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">https://news.example.com</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"root_selector"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">article.story</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"count"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">42</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"skipped"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">3</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"results"</span><span style="--0:#D6DEEB;--1:#403F53">: [{ </span><span style="--0:#7FDBCA;--1:#096E72">"title"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">...</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"url"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">...</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> }]</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;url&quot;: &quot;https://news.example.com&quot;,  &quot;root_selector&quot;: &quot;article.story&quot;,  &quot;count&quot;: 42,  &quot;skipped&quot;: 3,  &quot;results&quot;: [{ &quot;title&quot;: &quot;...&quot;, &quot;url&quot;: &quot;...&quot; }]}"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_find_similar"><code dir="auto">browser_find_similar</code></h3><a class="sl-anchor-link" href="#browser_find_similar"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_find_similar”</span></a></div>
+<p>Find elements that are structurally similar to a reference fingerprint, even when class names or
+depth differ across page versions. Uses a weighted Jaccard similarity score (tag 40 %, classes
+35 %, attribute names 15 %, depth 10 %).</p>
+<blockquote>
+<p><strong>Note:</strong> Requires the <code dir="auto">similarity</code> feature to be enabled on <code dir="auto">stygian-browser</code>.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">session_id</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Session ID</td>
+</tr>
+<tr>
+<td><code dir="auto">url</code></td>
+<td>string</td>
+<td>✓</td>
+<td>URL to navigate to before searching</td>
+</tr>
+<tr>
+<td><code dir="auto">fingerprint</code></td>
+<td>object</td>
+<td>✓</td>
+<td><code dir="auto">ElementFingerprint</code> JSON — capture with <code dir="auto">node.fingerprint()</code> in the Rust API</td>
+</tr>
+<tr>
+<td><code dir="auto">threshold</code></td>
+<td>number</td>
+<td></td>
+<td>Minimum similarity score 0–1 (default: <code dir="auto">0.7</code>)</td>
+</tr>
+<tr>
+<td><code dir="auto">max_results</code></td>
+<td>integer</td>
+<td></td>
+<td>Maximum number of matches to return (default: <code dir="auto">10</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">[</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"score"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">0.92</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"outer_html"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">&lt;div class=</span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">post post-featured</span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">&gt;...&lt;/div&gt;</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">},</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"score"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">0.81</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"outer_html"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">&lt;div class=</span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">post</span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">&gt;...&lt;/div&gt;</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> }</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">]</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="[  {    &quot;score&quot;: 0.92,    &quot;outer_html&quot;: &quot;<div class=\&quot;post post-featured\&quot;>...</div>&quot;  },  { &quot;score&quot;: 0.81, &quot;outer_html&quot;: &quot;<div class=\&quot;post\&quot;>...</div>&quot; }]"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_verify_stealth"><code dir="auto">browser_verify_stealth</code></h3><a class="sl-anchor-link" href="#browser_verify_stealth"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_verify_stealth”</span></a></div>
+<p>Run a full stealth diagnostic: navigate to a detection-test URL and return a structured report
+of all signals checked (WebDriver flag, CDP artefacts, navigator properties, WebRTC leaks, TLS
+fingerprint, etc.).</p>
+<blockquote>
+<p><strong>Note:</strong> Requires the <code dir="auto">stealth</code> feature to be enabled on <code dir="auto">stygian-browser</code>.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">session_id</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Session ID</td>
+</tr>
+<tr>
+<td><code dir="auto">url</code></td>
+<td>string</td>
+<td>✓</td>
+<td>URL to navigate to before running diagnostics (e.g. <code dir="auto">https://bot.sannysoft.com</code>)</td>
+</tr>
+<tr>
+<td><code dir="auto">timeout_secs</code></td>
+<td>integer</td>
+<td></td>
+<td>Navigation timeout (default: 15)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong> A <code dir="auto">DiagnosticReport</code> JSON object:</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"checks"</span><span style="--0:#D6DEEB;--1:#403F53">: [</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">WebDriverFlag</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">undefined</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">ChromeObject</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">present</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">PluginCount</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">5</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">LanguagesPresent</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">en-US,en</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">CanvasConsistency</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">data:image/png;...</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">},</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">WebGlVendor</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">Intel Inc. -- ANGLE</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">AutomationGlobals</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">none</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">OuterWindowSize</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">1920x1080</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">HeadlessUserAgent</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">Mozilla/5.0...</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">NotificationPermission</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">default</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">MatchMediaPresent</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">function</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">ElementFromPointPresent</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">function</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">RequestAnimationFramePresent</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">function</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">},</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">GetComputedStylePresent</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">function</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">CssSupportsPresent</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">function</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">SendBeaconPresent</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">function</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">ExecCommandPresent</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">function</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> },</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">NodeJsAbsent</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"passed"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"details"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">absent</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> }</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">],</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"passed_count"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">18</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"failed_count"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">0</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"transport"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">null</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;checks&quot;: [    { &quot;id&quot;: &quot;WebDriverFlag&quot;, &quot;passed&quot;: true, &quot;details&quot;: &quot;undefined&quot; },    { &quot;id&quot;: &quot;ChromeObject&quot;, &quot;passed&quot;: true, &quot;details&quot;: &quot;present&quot; },    { &quot;id&quot;: &quot;PluginCount&quot;, &quot;passed&quot;: true, &quot;details&quot;: &quot;5&quot; },    { &quot;id&quot;: &quot;LanguagesPresent&quot;, &quot;passed&quot;: true, &quot;details&quot;: &quot;en-US,en&quot; },    {      &quot;id&quot;: &quot;CanvasConsistency&quot;,      &quot;passed&quot;: true,      &quot;details&quot;: &quot;data:image/png;...&quot;    },    { &quot;id&quot;: &quot;WebGlVendor&quot;, &quot;passed&quot;: true, &quot;details&quot;: &quot;Intel Inc. -- ANGLE&quot; },    { &quot;id&quot;: &quot;AutomationGlobals&quot;, &quot;passed&quot;: true, &quot;details&quot;: &quot;none&quot; },    { &quot;id&quot;: &quot;OuterWindowSize&quot;, &quot;passed&quot;: true, &quot;details&quot;: &quot;1920x1080&quot; },    { &quot;id&quot;: &quot;HeadlessUserAgent&quot;, &quot;passed&quot;: true, &quot;details&quot;: &quot;Mozilla/5.0...&quot; },    { &quot;id&quot;: &quot;NotificationPermission&quot;, &quot;passed&quot;: true, &quot;details&quot;: &quot;default&quot; },    { &quot;id&quot;: &quot;MatchMediaPresent&quot;, &quot;passed&quot;: true, &quot;details&quot;: &quot;function&quot; },    { &quot;id&quot;: &quot;ElementFromPointPresent&quot;, &quot;passed&quot;: true, &quot;details&quot;: &quot;function&quot; },    {      &quot;id&quot;: &quot;RequestAnimationFramePresent&quot;,      &quot;passed&quot;: true,      &quot;details&quot;: &quot;function&quot;    },    { &quot;id&quot;: &quot;GetComputedStylePresent&quot;, &quot;passed&quot;: true, &quot;details&quot;: &quot;function&quot; },    { &quot;id&quot;: &quot;CssSupportsPresent&quot;, &quot;passed&quot;: true, &quot;details&quot;: &quot;function&quot; },    { &quot;id&quot;: &quot;SendBeaconPresent&quot;, &quot;passed&quot;: true, &quot;details&quot;: &quot;function&quot; },    { &quot;id&quot;: &quot;ExecCommandPresent&quot;, &quot;passed&quot;: true, &quot;details&quot;: &quot;function&quot; },    { &quot;id&quot;: &quot;NodeJsAbsent&quot;, &quot;passed&quot;: true, &quot;details&quot;: &quot;absent&quot; }  ],  &quot;passed_count&quot;: 18,  &quot;failed_count&quot;: 0,  &quot;transport&quot;: null}"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_release"><code dir="auto">browser_release</code></h3><a class="sl-anchor-link" href="#browser_release"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_release”</span></a></div>
+<p>Release a browser session back to the pool.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">session_id</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Session ID to release</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"released"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53"> }</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{ &quot;released&quot;: true }"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="pool_stats"><code dir="auto">pool_stats</code></h3><a class="sl-anchor-link" href="#pool_stats"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “pool_stats”</span></a></div>
+<p>Return current browser pool statistics. No parameters required.</p>
+<p><strong>Returns:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"active"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">2</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"max"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">8</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"available"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">6</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;active&quot;: 2,  &quot;max&quot;: 8,  &quot;available&quot;: 6}"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h3"><h3 id="browser_acquire_and_extract"><code dir="auto">browser_acquire_and_extract</code></h3><a class="sl-anchor-link" href="#browser_acquire_and_extract"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “browser_acquire_and_extract”</span></a></div>
+<p>Run the opinionated acquisition ladder and return extraction/content output from one call.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">url</code></td>
+<td>string</td>
+<td>✓</td>
+<td>Target URL</td>
+</tr>
+<tr>
+<td><code dir="auto">mode</code></td>
+<td>string</td>
+<td>✓</td>
+<td><code dir="auto">fast</code> | <code dir="auto">resilient</code> | <code dir="auto">hostile</code> | <code dir="auto">investigate</code></td>
+</tr>
+<tr>
+<td><code dir="auto">wait_for_selector</code></td>
+<td>string</td>
+<td></td>
+<td>Optional selector gate for browser-stage success</td>
+</tr>
+<tr>
+<td><code dir="auto">selector_wait</code></td>
+<td>string</td>
+<td></td>
+<td>Alias for <code dir="auto">wait_for_selector</code></td>
+</tr>
+<tr>
+<td><code dir="auto">extraction_js</code></td>
+<td>string</td>
+<td></td>
+<td>Optional JavaScript extraction expression</td>
+</tr>
+<tr>
+<td><code dir="auto">total_timeout_secs</code></td>
+<td>number</td>
+<td></td>
+<td>Optional wall-clock timeout for full run (must be &gt; 0)</td>
+</tr>
+<tr>
+<td><code dir="auto">browserbase_enabled</code></td>
+<td>boolean</td>
+<td></td>
+<td>Optional Browserbase stage opt-in (requires <code dir="auto">stygian-browser</code> feature <code dir="auto">browserbase</code>)</td>
+</tr>
+<tr>
+<td><code dir="auto">use_browserbase</code></td>
+<td>boolean</td>
+<td></td>
+<td>Alias for <code dir="auto">browserbase_enabled</code></td>
+</tr>
+</tbody>
+</table>
+<p><code dir="auto">browserbase_enabled</code>/<code dir="auto">use_browserbase</code> require runtime environment variables
+<code dir="auto">BROWSERBASE_API_KEY</code> and <code dir="auto">BROWSERBASE_PROJECT_ID</code>.</p>
+<div class="sl-heading-wrapper level-h4"><h4 id="browserbase-session-warmup-and-rate-limit-resilience-t114">Browserbase session warmup and rate-limit resilience (T114)</h4><a class="sl-anchor-link" href="#browserbase-session-warmup-and-rate-limit-resilience-t114"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Browserbase session warmup and rate-limit resilience (T114)”</span></a></div>
+<p>Starting with 0.17, the Browserbase-managed acquisition stage
+implements two resilience behaviors on by default:</p>
+<ol>
+<li><strong>Session warmup</strong> — a settled navigation before the real one.
+Browserbase spins up the session, lands on a known landing page,
+then performs the real navigation. The warmup lets the session’s
+fingerprint cookies, TLS session resumption state, and Browserbase
+internal monitoring surface attach before the target sees any
+request, so the first real navigation carries a fully-warm
+fingerprint rather than a cold one.</li>
+<li><strong>Rate-limit retry with exponential backoff</strong> (default 3 attempts,
+500 ms base) — on a <code dir="auto">429</code> response from Browserbase’s session
+creation endpoint, the stage retries with exponential backoff. If
+the response includes a <code dir="auto">Retry-After</code> header, its value is honored
+in place of the computed backoff. New error variants
+<code dir="auto">BrowserError::RateLimited</code> and <code dir="auto">StageFailureKind::RateLimited</code>
+distinguish exhausted rate-limit retries from generic transport
+failures, so the runner can decide whether to back off the whole
+pipeline or just retry the Browserbase stage.</li>
+</ol>
+<p>Both behaviors are configurable via
+<code dir="auto">AcquisitionRequest::browserbase_session: Option&lt;BrowserbaseSessionConfig&gt;</code>:</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">use</span><span style="--0:#D6DEEB;--1:#403F53"> stygian_browser</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#D6DEEB;--1:#403F53">acquisition</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#D6DEEB;--1:#403F53">BrowserbaseSessionConfig;</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">session</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> BrowserbaseSessionConfig {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C5E478;--1:#3B61B0">warmup</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">false</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C5E478;--1:#3B61B0">warmup_stabilize_ms</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#F78C6C;--1:#AA0982">500</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C5E478;--1:#3B61B0">max_retries</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#F78C6C;--1:#AA0982">5</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C5E478;--1:#3B61B0">backoff_base_ms</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#F78C6C;--1:#AA0982">250</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C5E478;--1:#3B61B0">session_id</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> Some(</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">sess_existing_123</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">to_string</span><span style="--0:#D6DEEB;--1:#403F53">()),</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">};</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">_</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">session</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="use stygian_browser::acquisition::BrowserbaseSessionConfig;let session = BrowserbaseSessionConfig {    warmup: false,    warmup_stabilize_ms: 500,    max_retries: 5,    backoff_base_ms: 250,    session_id: Some(&quot;sess_existing_123&quot;.to_string()),};let _ = session;"><div></div></button></div></figure></div>
+<p>Setting <code dir="auto">BROWSERBASE_SESSION_ID</code> in the environment has the same
+effect as <code dir="auto">BrowserbaseSessionConfig::session_id = Some(...)</code>: it
+reuses the named session instead of creating a new one. Use the
+explicit config form when you want the session reuse scoped to a
+single <code dir="auto">browser_acquire_and_extract</code> call rather than the whole
+process.</p>
+<p><strong>Returns:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"success"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"strategy_used"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">browser_light_stealth</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"final_url"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">https://example.com</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"status_code"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">200</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"extracted"</span><span style="--0:#D6DEEB;--1:#403F53">: {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"title"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">Example Domain</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">},</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"html_excerpt"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">&lt;!doctype html&gt;&lt;html&gt;...</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"diagnostics"</span><span style="--0:#D6DEEB;--1:#403F53">: {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"attempted"</span><span style="--0:#D6DEEB;--1:#403F53">: [</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">direct_http</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">browser_light_stealth</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">],</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"timed_out"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">false</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"failure_count"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">0</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"failures"</span><span style="--0:#D6DEEB;--1:#403F53">: []</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;success&quot;: true,  &quot;strategy_used&quot;: &quot;browser_light_stealth&quot;,  &quot;final_url&quot;: &quot;https://example.com&quot;,  &quot;status_code&quot;: 200,  &quot;extracted&quot;: {    &quot;title&quot;: &quot;Example Domain&quot;  },  &quot;html_excerpt&quot;: &quot;<!doctype html><html>...&quot;,  &quot;diagnostics&quot;: {    &quot;attempted&quot;: [&quot;direct_http&quot;, &quot;browser_light_stealth&quot;],    &quot;timed_out&quot;: false,    &quot;failure_count&quot;: 0,    &quot;failures&quot;: []  }}"><div></div></button></div></figure></div>
+<p>Mode examples:</p>
+<p><code dir="auto">fast</code></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"name"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">browser_acquire_and_extract</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"arguments"</span><span style="--0:#D6DEEB;--1:#403F53">: {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"url"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">https://example.com</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"mode"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">fast</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;name&quot;: &quot;browser_acquire_and_extract&quot;,  &quot;arguments&quot;: {    &quot;url&quot;: &quot;https://example.com&quot;,    &quot;mode&quot;: &quot;fast&quot;  }}"><div></div></button></div></figure></div>
+<p><code dir="auto">resilient</code></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"name"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">browser_acquire_and_extract</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"arguments"</span><span style="--0:#D6DEEB;--1:#403F53">: {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"url"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">https://example.com/catalog</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"mode"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">resilient</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"wait_for_selector"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">article.item</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;name&quot;: &quot;browser_acquire_and_extract&quot;,  &quot;arguments&quot;: {    &quot;url&quot;: &quot;https://example.com/catalog&quot;,    &quot;mode&quot;: &quot;resilient&quot;,    &quot;wait_for_selector&quot;: &quot;article.item&quot;  }}"><div></div></button></div></figure></div>
+<p><code dir="auto">hostile</code></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"name"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">browser_acquire_and_extract</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"arguments"</span><span style="--0:#D6DEEB;--1:#403F53">: {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"url"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">https://example.com/challenge</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"mode"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">hostile</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"wait_for_selector"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">main</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"total_timeout_secs"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">60</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"browserbase_enabled"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">true</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;name&quot;: &quot;browser_acquire_and_extract&quot;,  &quot;arguments&quot;: {    &quot;url&quot;: &quot;https://example.com/challenge&quot;,    &quot;mode&quot;: &quot;hostile&quot;,    &quot;wait_for_selector&quot;: &quot;main&quot;,    &quot;total_timeout_secs&quot;: 60,    &quot;browserbase_enabled&quot;: true  }}"><div></div></button></div></figure></div>
+<p><code dir="auto">investigate</code></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"name"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">browser_acquire_and_extract</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"arguments"</span><span style="--0:#D6DEEB;--1:#403F53">: {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"url"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">https://example.com</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"mode"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">investigate</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"extraction_js"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">({ title: document.title, url: location.href })</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;name&quot;: &quot;browser_acquire_and_extract&quot;,  &quot;arguments&quot;: {    &quot;url&quot;: &quot;https://example.com&quot;,    &quot;mode&quot;: &quot;investigate&quot;,    &quot;extraction_js&quot;: &quot;({ title: document.title, url: location.href })&quot;  }}"><div></div></button></div></figure></div>
+<p>Migration note:</p>
+<ul>
+<li>Old low-level path: <code dir="auto">browser_acquire</code> -&gt; <code dir="auto">browser_navigate</code> -&gt; <code dir="auto">browser_eval</code>/<code dir="auto">browser_extract</code> -&gt; <code dir="auto">browser_release</code>.</li>
+<li>New runner path: one <code dir="auto">browser_acquire_and_extract</code> call with explicit <code dir="auto">mode</code> and optional <code dir="auto">browserbase_enabled</code>.</li>
+</ul>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="live-attach-test-end-to-end">Live Attach Test (End-to-End)</h2><a class="sl-anchor-link" href="#live-attach-test-end-to-end"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Live Attach Test (End-to-End)”</span></a></div>
+<p>Run a local Chrome with remote debugging enabled:</p>
+<div class="expressive-code"><figure class="frame is-terminal not-content"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="sh"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3B61B0">/Applications/Google\</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">Chrome.app/Contents/MacOS/Google</span><span style="--0:#F78C6C;--1:#AA0982">\ </span><span style="--0:#ECC48D;--1:#3B61B0">Chrome</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#F78C6C;--1:#AA0982">\</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#82AAFF;--1:#3B61B0">--remote-debugging-port=9222</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#F78C6C;--1:#AA0982">\</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#82AAFF;--1:#3B61B0">--user-data-dir=/tmp/stygian-attach-profile</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \  --remote-debugging-port=9222 \  --user-data-dir=/tmp/stygian-attach-profile"><div></div></button></div></figure></div>
+<p>Resolve the websocket endpoint and run the ignored attach integration test:</p>
+<div class="expressive-code"><figure class="frame is-terminal not-content"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="sh"><code><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">export</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">STYGIAN_ATTACH_WS_ENDPOINT</span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53">$(</span><span style="--0:#82AAFF;--1:#3B61B0">curl</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">-s</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">http://127.0.0.1:9222/json/version</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#7FDBCA;--1:#096E72">|</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">jq</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">-r</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">.webSocketDebuggerUrl</span><span style="--0:#D6DEEB;--1:#403F53">)</span></div></div><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3B61B0">cargo</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">test</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">-p</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">stygian-browser</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#F78C6C;--1:#AA0982">\</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#82AAFF;--1:#3B61B0">--features</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">mcp,mcp-attach</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#F78C6C;--1:#AA0982">\</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#82AAFF;--1:#3B61B0">--test</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">mcp_integration</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#F78C6C;--1:#AA0982">\</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#82AAFF;--1:#3B61B0">--</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--ignored</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--nocapture</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="export STYGIAN_ATTACH_WS_ENDPOINT=$(curl -s http://127.0.0.1:9222/json/version | jq -r .webSocketDebuggerUrl)cargo test -p stygian-browser \  --features &quot;mcp,mcp-attach&quot; \  --test mcp_integration \  -- --ignored --nocapture"><div></div></button></div></figure></div>
+<p>If <code dir="auto">STYGIAN_ATTACH_WS_ENDPOINT</code> is not set, the live attach test is skipped.</p>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="resources">Resources</h2><a class="sl-anchor-link" href="#resources"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Resources”</span></a></div>
+<p>The browser MCP exposes active sessions as MCP resources, readable via <code dir="auto">resources/read</code>.</p>
+<table>
+<thead>
+<tr>
+<th>URI pattern</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">browser://session/{session_id}</code></td>
+<td>State of a specific browser session</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example <code dir="auto">resources/read</code> request:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"jsonrpc"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">2.0</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">1</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"method"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">resources/read</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"params"</span><span style="--0:#D6DEEB;--1:#403F53">: { </span><span style="--0:#7FDBCA;--1:#096E72">"uri"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">browser://session/01HV4...</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> }</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;jsonrpc&quot;: &quot;2.0&quot;,  &quot;id&quot;: 1,  &quot;method&quot;: &quot;resources/read&quot;,  &quot;params&quot;: { &quot;uri&quot;: &quot;browser://session/01HV4...&quot; }}"><div></div></button></div></figure></div>
+<p><strong>Returns:</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"uri"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">browser://session/01HV4...</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"mimeType"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">application/json</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"text"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">{ </span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">session_id</span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">: </span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">01HV4...</span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">, </span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">config</span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">: { </span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">stealth_level</span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">: </span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">advanced</span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">, </span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">proxy</span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">: null }, </span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">pool_active</span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">: 1, </span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">pool_max</span><span style="--0:#F78C6C;--1:#AA0982">\"</span><span style="--0:#C789D6;--1:#7C5686">: 8 }</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;uri&quot;: &quot;browser://session/01HV4...&quot;,  &quot;mimeType&quot;: &quot;application/json&quot;,  &quot;text&quot;: &quot;{ \&quot;session_id\&quot;: \&quot;01HV4...\&quot;, \&quot;config\&quot;: { \&quot;stealth_level\&quot;: \&quot;advanced\&quot;, \&quot;proxy\&quot;: null }, \&quot;pool_active\&quot;: 1, \&quot;pool_max\&quot;: 8 }&quot;}"><div></div></button></div></figure></div>
+</div><footer class="sl-flex astro-z4kfsq4o"><div class="meta sl-flex astro-z4kfsq4o"><a href="https://github.com/greysquirr3l/stygian/edit/main/site/src/content/docs/mcp/browser-tools.md" class="sl-flex print:hidden astro-3zic6wp7"><svg aria-hidden="true" class="astro-3zic6wp7 astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.2em;"><path d="M22 7.24a1 1 0 0 0-.29-.71l-4.24-4.24a1 1 0 0 0-1.1-.22 1 1 0 0 0-.32.22l-2.83 2.83L2.29 16.05a1 1 0 0 0-.29.71V21a1 1 0 0 0 1 1h4.24a1 1 0 0 0 .76-.29l10.87-10.93L21.71 8c.1-.1.17-.2.22-.33a1 1 0 0 0 0-.24v-.14l.07-.05ZM6.83 20H4v-2.83l9.93-9.93 2.83 2.83L6.83 20ZM18.17 8.66l-2.83-2.83 1.42-1.41 2.82 2.82-1.41 1.42Z"/></svg>Edit page</a></div><div class="pagination-links print:hidden astro-hzll6ghe" dir="ltr"><a href="/stygian/mcp/graph-tools/" rel="prev" class="astro-hzll6ghe"><svg aria-hidden="true" class="astro-hzll6ghe astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span class="astro-hzll6ghe">Previous<br class="astro-hzll6ghe"><span class="link-title astro-hzll6ghe">Graph MCP Tools</span></span></a><a href="/stygian/mcp/proxy-tools/" rel="next" class="astro-hzll6ghe"><svg aria-hidden="true" class="astro-hzll6ghe astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-hzll6ghe">Next<br class="astro-hzll6ghe"><span class="link-title astro-hzll6ghe">Proxy MCP Tools</span></span></a></div></footer></div></div></main></div></div></div></div></body></html>

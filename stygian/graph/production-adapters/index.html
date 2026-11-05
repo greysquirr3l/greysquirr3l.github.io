@@ -1,0 +1,738 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-y4n5rscn"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Production Adapters | stygian</title><link rel="canonical" href="https://greysquirr3l.github.io/stygian/graph/production-adapters/"/><link rel="sitemap" href="/stygian/sitemap-index.xml"/><link rel="shortcut icon" href="/stygian/favicon.png" type="image/png"/><meta name="generator" content="Astro v7.4.5"/><meta name="generator" content="Starlight v0.42.8"/><meta property="og:title" content="Production Adapters"/><meta property="og:type" content="article"/><meta property="og:url" content="https://greysquirr3l.github.io/stygian/graph/production-adapters/"/><meta property="og:locale" content="en"/><meta property="og:description" content="High-performance web scraping toolkit for Rust"/><meta property="og:site_name" content="stygian"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="High-performance web scraping toolkit for Rust"/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/stygian/_astro/print.ehPL0gv-.css" media="print"><link rel="stylesheet" href="/stygian/_astro/common.B5bAlOho.css"><style>@layer starlight.components{svg:where(.astro-ermouj5c){color:var(--sl-icon-color);font-size:var(--sl-icon-size,1em);width:1em;height:1em;overflow:visible}}
+</style><script type="module" src="/stygian/_astro/page.D52QqX1q.js"></script></head><body class="astro-y4n5rscn"><a class="sl-skip-link astro-wabrupto" href="#_top">Skip to content</a><div class="page sl-flex astro-ix7cyrp5"><header class="header astro-ix7cyrp5"><div class="header astro-dgprvyty"><div class="title-wrapper sl-flex astro-dgprvyty"><a href="/stygian/" class="site-title sl-flex astro-su67xwyv"><img class="astro-su67xwyv" alt="stygian" src="/stygian/_astro/logo.DMHMKW8T.png" width="256" height="170"><span class="astro-su67xwyv" translate="no">stygian</span></a></div><div class="sl-flex print:hidden astro-dgprvyty"><site-search class="astro-dgprvyty astro-r6oqptsv" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"><button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-r6oqptsv"><svg aria-hidden="true" class="astro-r6oqptsv astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-r6oqptsv" aria-hidden="true">Search</span><kbd class="sl-hidden md:sl-flex astro-r6oqptsv" style="display: none;"><kbd class="astro-r6oqptsv">Ctrl</kbd><kbd class="astro-r6oqptsv">K</kbd></kbd></button><dialog style="padding:0" aria-label="Search" class="astro-r6oqptsv"><div class="dialog-frame sl-flex astro-r6oqptsv"><button data-close-modal class="sl-flex md:sl-hidden astro-r6oqptsv">Cancel</button><div class="search-container astro-r6oqptsv"><div id="starlight__search" class="astro-r6oqptsv"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/stygian/_astro/Search.astro_astro_type_script_index_0_lang.D7CNTmhQ.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-dgprvyty"><div class="sl-flex social-icons astro-dgprvyty"><a href="https://github.com/greysquirr3l/stygian" rel="me" class="sl-flex astro-7bvow46s"><span class="sr-only astro-7bvow46s">GitHub</span><svg aria-hidden="true" class="astro-7bvow46s astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-hhvesjpw"><span class="sr-only astro-hhvesjpw">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-hhvesjpw astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-hhvesjpw"><option value="dark" class="astro-hhvesjpw">Dark</option><option value="light" class="astro-hhvesjpw">Light</option><option value="auto" selected class="astro-hhvesjpw">Auto</option></select><svg aria-hidden="true" class="icon caret astro-hhvesjpw astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script><script type="module">var e=class extends HTMLElement{constructor(){super();let e=this.querySelector(`select`);e&&(e.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=e.currentTarget.value)}),window.addEventListener(`pageshow`,t=>{if(!t.persisted)return;let n=e.querySelector(`option[selected]`)?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}};customElements.define(`starlight-lang-select`,e);</script></div></div></header><nav class="sidebar print:hidden astro-ix7cyrp5" aria-label="Main"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-owup563u"><svg aria-hidden="true" class="open-menu astro-owup563u astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-owup563u astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-owup563u">Menu</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-ix7cyrp5"><div class="sidebar-content sl-flex astro-ix7cyrp5"><sl-sidebar-state-persist data-hash="00ae72z" class="astro-kdoejvr5"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-scnrn6wu"><li class="astro-scnrn6wu"><a href="/stygian/introduction/" class="large astro-scnrn6wu"><span class="astro-scnrn6wu">Introduction</span></a></li><li class="astro-scnrn6wu"><details open class="astro-scnrn6wu"><summary class="astro-scnrn6wu"><span class="group-label astro-scnrn6wu"><span class="large astro-scnrn6wu">The Graph Engine</span></span><svg aria-hidden="true" class="caret astro-scnrn6wu astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-scnrn6wu"><li class="astro-scnrn6wu"><a href="/stygian/graph/architecture/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Architecture</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/pipelines/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Building Pipelines</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/adapters/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Built-in Adapters</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/production-adapters/" aria-current="page" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Production Adapters</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/signing/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Request Signing</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/graphql-plugins/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">GraphQL Plugins</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/custom-adapters/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Custom Adapters</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/distributed/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Distributed Execution</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/escalation/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Tiered Escalation Pipeline</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/resilience/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Resilience &amp; Fallback Chains</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/data-sinks/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Data Sinks (DataSinkPort)</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/scrape-exchange/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Scrape Exchange Integration</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/observability/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Observability</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/graph/performance/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Performance Tuning</span></a></li></ul></details></li><li class="astro-scnrn6wu"><details open class="astro-scnrn6wu"><summary class="astro-scnrn6wu"><span class="group-label astro-scnrn6wu"><span class="large astro-scnrn6wu">Browser Automation</span></span><svg aria-hidden="true" class="caret astro-scnrn6wu astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul class="astro-scnrn6wu"><li class="astro-scnrn6wu"><a href="/stygian/browser/overview/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Browser Automation Overview</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/browser/configuration/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Configuration</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/browser/stealth/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Stealth, TLS Fingerprints, and Diagnostics</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/browser/pool/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Browser Pool</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/browser/page-operations/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Page Operations</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/browser/dom-query/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">DOM Query API</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/browser/extract/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Structured Extraction — `#[derive(Extract)]`</span></a></li></ul></details></li><li class="astro-scnrn6wu"><details open class="astro-scnrn6wu"><summary class="astro-scnrn6wu"><span class="group-label astro-scnrn6wu"><span class="large astro-scnrn6wu">Proxy Rotation</span></span><svg aria-hidden="true" class="caret astro-scnrn6wu astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul class="astro-scnrn6wu"><li class="astro-scnrn6wu"><a href="/stygian/proxy/overview/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Proxy Rotation Overview</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/proxy/strategies/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Rotation Strategies</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/proxy/sticky-sessions/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Sticky Sessions</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/proxy/health-circuit-breaker/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Health Checking &amp; Circuit Breaker</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/proxy/integrations/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Ecosystem Integrations</span></a></li></ul></details></li><li class="astro-scnrn6wu"><details open class="astro-scnrn6wu"><summary class="astro-scnrn6wu"><span class="group-label astro-scnrn6wu"><span class="large astro-scnrn6wu">Charon Diagnostics</span></span><svg aria-hidden="true" class="caret astro-scnrn6wu astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul class="astro-scnrn6wu"><li class="astro-scnrn6wu"><a href="/stygian/charon/overview/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Charon Overview</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/charon/getting-started/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Getting Started</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/charon/slo-policy/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">SLO &amp; Policy Planning</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/charon/operations/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Operations &amp; Runbooks</span></a></li></ul></details></li><li class="astro-scnrn6wu"><details open class="astro-scnrn6wu"><summary class="astro-scnrn6wu"><span class="group-label astro-scnrn6wu"><span class="large astro-scnrn6wu">Reference</span></span><svg aria-hidden="true" class="caret astro-scnrn6wu astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul class="astro-scnrn6wu"><li class="astro-scnrn6wu"><a href="/stygian/reference/charon-release/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Charon Release Notes</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/reference/backwards-compatibility/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Backwards Compatibility Policy</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/reference/env-vars/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Environment Variables</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/reference/security-policy/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Security Policy</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/reference/testing/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Testing &amp; Coverage</span></a></li></ul></details></li><li class="astro-scnrn6wu"><details open class="astro-scnrn6wu"><summary class="astro-scnrn6wu"><span class="group-label astro-scnrn6wu"><span class="large astro-scnrn6wu">MCP — Model Context Protocol</span></span><svg aria-hidden="true" class="caret astro-scnrn6wu astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="5"></sl-sidebar-restore><ul class="astro-scnrn6wu"><li class="astro-scnrn6wu"><a href="/stygian/mcp/overview/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">MCP — Model Context Protocol</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/mcp/graph-tools/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Graph MCP Tools</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/mcp/browser-tools/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Browser MCP Tools</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/mcp/proxy-tools/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Proxy MCP Tools</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/mcp/plugin-tools/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Plugin MCP Tools</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/mcp/plugin-persistence-pattern/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">Plugin Persistence Pattern</span></a></li><li class="astro-scnrn6wu"><a href="/stygian/mcp/aggregator/" class="astro-scnrn6wu"><span class="astro-scnrn6wu">The stygian-mcp Aggregator</span></a></li></ul></details></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-ouqakbey"><div class="social-icons astro-ouqakbey"><a href="https://github.com/greysquirr3l/stygian" rel="me" class="sl-flex astro-7bvow46s"><span class="sr-only astro-7bvow46s">GitHub</span><svg aria-hidden="true" class="astro-7bvow46s astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-hhvesjpw"><span class="sr-only astro-hhvesjpw">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-hhvesjpw astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-hhvesjpw"><option value="dark" class="astro-hhvesjpw">Dark</option><option value="light" class="astro-hhvesjpw">Light</option><option value="auto" selected class="astro-hhvesjpw">Auto</option></select><svg aria-hidden="true" class="icon caret astro-hhvesjpw astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-ix7cyrp5"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-w5fwjuwe"><aside class="right-sidebar-container print:hidden astro-w5fwjuwe"><div class="right-sidebar astro-w5fwjuwe"><div class="lg:sl-hidden astro-3arxgg77"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-rxol2rta"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-rxol2rta"><details id="starlight__mobile-toc" class="astro-rxol2rta"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-rxol2rta"><span class="toggle sl-flex astro-rxol2rta">On this page<svg aria-hidden="true" class="caret astro-rxol2rta astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-rxol2rta"></span></summary><div class="dropdown astro-rxol2rta"><ul class="isMobile astro-za52fwcw" style="--depth: 0;"><li style="--depth: 0;" class="astro-za52fwcw"><a href="#_top" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Overview</span></a></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#feature-flags" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Feature Flags</span></a></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#redisvalkey-cache" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Redis/Valkey Cache</span></a><ul class="isMobile astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#configuration" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Configuration</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#operations" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Operations</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#usage-in-pipeline-toml" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Usage in pipeline TOML</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#sitemap--sitemap-index-source" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Sitemap / Sitemap Index Source</span></a><ul class="isMobile astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#features" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Features</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#serviceinputparams" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">ServiceInput.params</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#output-format" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Output format</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#rss--atom-feed-source" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">RSS / Atom Feed Source</span></a><ul class="isMobile astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#serviceinputparams-1" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">ServiceInput.params</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#output-format-1" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Output format</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#websocket-stream-source" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">WebSocket Stream Source</span></a><ul class="isMobile astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#serviceinputparams-2" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">ServiceInput.params</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#csv--tsv-data-source" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">CSV / TSV Data Source</span></a><ul class="isMobile astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#serviceinputparams-3" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">ServiceInput.params</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#s3-compatible-object-storage" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">S3-Compatible Object Storage</span></a><ul class="isMobile astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#configuration-1" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Configuration</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#key-structure" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Key structure</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#scrapingservice-actions" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">ScrapingService actions</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#redis-streams-work-queue" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Redis Streams Work Queue</span></a><ul class="isMobile astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#configuration-2" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Configuration</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#operations-1" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Operations</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#webhook-trigger" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Webhook Trigger</span></a><ul class="isMobile astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#configuration-3" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Configuration</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#endpoints" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Endpoints</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#signature-verification" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Signature verification</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#scrapingservice-params" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">ScrapingService params</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#choosing-the-right-backend" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Choosing the Right Backend</span></a><ul class="isMobile astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#cache-backends" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Cache backends</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#storage-backends" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Storage backends</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#work-queue-backends" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Work queue backends</span></a></li></ul></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/stygian/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-3arxgg77"><div class="sl-container astro-3arxgg77"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-za52fwcw" style="--depth: 0;"><li style="--depth: 0;" class="astro-za52fwcw"><a href="#_top" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Overview</span></a></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#feature-flags" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Feature Flags</span></a></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#redisvalkey-cache" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Redis/Valkey Cache</span></a><ul class="astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#configuration" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Configuration</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#operations" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Operations</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#usage-in-pipeline-toml" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Usage in pipeline TOML</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#sitemap--sitemap-index-source" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Sitemap / Sitemap Index Source</span></a><ul class="astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#features" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Features</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#serviceinputparams" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">ServiceInput.params</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#output-format" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Output format</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#rss--atom-feed-source" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">RSS / Atom Feed Source</span></a><ul class="astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#serviceinputparams-1" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">ServiceInput.params</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#output-format-1" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Output format</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#websocket-stream-source" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">WebSocket Stream Source</span></a><ul class="astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#serviceinputparams-2" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">ServiceInput.params</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#csv--tsv-data-source" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">CSV / TSV Data Source</span></a><ul class="astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#serviceinputparams-3" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">ServiceInput.params</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#s3-compatible-object-storage" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">S3-Compatible Object Storage</span></a><ul class="astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#configuration-1" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Configuration</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#key-structure" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Key structure</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#scrapingservice-actions" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">ScrapingService actions</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#redis-streams-work-queue" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Redis Streams Work Queue</span></a><ul class="astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#configuration-2" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Configuration</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#operations-1" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Operations</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#webhook-trigger" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Webhook Trigger</span></a><ul class="astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#configuration-3" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Configuration</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#endpoints" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Endpoints</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#signature-verification" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Signature verification</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#scrapingservice-params" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">ScrapingService params</span></a></li></ul></li><li style="--depth: 0;" class="astro-za52fwcw"><a href="#choosing-the-right-backend" style="--depth: 0;" class="astro-za52fwcw"><span style="--depth: 0;" class="astro-za52fwcw">Choosing the Right Backend</span></a><ul class="astro-za52fwcw" style="--depth: 1;"><li style="--depth: 1;" class="astro-za52fwcw"><a href="#cache-backends" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Cache backends</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#storage-backends" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Storage backends</span></a></li><li style="--depth: 1;" class="astro-za52fwcw"><a href="#work-queue-backends" style="--depth: 1;" class="astro-za52fwcw"><span style="--depth: 1;" class="astro-za52fwcw">Work queue backends</span></a></li></ul></li></ul></nav></starlight-toc><script type="module" src="/stygian/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane astro-w5fwjuwe"><main data-pagefind-body class="astro-y4n5rscn" lang="en" dir="ltr"><div class="content-panel astro-sc4pvnli"><div class="sl-container astro-sc4pvnli"><h1 id="_top" class="astro-3aqmbasx">Production Adapters</h1></div></div><div class="content-panel astro-sc4pvnli"><div class="sl-container astro-sc4pvnli"><div class="sl-markdown-content"><p>This chapter covers adapters added beyond the core set, filling production gaps
+in caching, discovery, streaming, storage, distributed execution, and
+event-driven triggers.</p>
+<p>All adapters follow stygian’s hexagonal architecture: each implements a port
+trait and optionally <code dir="auto">ScrapingService</code> for pipeline integration. Most are
+feature-gated to keep the default build minimal.</p>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="feature-flags">Feature Flags</h2><a class="sl-anchor-link" href="#feature-flags"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Feature Flags”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Feature flag</th>
+<th>Crate dependency</th>
+<th>Adapters enabled</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">redis</code></td>
+<td><code dir="auto">redis</code>, <code dir="auto">deadpool-redis</code></td>
+<td>Redis/Valkey cache, Redis Streams work queue</td>
+</tr>
+<tr>
+<td><code dir="auto">object-storage</code></td>
+<td><code dir="auto">rust-s3</code></td>
+<td>S3-compatible object storage</td>
+</tr>
+<tr>
+<td><code dir="auto">api</code></td>
+<td><code dir="auto">axum</code>, <code dir="auto">hmac</code>, <code dir="auto">sha2</code></td>
+<td>Webhook trigger (HTTP listener)</td>
+</tr>
+<tr>
+<td><code dir="auto">full</code></td>
+<td>all of the above</td>
+<td>Everything</td>
+</tr>
+</tbody>
+</table>
+<p>Enable features in your <code dir="auto">Cargo.toml</code>:</p>
+<div class="expressive-code"><link rel="stylesheet" href="/stygian/_astro/ec.w36nc.css"><script type="module" src="/stygian/_astro/ec.0vx5m.js"></script><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="toml"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">[dependencies]</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">stygian-graph</span><span style="--0:#D6DEEB;--1:#403F53"> = { </span><span style="--0:#C5E478;--1:#3B61B0">version</span><span style="--0:#D6DEEB;--1:#403F53"> = </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">*</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#C5E478;--1:#3B61B0">features</span><span style="--0:#D6DEEB;--1:#403F53"> = [</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">redis</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">object-storage</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">api</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">] }</span></div></div><div class="ec-line"><div class="code"><span style="--0:#919F9F;--1:#5F636F"># or enable everything:</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">stygian-graph</span><span style="--0:#D6DEEB;--1:#403F53"> = { </span><span style="--0:#C5E478;--1:#3B61B0">version</span><span style="--0:#D6DEEB;--1:#403F53"> = </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">*</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#C5E478;--1:#3B61B0">features</span><span style="--0:#D6DEEB;--1:#403F53"> = [</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">full</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">] }</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="[dependencies]stygian-graph = { version = &quot;*&quot;, features = [&quot;redis&quot;, &quot;object-storage&quot;, &quot;api&quot;] }# or enable everything:stygian-graph = { version = &quot;*&quot;, features = [&quot;full&quot;] }"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="redisvalkey-cache">Redis/Valkey Cache</h2><a class="sl-anchor-link" href="#redisvalkey-cache"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Redis/Valkey Cache”</span></a></div>
+<p><strong>Port</strong>: <code dir="auto">CachePort</code>
+<strong>Module</strong>: <code dir="auto">adapters::cache_redis</code>
+<strong>Feature</strong>: <code dir="auto">redis</code>
+<strong>Service name</strong>: <code dir="auto">"cache-redis"</code></p>
+<p>Production-grade distributed cache backed by Redis or Valkey. Uses connection
+pooling via <code dir="auto">deadpool-redis</code> for high-concurrency access.</p>
+<pre class="mermaid">graph LR
+    A[Pipeline Node] --&gt;|get/set| B[CachePort]
+    B --&gt; C[RedisCache Adapter]
+    C --&gt; D[(Redis / Valkey)]</pre>
+<div class="sl-heading-wrapper level-h3"><h3 id="configuration">Configuration</h3><a class="sl-anchor-link" href="#configuration"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Configuration”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">url</code></td>
+<td><code dir="auto">String</code></td>
+<td><code dir="auto">"redis://127.0.0.1:6379"</code></td>
+<td>Redis connection URL</td>
+</tr>
+<tr>
+<td><code dir="auto">key_prefix</code></td>
+<td><code dir="auto">Option&lt;String&gt;</code></td>
+<td><code dir="auto">None</code></td>
+<td>Key namespace prefix for isolation</td>
+</tr>
+<tr>
+<td><code dir="auto">pool_size</code></td>
+<td><code dir="auto">usize</code></td>
+<td><code dir="auto">8</code></td>
+<td>Connection pool size</td>
+</tr>
+<tr>
+<td><code dir="auto">default_ttl</code></td>
+<td><code dir="auto">Option&lt;Duration&gt;</code></td>
+<td><code dir="auto">None</code></td>
+<td>Default TTL when <code dir="auto">set()</code> receives <code dir="auto">ttl = None</code></td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h3"><h3 id="operations">Operations</h3><a class="sl-anchor-link" href="#operations"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Operations”</span></a></div>
+<ul>
+<li><strong><code dir="auto">get(key)</code></strong> → Fetch a cached value by key (with namespace prefix)</li>
+<li><strong><code dir="auto">set(key, value, ttl)</code></strong> → Store a value with TTL (uses <code dir="auto">SETEX</code>)</li>
+<li><strong><code dir="auto">invalidate(key)</code></strong> → Delete a cached entry</li>
+<li><strong><code dir="auto">exists(key)</code></strong> → Check key existence without fetching the value</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="usage-in-pipeline-toml">Usage in pipeline TOML</h3><a class="sl-anchor-link" href="#usage-in-pipeline-toml"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Usage in pipeline TOML”</span></a></div>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="toml"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">[[services]]</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">name</span><span style="--0:#D6DEEB;--1:#403F53"> = </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">cache</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">kind</span><span style="--0:#D6DEEB;--1:#403F53"> = </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">cache-redis</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">[services.config]</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">url</span><span style="--0:#D6DEEB;--1:#403F53">        = </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">redis://127.0.0.1:6379</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">key_prefix</span><span style="--0:#D6DEEB;--1:#403F53"> = </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">myapp:cache</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">[[nodes]]</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">name</span><span style="--0:#D6DEEB;--1:#403F53">    = </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">fetch</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">service</span><span style="--0:#D6DEEB;--1:#403F53"> = </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">http</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">cache</span><span style="--0:#D6DEEB;--1:#403F53">   = </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">cache</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">[nodes.cache_config]</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">ttl_secs</span><span style="--0:#D6DEEB;--1:#403F53"> = </span><span style="--0:#F78C6C;--1:#AA0982">3600</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="[[services]]name = &quot;cache&quot;kind = &quot;cache-redis&quot;[services.config]url        = &quot;redis://127.0.0.1:6379&quot;key_prefix = &quot;myapp:cache&quot;[[nodes]]name    = &quot;fetch&quot;service = &quot;http&quot;cache   = &quot;cache&quot;[nodes.cache_config]ttl_secs = 3600"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="sitemap--sitemap-index-source">Sitemap / Sitemap Index Source</h2><a class="sl-anchor-link" href="#sitemap--sitemap-index-source"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Sitemap / Sitemap Index Source”</span></a></div>
+<p><strong>Port</strong>: <code dir="auto">ScrapingService</code>
+<strong>Module</strong>: <code dir="auto">adapters::sitemap</code>
+<strong>Feature</strong>: always available (no feature gate)
+<strong>Service name</strong>: <code dir="auto">"sitemap"</code></p>
+<p>Parses XML sitemaps (<code dir="auto">&lt;urlset&gt;</code>) and sitemap index files (<code dir="auto">&lt;sitemapindex&gt;</code>),
+emitting discovered URLs as structured JSON for downstream pipeline nodes.</p>
+<pre class="mermaid">graph LR
+    A[sitemap.xml] --&gt;|parse| B[SitemapAdapter]
+    B --&gt;|URL list| C[Pipeline Fan-out]
+    D[sitemap.xml.gz] --&gt;|decompress + parse| B</pre>
+<div class="sl-heading-wrapper level-h3"><h3 id="features">Features</h3><a class="sl-anchor-link" href="#features"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Features”</span></a></div>
+<ul>
+<li>Parses both <code dir="auto">&lt;urlset&gt;</code> and <code dir="auto">&lt;sitemapindex&gt;</code> root elements</li>
+<li>Recursive resolution of sitemap index entries</li>
+<li>Transparent decompression of <code dir="auto">.xml.gz</code> sitemaps (via <code dir="auto">flate2</code>)</li>
+<li>Extracts <code dir="auto">&lt;loc&gt;</code>, <code dir="auto">&lt;lastmod&gt;</code>, <code dir="auto">&lt;changefreq&gt;</code>, <code dir="auto">&lt;priority&gt;</code> per URL</li>
+<li>Date-range filtering via <code dir="auto">lastmod_after</code> parameter</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="serviceinputparams"><code dir="auto">ServiceInput.params</code></h3><a class="sl-anchor-link" href="#serviceinputparams"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “ServiceInput.params”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">lastmod_after</code></td>
+<td><code dir="auto">String</code> (ISO 8601)</td>
+<td>none</td>
+<td>Only include URLs modified after this date</td>
+</tr>
+<tr>
+<td><code dir="auto">max_depth</code></td>
+<td><code dir="auto">usize</code></td>
+<td><code dir="auto">3</code></td>
+<td>Max recursion depth for sitemap index</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h3"><h3 id="output-format">Output format</h3><a class="sl-anchor-link" href="#output-format"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Output format”</span></a></div>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"data"</span><span style="--0:#D6DEEB;--1:#403F53">: [</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#7FDBCA;--1:#096E72">"loc"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">https://example.com/page</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#7FDBCA;--1:#096E72">"lastmod"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">2025-06-01</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#7FDBCA;--1:#096E72">"changefreq"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">weekly</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#7FDBCA;--1:#096E72">"priority"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">0.8</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">],</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"metadata"</span><span style="--0:#D6DEEB;--1:#403F53">: {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"source"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">sitemap</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"url_count"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#F78C6C;--1:#AA0982">42</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"format"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">urlset</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;data&quot;: [    {      &quot;loc&quot;: &quot;https://example.com/page&quot;,      &quot;lastmod&quot;: &quot;2025-06-01&quot;,      &quot;changefreq&quot;: &quot;weekly&quot;,      &quot;priority&quot;: 0.8    }  ],  &quot;metadata&quot;: {    &quot;source&quot;: &quot;sitemap&quot;,    &quot;url_count&quot;: 42,    &quot;format&quot;: &quot;urlset&quot;  }}"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="rss--atom-feed-source">RSS / Atom Feed Source</h2><a class="sl-anchor-link" href="#rss--atom-feed-source"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “RSS / Atom Feed Source”</span></a></div>
+<p><strong>Port</strong>: <code dir="auto">ScrapingService</code>
+<strong>Module</strong>: <code dir="auto">adapters::rss_feed</code>
+<strong>Feature</strong>: always available (no feature gate)
+<strong>Service name</strong>: <code dir="auto">"rss-feed"</code></p>
+<p>Parses RSS 1.0, RSS 2.0, and Atom feeds using the <code dir="auto">feed-rs</code> crate, emitting
+feed items as structured JSON with feed-level metadata.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="serviceinputparams-1"><code dir="auto">ServiceInput.params</code></h3><a class="sl-anchor-link" href="#serviceinputparams-1"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “ServiceInput.params”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">since</code></td>
+<td><code dir="auto">String</code></td>
+<td>none</td>
+<td>Only include entries newer than this (ISO 8601 or duration like <code dir="auto">"24h"</code>)</td>
+</tr>
+<tr>
+<td><code dir="auto">limit</code></td>
+<td><code dir="auto">u32</code></td>
+<td>none</td>
+<td>Maximum number of items to return</td>
+</tr>
+<tr>
+<td><code dir="auto">categories</code></td>
+<td><code dir="auto">Array&lt;String&gt;</code></td>
+<td>none</td>
+<td>Filter to items matching these categories</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h3"><h3 id="output-format-1">Output format</h3><a class="sl-anchor-link" href="#output-format-1"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Output format”</span></a></div>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"data"</span><span style="--0:#D6DEEB;--1:#403F53">: [</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#7FDBCA;--1:#096E72">"title"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">Article Title</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#7FDBCA;--1:#096E72">"link"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">https://example.com/article</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#7FDBCA;--1:#096E72">"published"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">2025-06-15T10:00:00Z</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#7FDBCA;--1:#096E72">"summary"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">Article summary...</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#7FDBCA;--1:#096E72">"categories"</span><span style="--0:#D6DEEB;--1:#403F53">: [</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">tech</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">rust</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">],</span></div></div><div class="ec-line"><div class="code"><span class="indent">      </span><span style="--0:#7FDBCA;--1:#096E72">"authors"</span><span style="--0:#D6DEEB;--1:#403F53">: [</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">Author Name</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">]</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">],</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"metadata"</span><span style="--0:#D6DEEB;--1:#403F53">: {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"feed_title"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">Example Feed</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"feed_description"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">Latest articles</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"last_updated"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">2025-06-15T12:00:00Z</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;data&quot;: [    {      &quot;title&quot;: &quot;Article Title&quot;,      &quot;link&quot;: &quot;https://example.com/article&quot;,      &quot;published&quot;: &quot;2025-06-15T10:00:00Z&quot;,      &quot;summary&quot;: &quot;Article summary...&quot;,      &quot;categories&quot;: [&quot;tech&quot;, &quot;rust&quot;],      &quot;authors&quot;: [&quot;Author Name&quot;]    }  ],  &quot;metadata&quot;: {    &quot;feed_title&quot;: &quot;Example Feed&quot;,    &quot;feed_description&quot;: &quot;Latest articles&quot;,    &quot;last_updated&quot;: &quot;2025-06-15T12:00:00Z&quot;  }}"><div></div></button></div></figure></div>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="websocket-stream-source">WebSocket Stream Source</h2><a class="sl-anchor-link" href="#websocket-stream-source"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “WebSocket Stream Source”</span></a></div>
+<p><strong>Port</strong>: <code dir="auto">StreamSourcePort</code>
+<strong>Module</strong>: <code dir="auto">adapters::websocket</code>
+<strong>Feature</strong>: always available (no feature gate)
+<strong>Service name</strong>: <code dir="auto">"websocket"</code></p>
+<p>Real-time data ingestion from WebSocket APIs using <code dir="auto">tokio-tungstenite</code>. Supports
+text and binary frames, optional subscribe messages, and automatic reconnection.</p>
+<pre class="mermaid">graph LR
+    A[WebSocket API] --&gt;|frames| B[WebSocketAdapter]
+    B --&gt;|StreamEvent| C[Pipeline Node]
+    B -.-&gt;|reconnect| A</pre>
+<div class="sl-heading-wrapper level-h3"><h3 id="serviceinputparams-2"><code dir="auto">ServiceInput.params</code></h3><a class="sl-anchor-link" href="#serviceinputparams-2"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “ServiceInput.params”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">max_messages</code></td>
+<td><code dir="auto">u32</code></td>
+<td><code dir="auto">100</code></td>
+<td>Stop after collecting N messages</td>
+</tr>
+<tr>
+<td><code dir="auto">timeout_secs</code></td>
+<td><code dir="auto">u64</code></td>
+<td><code dir="auto">60</code></td>
+<td>Max seconds to wait for messages</td>
+</tr>
+<tr>
+<td><code dir="auto">subscribe_message</code></td>
+<td><code dir="auto">String</code></td>
+<td>none</td>
+<td>JSON message sent on connect (e.g. channel subscription)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="csv--tsv-data-source">CSV / TSV Data Source</h2><a class="sl-anchor-link" href="#csv--tsv-data-source"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “CSV / TSV Data Source”</span></a></div>
+<p><strong>Port</strong>: <code dir="auto">DataSourcePort</code>, <code dir="auto">ScrapingService</code>
+<strong>Module</strong>: <code dir="auto">adapters::csv_source</code>
+<strong>Feature</strong>: always available (no feature gate)
+<strong>Service name</strong>: <code dir="auto">"csv"</code></p>
+<p>Reads CSV and TSV files from local paths or HTTP URLs, outputting rows as
+structured JSON. Supports automatic delimiter detection, configurable headers,
+and row pagination.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="serviceinputparams-3"><code dir="auto">ServiceInput.params</code></h3><a class="sl-anchor-link" href="#serviceinputparams-3"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “ServiceInput.params”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">delimiter</code></td>
+<td><code dir="auto">String</code></td>
+<td>auto-detect</td>
+<td>Column delimiter (<code dir="auto">,</code>, <code dir="auto">\t</code>, <code dir="auto">;</code>, <code dir="auto">|</code>)</td>
+</tr>
+<tr>
+<td><code dir="auto">has_headers</code></td>
+<td><code dir="auto">bool</code></td>
+<td><code dir="auto">true</code></td>
+<td>Whether the first row contains column names</td>
+</tr>
+<tr>
+<td><code dir="auto">skip</code></td>
+<td><code dir="auto">usize</code></td>
+<td><code dir="auto">0</code></td>
+<td>Skip N rows before the header</td>
+</tr>
+<tr>
+<td><code dir="auto">limit</code></td>
+<td><code dir="auto">Option&lt;u64&gt;</code></td>
+<td>none</td>
+<td>Limit number of rows processed</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="s3-compatible-object-storage">S3-Compatible Object Storage</h2><a class="sl-anchor-link" href="#s3-compatible-object-storage"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “S3-Compatible Object Storage”</span></a></div>
+<p><strong>Port</strong>: <code dir="auto">StoragePort</code>, <code dir="auto">ScrapingService</code>
+<strong>Module</strong>: <code dir="auto">adapters::storage_s3</code>
+<strong>Feature</strong>: <code dir="auto">object-storage</code>
+<strong>Service name</strong>: <code dir="auto">"storage-s3"</code></p>
+<p>Stores and retrieves pipeline data in any S3-compatible object storage (AWS S3,
+MinIO, Cloudflare R2, DigitalOcean Spaces).</p>
+<pre class="mermaid">graph LR
+    A[Pipeline Node] --&gt;|store/retrieve| B[StoragePort]
+    B --&gt; C[S3Storage Adapter]
+    C --&gt; D[(S3 / MinIO / R2)]</pre>
+<div class="sl-heading-wrapper level-h3"><h3 id="configuration-1">Configuration</h3><a class="sl-anchor-link" href="#configuration-1"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Configuration”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">bucket</code></td>
+<td><code dir="auto">String</code></td>
+<td>required</td>
+<td>S3 bucket name</td>
+</tr>
+<tr>
+<td><code dir="auto">region</code></td>
+<td><code dir="auto">String</code></td>
+<td><code dir="auto">"us-east-1"</code></td>
+<td>AWS region or compatible region string</td>
+</tr>
+<tr>
+<td><code dir="auto">endpoint</code></td>
+<td><code dir="auto">String</code></td>
+<td>none</td>
+<td>Custom endpoint URL (required for MinIO, R2)</td>
+</tr>
+<tr>
+<td><code dir="auto">prefix</code></td>
+<td><code dir="auto">String</code></td>
+<td><code dir="auto">""</code></td>
+<td>Key prefix for all stored objects</td>
+</tr>
+<tr>
+<td><code dir="auto">path_style</code></td>
+<td><code dir="auto">bool</code></td>
+<td><code dir="auto">false</code></td>
+<td>Use path-style URLs (required for MinIO)</td>
+</tr>
+<tr>
+<td><code dir="auto">access_key</code></td>
+<td><code dir="auto">String</code></td>
+<td>env var</td>
+<td>S3 access key (or <code dir="auto">AWS_ACCESS_KEY_ID</code> env)</td>
+</tr>
+<tr>
+<td><code dir="auto">secret_key</code></td>
+<td><code dir="auto">String</code></td>
+<td>env var</td>
+<td>S3 secret key (or <code dir="auto">AWS_SECRET_ACCESS_KEY</code> env)</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h3"><h3 id="key-structure">Key structure</h3><a class="sl-anchor-link" href="#key-structure"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Key structure”</span></a></div>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="text"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">{prefix}/{pipeline_id}/{node_name}/{record_id}.json   ← data objects</span></div></div><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">{prefix}/_index/{id}                                    ← index for O(1) lookups</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{prefix}/{pipeline_id}/{node_name}/{record_id}.json   ← data objects{prefix}/_index/{id}                                    ← index for O(1) lookups"><div></div></button></div></figure></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="scrapingservice-actions">ScrapingService actions</h3><a class="sl-anchor-link" href="#scrapingservice-actions"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “ScrapingService actions”</span></a></div>
+<table>
+<thead>
+<tr>
+<th><code dir="auto">params.action</code></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">"store"</code></td>
+<td>Store upstream data as a JSON object</td>
+</tr>
+<tr>
+<td><code dir="auto">"get"</code></td>
+<td>Retrieve a specific object by ID</td>
+</tr>
+<tr>
+<td><code dir="auto">"list"</code></td>
+<td>List objects under a pipeline prefix</td>
+</tr>
+</tbody>
+</table>
+<p>Objects larger than 5 MiB use multipart upload automatically.</p>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="redis-streams-work-queue">Redis Streams Work Queue</h2><a class="sl-anchor-link" href="#redis-streams-work-queue"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Redis Streams Work Queue”</span></a></div>
+<p><strong>Port</strong>: <code dir="auto">WorkQueuePort</code>
+<strong>Module</strong>: <code dir="auto">adapters::distributed_redis</code>
+<strong>Feature</strong>: <code dir="auto">redis</code>
+<strong>Service name</strong>: <code dir="auto">"distributed-redis"</code></p>
+<p>Distributed task queue using Redis Streams for reliable, horizontally-scaled
+pipeline execution. Supports consumer groups, dead-letter queues, and stuck
+task reclamation.</p>
+<pre class="mermaid">graph TB
+    subgraph Workers
+        W1[Worker 1]
+        W2[Worker 2]
+        W3[Worker 3]
+    end
+    subgraph Redis
+        S[Stream: pipeline tasks]
+        CG[Consumer Group]
+        DLQ[Dead Letter Queue]
+    end
+    W1 &amp; W2 &amp; W3 --&gt;|XREADGROUP| CG
+    CG --&gt; S
+    S --&gt;|max retries exceeded| DLQ</pre>
+<div class="sl-heading-wrapper level-h3"><h3 id="configuration-2">Configuration</h3><a class="sl-anchor-link" href="#configuration-2"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Configuration”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">url</code></td>
+<td><code dir="auto">String</code></td>
+<td><code dir="auto">"redis://127.0.0.1:6379"</code></td>
+<td>Redis connection URL</td>
+</tr>
+<tr>
+<td><code dir="auto">stream_name</code></td>
+<td><code dir="auto">String</code></td>
+<td><code dir="auto">"stygian:tasks"</code></td>
+<td>Redis stream key</td>
+</tr>
+<tr>
+<td><code dir="auto">group_name</code></td>
+<td><code dir="auto">String</code></td>
+<td><code dir="auto">"stygian-workers"</code></td>
+<td>Consumer group name</td>
+</tr>
+<tr>
+<td><code dir="auto">consumer_name</code></td>
+<td><code dir="auto">String</code></td>
+<td><code dir="auto">"{hostname}:{pid}"</code></td>
+<td>Unique consumer name (auto-generated)</td>
+</tr>
+<tr>
+<td><code dir="auto">max_retries</code></td>
+<td><code dir="auto">u32</code></td>
+<td><code dir="auto">3</code></td>
+<td>Max retries before dead-letter</td>
+</tr>
+<tr>
+<td><code dir="auto">block_timeout_ms</code></td>
+<td><code dir="auto">usize</code></td>
+<td><code dir="auto">1000</code></td>
+<td>Block timeout for XREADGROUP</td>
+</tr>
+<tr>
+<td><code dir="auto">idle_threshold_ms</code></td>
+<td><code dir="auto">usize</code></td>
+<td><code dir="auto">30000</code></td>
+<td>Reclaim stuck tasks after this duration</td>
+</tr>
+<tr>
+<td><code dir="auto">pool_size</code></td>
+<td><code dir="auto">usize</code></td>
+<td><code dir="auto">8</code></td>
+<td>Connection pool size</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h3"><h3 id="operations-1">Operations</h3><a class="sl-anchor-link" href="#operations-1"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Operations”</span></a></div>
+<ul>
+<li><strong>Enqueue</strong>: <code dir="auto">XADD</code> with task payload; task metadata stored in <code dir="auto">{stream}:tasks:{id}</code></li>
+<li><strong>Dequeue</strong>: <code dir="auto">XREADGROUP</code> with consumer group (competing-consumer pattern)</li>
+<li><strong>Acknowledge</strong>: <code dir="auto">XACK</code> + metadata update on success; retry counter on failure</li>
+<li><strong>Dead-letter</strong>: After <code dir="auto">max_retries</code>, task moved to <code dir="auto">{stream}:dlq</code></li>
+<li><strong>Reclaim</strong>: <code dir="auto">XCLAIM</code> for tasks idle longer than <code dir="auto">idle_threshold_ms</code></li>
+</ul>
+<p>Consumer names are <code dir="auto">{hostname}:{pid}</code> for traceability.</p>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="webhook-trigger">Webhook Trigger</h2><a class="sl-anchor-link" href="#webhook-trigger"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Webhook Trigger”</span></a></div>
+<p><strong>Port</strong>: <code dir="auto">WebhookTrigger</code>, <code dir="auto">ScrapingService</code>
+<strong>Module</strong>: <code dir="auto">adapters::webhook</code>
+<strong>Feature</strong>: <code dir="auto">api</code>
+<strong>Service name</strong>: <code dir="auto">"webhook-trigger"</code></p>
+<p>Axum-based HTTP listener for event-driven pipeline execution. Accepts inbound
+webhook POST requests, verifies HMAC-SHA256 signatures, and emits events to
+the pipeline.</p>
+<pre class="mermaid">graph LR
+    A[External System] --&gt;|POST /webhooks/trigger| B[AxumWebhookTrigger]
+    B --&gt;|WebhookEvent| C[Pipeline Node]
+    B --&gt;|broadcast channel| D[Multiple Subscribers]
+    E[Health Check] --&gt;|GET /webhooks/health| B</pre>
+<div class="sl-heading-wrapper level-h3"><h3 id="configuration-3">Configuration</h3><a class="sl-anchor-link" href="#configuration-3"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Configuration”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">bind_address</code></td>
+<td><code dir="auto">String</code></td>
+<td><code dir="auto">"127.0.0.1:3001"</code></td>
+<td>Address to bind the HTTP listener</td>
+</tr>
+<tr>
+<td><code dir="auto">path_prefix</code></td>
+<td><code dir="auto">String</code></td>
+<td><code dir="auto">"/webhooks"</code></td>
+<td>URL path prefix for routes</td>
+</tr>
+<tr>
+<td><code dir="auto">secret</code></td>
+<td><code dir="auto">String</code></td>
+<td>none</td>
+<td>HMAC-SHA256 secret for signature verification</td>
+</tr>
+<tr>
+<td><code dir="auto">max_body_size</code></td>
+<td><code dir="auto">usize</code></td>
+<td><code dir="auto">1048576</code> (1 MiB)</td>
+<td>Maximum request body size</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h3"><h3 id="endpoints">Endpoints</h3><a class="sl-anchor-link" href="#endpoints"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Endpoints”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">POST</code></td>
+<td><code dir="auto">/{prefix}/trigger</code></td>
+<td>Accept webhook payload</td>
+</tr>
+<tr>
+<td><code dir="auto">GET</code></td>
+<td><code dir="auto">/{prefix}/health</code></td>
+<td>Health check (returns 200 OK)</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h3"><h3 id="signature-verification">Signature verification</h3><a class="sl-anchor-link" href="#signature-verification"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Signature verification”</span></a></div>
+<p>When <code dir="auto">secret</code> is configured, the adapter requires an <code dir="auto">X-Hub-Signature-256</code>
+header (GitHub-compatible format):</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="plaintext"><code><div class="ec-line"><div class="code"><span style="--0:#d6deeb;--1:#403f53">X-Hub-Signature-256: sha256=&lt;hex-encoded-hmac&gt;</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="X-Hub-Signature-256: sha256=<hex-encoded-hmac>"><div></div></button></div></figure></div>
+<p>Requests without a valid signature receive <code dir="auto">401 Unauthorized</code>.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="scrapingservice-params">ScrapingService params</h3><a class="sl-anchor-link" href="#scrapingservice-params"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “ScrapingService params”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">path_prefix</code></td>
+<td><code dir="auto">String</code></td>
+<td><code dir="auto">"/webhooks"</code></td>
+<td>URL path prefix</td>
+</tr>
+<tr>
+<td><code dir="auto">secret</code></td>
+<td><code dir="auto">String</code></td>
+<td>none</td>
+<td>HMAC secret</td>
+</tr>
+<tr>
+<td><code dir="auto">timeout_secs</code></td>
+<td><code dir="auto">u64</code></td>
+<td><code dir="auto">60</code></td>
+<td>Max seconds to wait for an event</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="sl-heading-wrapper level-h2"><h2 id="choosing-the-right-backend">Choosing the Right Backend</h2><a class="sl-anchor-link" href="#choosing-the-right-backend"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Choosing the Right Backend”</span></a></div>
+<div class="sl-heading-wrapper level-h3"><h3 id="cache-backends">Cache backends</h3><a class="sl-anchor-link" href="#cache-backends"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Cache backends”</span></a></div>
+<pre class="mermaid">graph TD
+    Q{Need shared cache&lt;br&gt;across workers?}
+    Q --&gt;|Yes| R[Redis/Valkey Cache]
+    Q --&gt;|No| M[In-Memory Cache]
+    R --&gt; P{Multiple Redis nodes?}
+    P --&gt;|Yes| C[Redis Cluster mode]
+    P --&gt;|No| S[Single Redis instance]</pre>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Best for</th>
+<th>Persistence</th>
+<th>Shared</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In-memory</td>
+<td>Development, single-worker</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Redis/Valkey</td>
+<td>Production, multi-worker</td>
+<td>Optional (AOF/RDB)</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h3"><h3 id="storage-backends">Storage backends</h3><a class="sl-anchor-link" href="#storage-backends"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Storage backends”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Best for</th>
+<th>Cloud-native</th>
+<th>Feature flag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File system</td>
+<td>Development, local runs</td>
+<td>No</td>
+<td>none</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>Transactional workloads</td>
+<td>Partial</td>
+<td><code dir="auto">postgres</code></td>
+</tr>
+<tr>
+<td>S3-compatible</td>
+<td>Cloud production, large objects</td>
+<td>Yes</td>
+<td><code dir="auto">object-storage</code></td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h3"><h3 id="work-queue-backends">Work queue backends</h3><a class="sl-anchor-link" href="#work-queue-backends"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Work queue backends”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Best for</th>
+<th>Distributed</th>
+<th>Feature flag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Local queue</td>
+<td>Development, single-process</td>
+<td>No</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Redis Streams</td>
+<td>Production, multi-worker</td>
+<td>Yes</td>
+<td><code dir="auto">redis</code></td>
+</tr>
+</tbody>
+</table>
+</div><footer class="sl-flex astro-z4kfsq4o"><div class="meta sl-flex astro-z4kfsq4o"><a href="https://github.com/greysquirr3l/stygian/edit/main/site/src/content/docs/graph/production-adapters.md" class="sl-flex print:hidden astro-3zic6wp7"><svg aria-hidden="true" class="astro-3zic6wp7 astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.2em;"><path d="M22 7.24a1 1 0 0 0-.29-.71l-4.24-4.24a1 1 0 0 0-1.1-.22 1 1 0 0 0-.32.22l-2.83 2.83L2.29 16.05a1 1 0 0 0-.29.71V21a1 1 0 0 0 1 1h4.24a1 1 0 0 0 .76-.29l10.87-10.93L21.71 8c.1-.1.17-.2.22-.33a1 1 0 0 0 0-.24v-.14l.07-.05ZM6.83 20H4v-2.83l9.93-9.93 2.83 2.83L6.83 20ZM18.17 8.66l-2.83-2.83 1.42-1.41 2.82 2.82-1.41 1.42Z"/></svg>Edit page</a></div><div class="pagination-links print:hidden astro-hzll6ghe" dir="ltr"><a href="/stygian/graph/adapters/" rel="prev" class="astro-hzll6ghe"><svg aria-hidden="true" class="astro-hzll6ghe astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span class="astro-hzll6ghe">Previous<br class="astro-hzll6ghe"><span class="link-title astro-hzll6ghe">Built-in Adapters</span></span></a><a href="/stygian/graph/signing/" rel="next" class="astro-hzll6ghe"><svg aria-hidden="true" class="astro-hzll6ghe astro-ermouj5c" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-hzll6ghe">Next<br class="astro-hzll6ghe"><span class="link-title astro-hzll6ghe">Request Signing</span></span></a></div></footer></div></div></main></div></div></div></div></body></html>
