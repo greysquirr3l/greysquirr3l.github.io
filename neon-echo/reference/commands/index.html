@@ -1,0 +1,313 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-mq7rmfn4"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Tauri commands | Neon Echo</title><link rel="canonical" href="https://greysquirr3l.github.io/neon-echo/reference/commands/"/><link rel="sitemap" href="/neon-echo/sitemap-index.xml"/><script>(function(){try{var t=localStorage.getItem('starlight-theme');if(t==='light'||t==='dark'){document.documentElement.dataset.theme=t;return}document.documentElement.dataset.theme='light';localStorage.setItem('starlight-theme','light')}catch(e){document.documentElement.dataset.theme='light'}})();</script><link rel="shortcut icon" href="/neon-echo/favicon.png" type="image/png"/><meta name="generator" content="Astro v7.4.7"/><meta name="generator" content="Starlight v0.42.10"/><meta property="og:title" content="Tauri commands"/><meta property="og:type" content="article"/><meta property="og:url" content="https://greysquirr3l.github.io/neon-echo/reference/commands/"/><meta property="og:locale" content="en"/><meta property="og:description" content="Every command the Rust backend exposes to the frontend."/><meta property="og:site_name" content="Neon Echo"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Every command the Rust backend exposes to the frontend."/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-uwztnqpj" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-uwztnqpj" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-uwztnqpj" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/neon-echo/_astro/print.C9eyqPGL.css" media="print"><link rel="stylesheet" href="/neon-echo/_astro/common.Ch8mL8cZ.css"><style>@layer starlight.components{svg:where(.astro-uwztnqpj){color:var(--sl-icon-color);font-size:var(--sl-icon-size,1em);width:1em;height:1em;overflow:visible}}
+</style><script type="module" src="/neon-echo/_astro/page.cNngjUgL.js"></script></head><body class="astro-mq7rmfn4"><a class="sl-skip-link astro-zqbp6nrm" href="#_top">Skip to content</a><div class="page sl-flex astro-lydbhi7u"><header class="header astro-lydbhi7u"><div class="header astro-ugmymflj"><div class="title-wrapper sl-flex astro-ugmymflj"><a href="/neon-echo/" class="site-title sl-flex astro-3ckyjkol"><img class="astro-3ckyjkol" alt="Neon Echo" src="/neon-echo/_astro/logo.DLeKqyzD.png" width="512" height="512"><span class="astro-3ckyjkol" translate="no">Neon Echo</span></a></div><div class="sl-flex print:hidden astro-ugmymflj"><site-search class="astro-ugmymflj astro-5bbzmtip" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"><button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-5bbzmtip"><svg aria-hidden="true" class="astro-5bbzmtip astro-uwztnqpj" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-5bbzmtip" aria-hidden="true">Search</span><kbd class="sl-hidden md:sl-flex astro-5bbzmtip" style="display: none"><kbd class="astro-5bbzmtip">Ctrl</kbd><kbd class="astro-5bbzmtip">K</kbd></kbd></button><dialog style="padding: 0" aria-label="Search" class="astro-5bbzmtip"><div class="dialog-frame sl-flex astro-5bbzmtip"><button data-close-modal class="sl-flex md:sl-hidden astro-5bbzmtip">Cancel</button><div class="search-container astro-5bbzmtip"><div id="starlight__search" class="astro-5bbzmtip"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/neon-echo/_astro/Search.astro_astro_type_script_index_0_lang.C9zFMZrC.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-ugmymflj"><div class="sl-flex social-icons astro-ugmymflj"><a href="https://github.com/greysquirr3l/sparklepony" rel="me" class="sl-flex astro-pchiyryj"><span class="sr-only astro-pchiyryj">GitHub</span><svg aria-hidden="true" class="astro-pchiyryj astro-uwztnqpj" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-ehcdm7w5"><span class="sr-only astro-ehcdm7w5">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-ehcdm7w5 astro-uwztnqpj" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-ehcdm7w5"><option value="dark" class="astro-ehcdm7w5">Dark</option><option value="light" class="astro-ehcdm7w5">Light</option><option value="auto" selected class="astro-ehcdm7w5">Auto</option></select><svg aria-hidden="true" class="icon caret astro-ehcdm7w5 astro-uwztnqpj" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script><script type="module">var e=class extends HTMLElement{constructor(){super();let e=this.querySelector(`select`);e&&(e.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=e.currentTarget.value)}),window.addEventListener(`pageshow`,t=>{if(!t.persisted)return;let n=e.querySelector(`option[selected]`)?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}};customElements.define(`starlight-lang-select`,e);</script></div></div></header><nav class="sidebar print:hidden astro-lydbhi7u" aria-label="Main"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-lw4qtg3r"><svg aria-hidden="true" class="open-menu astro-lw4qtg3r astro-uwztnqpj" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-lw4qtg3r astro-uwztnqpj" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-lw4qtg3r">Menu</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-lydbhi7u"><div class="sidebar-content sl-flex astro-lydbhi7u"><sl-sidebar-state-persist data-hash="1fjosdw" class="astro-ylf6jeo6"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-un3gx6al"><li class="astro-un3gx6al"><details open class="astro-un3gx6al"><summary class="astro-un3gx6al"><span class="group-label astro-un3gx6al"><span class="large astro-un3gx6al">Getting started</span></span><svg aria-hidden="true" class="caret astro-un3gx6al astro-uwztnqpj" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-un3gx6al"><li class="astro-un3gx6al"><a href="/neon-echo/getting-started/installation/" class="astro-un3gx6al"><span class="astro-un3gx6al">Installation</span></a></li><li class="astro-un3gx6al"><a href="/neon-echo/getting-started/releases/" class="astro-un3gx6al"><span class="astro-un3gx6al">Releases</span></a></li></ul></details></li><li class="astro-un3gx6al"><details open class="astro-un3gx6al"><summary class="astro-un3gx6al"><span class="group-label astro-un3gx6al"><span class="large astro-un3gx6al">Guides</span></span><svg aria-hidden="true" class="caret astro-un3gx6al astro-uwztnqpj" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul class="astro-un3gx6al"><li class="astro-un3gx6al"><a href="/neon-echo/guides/architecture/" class="astro-un3gx6al"><span class="astro-un3gx6al">Architecture</span></a></li><li class="astro-un3gx6al"><a href="/neon-echo/guides/workflow/" class="astro-un3gx6al"><span class="astro-un3gx6al">The workflow</span></a></li></ul></details></li><li class="astro-un3gx6al"><details open class="astro-un3gx6al"><summary class="astro-un3gx6al"><span class="group-label astro-un3gx6al"><span class="large astro-un3gx6al">Reference</span></span><svg aria-hidden="true" class="caret astro-un3gx6al astro-uwztnqpj" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul class="astro-un3gx6al"><li class="astro-un3gx6al"><a href="/neon-echo/reference/commands/" aria-current="page" class="astro-un3gx6al"><span class="astro-un3gx6al">Tauri commands</span></a></li></ul></details></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-ubekdxju"><div class="social-icons astro-ubekdxju"><a href="https://github.com/greysquirr3l/sparklepony" rel="me" class="sl-flex astro-pchiyryj"><span class="sr-only astro-pchiyryj">GitHub</span><svg aria-hidden="true" class="astro-pchiyryj astro-uwztnqpj" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-ehcdm7w5"><span class="sr-only astro-ehcdm7w5">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-ehcdm7w5 astro-uwztnqpj" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-ehcdm7w5"><option value="dark" class="astro-ehcdm7w5">Dark</option><option value="light" class="astro-ehcdm7w5">Light</option><option value="auto" selected class="astro-ehcdm7w5">Auto</option></select><svg aria-hidden="true" class="icon caret astro-ehcdm7w5 astro-uwztnqpj" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-lydbhi7u"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-cgm33txw"><aside class="right-sidebar-container print:hidden astro-cgm33txw"><div class="right-sidebar astro-cgm33txw"><div class="lg:sl-hidden astro-2u7buw2x"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-zn3plemz"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-zn3plemz"><details id="starlight__mobile-toc" class="astro-zn3plemz"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-zn3plemz"><span class="toggle sl-flex astro-zn3plemz">On this page<svg aria-hidden="true" class="caret astro-zn3plemz astro-uwztnqpj" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-zn3plemz"></span></summary><div class="dropdown astro-zn3plemz"><ul class="isMobile astro-vc3z3wtm" style="--depth: 0;"><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#_top" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">Overview</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#version" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">version</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#system_info" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">system_info</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#preview_input" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">preview_input</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#extract" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">extract</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#cleanup_validate_emails" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">cleanup_validate_emails</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#cleanup_validate_mx" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">cleanup_validate_mx</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#cleanup_exclude" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">cleanup_exclude</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#load_blacklist" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">load_blacklist</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#save_blacklist" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">save_blacklist</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#default_blacklist" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">default_blacklist</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#default_paths" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">default_paths</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#events" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">Events</span></a></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/neon-echo/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-2u7buw2x"><div class="sl-container astro-2u7buw2x"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-vc3z3wtm" style="--depth: 0;"><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#_top" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">Overview</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#version" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">version</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#system_info" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">system_info</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#preview_input" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">preview_input</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#extract" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">extract</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#cleanup_validate_emails" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">cleanup_validate_emails</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#cleanup_validate_mx" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">cleanup_validate_mx</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#cleanup_exclude" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">cleanup_exclude</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#load_blacklist" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">load_blacklist</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#save_blacklist" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">save_blacklist</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#default_blacklist" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">default_blacklist</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#default_paths" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">default_paths</span></a></li><li style="--depth: 0;" class="astro-vc3z3wtm"><a href="#events" style="--depth: 0;" class="astro-vc3z3wtm"><span style="--depth: 0;" class="astro-vc3z3wtm">Events</span></a></li></ul></nav></starlight-toc><script type="module" src="/neon-echo/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane astro-cgm33txw"><main data-pagefind-body class="astro-mq7rmfn4" lang="en" dir="ltr"><div class="content-panel astro-rj727ajf"><div class="sl-container astro-rj727ajf"><h1 id="_top" class="astro-6rsctpao">Tauri commands</h1></div></div><div class="content-panel astro-rj727ajf"><div class="sl-container astro-rj727ajf"><div class="sl-markdown-content"><p>The backend exposes eleven commands. All of them are declared in
+<code dir="auto">src-tauri/src/lib.rs</code> and registered in a single <code dir="auto">generate_handler!</code> call.</p>
+<p>Commands marked <strong>async</strong> run through <code dir="auto">off_main</code> — they are dispatched to
+Tauri’s blocking thread pool so the window event loop keeps running.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="version"><code dir="auto">version</code></h2><a class="sl-anchor-link" href="#version"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “version”</span></a></div>
+<p>Returns build metadata. Synchronous — there is no work to do.</p>
+<div class="expressive-code"><link rel="stylesheet" href="/neon-echo/_astro/ec.w36nc.css"><script type="module" src="/neon-echo/_astro/ec.0vx5m.js"></script><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">VersionInfo {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C5E478;--1:#3B61B0">version</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#7FDBCA;--1:#096E72">&amp;</span><span style="--0:#D6DEEB;--1:#403F53">'static str,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C5E478;--1:#3B61B0">full</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> String,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C5E478;--1:#3B61B0">commit</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#7FDBCA;--1:#096E72">&amp;</span><span style="--0:#D6DEEB;--1:#403F53">'static str,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C5E478;--1:#3B61B0">branch</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#7FDBCA;--1:#096E72">&amp;</span><span style="--0:#D6DEEB;--1:#403F53">'static str,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C5E478;--1:#3B61B0">rustc</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#7FDBCA;--1:#096E72">&amp;</span><span style="--0:#D6DEEB;--1:#403F53">'static str,</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="VersionInfo {    version: &amp;&#x27;static str,    full: String,    commit: &amp;&#x27;static str,    branch: &amp;&#x27;static str,    rustc: &amp;&#x27;static str,}"><div></div></button></div></figure></div>
+<p>The version comes from <code dir="auto">sparklepony::version</code>, which injects the values at
+compile time via <code dir="auto">build.rs</code>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="system_info"><code dir="auto">system_info</code></h2><a class="sl-anchor-link" href="#system_info"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “system_info”</span></a></div>
+<p>Live machine stats for the header chip. <strong>Async.</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">Result&lt;SystemStats, String&gt;</span></div></div><div class="ec-line"><div class="code"><span style="--0:#919F9F;--1:#5D6376">// SystemStats { cpu_percent: f64, memory_percent: f64, memory_available_mb: u64 }</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="Result<SystemStats, String>// SystemStats { cpu_percent: f64, memory_percent: f64, memory_available_mb: u64 }"><div></div></button></div></figure></div>
+<div class="sl-heading-wrapper level-h2"><h2 id="preview_input"><code dir="auto">preview_input</code></h2><a class="sl-anchor-link" href="#preview_input"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “preview_input”</span></a></div>
+<p>Pre-flight scan of the input tree. <strong>Async.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">path</code></td>
+<td><code dir="auto">String</code></td>
+<td>File or directory to scan</td>
+</tr>
+</tbody>
+</table>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">Result&lt;PreviewResult, String&gt;</span></div></div><div class="ec-line"><div class="code"><span style="--0:#919F9F;--1:#5D6376">// PreviewResult { items: Vec&lt;WorkItemDto&gt;, total_bytes: u64 }</span></div></div><div class="ec-line"><div class="code"><span style="--0:#919F9F;--1:#5D6376">// WorkItemDto   { name: String, kind: &amp;'static str, part_count: usize, total_len: u64 }</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="Result<PreviewResult, String>// PreviewResult { items: Vec<WorkItemDto>, total_bytes: u64 }// WorkItemDto   { name: String, kind: &amp;&#x27;static str, part_count: usize, total_len: u64 }"><div></div></button></div></figure></div>
+<p><code dir="auto">part_count</code> is how many pieces a split archive resolved into. <code dir="auto">kind</code>
+identifies the input form — a PST, a ZIP, or a multi-part archive.</p>
+<p>This does not open a single mailbox. It walks the tree and counts.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="extract"><code dir="auto">extract</code></h2><a class="sl-anchor-link" href="#extract"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “extract”</span></a></div>
+<p>The full extraction pipeline. <strong>Async.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">app</code></td>
+<td><code dir="auto">AppHandle&lt;R&gt;</code></td>
+<td>Injected by Tauri, used to emit progress</td>
+</tr>
+<tr>
+<td><code dir="auto">req</code></td>
+<td><code dir="auto">ExtractRequest</code></td>
+<td>See below</td>
+</tr>
+</tbody>
+</table>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">Result&lt;ExtractResult, String&gt;</span></div></div><div class="ec-line"><div class="code"><span style="--0:#919F9F;--1:#5D6376">// ExtractResult { contacts: usize, output_path: String }</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="Result<ExtractResult, String>// ExtractResult { contacts: usize, output_path: String }"><div></div></button></div></figure></div>
+<p>Every field of <code dir="auto">ExtractRequest</code> is optional except <code dir="auto">input</code>:</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">pub</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">struct</span><span style="--0:#D6DEEB;--1:#403F53"> ExtractRequest {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C792EA;--1:#8844AE">pub</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">input</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> String,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C792EA;--1:#8844AE">pub</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">output</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> Option&lt;String&gt;,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C792EA;--1:#8844AE">pub</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">cpu_limit</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> Option&lt;f64&gt;,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C792EA;--1:#8844AE">pub</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">memory_limit</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> Option&lt;f64&gt;,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C792EA;--1:#8844AE">pub</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">min_free_memory_gb</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> Option&lt;u64&gt;,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C792EA;--1:#8844AE">pub</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">workers</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> Option&lt;usize&gt;,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C792EA;--1:#8844AE">pub</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">safe_mode</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> Option&lt;bool&gt;,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C792EA;--1:#8844AE">pub</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">disable_tld_filter</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> Option&lt;bool&gt;,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C792EA;--1:#8844AE">pub</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">exclude_ambiguous</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> Option&lt;bool&gt;,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C792EA;--1:#8844AE">pub</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">temp_dir</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> Option&lt;String&gt;,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C792EA;--1:#8844AE">pub</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">ignore_space_check</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> Option&lt;bool&gt;,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C792EA;--1:#8844AE">pub</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">extract_attachments</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> Option&lt;bool&gt;,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C792EA;--1:#8844AE">pub</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">blacklist</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> Option&lt;String&gt;,</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="pub struct ExtractRequest {    pub input: String,    pub output: Option<String>,    pub cpu_limit: Option<f64>,    pub memory_limit: Option<f64>,    pub min_free_memory_gb: Option<u64>,    pub workers: Option<usize>,    pub safe_mode: Option<bool>,    pub disable_tld_filter: Option<bool>,    pub exclude_ambiguous: Option<bool>,    pub temp_dir: Option<String>,    pub ignore_space_check: Option<bool>,    pub extract_attachments: Option<bool>,    pub blacklist: Option<String>,}"><div></div></button></div></figure></div>
+<p>Omitted fields fall back to the library defaults. The output path is resolved
+through <code dir="auto">config::safe_output_path</code> so a macOS <code dir="auto">.app</code> bundle — whose working
+directory is read-only — cannot end up writing into the app bundle.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="cleanup_validate_emails"><code dir="auto">cleanup_validate_emails</code></h2><a class="sl-anchor-link" href="#cleanup_validate_emails"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “cleanup_validate_emails”</span></a></div>
+<p>RFC 5321/5322 syntax validation. <strong>Async.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">input</code></td>
+<td><code dir="auto">String</code></td>
+<td>CSV to read</td>
+</tr>
+<tr>
+<td><code dir="auto">output_valid</code></td>
+<td><code dir="auto">Option&lt;String&gt;</code></td>
+<td>Where to write the passing rows</td>
+</tr>
+<tr>
+<td><code dir="auto">output_invalid</code></td>
+<td><code dir="auto">Option&lt;String&gt;</code></td>
+<td>Where to write the failing rows</td>
+</tr>
+</tbody>
+</table>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">Result&lt;CleanupResult, String&gt;</span></div></div><div class="ec-line"><div class="code"><span style="--0:#919F9F;--1:#5D6376">// CleanupResult { total: usize, primary: usize, secondary: usize, message: String }</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="Result<CleanupResult, String>// CleanupResult { total: usize, primary: usize, secondary: usize, message: String }"><div></div></button></div></figure></div>
+<p>Defaults to <code dir="auto">contacts_valid.csv</code> and <code dir="auto">contacts_invalid.csv</code> in the user
+directory.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="cleanup_validate_mx"><code dir="auto">cleanup_validate_mx</code></h2><a class="sl-anchor-link" href="#cleanup_validate_mx"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “cleanup_validate_mx”</span></a></div>
+<p>DNS-over-HTTPS MX domain validation. <strong>Async.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">input</code></td>
+<td><code dir="auto">String</code></td>
+<td>CSV to read</td>
+</tr>
+<tr>
+<td><code dir="auto">output_valid</code></td>
+<td><code dir="auto">Option&lt;String&gt;</code></td>
+<td>Rows with a mail-receiving domain</td>
+</tr>
+<tr>
+<td><code dir="auto">output_invalid</code></td>
+<td><code dir="auto">Option&lt;String&gt;</code></td>
+<td>Rows with a dead domain</td>
+</tr>
+<tr>
+<td><code dir="auto">no_throttle</code></td>
+<td><code dir="auto">Option&lt;bool&gt;</code></td>
+<td>Skip rate limiting</td>
+</tr>
+</tbody>
+</table>
+<p>The app uses fixed values for the remaining knobs: <code dir="auto">timeout: 8</code>,
+<code dir="auto">concurrency: 6</code>, <code dir="auto">delay_ms: 10</code>, <code dir="auto">retries: 2</code>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="cleanup_exclude"><code dir="auto">cleanup_exclude</code></h2><a class="sl-anchor-link" href="#cleanup_exclude"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “cleanup_exclude”</span></a></div>
+<p>Blacklist exclusion split. <strong>Async.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">input</code></td>
+<td><code dir="auto">String</code></td>
+<td>CSV to read</td>
+</tr>
+<tr>
+<td><code dir="auto">output_kept</code></td>
+<td><code dir="auto">Option&lt;String&gt;</code></td>
+<td>Rows that pass the rules</td>
+</tr>
+<tr>
+<td><code dir="auto">output_excluded</code></td>
+<td><code dir="auto">Option&lt;String&gt;</code></td>
+<td>Rows removed by the rules</td>
+</tr>
+<tr>
+<td><code dir="auto">blacklist</code></td>
+<td><code dir="auto">Option&lt;String&gt;</code></td>
+<td>Blacklist file to apply</td>
+</tr>
+<tr>
+<td><code dir="auto">include_ambiguous</code></td>
+<td><code dir="auto">Option&lt;bool&gt;</code></td>
+<td>Also exclude shared mailboxes</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="load_blacklist"><code dir="auto">load_blacklist</code></h2><a class="sl-anchor-link" href="#load_blacklist"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “load_blacklist”</span></a></div>
+<p>Load the blacklist configuration. <strong>Async.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">path</code></td>
+<td><code dir="auto">Option&lt;String&gt;</code></td>
+<td>File to read; omit for the resolved default</td>
+</tr>
+</tbody>
+</table>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">Result&lt;BlacklistConfig, String&gt;</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="Result<BlacklistConfig, String>"><div></div></button></div></figure></div>
+<div class="sl-heading-wrapper level-h2"><h2 id="save_blacklist"><code dir="auto">save_blacklist</code></h2><a class="sl-anchor-link" href="#save_blacklist"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “save_blacklist”</span></a></div>
+<p>Write the blacklist configuration. <strong>Async.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">path</code></td>
+<td><code dir="auto">String</code></td>
+<td>File to write</td>
+</tr>
+<tr>
+<td><code dir="auto">config</code></td>
+<td><code dir="auto">BlacklistConfig</code></td>
+<td>The rules to write</td>
+</tr>
+</tbody>
+</table>
+<p>Parent directories are created first, so saving to a path that does not exist
+yet works.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="default_blacklist"><code dir="auto">default_blacklist</code></h2><a class="sl-anchor-link" href="#default_blacklist"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “default_blacklist”</span></a></div>
+<p>The bundled default rules. Synchronous.</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">BlacklistConfig</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="BlacklistConfig"><div></div></button></div></figure></div>
+<p>Used to reset the editor in the blacklist manager.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="default_paths"><code dir="auto">default_paths</code></h2><a class="sl-anchor-link" href="#default_paths"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “default_paths”</span></a></div>
+<p>The platform-safe default paths. Synchronous.</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">DefaultPaths {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C5E478;--1:#3B61B0">output</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> String,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C5E478;--1:#3B61B0">output_folder</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> String,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C5E478;--1:#3B61B0">temp_dir</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> String,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C5E478;--1:#3B61B0">blacklist_file</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> String,</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="DefaultPaths {    output: String,    output_folder: String,    temp_dir: String,    blacklist_file: String,}"><div></div></button></div></figure></div>
+<div class="sl-heading-wrapper level-h2"><h2 id="events">Events</h2><a class="sl-anchor-link" href="#events"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Events”</span></a></div>
+<p>The app emits exactly one event.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Payload</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">extract://progress</code></td>
+<td><code dir="auto">ProgressUpdate</code></td>
+<td>Progress ticks during an extraction</td>
+</tr>
+</tbody>
+</table>
+<p>The frontend subscribes with <code dir="auto">listen()</code> and unsubscribes in <code dir="auto">onCleanup</code>. An
+emit failure is logged to stderr and the run continues — a lost progress tick
+is not a reason to abandon an extraction.</p>
+</div><footer class="sl-flex astro-hf4cane3"><div class="meta sl-flex astro-hf4cane3"></div><div class="pagination-links print:hidden astro-jliv5aee" dir="ltr"><a href="/neon-echo/guides/workflow/" rel="prev" class="astro-jliv5aee"><svg aria-hidden="true" class="astro-jliv5aee astro-uwztnqpj" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span class="astro-jliv5aee">Previous<br class="astro-jliv5aee"><span class="link-title astro-jliv5aee">The workflow</span></span></a></div></footer></div></div></main></div></div></div></div></body></html>
