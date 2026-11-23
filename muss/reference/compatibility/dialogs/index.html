@@ -1,0 +1,394 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-al2ilw4v"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Dialogs and message extensions | muss</title><link rel="canonical" href="https://greysquirr3l.github.io/muss/reference/compatibility/dialogs/"/><link rel="sitemap" href="/muss/sitemap-index.xml"/><link rel="shortcut icon" href="/muss/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v7.4.11"/><meta name="generator" content="Starlight v0.42.11"/><meta property="og:title" content="Dialogs and message extensions"/><meta property="og:type" content="article"/><meta property="og:url" content="https://greysquirr3l.github.io/muss/reference/compatibility/dialogs/"/><meta property="og:locale" content="en"/><meta property="og:description" content="The invoke surfaces for search, selection, action commands, link unfurling and task modules, and the application manifest the app is built from."/><meta property="og:site_name" content="muss"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="The invoke surfaces for search, selection, action commands, link unfurling and task modules, and the application manifest the app is built from."/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/muss/_astro/print.C9eyqPGL.css" media="print"><link rel="stylesheet" href="/muss/_astro/common.BnqPtuMD.css"><style>@layer starlight.components{svg:where(.astro-pqysdep7){color:var(--sl-icon-color);font-size:var(--sl-icon-size,1em);width:1em;height:1em;overflow:visible}}
+</style><script type="module" src="/muss/_astro/page.cNngjUgL.js"></script></head><body class="astro-al2ilw4v"><a class="sl-skip-link astro-o5hysztx" href="#_top">Skip to content</a><div class="page sl-flex astro-gh65ub26"><header class="header astro-gh65ub26"><div class="header astro-ozb2cxkm"><div class="title-wrapper sl-flex astro-ozb2cxkm"><a href="/muss/" class="site-title sl-flex astro-yhxfdlc4"><img class="light:sl-hidden print:hidden astro-yhxfdlc4" alt src="/muss/_astro/logo-dark.ChSVDRwB.svg" width="48" height="48"><img class="dark:sl-hidden print:block astro-yhxfdlc4" alt src="/muss/_astro/logo-light.DeCIlpuM.svg" width="48" height="48"><span class="astro-yhxfdlc4" translate="no">muss</span></a></div><div class="sl-flex print:hidden astro-ozb2cxkm"><site-search class="astro-ozb2cxkm astro-3h4fk2u5" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"><button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-3h4fk2u5"><svg aria-hidden="true" class="astro-3h4fk2u5 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-3h4fk2u5" aria-hidden="true">Search</span><kbd class="sl-hidden md:sl-flex astro-3h4fk2u5" style="display: none"><kbd class="astro-3h4fk2u5">Ctrl</kbd><kbd class="astro-3h4fk2u5">K</kbd></kbd></button><dialog style="padding: 0" aria-label="Search" class="astro-3h4fk2u5"><div class="dialog-frame sl-flex astro-3h4fk2u5"><button data-close-modal class="sl-flex md:sl-hidden astro-3h4fk2u5">Cancel</button><div class="search-container astro-3h4fk2u5"><div id="starlight__search" class="astro-3h4fk2u5"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/muss/_astro/Search.astro_astro_type_script_index_0_lang.CrDXzKXN.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-ozb2cxkm"><div class="sl-flex social-icons astro-ozb2cxkm"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script><script type="module">var e=class extends HTMLElement{constructor(){super();let e=this.querySelector(`select`);e&&(e.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=e.currentTarget.value)}),window.addEventListener(`pageshow`,t=>{if(!t.persisted)return;let n=e.querySelector(`option[selected]`)?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}};customElements.define(`starlight-lang-select`,e);</script></div></div></header><nav class="sidebar print:hidden astro-gh65ub26" aria-label="Main"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-creup77k"><svg aria-hidden="true" class="open-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-creup77k">Menu</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-gh65ub26"><div class="sidebar-content sl-flex astro-gh65ub26"><sl-sidebar-state-persist data-hash="1egna9r" class="astro-zzv2mkrn"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-mql6fjj4"><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Getting started</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/getting-started/configuration/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Configuration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/installation/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Installation</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/introduction/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">What muss is</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/quickstart/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Quickstart</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Guides</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/guides/card-actions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/cards/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Adaptive Cards</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/dialogs-and-extensions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/directory/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Directory and app installs</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/facade/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams facade</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/graph/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/meetings/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/notifications/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/routing/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Routing bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/sso/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams sign-in and delegated Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/state/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Tenant-scoped state</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Reference</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/public-api/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The locked v1 contract</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/error-taxonomy/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The error taxonomies</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/permissions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Permissions and consent</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/policies/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Platform policies and retirements</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/performance/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Performance and resource bounds</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/transport-and-observability/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Transport and observability</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/cli/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams command-line tool</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/changelog/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The changelog</span></a></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Compatibility</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Supported-surface matrix</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/bot-framework/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound activity authentication</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/cards/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Cards and card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/connector/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound Connector messages</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/credentials/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound credentials and token issuance</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/dialogs/" aria-current="page" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and message extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/graph/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph surface</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/inbound-activities/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/meetings/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/proactive/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/sso/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams user sign-in</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/unverified/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Unverified surfaces</span></a></li></ul></details></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Operations</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/operations/ci/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Continuous integration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/recipes/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Offline recipes</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/troubleshooting/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Troubleshooting</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Architecture</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="5"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/architecture/decisions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture decisions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/overview/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture overview</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/workspace-layout/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Workspace layout</span></a></li></ul></details></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-ezdlrayc"><div class="social-icons astro-ezdlrayc"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-gh65ub26"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-4yguomvy"><aside class="right-sidebar-container print:hidden astro-4yguomvy"><div class="right-sidebar astro-4yguomvy"><div class="lg:sl-hidden astro-cnvahwco"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-b3z257xh"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-b3z257xh"><details id="starlight__mobile-toc" class="astro-b3z257xh"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-b3z257xh"><span class="toggle sl-flex astro-b3z257xh">On this page<svg aria-hidden="true" class="caret astro-b3z257xh astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-b3z257xh"></span></summary><div class="dropdown astro-b3z257xh"><ul class="isMobile astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#what-the-sdk-does-about-each" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">What the SDK does about each</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#inconsistencies-in-the-published-pages" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Inconsistencies in the published pages</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#not-verified" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Not verified</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#application-manifest" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Application manifest</span></a></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/muss/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-cnvahwco"><div class="sl-container astro-cnvahwco"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#what-the-sdk-does-about-each" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">What the SDK does about each</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#inconsistencies-in-the-published-pages" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Inconsistencies in the published pages</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#not-verified" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Not verified</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#application-manifest" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Application manifest</span></a></li></ul></nav></starlight-toc><script type="module" src="/muss/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane astro-4yguomvy"><main data-pagefind-body class="astro-al2ilw4v" lang="en" dir="ltr"><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><h1 id="_top" class="astro-qfythd7a">Dialogs and message extensions</h1></div></div><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><div class="sl-markdown-content"><p>Search, selection, action commands, link unfurling and task modules are all invokes your bot answers inside the HTTP response of the request. This page records those surfaces and the application manifest the app is built from. No Teams client has run any of them.</p>
+<p>Recorded 2026-11-11. These rows are the bot’s <em>answers</em> to invokes Teams sends:
+the SDK receives a signed activity and writes a response in the HTTP response
+of the same request. There is no Graph call, no token and no permission
+involved, so the permission type is <strong>none</strong>; the request is authenticated by
+the <a href="bot-framework.md">inbound authentication rows</a>. Endpoint: the bot’s messaging endpoint. API version: the
+Bot Framework activity schema (these pages state no version). Cloud: <strong>Global</strong>
+only. Account type: single-tenant registration. “Task modules” are called
+dialogs in newer documentation; <strong>the wire names keep <code dir="auto">task/</code></strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Invoke name</th>
+<th>Request <code dir="auto">value</code></th>
+<th>Response</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Open a dialog</td>
+<td><code dir="auto">task/fetch</code></td>
+<td><code dir="auto">{ data, context: { theme } }</code>; <code dir="auto">data</code> is an object or, in some samples, a bare string</td>
+<td>HTTP <code dir="auto">200</code>, <code dir="auto">{ task: { type: "continue", value: TaskInfo } }</code> or <code dir="auto">{ task: { type: "message", value: "text" } }</code></td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/task-modules/task-modules-bots">https://learn.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/task-modules/task-modules-bots</a>, <a href="https://learn.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/task-modules/invoking-task-modules">https://learn.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/task-modules/invoking-task-modules</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td>Submit a dialog</td>
+<td><code dir="auto">task/submit</code></td>
+<td>the same</td>
+<td>no body, a <code dir="auto">message</code> task, or a <code dir="auto">continue</code> task to chain</td>
+<td>the same pages</td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td>Search</td>
+<td><code dir="auto">composeExtension/query</code></td>
+<td><code dir="auto">{ commandId, parameters: [{ name, value }], queryOptions: { skip, count } }</code>; the default query has parameter <code dir="auto">initialRun</code> = <code dir="auto">"true"</code></td>
+<td>HTTP <code dir="auto">200</code>, <code dir="auto">{ composeExtension: { type: "result" | "message", attachmentLayout: "list", attachments, text } }</code>; five seconds</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/messaging-extensions/how-to/search-commands/respond-to-search">https://learn.microsoft.com/en-us/microsoftteams/platform/messaging-extensions/how-to/search-commands/respond-to-search</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td>Select a result</td>
+<td><code dir="auto">composeExtension/selectItem</code></td>
+<td>the <code dir="auto">value</code> of the preview card’s <code dir="auto">tap</code> invoke action, whatever the bot wrote</td>
+<td>a <code dir="auto">composeExtension</code> result</td>
+<td>the same page, “Enable and handle tap actions”</td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td>Open an action command</td>
+<td><code dir="auto">composeExtension/fetchTask</code></td>
+<td><code dir="auto">{ commandId, commandContext, context: { theme }, messagePayload? }</code></td>
+<td><code dir="auto">{ task: { type: "continue" | "message", value } }</code>; <code dir="auto">TaskInfo</code> is <code dir="auto">{ title, height, width, card | url, fallbackUrl }</code>, size an integer or <code dir="auto">small</code>, <code dir="auto">medium</code>, <code dir="auto">large</code></td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/messaging-extensions/how-to/action-commands/create-task-module">https://learn.microsoft.com/en-us/microsoftteams/platform/messaging-extensions/how-to/action-commands/create-task-module</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td>Submit an action command</td>
+<td><code dir="auto">composeExtension/submitAction</code></td>
+<td><code dir="auto">{ commandId, commandContext, context, data, botMessagePreviewAction?, botActivityPreview? }</code></td>
+<td>no response, another dialog, a <code dir="auto">result</code> card, or <code dir="auto">{ composeExtension: { type: "botMessagePreview", activityPreview } }</code> with exactly one Adaptive Card; five seconds, retried twice</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/messaging-extensions/how-to/action-commands/respond-to-task-module-submit">https://learn.microsoft.com/en-us/microsoftteams/platform/messaging-extensions/how-to/action-commands/respond-to-task-module-submit</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td>Unfurl a link</td>
+<td><code dir="auto">composeExtension/queryLink</code></td>
+<td><code dir="auto">{ url }</code></td>
+<td>a <code dir="auto">composeExtension</code> result with a <code dir="auto">preview</code>; only the first card is used; Adaptive Cards up to 1.3; cached 30 minutes</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/messaging-extensions/how-to/link-unfurling">https://learn.microsoft.com/en-us/microsoftteams/platform/messaging-extensions/how-to/link-unfurling</a></td>
+<td>2026-11-11</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="what-the-sdk-does-about-each">What the SDK does about each</h2><a class="sl-anchor-link" href="#what-the-sdk-does-about-each"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “What the SDK does about each”</span></a></div>
+<ul>
+<li><strong>Typed and parsed once.</strong> The primary adapter reads each <code dir="auto">value</code> into
+<code dir="auto">QueryRequest</code>, <code dir="auto">SelectRequest</code>, <code dir="auto">ActionRequest</code>, <code dir="auto">LinkRequest</code> or
+<code dir="auto">DialogPayload</code> through <code dir="auto">FromStr</code>/<code dir="auto">TryFrom</code> newtypes (<code dir="auto">CommandId</code>, <code dir="auto">ItemId</code>,
+<code dir="auto">LinkUrl</code>). A value that does not parse is answered <code dir="auto">400</code> with no body and no
+hook or handler runs.</li>
+<li><strong>Authorization is the application’s, and the default is no.</strong> One hook sees
+all seven requests. With none registered every request is refused with a
+fixed message. A hook that fails also refuses.</li>
+<li><strong>Selection.</strong> The SDK writes <code dir="auto">{ commandId, itemId }</code> into each result’s tap
+and reads it back. That convention is the SDK’s: Learn’s sample uses
+<code dir="auto">{ Item1, Item2, Item3 }</code> because the bot chooses the tap value.</li>
+<li><strong>Bounds the SDK chose.</strong> 25 results per page; a larger <code dir="auto">count</code> is lowered to 25, and the answer is cut to the request’s <code dir="auto">count</code>;
+<code dir="auto">skip</code> above 10,000 refused; 20 parameters, names of 64 and values of 512
+characters; commands of 64 and item ids of 256 characters; dialog data of 64
+KiB; responses of 512 KiB; text of 1,000 characters; dialog sizes of 1 to
+10,000 pixels; 64 domain patterns. None is a Teams limit.</li>
+<li><strong>Deadlines.</strong> Default 4 seconds. A message extension invoke is held to
+Learn’s five seconds whatever is configured; <code dir="auto">task/fetch</code> and <code dir="auto">task/submit</code>
+are held to 30 seconds, an SDK choice. A late handler is cancelled at an
+<code dir="auto">.await</code>; a link, which has nowhere to show text, is answered <code dir="auto">504</code>.</li>
+<li><strong>Domains.</strong> <code dir="auto">link_domains</code> takes the manifest’s <code dir="auto">messageHandlers</code> form: a
+<code dir="auto">*</code> matches exactly one label, a top-level wildcard such as <code dir="auto">*.com</code> is
+refused, and an empty list serves no link. <code dir="auto">dialog_domains</code> is the same
+matching for <code dir="auto">validDomains</code>; Learn says “Each url and fallbackUrl must
+implement the HTTPS encryption protocol”, and the SDK also refuses an address
+with credentials, a port other than 443 and an IP address.</li>
+<li><strong>No outbound fetch.</strong> The SDK never requests an address from a request. A
+test asserts the Connector stand-in saw no request after a link was unfurled.</li>
+<li><strong>Installed scope.</strong> <code dir="auto">interaction_scopes</code> compares the authenticated
+activity’s <code dir="auto">conversation.conversationType</code> with the scopes the app lists.</li>
+<li><strong>Errors the person sees.</strong> Refusals, timeouts and failures are a fixed
+<code dir="auto">message</code> in the envelope the invoke expects, with HTTP <code dir="auto">200</code>, so Teams shows
+the text. That choice is the SDK’s.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="inconsistencies-in-the-published-pages">Inconsistencies in the published pages</h2><a class="sl-anchor-link" href="#inconsistencies-in-the-published-pages"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Inconsistencies in the published pages”</span></a></div>
+<ul>
+<li>The submit-action page’s prose spells the invoke <code dir="auto">composeExtensions/submitAction</code>
+(with an <code dir="auto">s</code>) while its JSON uses <code dir="auto">composeExtension/submitAction</code>. The same
+happens for <code dir="auto">queryLink</code> on the unfurling page. The SDK uses the JSON spelling
+and refuses the other.</li>
+<li>Several action-command pages say <code dir="auto">commandContext</code> “must be compose” while the
+command-box payload sample also shows <code dir="auto">compose</code>. The SDK accepts <code dir="auto">compose</code>,
+<code dir="auto">commandbox</code> and <code dir="auto">message</code> without case; that <code dir="auto">commandbox</code> is ever sent is not
+confirmed.</li>
+<li><code dir="auto">task/fetch</code> <code dir="auto">data</code> is an object in most samples and a bare string in the
+Python sample (<code dir="auto">card_data = data.get("data") if isinstance(data, dict) else data</code>);
+the SDK keeps either.</li>
+<li>The dialogs page says the bot “receives a <code dir="auto">card.action</code> activity” for
+<code dir="auto">task/fetch</code>; the invoke name used everywhere else is <code dir="auto">task/fetch</code>.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="not-verified">Not verified</h2><a class="sl-anchor-link" href="#not-verified"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Not verified”</span></a></div>
+<ul>
+<li><strong>No Teams client has run any of this.</strong> Every shape comes from the pages and
+from fixtures; no search, selection, action command, dialog or unfurl was
+shown by desktop, web or mobile Teams against this SDK.</li>
+<li><strong>The dialog time budget.</strong> None of the pages read states one for
+<code dir="auto">task/fetch</code> or <code dir="auto">task/submit</code>; the five seconds is documented for <code dir="auto">query</code> and
+<code dir="auto">submitAction</code> only, and the SDK applies it to <code dir="auto">selectItem</code>, <code dir="auto">fetchTask</code> and
+<code dir="auto">queryLink</code> as a precaution.</li>
+<li><strong>Result and payload limits.</strong> No page read states a maximum for results per
+page, attachments, or card size in a search response.</li>
+<li><strong><code dir="auto">403</code>/<code dir="auto">404</code>/<code dir="auto">504</code> for a link.</strong> The unfurl page defines <code dir="auto">result</code> and <code dir="auto">auth</code>
+only; how Teams treats an empty non-2xx answer is not stated.</li>
+<li><strong>Not implemented, deliberately:</strong> the <code dir="auto">auth</code>, <code dir="auto">config</code> and <code dir="auto">silentAuth</code>
+response types, the <code dir="auto">grid</code> layout, <code dir="auto">composeExtension/anonymousQueryLink</code>
+(the response differs and the request may carry no signed sender), the
+<code dir="auto">setCachePolicy</code> suggested action, and the settings invokes.</li>
+<li><strong>Outlook.</strong> The pages say Outlook does not support the bot-response Adaptive
+Card; the SDK does not detect the host.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="application-manifest">Application manifest</h2><a class="sl-anchor-link" href="#application-manifest"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Application manifest”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manifest schema reference</td>
+<td>Microsoft 365 app manifest schema reference; the latest generally available version listed is 1.29</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoft-365/extensibility/schema">Microsoft 365 app manifest schema reference</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Schema URL pattern</td>
+<td><code dir="auto">https://developer.microsoft.com/json-schemas/teams/v{version}/MicrosoftTeams.schema.json</code></td>
+<td><a href="https://learn.microsoft.com/en-us/microsoft-365/extensibility/schema">Microsoft 365 app manifest schema reference</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Schema version the SDK validates</td>
+<td><code dir="auto">1.29</code>; the published schema was fetched and its <code dir="auto">manifestVersion</code> const read as <code dir="auto">1.29</code></td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Required top-level properties</td>
+<td><code dir="auto">manifestVersion</code>, <code dir="auto">version</code>, <code dir="auto">id</code>, <code dir="auto">developer</code>, <code dir="auto">name</code>, <code dir="auto">description</code>, <code dir="auto">icons</code>, <code dir="auto">accentColor</code></td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td><code dir="auto">packageName</code></td>
+<td>Not a property of the 1.29 schema. The published schema for 1.10 has one; the 1.29 schema does not, and a manifest carrying it is rejected as an unknown property. The manifest’s <code dir="auto">id</code> is the application’s client id and has to be a GUID.</td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td><code dir="auto">id</code> and <code dir="auto">bots[].botId</code></td>
+<td>Both are GUIDs; the schema pattern is <code dir="auto">^[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$</code></td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td><code dir="auto">accentColor</code></td>
+<td>A six digit HTML colour code; the schema pattern is <code dir="auto">^#[0-9a-fA-F]{6}$</code></td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td><code dir="auto">icons</code></td>
+<td><code dir="auto">outline</code> and <code dir="auto">color</code> are both required. <code dir="auto">outline</code> is a transparent PNG of size 32x32, <code dir="auto">color</code> a full colour PNG of size 192x192. Each is a relative path to a file in the package</td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Icon path layout</td>
+<td>The schema allows any relative path, and Microsoft documents a nested layout (<code dir="auto">assets/color.png</code>), requiring the package to carry the file at that same relative path. The SDK’s template uses the flat names <code dir="auto">color.png</code> and <code dir="auto">outline.png</code>, because a Teams app package is a flat directory and the packager this workspace ships writes every entry at the root of the archive. A nested path is legal at the platform level but is not a layout this toolchain can produce.</td>
+<td><a href="https://learn.microsoft.com/office/dev/add-ins/overview/app-package-for-microsoft-365#manually-create-the-app-package-file">App package for Microsoft 365</a>, <a href="https://learn.microsoft.com/en-us/microsoft-365/extensibility/schema/root-icons">root.icons object</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td><code dir="auto">bots</code></td>
+<td>At most one bot per app; the schema sets <code dir="auto">maxItems</code> to 1</td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td><code dir="auto">bots[].scopes</code></td>
+<td>The schema allows <code dir="auto">team</code>, <code dir="auto">personal</code>, <code dir="auto">groupChat</code> and <code dir="auto">copilot</code></td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td><code dir="auto">permissions</code></td>
+<td>At most two entries, drawn from <code dir="auto">identity</code> and <code dir="auto">messageTeamMembers</code></td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td><code dir="auto">authorization.permissions.resourceSpecific</code></td>
+<td>At most 16 entries; each names a permission and a type of <code dir="auto">Application</code> or <code dir="auto">Delegated</code></td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td><code dir="auto">webApplicationInfo</code></td>
+<td><code dir="auto">id</code> is required and is a GUID; <code dir="auto">resource</code> is optional</td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td><code dir="auto">validDomains</code></td>
+<td>At most 100 entries in schema 1.29, each a string of at most 2048 characters; a leading <code dir="auto">*.</code> marks a domain that covers its subdomains</td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td><code dir="auto">staticTabs</code></td>
+<td>At most 16 entries; each requires <code dir="auto">entityId</code> and <code dir="auto">scopes</code></td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Resource-specific permissions</td>
+<td>The resource-specific permissions and their <code dir="auto">App-only</code> or <code dir="auto">Delegated</code> types: 66 documented entries across the team, chat, meeting and user scopes</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/graph-api/rsc/resource-specific-consent">Resource-specific consent for Teams agents and apps</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>RSC declaration in the manifest</td>
+<td>App manifest v1.12 or later declares resource-specific permissions in <code dir="auto">authorization.permissions.resourceSpecific</code>, each with a permission name and a type of <code dir="auto">Application</code> or <code dir="auto">Delegated</code>. App-only RSC needs v1.6 or later; <strong>delegated</strong> RSC needs v1.12 or later</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/graph-api/rsc/declare-resource-specific-consent-requirements">Declare RSC permission requirements</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Limits the SDK enforces on the raw document</td>
+<td><code dir="auto">validDomains</code> at most 100; <code dir="auto">permissions</code> at most 2; <code dir="auto">staticTabs</code> at most 16 and unique; <code dir="auto">resourceSpecific</code> at most 16, unique, each <code dir="auto">name</code> at most 128 characters; <code dir="auto">bots[0].commandLists</code> at most 3 and <code dir="auto">commands</code> at most 12 per list; <code dir="auto">activities.activityIcons</code> at most 50, each <code dir="auto">id</code> at most 64 and <code dir="auto">iconFile</code> at most 128 characters. Each limit is one <code dir="auto">limit_exceeded</code> (or <code dir="auto">duplicate_entry</code>) finding that names the list</td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a>, read again on 2026-11-05 (<code dir="auto">maxItems</code>, <code dir="auto">uniqueItems</code>, <code dir="auto">maxLength</code>)</td>
+<td>2026-11-05</td>
+</tr>
+<tr>
+<td>Developer URLs</td>
+<td><code dir="auto">websiteUrl</code>, <code dir="auto">privacyUrl</code> and <code dir="auto">termsOfUseUrl</code> must match <code dir="auto">^[Hh][Tt][Tt][Pp][Ss]?://</code> and be at most 2048 characters (<code dir="auto">definitions.anyHttpUrl</code>); <code dir="auto">ftp:</code>, <code dir="auto">javascript:</code> and a bare host are refused</td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a></td>
+<td>2026-11-05</td>
+</tr>
+<tr>
+<td><code dir="auto">$schema</code> against <code dir="auto">manifestVersion</code></td>
+<td>The schema declares <code dir="auto">manifestVersion</code> as the constant <code dir="auto">1.29</code>. A <code dir="auto">$schema</code> that points at the Teams schema host for another version is refused; a <code dir="auto">$schema</code> that is not on that host (a local copy) is left alone, because the SDK cannot tell what version it is</td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a></td>
+<td>2026-11-05</td>
+</tr>
+<tr>
+<td><code dir="auto">activities.activityIcons[].iconFile</code></td>
+<td>A relative path to a 32x32 image that the package must carry. The SDK reads the path, lists it with the app icons, and packages and checks the file; it does not model the icon <code dir="auto">id</code>, so <code dir="auto">muss-teams</code> cannot re-render an <code dir="auto">activityIcons</code> list it parsed</td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a></td>
+<td>2026-11-05</td>
+</tr>
+<tr>
+<td>Icon sizes the packager checks</td>
+<td><code dir="auto">icons.color</code> 192x192, <code dir="auto">icons.outline</code> 32x32, <code dir="auto">icons.color32x32</code> 32x32, <code dir="auto">activityIcons[].iconFile</code> 32x32, all PNG. The packager reads only the PNG signature and the <code dir="auto">IHDR</code> chunk. The 1 MiB icon bound, 1 MiB manifest bound and 4 MiB package bound are the SDK’s own and are not Microsoft limits</td>
+<td><a href="https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json">Teams v1.29 schema</a> (<code dir="auto">description</code> of each icon property)</td>
+<td>2026-11-05</td>
+</tr>
+<tr>
+<td>RSC permission catalog</td>
+<td>63 distinct permission names were extracted from the Learn catalog page on 2026-11-05 and are held in <a href="https://github.com/Smart-Offices-Inc/muss/blob/main/crates/muss-teams/src/domain/manifest/rsc_catalog.rs">the RSC catalogue</a>. A name that is not in the list is a <strong>warning</strong> (<code dir="auto">unknown_rsc_permission</code>), never an error, because Microsoft adds names and the list can be out of date. An earlier row in this document counted 66 table entries; the 63 are distinct names, and the difference was not investigated</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/graph-api/rsc/resource-specific-consent">Resource-specific consent for Teams agents and apps</a></td>
+<td>2026-11-05</td>
+</tr>
+<tr>
+<td>Sensitive RSC permissions</td>
+<td><strong>Not a Microsoft classification.</strong> Learn does not label permissions as sensitive. The SDK warns (<code dir="auto">sensitive_rsc_permission</code>) on the ones that receive every message in a team or chat (<code dir="auto">ChannelMessage.Read.Group</code>, <code dir="auto">ChatMessage.Read.Chat</code>), that read or send meeting media, recordings or transcripts, or that change a team, chat, channel or tab (<code dir="auto">ReadWrite</code>, <code dir="auto">Create</code>, <code dir="auto">Delete</code>, <code dir="auto">Manage</code>). The warning asks for a decision and does not stop a package</td>
+<td>SDK policy, not a documented rule</td>
+<td>2026-11-05</td>
+</tr>
+<tr>
+<td>Placeholder identifiers</td>
+<td>The template writes the all-zero GUID for <code dir="auto">id</code> and <code dir="auto">bots[].botId</code>. It is a valid GUID, so the schema accepts it; the SDK warns (<code dir="auto">placeholder_value</code>) so it is not uploaded by mistake</td>
+<td>SDK policy</td>
+<td>2026-11-05</td>
+</tr>
+</tbody>
+</table>
+</div><footer class="sl-flex astro-mjem5c2d"><div class="meta sl-flex astro-mjem5c2d"></div><div class="pagination-links print:hidden astro-wxozplkb" dir="ltr"><a href="/muss/reference/compatibility/credentials/" rel="prev" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span class="astro-wxozplkb">Previous<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">Outbound credentials and token issuance</span></span></a><a href="/muss/reference/compatibility/graph/" rel="next" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-wxozplkb">Next<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">Microsoft Graph surface</span></span></a></div></footer></div></div></main></div></div></div></div></body></html>

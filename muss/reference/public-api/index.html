@@ -1,0 +1,1068 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-al2ilw4v"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>The locked v1 contract | muss</title><link rel="canonical" href="https://greysquirr3l.github.io/muss/reference/public-api/"/><link rel="sitemap" href="/muss/sitemap-index.xml"/><link rel="shortcut icon" href="/muss/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v7.4.11"/><meta name="generator" content="Starlight v0.42.11"/><meta property="og:title" content="The locked v1 contract"/><meta property="og:type" content="article"/><meta property="og:url" content="https://greysquirr3l.github.io/muss/reference/public-api/"/><meta property="og:locale" content="en"/><meta property="og:description" content="Every public type, function and error in muss-teams, with the promise each one makes."/><meta property="og:site_name" content="muss"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Every public type, function and error in muss-teams, with the promise each one makes."/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/muss/_astro/print.C9eyqPGL.css" media="print"><link rel="stylesheet" href="/muss/_astro/common.BnqPtuMD.css"><style>@layer starlight.components{svg:where(.astro-pqysdep7){color:var(--sl-icon-color);font-size:var(--sl-icon-size,1em);width:1em;height:1em;overflow:visible}}
+</style><script type="module" src="/muss/_astro/page.cNngjUgL.js"></script></head><body class="astro-al2ilw4v"><a class="sl-skip-link astro-o5hysztx" href="#_top">Skip to content</a><div class="page sl-flex astro-gh65ub26"><header class="header astro-gh65ub26"><div class="header astro-ozb2cxkm"><div class="title-wrapper sl-flex astro-ozb2cxkm"><a href="/muss/" class="site-title sl-flex astro-yhxfdlc4"><img class="light:sl-hidden print:hidden astro-yhxfdlc4" alt src="/muss/_astro/logo-dark.ChSVDRwB.svg" width="48" height="48"><img class="dark:sl-hidden print:block astro-yhxfdlc4" alt src="/muss/_astro/logo-light.DeCIlpuM.svg" width="48" height="48"><span class="astro-yhxfdlc4" translate="no">muss</span></a></div><div class="sl-flex print:hidden astro-ozb2cxkm"><site-search class="astro-ozb2cxkm astro-3h4fk2u5" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"><button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-3h4fk2u5"><svg aria-hidden="true" class="astro-3h4fk2u5 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-3h4fk2u5" aria-hidden="true">Search</span><kbd class="sl-hidden md:sl-flex astro-3h4fk2u5" style="display: none"><kbd class="astro-3h4fk2u5">Ctrl</kbd><kbd class="astro-3h4fk2u5">K</kbd></kbd></button><dialog style="padding: 0" aria-label="Search" class="astro-3h4fk2u5"><div class="dialog-frame sl-flex astro-3h4fk2u5"><button data-close-modal class="sl-flex md:sl-hidden astro-3h4fk2u5">Cancel</button><div class="search-container astro-3h4fk2u5"><div id="starlight__search" class="astro-3h4fk2u5"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/muss/_astro/Search.astro_astro_type_script_index_0_lang.CrDXzKXN.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-ozb2cxkm"><div class="sl-flex social-icons astro-ozb2cxkm"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script><script type="module">var e=class extends HTMLElement{constructor(){super();let e=this.querySelector(`select`);e&&(e.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=e.currentTarget.value)}),window.addEventListener(`pageshow`,t=>{if(!t.persisted)return;let n=e.querySelector(`option[selected]`)?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}};customElements.define(`starlight-lang-select`,e);</script></div></div></header><nav class="sidebar print:hidden astro-gh65ub26" aria-label="Main"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-creup77k"><svg aria-hidden="true" class="open-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-creup77k">Menu</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-gh65ub26"><div class="sidebar-content sl-flex astro-gh65ub26"><sl-sidebar-state-persist data-hash="1egna9r" class="astro-zzv2mkrn"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-mql6fjj4"><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Getting started</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/getting-started/configuration/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Configuration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/installation/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Installation</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/introduction/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">What muss is</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/quickstart/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Quickstart</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Guides</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/guides/card-actions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/cards/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Adaptive Cards</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/dialogs-and-extensions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/directory/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Directory and app installs</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/facade/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams facade</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/graph/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/meetings/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/notifications/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/routing/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Routing bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/sso/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams sign-in and delegated Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/state/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Tenant-scoped state</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Reference</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/public-api/" aria-current="page" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The locked v1 contract</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/error-taxonomy/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The error taxonomies</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/permissions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Permissions and consent</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/policies/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Platform policies and retirements</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/performance/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Performance and resource bounds</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/transport-and-observability/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Transport and observability</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/cli/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams command-line tool</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/changelog/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The changelog</span></a></li><li class="astro-mql6fjj4"><details class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Compatibility</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Supported-surface matrix</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/bot-framework/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound activity authentication</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/cards/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Cards and card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/connector/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound Connector messages</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/credentials/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound credentials and token issuance</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/dialogs/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and message extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/graph/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph surface</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/inbound-activities/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/meetings/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/proactive/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/sso/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams user sign-in</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/unverified/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Unverified surfaces</span></a></li></ul></details></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Operations</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/operations/ci/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Continuous integration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/recipes/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Offline recipes</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/troubleshooting/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Troubleshooting</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Architecture</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="5"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/architecture/decisions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture decisions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/overview/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture overview</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/workspace-layout/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Workspace layout</span></a></li></ul></details></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-ezdlrayc"><div class="social-icons astro-ezdlrayc"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-gh65ub26"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-4yguomvy"><aside class="right-sidebar-container print:hidden astro-4yguomvy"><div class="right-sidebar astro-4yguomvy"><div class="lg:sl-hidden astro-cnvahwco"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-b3z257xh"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-b3z257xh"><details id="starlight__mobile-toc" class="astro-b3z257xh"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-b3z257xh"><span class="toggle sl-flex astro-b3z257xh">On this page<svg aria-hidden="true" class="caret astro-b3z257xh astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-b3z257xh"></span></summary><div class="dropdown astro-b3z257xh"><ul class="isMobile astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#one-dependency" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">One dependency</span></a><ul class="isMobile astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#feature-names" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Feature names</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#the-builder-and-the-running-app-are-different-types" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">The builder and the running app are different types</span></a><ul class="isMobile astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#the-two-entry-paths" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">The two entry paths</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#hello-world" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Hello world</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#configuration" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Configuration</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#typed-contexts" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Typed contexts</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#cards" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Cards</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#the-four-notification-apis" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">The four notification APIs</span></a><ul class="isMobile astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#1-bot-messaging--outbound" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">1. Bot messaging — outbound</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#2-inbound-bot-events--inbound-handlers" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">2. Inbound bot events — inbound handlers</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#3-graph-resource-changes--inbound-handlers-over-graph" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">3. Graph resource changes — inbound handlers over Graph</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#4-activity-feed-alerts--outbound" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">4. Activity-feed alerts — outbound</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#picking-the-wrong-one" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Picking the wrong one</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#events" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Events</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#setup-that-fails-helpfully" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Setup that fails helpfully</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#glossary" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Glossary</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#usability-acceptance-gates" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Usability acceptance gates</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#meetings-and-presence" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Meetings and presence</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#sign-in-and-delegated-graph" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Sign-in and delegated Graph</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#capability-index" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Capability index</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#boundaries-of-full-integration" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Boundaries of “full integration”</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#change-policy" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Change policy</span></a></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/muss/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-cnvahwco"><div class="sl-container astro-cnvahwco"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#one-dependency" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">One dependency</span></a><ul class="astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#feature-names" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Feature names</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#the-builder-and-the-running-app-are-different-types" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">The builder and the running app are different types</span></a><ul class="astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#the-two-entry-paths" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">The two entry paths</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#hello-world" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Hello world</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#configuration" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Configuration</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#typed-contexts" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Typed contexts</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#cards" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Cards</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#the-four-notification-apis" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">The four notification APIs</span></a><ul class="astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#1-bot-messaging--outbound" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">1. Bot messaging — outbound</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#2-inbound-bot-events--inbound-handlers" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">2. Inbound bot events — inbound handlers</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#3-graph-resource-changes--inbound-handlers-over-graph" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">3. Graph resource changes — inbound handlers over Graph</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#4-activity-feed-alerts--outbound" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">4. Activity-feed alerts — outbound</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#picking-the-wrong-one" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Picking the wrong one</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#events" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Events</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#setup-that-fails-helpfully" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Setup that fails helpfully</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#glossary" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Glossary</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#usability-acceptance-gates" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Usability acceptance gates</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#meetings-and-presence" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Meetings and presence</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#sign-in-and-delegated-graph" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Sign-in and delegated Graph</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#capability-index" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Capability index</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#boundaries-of-full-integration" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Boundaries of “full integration”</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#change-policy" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Change policy</span></a></li></ul></nav></starlight-toc><script type="module" src="/muss/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane astro-4yguomvy"><main data-pagefind-body class="astro-al2ilw4v" lang="en" dir="ltr"><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><h1 id="_top" class="astro-qfythd7a">The locked v1 contract</h1></div></div><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><div class="sl-markdown-content"><p>This is the locked v1 contract for <code dir="auto">muss-teams</code>. It is the surface a
+developer writes against; everything below the facade is an implementation
+detail they should never need to name.</p>
+<p>The contract is derived from <code dir="auto">docs/dev/API-DESIGN.md</code> and the capability
+contracts, and the exact Microsoft endpoints each capability may touch are
+recorded in <a href="compatibility/index.md">the compatibility matrix</a>. Where this document and
+<code dir="auto">compatibility.md</code> disagree about a protocol detail, <code dir="auto">compatibility.md</code> wins,
+because it is the one that was read from Microsoft Learn on a dated basis.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="one-dependency">One dependency</h2><a class="sl-anchor-link" href="#one-dependency"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “One dependency”</span></a></div>
+<p>A normal application depends on <code dir="auto">muss-teams</code>, plus Tokio and whatever domain
+crates the application already has.</p>
+<div class="expressive-code"><link rel="stylesheet" href="/muss/_astro/ec.w36nc.css"><script type="module" src="/muss/_astro/ec.0vx5m.js"></script><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="toml"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">[dependencies]</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">muss-teams</span><span style="--0:#D6DEEB;--1:#403F53"> = </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">1</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">tokio</span><span style="--0:#D6DEEB;--1:#403F53"> = { </span><span style="--0:#C5E478;--1:#3B61B0">version</span><span style="--0:#D6DEEB;--1:#403F53"> = </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">1</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#C5E478;--1:#3B61B0">features</span><span style="--0:#D6DEEB;--1:#403F53"> = [</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">macros</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">rt-multi-thread</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">] }</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="[dependencies]muss-teams = &quot;1&quot;tokio = { version = &quot;1&quot;, features = [&quot;macros&quot;, &quot;rt-multi-thread&quot;] }"><div></div></button></div></figure></div>
+<p><code dir="auto">muss-core</code> is an ordinary transitive dependency. Its types stay behind the
+facade unless they are deliberately re-exported, so an application normally
+never names it.</p>
+<p>The root of <code dir="auto">muss_teams</code> re-exports the concrete values a Graph, meetings or
+directory app builds with, so those apps name only <code dir="auto">muss_teams::</code> paths:</p>
+<table>
+<thead>
+<tr>
+<th>Re-export</th>
+<th>Feature</th>
+<th>Why an app names it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">TenantId</code>, <code dir="auto">ClientId</code>, <code dir="auto">Audience</code>, <code dir="auto">AuthContext</code></td>
+<td>none</td>
+<td>The subscription keeper, the stores and the recovery hook take an <code dir="auto">AuthContext</code>, built from the tenant, the app registration and the token audience.</td>
+</tr>
+<tr>
+<td><code dir="auto">MemoryState</code>, <code dir="auto">MemoryLimits</code>, <code dir="auto">MemoryLimitsError</code></td>
+<td>none</td>
+<td>The in-memory store for development, and the bounds <code dir="auto">TeamsApp::memory_limits</code> takes: rows, bytes and a per-tenant share; <code dir="auto">docs/state.md</code>.</td>
+</tr>
+<tr>
+<td><code dir="auto">SqliteState</code></td>
+<td><code dir="auto">sqlite</code></td>
+<td>The durable store that survives a restart.</td>
+</tr>
+<tr>
+<td><code dir="auto">StateTime</code></td>
+<td>none</td>
+<td>The “now” the stores and the keeper take.</td>
+</tr>
+<tr>
+<td><code dir="auto">Manifest</code>, <code dir="auto">ManifestId</code>, <code dir="auto">read_manifest</code></td>
+<td>none</td>
+<td>The activity-feed publisher checks an activity type against the manifest; the app-install request names a manifest id.</td>
+</tr>
+<tr>
+<td><code dir="auto">TeamId</code>, <code dir="auto">TeamsAppCatalogId</code></td>
+<td>none</td>
+<td>Directory lookups and app installs address a team and a catalog entry.</td>
+</tr>
+</tbody>
+</table>
+<p>Store traits, the transport and the <code dir="auto">adapters</code>, <code dir="auto">application</code> and <code dir="auto">domain</code>
+modules are not re-exported for this purpose: an application that implements
+its own store or transport is writing a lower-layer integration and says so.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="feature-names">Feature names</h3><a class="sl-anchor-link" href="#feature-names"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Feature names”</span></a></div>
+<p>Feature names are part of the contract. A rename is a breaking change.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Default</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">bot-runtime</code></td>
+<td>on</td>
+<td>Inbound bot activities, handlers, and the Connector transport.</td>
+</tr>
+<tr>
+<td><code dir="auto">cards</code></td>
+<td>on</td>
+<td>Adaptive Card builders, actions, and card responses. <strong>Builders compiled in, not gated (T13).</strong></td>
+</tr>
+<tr>
+<td><code dir="auto">auth</code></td>
+<td>on</td>
+<td>Safe authentication: credential providers, token acquisition, audience separation.</td>
+</tr>
+<tr>
+<td><code dir="auto">http-host</code></td>
+<td>on</td>
+<td>The built-in HTTP host: <code dir="auto">run()</code>, <code dir="auto">run_until()</code>, <code dir="auto">BuiltApp::router()</code> and <code dir="auto">serve()</code>. <strong>Declared.</strong></td>
+</tr>
+<tr>
+<td><code dir="auto">dev-storage</code></td>
+<td>on</td>
+<td>In-memory storage for local development.</td>
+</tr>
+<tr>
+<td><code dir="auto">graph</code></td>
+<td>off</td>
+<td>Microsoft Graph: <code dir="auto">ApplicationGraph</code> and <code dir="auto">DelegatedGraph</code>, bounded paging, throttle and OData-error handling, and a path-only request escape hatch. Typed operations arrive with the task that needs each one (today: read a user, list users, read the signed-in user, publish an activity-feed notification, and create, read, renew and delete change-notification subscriptions). Adds no dependency. <strong>Declared (T16).</strong> See <code dir="auto">docs/graph.md</code>. T24 adds <code dir="auto">directory()</code> (read-only lookups of users, teams, channels, chats, members, the app catalog and installed apps) and <code dir="auto">app_installs()</code> (install and uninstall, each needing an <code dir="auto">InstallApproval</code> made for that request); see <code dir="auto">docs/directory.md</code>.</td>
+</tr>
+<tr>
+<td><code dir="auto">sqlite</code></td>
+<td>off</td>
+<td>Persistent SQLite storage instead of in-memory. <strong>Declared.</strong></td>
+</tr>
+<tr>
+<td><code dir="auto">test-utils</code></td>
+<td>off</td>
+<td><code dir="auto">muss_teams::testing</code>: a test supplies its own signing keys, clock and Connector destination. Authentication still runs in full. Never enabled in a production build. <strong>Declared (T12).</strong></td>
+</tr>
+<tr>
+<td><code dir="auto">sso</code></td>
+<td>off</td>
+<td>Teams sign-in: silent SSO (<code dir="auto">signin/tokenExchange</code>), a sign-in fallback with <code dir="auto">state</code> and PKCE, sealed per-person sessions, and the delegated token feed for <code dir="auto">UserSession::graph()</code> (which also needs <code dir="auto">graph</code>). Adds no dependency. <strong>Declared (T22).</strong> See <code dir="auto">docs/sso.md</code>.</td>
+</tr>
+<tr>
+<td><code dir="auto">files</code></td>
+<td>off</td>
+<td>File listing and upload flows.</td>
+</tr>
+<tr>
+<td><code dir="auto">tracing-exporters</code></td>
+<td>off</td>
+<td>Exporter wiring for tracing telemetry.</td>
+</tr>
+<tr>
+<td><code dir="auto">cli</code></td>
+<td>off</td>
+<td>The optional <code dir="auto">muss-teams</code> setup binary as a library feature.</td>
+</tr>
+</tbody>
+</table>
+<p>Only <code dir="auto">http-host</code>, <code dir="auto">sqlite</code>, <code dir="auto">graph</code>, <code dir="auto">sso</code> and <code dir="auto">test-utils</code> are declared in the manifest
+today. The bot runtime, the card builders, safe authentication and in-memory
+storage are always compiled in (the builders add no dependency, so there is
+nothing to gate; a <code dir="auto">cards</code> feature would only exist to switch off the card
+responses of a later task), and the other features arrive with the tasks that own them
+(<code dir="auto">scripts/ci/feature-matrix.sh gaps</code> lists them). The lean, outbound-only
+combination is <code dir="auto">--no-default-features</code>, which leaves out the HTTP host: Cargo
+features only add, so it is a combination and not a feature of its own.</p>
+<p>The default set is the bot runtime, card builders, safe authentication, HTTP
+hosting, and in-memory development storage. Everything that needs a Graph
+permission, a real database, or a tenant consent step is opt-in, so that
+<code dir="auto">cargo add muss-teams</code> does not imply a permission grant the developer has not
+asked for.</p>
+<p>The optional CLI is a separate binary crate, <code dir="auto">muss-teams-cli</code>. It must never be
+required at runtime.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="the-builder-and-the-running-app-are-different-types">The builder and the running app are different types</h2><a class="sl-anchor-link" href="#the-builder-and-the-running-app-are-different-types"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “The builder and the running app are different types”</span></a></div>
+<p>The single most important ownership rule: <strong>a client handle never starts a
+server, and dropping a client never stops a running app.</strong></p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">pub</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">struct</span><span style="--0:#D6DEEB;--1:#403F53"> TeamsApp;        </span><span style="--0:#919F9F;--1:#5D6376">// Builder. Not running. Not `Clone`.</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">pub</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">struct</span><span style="--0:#D6DEEB;--1:#403F53"> BuiltApp;        </span><span style="--0:#919F9F;--1:#5D6376">// Owns the worker pool. No listener.</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">pub</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">struct</span><span style="--0:#D6DEEB;--1:#403F53"> TeamsClient;     </span><span style="--0:#919F9F;--1:#5D6376">// Cheap handle for outbound work. `Clone` is safe.</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="pub struct TeamsApp;        // Builder. Not running. Not &#x60;Clone&#x60;.pub struct BuiltApp;        // Owns the worker pool. No listener.pub struct TeamsClient;     // Cheap handle for outbound work. &#x60;Clone&#x60; is safe."><div></div></button></div></figure></div>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Owns</th>
+<th><code dir="auto">Clone</code>?</th>
+<th>What happens when it is dropped</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">TeamsApp</code></td>
+<td>Configuration and registered handlers.</td>
+<td>No</td>
+<td>Nothing. Nothing was started.</td>
+</tr>
+<tr>
+<td><code dir="auto">BuiltApp</code></td>
+<td>The authenticated pipeline and its worker pool.</td>
+<td>No</td>
+<td>The workers are aborted. Call <code dir="auto">shutdown</code> to let them finish.</td>
+</tr>
+<tr>
+<td><code dir="auto">TeamsClient</code></td>
+<td>A handle to the outbound pipeline.</td>
+<td>Yes, and cloning is cheap and inert.</td>
+<td>Nothing. The running app is unaffected.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Change from the first draft of this contract (T12).</strong> The draft named a
+<code dir="auto">RunningApp</code> that owned the bound listener. There is no such type. <code dir="auto">run</code> and
+<code dir="auto">BuiltApp::serve</code> own the listener for exactly as long as the server runs and
+shut the app down when it stops, so a long-lived listener handle would only be
+another thing to forget to drop. What an application can hold is a <code dir="auto">BuiltApp</code>:
+it owns the worker pool and no socket, which is what an existing host needs.</p>
+<p>Because <code dir="auto">TeamsClient</code> is a separate type from <code dir="auto">BuiltApp</code>, a developer cannot
+accidentally shut down their bot by dropping a client, and cannot accidentally
+start a server by handing a client to a function. <code dir="auto">BuiltApp::shutdown(grace)</code>
+is the explicit way to stop, and it returns only after in-flight work has
+drained or been aborted at the grace limit. If a router from <code dir="auto">router()</code> is
+still alive it returns <code dir="auto">Error::StillInUse</code> instead of hanging.</p>
+<p>A notification-only client never needs to start a web server. It still needs
+credentials and a valid installed destination or conversation reference.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="the-two-entry-paths">The two entry paths</h3><a class="sl-anchor-link" href="#the-two-entry-paths"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “The two entry paths”</span></a></div>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#919F9F;--1:#5D6376">// Own the whole lifecycle.</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">TeamsApp</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">from_env</span><span style="--0:#D6DEEB;--1:#403F53">()</span><span style="--0:#7FDBCA;--1:#096E72">?</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">on_message</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">hello</span><span style="--0:#D6DEEB;--1:#403F53">)</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">run</span><span style="--0:#D6DEEB;--1:#403F53">()</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#C792EA;--1:#8844AE">await</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#919F9F;--1:#5D6376">// Or compose into an existing Axum application.</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">app</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> TeamsApp</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">from_env</span><span style="--0:#D6DEEB;--1:#403F53">()</span><span style="--0:#7FDBCA;--1:#096E72">?.</span><span style="--0:#82AAFF;--1:#3B61B0">on_message</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">hello</span><span style="--0:#D6DEEB;--1:#403F53">)</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">build</span><span style="--0:#D6DEEB;--1:#403F53">()</span><span style="--0:#7FDBCA;--1:#096E72">?</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">router</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">app</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">router</span><span style="--0:#D6DEEB;--1:#403F53">();</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">client</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">app</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">client</span><span style="--0:#D6DEEB;--1:#403F53">();</span></div></div><div class="ec-line"><div class="code"><span style="--0:#919F9F;--1:#5D6376">// ... mount `router` into your own server, and keep `client` for outbound work.</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="// Own the whole lifecycle.TeamsApp::from_env()?    .on_message(hello)    .run()    .await// Or compose into an existing Axum application.let app = TeamsApp::from_env()?.on_message(hello).build()?;let router = app.router();let client = app.client();// ... mount &#x60;router&#x60; into your own server, and keep &#x60;client&#x60; for outbound work."><div></div></button></div></figure></div>
+<p><code dir="auto">build()</code> starts the worker pool on the current Tokio runtime and nothing
+else. <code dir="auto">run()</code> builds the same pipeline and then binds the configured address
+and serves until Ctrl-C. Both paths use the same handlers and the same client.
+A host that is not Axum calls <code dir="auto">BuiltApp::handle(authorization, body)</code>.
+See <a href="../guides/facade.md"><code dir="auto">facade.md</code></a>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="hello-world">Hello world</h2><a class="sl-anchor-link" href="#hello-world"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Hello world”</span></a></div>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">use</span><span style="--0:#D6DEEB;--1:#403F53"> muss_teams</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#D6DEEB;--1:#403F53">{MessageContext, Result, TeamsApp};</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">async</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">fn</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">hello</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">ctx</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> MessageContext) </span><span style="--0:#7FDBCA;--1:#096E72">-&gt;</span><span style="--0:#D6DEEB;--1:#403F53"> Result&lt;()&gt; {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C5E478;--1:#3B61B0">ctx</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">reply</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">Hello from Rust</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">)</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#C792EA;--1:#8844AE">await</span><span style="--0:#7FDBCA;--1:#096E72">?</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">Ok(())</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">#[tokio</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#D6DEEB;--1:#403F53">main]</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">async</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">fn</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">main</span><span style="--0:#D6DEEB;--1:#403F53">() </span><span style="--0:#7FDBCA;--1:#096E72">-&gt;</span><span style="--0:#D6DEEB;--1:#403F53"> Result&lt;()&gt; {</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">TeamsApp</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">from_env</span><span style="--0:#D6DEEB;--1:#403F53">()</span><span style="--0:#7FDBCA;--1:#096E72">?</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">on_message</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">hello</span><span style="--0:#D6DEEB;--1:#403F53">)</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">run</span><span style="--0:#D6DEEB;--1:#403F53">()</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#C792EA;--1:#8844AE">await</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="use muss_teams::{MessageContext, Result, TeamsApp};async fn hello(ctx: MessageContext) -> Result<()> {    ctx.reply(&quot;Hello from Rust&quot;).await?;    Ok(())}#[tokio::main]async fn main() -> Result<()> {    TeamsApp::from_env()?        .on_message(hello)        .run()        .await}"><div></div></button></div></figure></div>
+<p>No required custom traits, no required procedural macros, no required unsafe
+code. <code dir="auto">examples/hello.rs</code> is 11 nonblank lines including the entry point and
+its doc comment (9 without the comment), against a budget of 25; a test
+enforces the budget and another keeps this number true. A line counts when it holds
+anything but whitespace, and comment lines count.</p>
+<p><code dir="auto">from_env()</code> loads and validates configuration. It does not disable
+authentication and it does not grant any permission. A missing or misspelled
+secret is an error, never a silent fallback to a weaker credential.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="configuration">Configuration</h2><a class="sl-anchor-link" href="#configuration"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Configuration”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Required</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">TEAMS_APP_ID</code></td>
+<td>yes</td>
+<td>The application (client) id of the bot’s Entra registration, a GUID.</td>
+</tr>
+<tr>
+<td><code dir="auto">TEAMS_TENANT_ID</code></td>
+<td>yes</td>
+<td>The Entra tenant id, a GUID. A domain name is refused, because an activity names its tenant by GUID.</td>
+</tr>
+<tr>
+<td><code dir="auto">TEAMS_CLIENT_SECRET</code></td>
+<td>yes</td>
+<td>The client secret. <code dir="auto">from_env</code> reads the client-secret credential; a missing secret is an error, never another credential.</td>
+</tr>
+<tr>
+<td><code dir="auto">TEAMS_CREDENTIAL</code></td>
+<td>no</td>
+<td><code dir="auto">client-secret</code>, the default. <code dir="auto">certificate</code> and <code dir="auto">managed-identity</code> are refused with a pointer to <code dir="auto">with_credentials</code>.</td>
+</tr>
+<tr>
+<td><code dir="auto">TEAMS_BIND_ADDR</code></td>
+<td>no</td>
+<td>The address to bind. Defaults to <code dir="auto">127.0.0.1:3978</code>: a bot is reached through an HTTPS front end, and listening on every interface by default would publish a plain-HTTP endpoint nobody asked for.</td>
+</tr>
+</tbody>
+</table>
+<p>Credentials are an explicit choice, never inferred:</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">TeamsApp</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">with_credentials</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">app_id</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#C5E478;--1:#3B61B0">tenant_id</span><span style="--0:#D6DEEB;--1:#403F53">, Credentials</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#D6DEEB;--1:#403F53">ClientSecret { </span><span style="--0:#C5E478;--1:#3B61B0">id</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#C5E478;--1:#3B61B0">secret</span><span style="--0:#D6DEEB;--1:#403F53"> })</span><span style="--0:#7FDBCA;--1:#096E72">?</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">TeamsApp</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">with_credentials</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">app_id</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#C5E478;--1:#3B61B0">tenant_id</span><span style="--0:#D6DEEB;--1:#403F53">, Credentials</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#D6DEEB;--1:#403F53">Certificate { </span><span style="--0:#7FDBCA;--1:#096E72">..</span><span style="--0:#D6DEEB;--1:#403F53"> })</span><span style="--0:#7FDBCA;--1:#096E72">?</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">TeamsApp</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">with_credentials</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">app_id</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#C5E478;--1:#3B61B0">tenant_id</span><span style="--0:#D6DEEB;--1:#403F53">, Credentials</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">Provider</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">my_provider</span><span style="--0:#D6DEEB;--1:#403F53">))</span><span style="--0:#7FDBCA;--1:#096E72">?</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">TeamsClient</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">new</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">tenant_id</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">&amp;</span><span style="--0:#D6DEEB;--1:#403F53">Credentials</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#D6DEEB;--1:#403F53">ManagedIdentity { </span><span style="--0:#C5E478;--1:#3B61B0">client_id</span><span style="--0:#D6DEEB;--1:#403F53"> })</span><span style="--0:#7FDBCA;--1:#096E72">?</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="TeamsApp::with_credentials(app_id, tenant_id, Credentials::ClientSecret { id, secret })?TeamsApp::with_credentials(app_id, tenant_id, Credentials::Certificate { .. })?TeamsApp::with_credentials(app_id, tenant_id, Credentials::Provider(my_provider))?TeamsClient::new(tenant_id, &amp;Credentials::ManagedIdentity { client_id })?"><div></div></button></div></figure></div>
+<p>A misspelled or omitted secret does not cause the SDK to reach for managed
+identity. It produces a configuration error that says which variable is wrong.</p>
+<p>The managed identity credential asks whichever identity service the host
+runs, and the host names it: a virtual machine runs the instance metadata
+service, while App Service and Azure Functions run a local token service and
+publish its address in <code dir="auto">IDENTITY_ENDPOINT</code>. The application does not choose,
+and does not have to know which host it is on.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="typed-contexts">Typed contexts</h2><a class="sl-anchor-link" href="#typed-contexts"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Typed contexts”</span></a></div>
+<p>Every handler receives a typed context. The context carries the identity of
+who did what, and it never exposes the raw JSON envelope.</p>
+<table>
+<thead>
+<tr>
+<th>Context</th>
+<th>Handler</th>
+<th>Carries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">MessageContext</code></td>
+<td><code dir="auto">on_message</code></td>
+<td>The conversation, the sender, the tenant, the message text and attachments.</td>
+</tr>
+<tr>
+<td><code dir="auto">CardActionContext</code></td>
+<td><code dir="auto">on_card_action</code></td>
+<td>The actor, the card the action came from, and the payload, read with <code dir="auto">ctx.data_as::&lt;T&gt;()</code>.</td>
+</tr>
+<tr>
+<td><code dir="auto">InstallationContext</code></td>
+<td><code dir="auto">on_installation_update</code></td>
+<td>The scope the app was installed into.</td>
+</tr>
+<tr>
+<td><code dir="auto">ConversationUpdateContext</code></td>
+<td><code dir="auto">on_conversation_update</code></td>
+<td>What changed in the conversation, and who caused it.</td>
+</tr>
+<tr>
+<td><code dir="auto">MeetingSummaryContext</code></td>
+<td><code dir="auto">on_meeting_start</code> / <code dir="auto">on_meeting_end</code></td>
+<td>The meeting’s title, type, join link and actual start or end, and <code dir="auto">meeting_target()</code> for reads.</td>
+</tr>
+<tr>
+<td><code dir="auto">MeetingParticipantsContext</code></td>
+<td><code dir="auto">on_meeting_participants_joined</code> / <code dir="auto">on_meeting_participants_left</code></td>
+<td>The participants, their roles and whether they are in the meeting.</td>
+</tr>
+<tr>
+<td><code dir="auto">MeetingContext</code></td>
+<td><code dir="auto">on_meeting</code></td>
+<td>Any meeting event with no handler of its own, as <code dir="auto">MeetingEvent</code>.</td>
+</tr>
+<tr>
+<td><code dir="auto">GraphChangeContext</code></td>
+<td><code dir="auto">on_graph_change</code></td>
+<td>The changed resource, its version, and its tenant.</td>
+</tr>
+</tbody>
+</table>
+<p>The context types are distinct on purpose. A <code dir="auto">GraphChangeContext</code> is not a
+<code dir="auto">MessageContext</code> and cannot be used where one is expected, because a Graph
+change event is not a reply-capable bot context. See
+<a href="#the-four-notification-apis">Notification APIs</a> for why that distinction
+matters.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="cards">Cards</h2><a class="sl-anchor-link" href="#cards"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Cards”</span></a></div>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">use</span><span style="--0:#D6DEEB;--1:#403F53"> serde</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#D6DEEB;--1:#403F53">{Deserialize, Serialize};</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">use</span><span style="--0:#D6DEEB;--1:#403F53"> muss_teams</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">Card, CardActionContext, CardResponse, Decision, HandlerError, MessageContext, Payload, Result,</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">};</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">#[derive(Serialize, Deserialize)]</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">struct</span><span style="--0:#D6DEEB;--1:#403F53"> Approval {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C5E478;--1:#3B61B0">request_id</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> String,</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">async</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">fn</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">show_approval</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">ctx</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> MessageContext) </span><span style="--0:#7FDBCA;--1:#096E72">-&gt;</span><span style="--0:#D6DEEB;--1:#403F53"> Result&lt;()&gt; {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">card</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> Card</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">builder</span><span style="--0:#D6DEEB;--1:#403F53">()</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">text</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">Approve deployment deploy-42?</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">)</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">execute</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">Approve</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">approve</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, Approval { </span><span style="--0:#C5E478;--1:#3B61B0">request_id</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">deploy-42</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">into</span><span style="--0:#D6DEEB;--1:#403F53">() })</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">build</span><span style="--0:#D6DEEB;--1:#403F53">()</span><span style="--0:#7FDBCA;--1:#096E72">?</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C5E478;--1:#3B61B0">ctx</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">reply</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">card</span><span style="--0:#D6DEEB;--1:#403F53">)</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#C792EA;--1:#8844AE">await</span><span style="--0:#7FDBCA;--1:#096E72">?</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">Ok(())</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">async</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">fn</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">approve</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">ctx</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> CardActionContext) </span><span style="--0:#7FDBCA;--1:#096E72">-&gt;</span><span style="--0:#D6DEEB;--1:#403F53"> Result&lt;CardResponse, HandlerError&gt; {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> Approval { </span><span style="--0:#C5E478;--1:#3B61B0">request_id</span><span style="--0:#D6DEEB;--1:#403F53"> } </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">ctx</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">data_as</span><span style="--0:#D6DEEB;--1:#403F53">()</span><span style="--0:#7FDBCA;--1:#096E72">?</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#919F9F;--1:#5D6376">// Atomic with the recorded decision, once per request id.</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">outcome</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">ctx</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">once</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#7FDBCA;--1:#096E72">&amp;</span><span style="--0:#82AAFF;--1:#3B61B0">format!</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">approve:{request_id}</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">), </span><span style="--0:#C792EA;--1:#8844AE">|</span><span style="--0:#C5E478;--1:#3B61B0">_unit</span><span style="--0:#C792EA;--1:#8844AE">|</span><span style="--0:#D6DEEB;--1:#403F53"> {</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">        </span></span><span style="--0:#D6DEEB;--1:#403F53">Ok(Payload</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">new</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#ECC48D;--1:#984E4D">b</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">approved</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">to_vec</span><span style="--0:#D6DEEB;--1:#403F53">())</span><span style="--0:#7FDBCA;--1:#096E72">?</span><span style="--0:#D6DEEB;--1:#403F53">)</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">})</span><span style="--0:#7FDBCA;--1:#096E72">?</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">text</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">if</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">outcome</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">is_replay</span><span style="--0:#D6DEEB;--1:#403F53">() { </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">Already approved</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> } </span><span style="--0:#C792EA;--1:#8844AE">else</span><span style="--0:#D6DEEB;--1:#403F53"> { </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">Deployment approved</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> };</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">Ok(CardResponse</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">replace</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#7FDBCA;--1:#096E72">&amp;</span><span style="--0:#D6DEEB;--1:#403F53">Card</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">builder</span><span style="--0:#D6DEEB;--1:#403F53">()</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">text</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">text</span><span style="--0:#D6DEEB;--1:#403F53">)</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">build</span><span style="--0:#D6DEEB;--1:#403F53">()</span><span style="--0:#7FDBCA;--1:#096E72">?</span><span style="--0:#D6DEEB;--1:#403F53">))</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#919F9F;--1:#5D6376">// The app is registered with:</span></div></div><div class="ec-line"><div class="code"><span style="--0:#919F9F;--1:#5D6376">//   .authorize_card_actions(|ctx| async move { /* may ctx.actor() act on this? */ })</span></div></div><div class="ec-line"><div class="code"><span style="--0:#919F9F;--1:#5D6376">//   .on_card_action("approve", approve)</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="use serde::{Deserialize, Serialize};use muss_teams::{    Card, CardActionContext, CardResponse, Decision, HandlerError, MessageContext, Payload, Result,};#[derive(Serialize, Deserialize)]struct Approval {    request_id: String,}async fn show_approval(ctx: MessageContext) -> Result<()> {    let card = Card::builder()        .text(&quot;Approve deployment deploy-42?&quot;)        .execute(&quot;Approve&quot;, &quot;approve&quot;, Approval { request_id: &quot;deploy-42&quot;.into() })        .build()?;    ctx.reply(card).await?;    Ok(())}async fn approve(ctx: CardActionContext) -> Result<CardResponse, HandlerError> {    let Approval { request_id } = ctx.data_as()?;    // Atomic with the recorded decision, once per request id.    let outcome = ctx.once(&amp;format!(&quot;approve:{request_id}&quot;), |_unit| {        Ok(Payload::new(b&quot;approved&quot;.to_vec())?)    })?;    let text = if outcome.is_replay() { &quot;Already approved&quot; } else { &quot;Deployment approved&quot; };    Ok(CardResponse::replace(&amp;Card::builder().text(text).build()?))}// The app is registered with://   .authorize_card_actions(|ctx| async move { /* may ctx.actor() act on this? */ })//   .on_card_action(&quot;approve&quot;, approve)"><div></div></button></div></figure></div>
+<p><code dir="auto">Card::builder()</code>, <code dir="auto">ctx.reply(card)</code> and <code dir="auto">.execute(..)</code> are implemented (T13;
+see <a href="../guides/cards.md"><code dir="auto">cards.md</code></a>), and so are the button-press types above (T14; see
+<a href="../guides/card-actions.md"><code dir="auto">card-actions.md</code></a>).</p>
+<p>Registration is <code dir="auto">.on_card_action("approve", approve)</code>, and a bot that registers
+card handlers <strong>must</strong> also register <code dir="auto">.authorize_card_actions(..)</code>: without it
+every action is denied, because the data on a card is the client’s. The SDK
+cannot decide who owns an approval, so it asks.</p>
+<p><strong>Changes from the draft this section first held</strong>, recorded because the
+contract was locked:</p>
+<ul>
+<li><code dir="auto">CardActionContext</code> is not generic. The draft’s <code dir="auto">CardActionContext&lt;Approval&gt;</code>
+would have made the context type depend on the handler, which is the generic
+parameter stack the contract forbids. The data is typed at the call that
+needs it: <code dir="auto">ctx.data_as::&lt;Approval&gt;()?</code>.</li>
+<li>The handler returns <code dir="auto">Result&lt;CardResponse, E&gt;</code> for any error type, like every
+other handler, and <code dir="auto">CardResponse::replace</code> takes <code dir="auto">&amp;Card</code>.</li>
+<li>The authorization hook is a required step, not a comment. It defaults to
+deny.</li>
+<li><code dir="auto">ctx.once(..)</code> is the idempotency step. The key is derived from the verb and
+a string the application chooses, not a UUID the application mints, because
+a button press carries no identifier of its own.</li>
+</ul>
+<p><code dir="auto">.execute()</code> uses the documented <code dir="auto">Action.Execute</code> and <code dir="auto">adaptiveCard/action</code>
+transport internally, so the developer never writes an invoke envelope or
+handles the invoke timeout rules. The library resolves the transport; the
+developer handles the business authorization and the business transaction.</p>
+<p><strong>Hidden card fields are client-controlled. They are not permissions.</strong> A
+payload on a card proves only that the client sent it. Every production
+handler must re-authorize the actor against the server’s own state.</p>
+<p><code dir="auto">CardResponse::replace(&amp;card)</code>, <code dir="auto">CardResponse::message(text)</code> and typed
+protocol errors replace hand-written <code dir="auto">statusCode</code>/<code dir="auto">type</code>/<code dir="auto">value</code> JSON. Card
+builders cover common layouts and inputs with autocomplete. Validation errors
+name the offending field, for example <code dir="auto">body[1].id</code>, and say what the fix is.
+Raw Adaptive Card JSON and unknown properties are supported for forward
+compatibility.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="the-four-notification-apis">The four notification APIs</h2><a class="sl-anchor-link" href="#the-four-notification-apis"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “The four notification APIs”</span></a></div>
+<p>This is the part a developer must not have to read protocol documentation to
+get right. There are four different things, they come from three different
+Microsoft services, and they are reached through four different Rust methods.</p>
+<table>
+<thead>
+<tr>
+<th>You want to…</th>
+<th>Use</th>
+<th>Rust call</th>
+<th>Microsoft service</th>
+<th>Delivery</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Post a message into a conversation your bot is in</td>
+<td><strong>Bot messaging</strong></td>
+<td><code dir="auto">client.notify(target, card)</code></td>
+<td>Bot Connector service</td>
+<td>A message in the chat or channel</td>
+</tr>
+<tr>
+<td>React to something that happened <em>inside</em> a conversation</td>
+<td><strong>Inbound bot events</strong></td>
+<td><code dir="auto">app.on_message(handler)</code></td>
+<td>Bot Connector service, inbound</td>
+<td>A handler runs on your server</td>
+</tr>
+<tr>
+<td>Notice that a resource <em>changed</em> outside a conversation</td>
+<td><strong>Graph resource changes</strong></td>
+<td><code dir="auto">app.watch_channel_messages(target, handler)</code></td>
+<td>Microsoft Graph change notifications</td>
+<td>A handler runs on your server</td>
+</tr>
+<tr>
+<td>Raise an alert in the Teams activity feed</td>
+<td><strong>Activity-feed alerts</strong></td>
+<td><code dir="auto">client.activity_feed().send(...)</code></td>
+<td>Microsoft Graph activity feed</td>
+<td>A feed item, not a chat message</td>
+</tr>
+</tbody>
+</table>
+<p>The rule behind the table: <strong>a reply, an event, a change and an alert are four
+different things.</strong> Two of them arrive at your server; two of them leave it.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="1-bot-messaging--outbound">1. Bot messaging — outbound</h3><a class="sl-anchor-link" href="#1-bot-messaging--outbound"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “1. Bot messaging — outbound”</span></a></div>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">target</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> Target</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">user_by_object_id</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">entra_user_id</span><span style="--0:#D6DEEB;--1:#403F53">);</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">sent</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">client</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">notify</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#7FDBCA;--1:#096E72">&amp;</span><span style="--0:#C5E478;--1:#3B61B0">target</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">&amp;</span><span style="--0:#D6DEEB;--1:#403F53">OutgoingMessage</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">from</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#7FDBCA;--1:#096E72">&amp;</span><span style="--0:#C5E478;--1:#3B61B0">card</span><span style="--0:#D6DEEB;--1:#403F53">))</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#C792EA;--1:#8844AE">await</span><span style="--0:#7FDBCA;--1:#096E72">?</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="let target = Target::user_by_object_id(entra_user_id);let sent = client.notify(&amp;target, &amp;OutgoingMessage::from(&amp;card)).await?;"><div></div></button></div></figure></div>
+<p><code dir="auto">notify</code> means a bot conversation message. It resolves a stored conversation
+reference, or opens one only where Teams allows it (a one-to-one chat with a
+person who has the app installed, a new thread in a channel of a team that
+has it), and returns a [<code dir="auto">Notified</code>] with the message’s handle. It returns
+actionable <code dir="auto">NoConversationReference</code>, <code dir="auto">AppNotInstalled</code> or
+<code dir="auto">MessageWritesBlocked</code> errors rather than silently escalating permissions or
+claiming a delivery that did not happen. A bot with no
+<code dir="auto">authorize_notifications</code> hook refuses every notification, and a send whose
+answer is lost is reported as ambiguous and never repeated for you. See
+<a href="../guides/notifications.md"><code dir="auto">notifications.md</code></a>.</p>
+<p><strong>Changes from the draft this section first showed</strong> (T15): the tenant is the
+app’s own, so <code dir="auto">Target</code> does not carry one; the arguments are borrowed
+(<code dir="auto">&amp;target</code>, <code dir="auto">&amp;message</code>); an update is <code dir="auto">client.update(&amp;handle, &amp;bot, &amp;message)</code>
+using the handle in <code dir="auto">sent</code>, not a method on the result; and the constructors
+are <code dir="auto">Target::conversation</code> (an existing chat, group chat or channel thread),
+<code dir="auto">Target::user</code> / <code dir="auto">Target::user_by_object_id</code> and <code dir="auto">Target::channel_post</code>.
+An email address or a UPN is not interchangeable with a Teams id or an Entra
+id, and <code dir="auto">notify</code> does not resolve a human-readable name.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="2-inbound-bot-events--inbound-handlers">2. Inbound bot events — inbound handlers</h3><a class="sl-anchor-link" href="#2-inbound-bot-events--inbound-handlers"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “2. Inbound bot events — inbound handlers”</span></a></div>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">app</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">on_message</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">handler</span><span style="--0:#D6DEEB;--1:#403F53">)</span></div></div><div class="ec-line"><div class="code"><span class="indent">   </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">on_card_action</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">approve</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#C5E478;--1:#3B61B0">approve</span><span style="--0:#D6DEEB;--1:#403F53">)</span></div></div><div class="ec-line"><div class="code"><span class="indent">   </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">on_install</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">handler</span><span style="--0:#D6DEEB;--1:#403F53">)</span></div></div><div class="ec-line"><div class="code"><span class="indent">   </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">run</span><span style="--0:#D6DEEB;--1:#403F53">()</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="app.on_message(handler)   .on_card_action(&quot;approve&quot;, approve)   .on_install(handler)   .run()"><div></div></button></div></figure></div>
+<p>These handlers run when the Teams client or platform sends your app an
+activity. They arrive over the Bot Connector service, and the same
+authentication covers them.</p>
+<p>By default, bots do not receive every group or channel message. An explicit
+receive-all-human-messages preset declares the RSC permissions it needs and
+explains the reinstallation and consent steps. Messages authored by other bots
+are not delivered by that setting. Reading other bots’ messages is a separate
+Graph path, and only where it is authorized.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="3-graph-resource-changes--inbound-handlers-over-graph">3. Graph resource changes — inbound handlers over Graph</h3><a class="sl-anchor-link" href="#3-graph-resource-changes--inbound-handlers-over-graph"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “3. Graph resource changes — inbound handlers over Graph”</span></a></div>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">app</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> TeamsApp</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">from_env</span><span style="--0:#D6DEEB;--1:#403F53">()</span><span style="--0:#7FDBCA;--1:#096E72">?.</span><span style="--0:#82AAFF;--1:#3B61B0">on_graph_change</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">changed</span><span style="--0:#D6DEEB;--1:#403F53">);</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">subscription</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">app</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">build</span><span style="--0:#D6DEEB;--1:#403F53">()</span><span style="--0:#7FDBCA;--1:#096E72">?.</span><span style="--0:#82AAFF;--1:#3B61B0">graph_webhooks</span><span style="--0:#D6DEEB;--1:#403F53">()</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">ok_or</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">no handler</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">)</span><span style="--0:#7FDBCA;--1:#096E72">?.</span><span style="--0:#82AAFF;--1:#3B61B0">watch</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">request</span><span style="--0:#D6DEEB;--1:#403F53">)</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#C792EA;--1:#8844AE">await</span><span style="--0:#7FDBCA;--1:#096E72">?</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="let app = TeamsApp::from_env()?.on_graph_change(changed);let subscription = app.build()?.graph_webhooks().ok_or(&quot;no handler&quot;)?.watch(request).await?;"><div></div></button></div></figure></div>
+<p>A Graph subscription reads like that. This differs from the first draft
+(<code dir="auto">app.watch_channel_messages(target, handler)</code>): a handler is registered once
+with <code dir="auto">on_graph_change</code>, and what to watch is a <code dir="auto">SubscriptionRequest</code> that
+declares the resource and its lifetime, so the permission each resource needs
+stays in the typed contracts rather than in a second spelling of them. It is
+an opt-in feature, and it never subscribes to all tenant messages by default.</p>
+<p>The subscription API itself is shipped: <code dir="auto">SubscriptionKeeper::watch</code> creates a
+subscription and records it in one call (the happy path), and
+<code dir="auto">graph.subscriptions()</code> creates, reads, renews and deletes one without
+recording it, for two resources (one channel’s messages, one chat’s
+messages). A <code dir="auto">watch</code> whose record write fails returns
+<code dir="auto">WatchError::NotRemembered</code>, which names the subscription that now exists at
+the service. <code dir="auto">SubscriptionOwner</code> keeps what was created and
+the plan for it in tenant-keyed durable state (the client state in it is a
+secret: protect the store like a credential), and <code dir="auto">SubscriptionKeeper</code> renews
+what is due under a version-checked lease and passes what it cannot repair to
+an application <code dir="auto">RecoveryHook</code>. The SDK starts no renewal timer: the
+application calls <code dir="auto">sweep</code> on its own timer.</p>
+<p>The inbound handler is shipped. <code dir="auto">TeamsApp::on_graph_change</code> registers it and
+turns on two URLs, <code dir="auto">GRAPH_NOTIFICATION_PATH</code> and <code dir="auto">GRAPH_LIFECYCLE_PATH</code>, which
+answer the validation handshake and accept notifications. A handler gets a
+<code dir="auto">GraphChangeContext</code> (a <code dir="auto">GraphChange</code> and the attempt number) only after the
+item matched a subscription this app created: client state (constant time),
+tenant, application and resource. The request is answered <code dir="auto">202</code> after the item
+is in a bounded durable queue, and <code dir="auto">503</code> with <code dir="auto">Retry-After</code> when it is not. A
+handler that fails is retried and then set aside as poison; lifecycle items go
+to <code dir="auto">SubscriptionKeeper::handle_lifecycle</code>; rich items (encrypted content) are
+quarantined unverified and reach only the <code dir="auto">on_graph_resource</code> handler, after
+their validation tokens, certificate and data signature check out
+(<code dir="auto">graph_decryption_keys</code>, <code dir="auto">DecryptionKeys</code>, <code dir="auto">RichChangeContext</code>,
+<code dir="auto">SubscriptionRequest::with_resource_data</code>). The worker is owned by the
+<code dir="auto">BuiltApp</code> and joined by <code dir="auto">shutdown</code>. <code dir="auto">on_subscription_recovery</code>,
+<code dir="auto">on_graph_fault</code> and <code dir="auto">graph_webhook_limits</code> configure it; see <code dir="auto">graph.md</code>.</p>
+<p>A Graph change event is not a reply-capable bot context. It carries the
+resource, its tenant, its resource identity, the delivery identity where the
+platform provides one, and resource version metadata. It does not invent a
+cross-source event id, and it does not promise exactly-once delivery.
+A notification with an <code dir="auto">id</code> is deduplicated; one without is delivered each time and
+the handler must be safe to run twice (documented in <code dir="auto">graph.md</code>).</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="4-activity-feed-alerts--outbound">4. Activity-feed alerts — outbound</h3><a class="sl-anchor-link" href="#4-activity-feed-alerts--outbound"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “4. Activity-feed alerts — outbound”</span></a></div>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">client</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">activity_feed</span><span style="--0:#D6DEEB;--1:#403F53">()</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">with_type</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">deployment-alert</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">)</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">with_deep_link</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">deep_link</span><span style="--0:#D6DEEB;--1:#403F53">)</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">send</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">topic</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#C5E478;--1:#3B61B0">card</span><span style="--0:#D6DEEB;--1:#403F53">)</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#C792EA;--1:#8844AE">await</span><span style="--0:#7FDBCA;--1:#096E72">?</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="client.activity_feed()    .with_type(&quot;deployment-alert&quot;)    .with_deep_link(deep_link)    .send(topic, card)    .await?;"><div></div></button></div></figure></div>
+<p>An activity-feed notification is a separate builder with a
+manifest-declared notification type and a Teams deep link. It appears in the
+Teams activity feed. It does not post a message into a conversation, and it
+does not arrive as a handler call.</p>
+<p><strong>Decision (T17, 2026-11-10): the shipped spelling is <code dir="auto">graph.activity().to_team</code>,
+<code dir="auto">.to_chat</code> and <code dir="auto">.to_user</code>, not <code dir="auto">client.activity_feed().send(...)</code>.</strong> The sketch
+above is the design intent; the shipped form differs for three reasons. A feed
+notification needs Graph credentials, and the <code dir="auto">graph</code> feature is where those
+live (<code dir="auto">ApplicationGraph</code> and <code dir="auto">DelegatedGraph</code>), so the entry point sits on the
+Graph client rather than on the bot client. The three endpoints differ in
+permission, topic and recipient rules, so one <code dir="auto">send</code> would hide the choice the
+caller must make, and the SDK refuses a mismatch by target instead of guessing.
+And a card is not an input: the service renders the notification from the
+manifest template, so the body is an <code dir="auto">ActivityNotification</code>, not a card. The
+separation from <code dir="auto">client.notify(...)</code> holds: they are different clients, so no
+call can deliver both. <code dir="auto">docs/graph.md</code> shows the shipped form.</p>
+<p>The SDK never silently sends both a chat card and a feed alert. If you want
+both, you make two calls and you own the consequence. The SDK also does not
+promise a banner, a sound, or a read receipt: client settings and platform
+behavior govern what the user actually sees.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="picking-the-wrong-one">Picking the wrong one</h3><a class="sl-anchor-link" href="#picking-the-wrong-one"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Picking the wrong one”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Probably the wrong API</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>You want to appear in the conversation the user is looking at</td>
+<td>Bot messaging, not activity feed</td>
+</tr>
+<tr>
+<td>You want a red entry in the activity feed</td>
+<td>Activity feed, not bot messaging</td>
+</tr>
+<tr>
+<td>You want to know when someone edited a document in a channel</td>
+<td>Graph change, not an inbound bot event</td>
+</tr>
+<tr>
+<td>You want to know what a user typed in a channel</td>
+<td>Inbound bot event (mentions) or Graph change (all messages)</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="events">Events</h2><a class="sl-anchor-link" href="#events"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Events”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Registration</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Message</td>
+<td><code dir="auto">on_message</code></td>
+<td>Bot Connector service</td>
+</tr>
+<tr>
+<td>Card action</td>
+<td><code dir="auto">on_card_action</code></td>
+<td>Bot Connector service, invoke</td>
+</tr>
+<tr>
+<td>Dialog opened and submitted</td>
+<td><code dir="auto">on_dialog_open</code> / <code dir="auto">on_dialog_submit</code></td>
+<td>Bot Connector service, invoke (<code dir="auto">task/fetch</code>, <code dir="auto">task/submit</code>)</td>
+</tr>
+<tr>
+<td>Message extension search, selection, action and link</td>
+<td><code dir="auto">on_extension_query</code> / <code dir="auto">on_extension_select</code> / <code dir="auto">on_action_fetch</code> / <code dir="auto">on_action_submit</code> / <code dir="auto">on_link</code></td>
+<td>Bot Connector service, invoke (<code dir="auto">composeExtension/*</code>)</td>
+</tr>
+<tr>
+<td>Install and uninstall</td>
+<td><code dir="auto">on_install</code> / <code dir="auto">on_uninstall</code></td>
+<td>Bot Connector service</td>
+</tr>
+<tr>
+<td>Conversation update</td>
+<td><code dir="auto">on_conversation_update</code></td>
+<td>Bot Connector service</td>
+</tr>
+<tr>
+<td>Reaction</td>
+<td><code dir="auto">on_reaction</code></td>
+<td>Bot Connector service</td>
+</tr>
+<tr>
+<td>Meeting start and end</td>
+<td><code dir="auto">on_meeting_start</code> / <code dir="auto">on_meeting_end</code></td>
+<td>Bot Connector service</td>
+</tr>
+<tr>
+<td>Participants joining and leaving</td>
+<td><code dir="auto">on_meeting_participants_joined</code> / <code dir="auto">on_meeting_participants_left</code></td>
+<td>Bot Connector service</td>
+</tr>
+<tr>
+<td>Graph resource change</td>
+<td><code dir="auto">watch_channel_messages</code> and friends</td>
+<td>Microsoft Graph change notifications</td>
+</tr>
+</tbody>
+</table>
+<p>Bot events and Graph change events may share envelope conveniences, but they
+retain their source. A Graph event is never presented as a bot activity.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="setup-that-fails-helpfully">Setup that fails helpfully</h2><a class="sl-anchor-link" href="#setup-that-fails-helpfully"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Setup that fails helpfully”</span></a></div>
+<p>The optional CLI provides five commands:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>What it does</th>
+<th>What it must never do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">muss-teams setup</code></td>
+<td>Walks the operator through creating the Entra registration, the bot service principal, the credential, the Graph permissions and the app manifest. It shows the whole plan first and changes nothing without <code dir="auto">--apply</code>.</td>
+<td>Run without <code dir="auto">--apply</code>, publish a multi-tenant bot to the Partner Center, install the app in a tenant, or send a test message.</td>
+</tr>
+<tr>
+<td><code dir="auto">muss-teams init</code></td>
+<td>Writes a minimal example, <code dir="auto">.env.example</code>, a manifest template, and an exact setup checklist.</td>
+<td>Create cloud resources, grant consent, install apps, or post test messages.</td>
+</tr>
+<tr>
+<td><code dir="auto">muss-teams manifest validate</code></td>
+<td>Validates an app manifest against the documented schema.</td>
+<td>Change the manifest.</td>
+</tr>
+<tr>
+<td><code dir="auto">muss-teams package</code></td>
+<td>Assembles the app package.</td>
+<td>Publish or submit anything.</td>
+</tr>
+<tr>
+<td><code dir="auto">muss-teams doctor</code></td>
+<td>Read-only diagnosis of the local setup.</td>
+<td>Mutate anything.</td>
+</tr>
+</tbody>
+</table>
+<p><code dir="auto">setup</code> is the one command that changes a cloud resource, and it is the one
+that has to be asked twice: once to show the plan, once with <code dir="auto">--apply</code> to run
+it. Every step it would take is printed before any of them is taken, and the
+steps that a tenant administrator has to agree to say so in the plan rather
+than in a failure later.</p>
+<p><code dir="auto">doctor</code> is read-only by default, redacts credentials, and distinguishes a
+wrong app id, a tenant mismatch, an expired secret, an unconfigured messaging
+endpoint, a missing installation, and missing Graph permissions where the
+service exposes enough evidence. Where it cannot verify something, it says so
+rather than reporting a guess.</p>
+<p>Anything that mutates a cloud resource is a separate explicit operation, never
+a side effect of <code dir="auto">init</code>. <code dir="auto">setup</code> is that operation, and it is opt-in twice
+over: no <code dir="auto">--apply</code>, no change, and a plan the operator can read first.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="glossary">Glossary</h2><a class="sl-anchor-link" href="#glossary"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Glossary”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>What it is</th>
+<th>Where to get it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Teams app id</td>
+<td>The id of the Microsoft 365 app package.</td>
+<td>The app manifest, or <code dir="auto">muss-teams doctor</code>.</td>
+</tr>
+<tr>
+<td>Entra client id</td>
+<td>The application (client) id of the Entra registration.</td>
+<td>The Entra app registration.</td>
+</tr>
+<tr>
+<td>Tenant id</td>
+<td>The Entra tenant.</td>
+<td>The Entra app registration overview, or the domain’s <code dir="auto">Get-TenantId</code>.</td>
+</tr>
+<tr>
+<td>Bot id</td>
+<td>The id of the bot identity inside the app package.</td>
+<td>The app manifest <code dir="auto">bots</code> array.</td>
+</tr>
+<tr>
+<td>Graph chat id</td>
+<td>The Graph id of a chat.</td>
+<td>The Graph API for the chat.</td>
+</tr>
+<tr>
+<td>Connector conversation id</td>
+<td>The Bot Connector conversation id.</td>
+<td>The <code dir="auto">conversation.id</code> field on an incoming activity.</td>
+</tr>
+<tr>
+<td>Team id</td>
+<td>The Graph id of a team.</td>
+<td>The Graph API for the team.</td>
+</tr>
+<tr>
+<td>Channel id</td>
+<td>The Graph id of a channel.</td>
+<td>The Graph API for the channel.</td>
+</tr>
+</tbody>
+</table>
+<p>These identifiers are not interchangeable. A Connector conversation id is not a
+Graph chat id, and an Entra client id is not a Teams app id. The SDK uses
+distinct types for them so that a mix-up is a compile error rather than a
+runtime 404.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="usability-acceptance-gates">Usability acceptance gates</h2><a class="sl-anchor-link" href="#usability-acceptance-gates"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Usability acceptance gates”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Budget</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hello world, nonblank lines including the entry point</td>
+<td>25</td>
+<td>Measured at 11 (<code dir="auto">examples/hello.rs</code>, enforced by a test)</td>
+</tr>
+<tr>
+<td>Complete local card action example, nonblank lines, excluding the domain persistence layer</td>
+<td>60</td>
+<td>Measured at 56 (<code dir="auto">examples/approval.rs</code>, the bot part above the marker; enforced by <code dir="auto">tests/example_approval.rs</code> and <code dir="auto">tests/docs</code>)</td>
+</tr>
+<tr>
+<td>Custom traits required for the basic example</td>
+<td>0</td>
+<td>Designed at 0</td>
+</tr>
+<tr>
+<td>Unsafe code required</td>
+<td>0</td>
+<td>Designed at 0</td>
+</tr>
+<tr>
+<td>Time to a real message and card round trip after tenant prerequisites, following only the README</td>
+<td>15 minutes</td>
+<td>Unverified; needs a walkthrough by someone unfamiliar with the codebase</td>
+</tr>
+<tr>
+<td>Offline route from a clean checkout to a mock round trip</td>
+<td>One documented command, no cloud account</td>
+<td>Message and card round trip: <code dir="auto">cargo run -p muss-teams --example approval --features test-utils</code>, labelled as a simulation on its first line. The message-only <code dir="auto">offline</code> and the per-user <code dir="auto">per_user_view</code> run the same way. It is an example, not a CLI subcommand, so the test seams never enter the shipped binary (see <code dir="auto">docs/cli.md</code>). <code dir="auto">tests/example_approval.rs</code> runs it, so the CI platforms (Linux x64 and arm64, macOS arm64, Windows x64) each run it under <code dir="auto">cargo test --all-features</code></td>
+</tr>
+</tbody>
+</table>
+<p>The last two are recorded as unverified rather than assumed. They are measured
+against a real tenant and a real reviewer, and neither has been measured yet.</p>
+<p>Every user-facing example compiles in CI. The ones a developer is told to copy
+(<code dir="auto">hello</code>, <code dir="auto">notify</code> and <code dir="auto">offline</code>) import only from <code dir="auto">muss_teams</code>, and a test
+checks it; the examples that document a lower layer (<code dir="auto">connector</code>, <code dir="auto">state</code> and
+<code dir="auto">render</code>) say so in their first lines and may name that layer. <code dir="auto">credential</code>
+uses the facade. Compile-fail tests make it hard to
+confuse id kinds, credential audiences, or Graph events with bot activities.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="meetings-and-presence">Meetings and presence</h2><a class="sl-anchor-link" href="#meetings-and-presence"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Meetings and presence”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>You want</th>
+<th>Use</th>
+<th>Needs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A meeting’s details</td>
+<td><code dir="auto">client.meetings()?.details(&amp;ctx.meeting_target()?)</code></td>
+<td><code dir="auto">authorize_meeting_reads</code>; the manifest’s RSC permission for the meeting kind</td>
+</tr>
+<tr>
+<td>One participant</td>
+<td><code dir="auto">client.meetings()?.participant(&amp;target, &amp;ParticipantQuery::parse(id)?)</code></td>
+<td><code dir="auto">authorize_meeting_reads</code></td>
+</tr>
+<tr>
+<td>A user’s presence</td>
+<td><code dir="auto">ApplicationGraph::presence().get(id)</code>, <code dir="auto">DelegatedGraph::presence().get(id)</code> or <code dir="auto">.me()</code></td>
+<td><code dir="auto">Presence.Read.All</code>, or <code dir="auto">Presence.Read</code> for <code dir="auto">me()</code></td>
+</tr>
+<tr>
+<td>Presence kept up to date</td>
+<td><code dir="auto">GraphWebhooks::watch</code> with <code dir="auto">WatchedResource::presence(id)</code> and <code dir="auto">with_resource_data</code>, or a <code dir="auto">SubscriptionKeeper</code> over a <code dir="auto">DelegatedGraph</code></td>
+<td>Delegated <code dir="auto">Presence.Read.All</code>; at most 60 minutes per subscription; a certificate</td>
+</tr>
+<tr>
+<td>Presence changes</td>
+<td><code dir="auto">TeamsApp::on_presence_change</code> (a <code dir="auto">PresenceChangeContext</code>: <code dir="auto">user()</code>, <code dir="auto">availability()</code>, <code dir="auto">activity()</code>), with <code dir="auto">graph_decryption_keys</code> and <code dir="auto">graph_delegated_tokens</code></td>
+<td>The private key of the subscription’s certificate; the user’s token</td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="../guides/meetings.md">Meetings and presence</a>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="sign-in-and-delegated-graph">Sign-in and delegated Graph</h2><a class="sl-anchor-link" href="#sign-in-and-delegated-graph"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Sign-in and delegated Graph”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>You want</th>
+<th>Use</th>
+<th>Needs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Let a person sign in once</td>
+<td><code dir="auto">Sso::new(SsoConfig::new(app_id_uri)?.scopes([..]).authorize(hook))</code> then <code dir="auto">TeamsApp::with_sso(&amp;sso)</code></td>
+<td>the <code dir="auto">sso</code> feature; the Entra registration and manifest in <a href="../guides/sso.md">user sign-in</a>; an authorization hook (<strong>without one every sign-in is refused</strong>)</td>
+</tr>
+<tr>
+<td>Ask for sign-in from a handler</td>
+<td><code dir="auto">sso.sign_in(&amp;ctx).await?</code> returns <code dir="auto">SignInStatus::Ready(UserSession)</code> or sends the card and returns <code dir="auto">Prompted</code></td>
+<td><code dir="auto">sso</code></td>
+</tr>
+<tr>
+<td>Call Graph as the person</td>
+<td><code dir="auto">session.graph()?.me().await</code></td>
+<td><code dir="auto">sso</code> and <code dir="auto">graph</code>; delegated scopes the registration holds</td>
+</tr>
+<tr>
+<td>The fallback</td>
+<td><code dir="auto">SsoConfig::redirect_uri(..)</code>, and your page calls <code dir="auto">sso.complete_callback(code, state)</code> then <code dir="auto">notifySuccess(&lt;the verification code it returns&gt;)</code></td>
+<td>a registered HTTPS redirect address</td>
+</tr>
+<tr>
+<td>Hear why a sign-in was refused</td>
+<td><code dir="auto">SsoConfig::on_sign_in_refused</code> (a typed <code dir="auto">SsoError</code>: <code dir="auto">ConsentRequired</code>, <code dir="auto">InteractionRequired</code>, …)</td>
+<td><code dir="auto">sso</code></td>
+</tr>
+<tr>
+<td>Keep sessions across a restart</td>
+<td><code dir="auto">SsoConfig::vault(..)</code> and <code dir="auto">seal_with(SealingKey::from_env(..)?)</code></td>
+<td>a vault that stores bytes and forgets at <code dir="auto">ttl</code></td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="../guides/sso.md">Teams sign-in and delegated Graph</a>. The <code dir="auto">sso</code> row of the capability
+index below stays <code dir="auto">planned</code> until its recipe is added to <a href="../operations/recipes.md">the offline recipes</a>;
+the code is shipped and tested.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="capability-index">Capability index</h2><a class="sl-anchor-link" href="#capability-index"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Capability index”</span></a></div>
+<p>Every capability this contract advertises, with the status of its recipe. A
+test compares this table with <a href="../operations/recipes.md">the offline recipes</a>: a <code dir="auto">shipped</code> capability
+needs a runnable recipe, a test and a negative-path explanation there, and a
+<code dir="auto">planned</code> one is listed there as not yet shipped. A capability added to one
+table and not the other fails the build.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Capability</th>
+<th>Facade only</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">hello-bot</code></td>
+<td>Authenticated bot activities and the hello-world</td>
+<td>yes</td>
+<td>shipped</td>
+</tr>
+<tr>
+<td><code dir="auto">approval-card</code></td>
+<td>Interactive Adaptive Cards and card actions</td>
+<td>yes</td>
+<td>shipped</td>
+</tr>
+<tr>
+<td><code dir="auto">standalone-notify</code></td>
+<td>Proactive messages from a client with no bot running</td>
+<td>yes</td>
+<td>shipped</td>
+</tr>
+<tr>
+<td><code dir="auto">activity-feed</code></td>
+<td>Activity-feed alerts</td>
+<td>yes</td>
+<td>shipped</td>
+</tr>
+<tr>
+<td><code dir="auto">channel-watch</code></td>
+<td>Graph change-notification subscriptions and webhooks</td>
+<td>yes</td>
+<td>shipped</td>
+</tr>
+<tr>
+<td><code dir="auto">rich-notifications</code></td>
+<td>Graph notifications with encrypted resource data</td>
+<td>yes</td>
+<td>shipped</td>
+</tr>
+<tr>
+<td><code dir="auto">dialog</code></td>
+<td>Dialogs</td>
+<td>yes</td>
+<td>shipped</td>
+</tr>
+<tr>
+<td><code dir="auto">extensions</code></td>
+<td>Message extensions</td>
+<td>yes</td>
+<td>shipped</td>
+</tr>
+<tr>
+<td><code dir="auto">directory-install</code></td>
+<td>Directory lookups and app installs</td>
+<td>yes</td>
+<td>shipped</td>
+</tr>
+<tr>
+<td><code dir="auto">meetings-presence</code></td>
+<td>Meeting events, meeting reads and presence</td>
+<td>yes</td>
+<td>shipped</td>
+</tr>
+<tr>
+<td><code dir="auto">existing-host</code></td>
+<td>Hosting the bot inside an application you already run</td>
+<td>yes</td>
+<td>shipped</td>
+</tr>
+<tr>
+<td><code dir="auto">manifest-cli</code></td>
+<td>The app manifest and the setup tool</td>
+<td>n/a</td>
+<td>shipped</td>
+</tr>
+<tr>
+<td><code dir="auto">sso</code></td>
+<td>User single sign-on and delegated token exchange</td>
+<td>n/a</td>
+<td>planned</td>
+</tr>
+<tr>
+<td><code dir="auto">files</code></td>
+<td>File listing and upload flows</td>
+<td>n/a</td>
+<td>planned</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="boundaries-of-full-integration">Boundaries of “full integration”</h2><a class="sl-anchor-link" href="#boundaries-of-full-integration"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Boundaries of “full integration””</span></a></div>
+<p>v1 covers the Teams server-side application surfaces: bot messaging and events,
+proactive notifications, interactive cards, Graph subscriptions and the
+activity feed, dialogs, message extensions, authentication, directory and
+install helpers, meeting metadata and events, and presence.</p>
+<p>It does not claim that every Microsoft Graph endpoint is implemented.</p>
+<table>
+<thead>
+<tr>
+<th>Not in v1</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File upload, download and consent</td>
+<td>No file flow is implemented. A card may carry a link to a file, and an attachment may name one, but the SDK neither uploads nor downloads bytes and it does not answer a <code dir="auto">fileConsent</code> activity.</td>
+</tr>
+<tr>
+<td>TeamsJS and other browser-side APIs</td>
+<td>A tab or meeting side-panel frontend runs in the browser and uses TeamsJS. The SDK is the server side: it authenticates the activity, answers the invoke, and keeps the state. The frontend is the application’s own work.</td>
+</tr>
+<tr>
+<td>Graph <code dir="auto">beta</code> endpoints</td>
+<td>Only <code dir="auto">v1.0</code> is advertised.</td>
+</tr>
+<tr>
+<td>Sovereign clouds</td>
+<td>Advertised only after their own compatibility tests pass.</td>
+</tr>
+<tr>
+<td>Cross-tenant operation</td>
+<td>v1 is single-tenant.</td>
+</tr>
+<tr>
+<td>Meeting transcripts and recordings</td>
+<td>Reading them depends on an application access policy and tenant administrator settings the SDK can neither check nor grant, and no live tenant has proved the reads. See <a href="../guides/meetings.md">meetings</a>.</td>
+</tr>
+<tr>
+<td>Application-hosted real-time audio and video</td>
+<td>A different Microsoft media platform with .NET and Windows requirements. Native media capture is excluded from v1.</td>
+</tr>
+<tr>
+<td>API-based message extensions</td>
+<td>The bot-based model is the one v1 implements.</td>
+</tr>
+<tr>
+<td>Office 365 connector-based Incoming Webhooks</td>
+<td>Retired in Teams in May 2026.</td>
+</tr>
+</tbody>
+</table>
+<p>The exact surfaces inside those boundaries, with permissions and clouds, are in
+<a href="compatibility/index.md">the compatibility matrix</a>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="change-policy">Change policy</h2><a class="sl-anchor-link" href="#change-policy"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Change policy”</span></a></div>
+<p>This document is the contract. The first task that changes it must update the
+examples here and explain why in the same change.</p>
+<p>A bigger API is not a reason to make the basic examples more complicated.</p>
+</div><footer class="sl-flex astro-mjem5c2d"><div class="meta sl-flex astro-mjem5c2d"></div><div class="pagination-links print:hidden astro-wxozplkb" dir="ltr"><a href="/muss/guides/state/" rel="prev" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span class="astro-wxozplkb">Previous<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">Tenant-scoped state</span></span></a><a href="/muss/reference/error-taxonomy/" rel="next" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-wxozplkb">Next<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">The error taxonomies</span></span></a></div></footer></div></div></main></div></div></div></div></body></html>

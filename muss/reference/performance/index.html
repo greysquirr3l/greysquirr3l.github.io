@@ -1,0 +1,527 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-al2ilw4v"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Performance and resource bounds | muss</title><link rel="canonical" href="https://greysquirr3l.github.io/muss/reference/performance/"/><link rel="sitemap" href="/muss/sitemap-index.xml"/><link rel="shortcut icon" href="/muss/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v7.4.11"/><meta name="generator" content="Starlight v0.42.11"/><meta property="og:title" content="Performance and resource bounds"/><meta property="og:type" content="article"/><meta property="og:url" content="https://greysquirr3l.github.io/muss/reference/performance/"/><meta property="og:locale" content="en"/><meta property="og:description" content="The budgets the SDK holds itself to, and the audits that back each number."/><meta property="og:site_name" content="muss"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="The budgets the SDK holds itself to, and the audits that back each number."/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/muss/_astro/print.C9eyqPGL.css" media="print"><link rel="stylesheet" href="/muss/_astro/common.BnqPtuMD.css"><style>@layer starlight.components{svg:where(.astro-pqysdep7){color:var(--sl-icon-color);font-size:var(--sl-icon-size,1em);width:1em;height:1em;overflow:visible}}
+</style><script type="module" src="/muss/_astro/page.cNngjUgL.js"></script></head><body class="astro-al2ilw4v"><a class="sl-skip-link astro-o5hysztx" href="#_top">Skip to content</a><div class="page sl-flex astro-gh65ub26"><header class="header astro-gh65ub26"><div class="header astro-ozb2cxkm"><div class="title-wrapper sl-flex astro-ozb2cxkm"><a href="/muss/" class="site-title sl-flex astro-yhxfdlc4"><img class="light:sl-hidden print:hidden astro-yhxfdlc4" alt src="/muss/_astro/logo-dark.ChSVDRwB.svg" width="48" height="48"><img class="dark:sl-hidden print:block astro-yhxfdlc4" alt src="/muss/_astro/logo-light.DeCIlpuM.svg" width="48" height="48"><span class="astro-yhxfdlc4" translate="no">muss</span></a></div><div class="sl-flex print:hidden astro-ozb2cxkm"><site-search class="astro-ozb2cxkm astro-3h4fk2u5" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"><button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-3h4fk2u5"><svg aria-hidden="true" class="astro-3h4fk2u5 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-3h4fk2u5" aria-hidden="true">Search</span><kbd class="sl-hidden md:sl-flex astro-3h4fk2u5" style="display: none"><kbd class="astro-3h4fk2u5">Ctrl</kbd><kbd class="astro-3h4fk2u5">K</kbd></kbd></button><dialog style="padding: 0" aria-label="Search" class="astro-3h4fk2u5"><div class="dialog-frame sl-flex astro-3h4fk2u5"><button data-close-modal class="sl-flex md:sl-hidden astro-3h4fk2u5">Cancel</button><div class="search-container astro-3h4fk2u5"><div id="starlight__search" class="astro-3h4fk2u5"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/muss/_astro/Search.astro_astro_type_script_index_0_lang.CrDXzKXN.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-ozb2cxkm"><div class="sl-flex social-icons astro-ozb2cxkm"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script><script type="module">var e=class extends HTMLElement{constructor(){super();let e=this.querySelector(`select`);e&&(e.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=e.currentTarget.value)}),window.addEventListener(`pageshow`,t=>{if(!t.persisted)return;let n=e.querySelector(`option[selected]`)?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}};customElements.define(`starlight-lang-select`,e);</script></div></div></header><nav class="sidebar print:hidden astro-gh65ub26" aria-label="Main"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-creup77k"><svg aria-hidden="true" class="open-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-creup77k">Menu</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-gh65ub26"><div class="sidebar-content sl-flex astro-gh65ub26"><sl-sidebar-state-persist data-hash="1egna9r" class="astro-zzv2mkrn"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-mql6fjj4"><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Getting started</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/getting-started/configuration/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Configuration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/installation/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Installation</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/introduction/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">What muss is</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/quickstart/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Quickstart</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Guides</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/guides/card-actions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/cards/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Adaptive Cards</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/dialogs-and-extensions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/directory/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Directory and app installs</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/facade/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams facade</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/graph/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/meetings/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/notifications/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/routing/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Routing bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/sso/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams sign-in and delegated Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/state/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Tenant-scoped state</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Reference</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/public-api/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The locked v1 contract</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/error-taxonomy/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The error taxonomies</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/permissions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Permissions and consent</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/policies/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Platform policies and retirements</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/performance/" aria-current="page" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Performance and resource bounds</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/transport-and-observability/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Transport and observability</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/cli/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams command-line tool</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/changelog/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The changelog</span></a></li><li class="astro-mql6fjj4"><details class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Compatibility</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Supported-surface matrix</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/bot-framework/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound activity authentication</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/cards/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Cards and card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/connector/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound Connector messages</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/credentials/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound credentials and token issuance</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/dialogs/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and message extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/graph/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph surface</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/inbound-activities/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/meetings/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/proactive/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/sso/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams user sign-in</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/unverified/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Unverified surfaces</span></a></li></ul></details></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Operations</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/operations/ci/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Continuous integration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/recipes/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Offline recipes</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/troubleshooting/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Troubleshooting</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Architecture</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="5"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/architecture/decisions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture decisions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/overview/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture overview</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/workspace-layout/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Workspace layout</span></a></li></ul></details></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-ezdlrayc"><div class="social-icons astro-ezdlrayc"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-gh65ub26"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-4yguomvy"><aside class="right-sidebar-container print:hidden astro-4yguomvy"><div class="right-sidebar astro-4yguomvy"><div class="lg:sl-hidden astro-cnvahwco"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-b3z257xh"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-b3z257xh"><details id="starlight__mobile-toc" class="astro-b3z257xh"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-b3z257xh"><span class="toggle sl-flex astro-b3z257xh">On this page<svg aria-hidden="true" class="caret astro-b3z257xh astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-b3z257xh"></span></summary><div class="dropdown astro-b3z257xh"><ul class="isMobile astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#builds" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Builds</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#where-things-live" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Where things live</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#commands" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Commands</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#profiling-without-unix-only-tools" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Profiling without Unix-only tools</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#measured-baseline" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Measured baseline</span></a><ul class="isMobile astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#statistical-micro-and-pipeline-timings-median-per-iteration" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Statistical micro and pipeline timings (median per iteration)</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#latency-percentiles-microseconds" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Latency percentiles (microseconds)</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#allocation-counts-blocks-per-run-dhat" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Allocation counts (blocks per run, dhat)</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#budgets" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Budgets</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#capacity-of-the-default-in-memory-state" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Capacity of the default in-memory state</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#leak-audit" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Leak audit</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#hashing-audit-mem-13" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Hashing audit (MEM-13)</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#mutation-results" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Mutation results</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#still-owed" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Still owed</span></a></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/muss/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-cnvahwco"><div class="sl-container astro-cnvahwco"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#builds" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Builds</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#where-things-live" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Where things live</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#commands" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Commands</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#profiling-without-unix-only-tools" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Profiling without Unix-only tools</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#measured-baseline" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Measured baseline</span></a><ul class="astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#statistical-micro-and-pipeline-timings-median-per-iteration" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Statistical micro and pipeline timings (median per iteration)</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#latency-percentiles-microseconds" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Latency percentiles (microseconds)</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#allocation-counts-blocks-per-run-dhat" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Allocation counts (blocks per run, dhat)</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#budgets" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Budgets</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#capacity-of-the-default-in-memory-state" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Capacity of the default in-memory state</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#leak-audit" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Leak audit</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#hashing-audit-mem-13" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Hashing audit (MEM-13)</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#mutation-results" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Mutation results</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#still-owed" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Still owed</span></a></li></ul></nav></starlight-toc><script type="module" src="/muss/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane astro-4yguomvy"><main data-pagefind-body class="astro-al2ilw4v" lang="en" dir="ltr"><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><h1 id="_top" class="astro-qfythd7a">Performance and resource bounds</h1></div></div><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><div class="sl-markdown-content"><p>Master-list IDs followed: PERF-01, 02, 03, 08, 11, 12; LEAK-01 to 05; MEM-13.
+Everything here was measured on one machine (below). Nothing is a throughput
+claim for other hardware, and no number is a Microsoft service latency: every
+downstream in these runs is a loopback stand-in that answers after a delay the
+run chose.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="builds">Builds</h2><a class="sl-anchor-link" href="#builds"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Builds”</span></a></div>
+<ul>
+<li><code dir="auto">cargo bench</code> uses <code dir="auto">[profile.bench]</code>: release code generation, thin LTO, one
+codegen unit, full debug info, <code dir="auto">strip = "none"</code>. (<code dir="auto">bench</code> inherits <code dir="auto">release</code>,
+which strips; without the explicit <code dir="auto">strip = "none"</code> the symbols would be
+thrown away at link time.)</li>
+<li><code dir="auto">cargo build --profile profiling</code> builds the same code for a profiler.</li>
+<li>The library sets no global allocator, passes no <code dir="auto">target-cpu</code>, and keeps
+<code dir="auto">panic = "unwind"</code>. The only counting allocator (<code dir="auto">dhat</code>) is installed by the
+<code dir="auto">alloc_budget</code> test binary for itself.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="where-things-live">Where things live</h2><a class="sl-anchor-link" href="#where-things-live"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Where things live”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shared harness (mock downstream, signed bot, percentiles, metadata)</td>
+<td><code dir="auto">crates/muss-teams/perf_support/</code></td>
+</tr>
+<tr>
+<td>Criterion benches</td>
+<td><code dir="auto">crates/muss-teams/benches/workloads.rs</code>, <code dir="auto">surfaces.rs</code></td>
+</tr>
+<tr>
+<td>Open-loop latency percentiles</td>
+<td><code dir="auto">crates/muss-teams/benches/latency.rs</code></td>
+</tr>
+<tr>
+<td>Allocation-count gate and live-block check</td>
+<td><code dir="auto">crates/muss-teams/tests/alloc_budget.rs</code></td>
+</tr>
+<tr>
+<td>Overload, retention, rotation, capacity</td>
+<td><code dir="auto">crates/muss-teams/tests/perf/</code></td>
+</tr>
+<tr>
+<td>Live descriptor and task gauges (soak, webhook flood)</td>
+<td><code dir="auto">crates/muss-teams/tests/perf_gauge/</code></td>
+</tr>
+<tr>
+<td>Structural rules (hasher, leak APIs, spawn sites)</td>
+<td><code dir="auto">tests/hash_policy.rs</code>, <code dir="auto">tests/leak_policy.rs</code></td>
+</tr>
+<tr>
+<td>Stored baselines</td>
+<td><code dir="auto">crates/muss-teams/perf_baselines/*.json</code></td>
+</tr>
+</tbody>
+</table>
+<p><code dir="auto">cargo test --workspace --all-features --locked</code> runs the allocation gate and
+the <code dir="auto">perf</code>, <code dir="auto">perf_gauge_soak</code>, <code dir="auto">perf_gauge_metric</code> and <code dir="auto">perf_gauge_webhook</code>
+tests; they take a few seconds. <code dir="auto">MUSS_SOAK_SECONDS=600</code> lengthens the
+cancel-and-restart soak.</p>
+<p>Each gauge test lives in a binary of its own because the descriptor gauge
+counts the whole process’s descriptor table. A budget taken from one test only
+holds while no other test in the same process is holding a socket, and cargo
+runs the tests inside a binary in parallel. A sibling test’s runtime is
+created before its body runs, so it exists while the gauge holds its lock and
+moves the count the gauge asserts on; one binary per gauge is what keeps that
+from happening. Measured on a busy machine with eight busy threads: the
+earlier layout, with both gauge tests beside ten others in one binary, failed
+17 runs out of 40; split into their own binaries, they failed none.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="commands">Commands</h2><a class="sl-anchor-link" href="#commands"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Commands”</span></a></div>
+<p>Run on a quiet machine, in this order, from the repository root:</p>
+<div class="expressive-code"><link rel="stylesheet" href="/muss/_astro/ec.w36nc.css"><script type="module" src="/muss/_astro/ec.0vx5m.js"></script><figure class="frame is-terminal not-content"><figcaption class="header"><span class="title"></span><span class="sr-only">Terminal window</span></figcaption><pre data-language="bash"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3B61B0">Smoke:</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">each</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">benchmark</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">once.</span></div></div><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3B61B0">cargo</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">bench</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">-p</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">muss-teams</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--all-features</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--bench</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">workloads</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--test</span></div></div><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3B61B0">Measure</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">and</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">store</span><span style="--0:#D6DEEB;--1:#403F53"> (paths </span><span style="--0:#ECC48D;--1:#3B61B0">are</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">relative</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">to</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">crates/muss-teams</span><span style="--0:#D6DEEB;--1:#403F53">).</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">MUSS_WRITE_BASELINES</span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#ECC48D;--1:#3B61B0">perf_baselines/criterion_</span><span style="--0:#D6DEEB;--1:#403F53">$(</span><span style="--0:#82AAFF;--1:#3B61B0">uname</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">-s</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#7FDBCA;--1:#096E72">|</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">tr</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">A-Z</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">a-z</span><span style="--0:#D6DEEB;--1:#403F53">)</span><span style="--0:#ECC48D;--1:#3B61B0">_</span><span style="--0:#D6DEEB;--1:#403F53">$(</span><span style="--0:#82AAFF;--1:#3B61B0">uname</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">-m</span><span style="--0:#D6DEEB;--1:#403F53">)</span><span style="--0:#ECC48D;--1:#3B61B0">.json</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">\</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#ECC48D;--1:#3B61B0">cargo</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">bench</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">-p</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">muss-teams</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--all-features</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--bench</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">workloads</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">MUSS_WRITE_BASELINES</span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#ECC48D;--1:#3B61B0">perf_baselines/criterion_&lt;os&gt;_&lt;arch&gt;.json</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">\</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#ECC48D;--1:#3B61B0">cargo</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">bench</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">-p</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">muss-teams</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--all-features</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--bench</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">surfaces</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">MUSS_WRITE_BASELINES</span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#ECC48D;--1:#3B61B0">perf_baselines/latency_&lt;os&gt;_&lt;arch&gt;.json</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">\</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#ECC48D;--1:#3B61B0">cargo</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">bench</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">-p</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">muss-teams</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--all-features</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--bench</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">latency</span></div></div><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3B61B0">Allocation</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">counts</span><span style="--0:#D6DEEB;--1:#403F53"> (reviewed </span><span style="--0:#ECC48D;--1:#3B61B0">refresh</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">only</span><span style="--0:#D6DEEB;--1:#403F53">):</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">cd</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">crates/muss-teams</span><span style="--0:#D6DEEB;--1:#403F53"> &amp;&amp; </span><span style="--0:#C5E478;--1:#3B61B0">MUSS_WRITE_BASELINES</span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#ECC48D;--1:#3B61B0">perf_baselines/alloc_counts.json</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">\</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#ECC48D;--1:#3B61B0">cargo</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">test</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">-p</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">muss-teams</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--release</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--all-features</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#82AAFF;--1:#3B61B0">--test</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#ECC48D;--1:#3B61B0">alloc_budget</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="Smoke: each benchmark once.cargo bench -p muss-teams --all-features --bench workloads -- --testMeasure and store (paths are relative to crates/muss-teams).MUSS_WRITE_BASELINES=perf_baselines/criterion_$(uname -s | tr A-Z a-z)_$(uname -m).json \  cargo bench -p muss-teams --all-features --bench workloadsMUSS_WRITE_BASELINES=perf_baselines/criterion_<os>_<arch>.json \  cargo bench -p muss-teams --all-features --bench surfacesMUSS_WRITE_BASELINES=perf_baselines/latency_<os>_<arch>.json \  cargo bench -p muss-teams --all-features --bench latencyAllocation counts (reviewed refresh only):cd crates/muss-teams &amp;&amp; MUSS_WRITE_BASELINES=perf_baselines/alloc_counts.json \  cargo test -p muss-teams --release --all-features --test alloc_budget"><div></div></button></div></figure></div>
+<p>PowerShell sets the variable with <code dir="auto">$env:MUSS_WRITE_BASELINES = "..."</code> and
+builds the file name from <code dir="auto">$env:PROCESSOR_ARCHITECTURE</code>. The Criterion export
+reads every result under <code dir="auto">target/criterion</code>, so clear that directory first
+when a benchmark was renamed or removed. Compare a change with Criterion’s own
+<code dir="auto">--save-baseline before</code> / <code dir="auto">--baseline before</code>, on the same machine.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="profiling-without-unix-only-tools">Profiling without Unix-only tools</h2><a class="sl-anchor-link" href="#profiling-without-unix-only-tools"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Profiling without Unix-only tools”</span></a></div>
+<ul>
+<li>macOS and Linux: <code dir="auto">samply record target/profiling/&lt;binary&gt;</code> (install with
+<code dir="auto">cargo install samply</code>), or Instruments on macOS. Build with
+<code dir="auto">--profile profiling</code>; for a bench, <code dir="auto">cargo bench --no-run</code> leaves a binary
+with symbols under <code dir="auto">target/release/deps/</code>.</li>
+<li>Windows: the same profile builds a <code dir="auto">.pdb</code> next to the binary. Record with
+Windows Performance Recorder / ETW, open in WPA, and load the <code dir="auto">.pdb</code>. samply
+also runs on Windows. Do not rely on <code dir="auto">perf</code>.</li>
+<li>Allocation sources: <code dir="auto">dhat</code> (see <code dir="auto">alloc_budget.rs</code> for the pattern). The
+standard library ships without debug info, so a profile that ends inside
+<code dir="auto">std</code> is the floor.</li>
+<li>Nothing here has been run on Windows or Linux yet; the commands are the
+documented route, not a result.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="measured-baseline">Measured baseline</h2><a class="sl-anchor-link" href="#measured-baseline"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Measured baseline”</span></a></div>
+<p>Only the allocation counts are a gate. <code dir="auto">alloc_counts.json</code> is read by
+<code dir="auto">tests/alloc_budget.rs</code>, so a regression in allocation blocks the build. The
+Criterion and latency files are reference data: no test reads them, so a
+performance regression in them is visible only when a person compares them.
+Treat the tables below as a record of one machine on one day, not as a
+threshold the build enforces.</p>
+<p>Machine for every number below: Apple M3 Pro, 11 logical CPUs, 36 GiB, macOS,
+rustc 1.99.1, bench profile, features <code dir="auto">graph test-utils sqlite http-host</code>. The
+machine was shared and busy (one-minute load average 10 to 16 on 11 CPUs while
+measuring; it is stored in each file). Repeat runs of the same benchmark
+differed by up to 2x (rich-notification open: 363 to 562 microseconds), so
+treat each figure as an order of magnitude and re-baseline on a quiet machine
+before using any as a gate. The stored files hold means, confidence intervals
+and medians.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="statistical-micro-and-pipeline-timings-median-per-iteration">Statistical micro and pipeline timings (median per iteration)</h3><a class="sl-anchor-link" href="#statistical-micro-and-pipeline-timings-median-per-iteration"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Statistical micro and pipeline timings (median per iteration)”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Surface</th>
+<th>Workload</th>
+<th>Median</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inbound auth, parse, de-dup, enqueue</td>
+<td>signed RS256 token, weighted mix of 32 Learn-shaped activities, acknowledgement only, one at a time</td>
+<td>32 us</td>
+</tr>
+<tr>
+<td>Router and handler</td>
+<td>open-loop run, see percentiles below</td>
+<td>see below</td>
+</tr>
+<tr>
+<td>Cards</td>
+<td>read and check the 8 published sample cards</td>
+<td>46 us (about 5.7 us each)</td>
+</tr>
+<tr>
+<td>Card action</td>
+<td><code dir="auto">Action.Execute</code> invoke, authorized, inline reply</td>
+<td>42 us</td>
+</tr>
+<tr>
+<td>Dialog</td>
+<td><code dir="auto">task/fetch</code>, authorized, inline reply</td>
+<td>41 us</td>
+</tr>
+<tr>
+<td>Connector</td>
+<td>render a message with a mention</td>
+<td>0.49 us</td>
+</tr>
+<tr>
+<td>Proactive notify</td>
+<td>one stored conversation, loopback Connector</td>
+<td>160 us</td>
+</tr>
+<tr>
+<td>Proactive notify</td>
+<td>25 conversations fan-out, loopback Connector</td>
+<td>2.0 ms</td>
+</tr>
+<tr>
+<td>Graph client</td>
+<td>team members, two pages, loopback Graph</td>
+<td>257 us</td>
+</tr>
+<tr>
+<td>Webhook ingress</td>
+<td>batch parse 1 / 10 / 100 entries</td>
+<td>1.5 / 14 / 250 us</td>
+</tr>
+<tr>
+<td>Webhook to handler</td>
+<td>one verified notification, in-memory state</td>
+<td>38 us</td>
+</tr>
+<tr>
+<td>Subscription keeper</td>
+<td>sweep, one live subscription not due</td>
+<td>1.3 us</td>
+</tr>
+<tr>
+<td>Rich-notification crypto</td>
+<td>RSA-OAEP unwrap, HMAC, AES-CBC open, 256 B / 4 KiB / 24 KiB</td>
+<td>401 / 399 / 401 us</td>
+</tr>
+<tr>
+<td>State</td>
+<td>memory store put and get, 512 B</td>
+<td>0.41 us</td>
+</tr>
+<tr>
+<td>State</td>
+<td>SQLite in memory, put and get</td>
+<td>11 us</td>
+</tr>
+<tr>
+<td>State</td>
+<td>SQLite file, WAL, <code dir="auto">synchronous=FULL</code>, put and get</td>
+<td>80 us (disk dependent)</td>
+</tr>
+</tbody>
+</table>
+<p>The rich-notification cost is flat across payload sizes: the 2048-bit RSA
+private-key operation dominates, not the AES work. No optimisation was made
+because none is justified by a budget; the cost is the price of the key unwrap
+that the protocol requires for each notification.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="latency-percentiles-microseconds">Latency percentiles (microseconds)</h3><a class="sl-anchor-link" href="#latency-percentiles-microseconds"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Latency percentiles (microseconds)”</span></a></div>
+<p>Open loop, signed messages through the facade, each handler replying through
+the loopback Connector, queue 256, 8 workers, 8 seconds per scenario. The
+downstream delay is part of handler time by construction.</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Downstream</th>
+<th>Ack p50 / p95 / p99</th>
+<th>Start delay p50 / p95 / p99</th>
+<th>Handler p50 / p95 / p99</th>
+<th>Refused (503)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>400/s</td>
+<td>answers at once</td>
+<td>56 / 675 / 5,753</td>
+<td>63 / 692 / 5,760</td>
+<td>259 / 477 / 3,426</td>
+<td>0</td>
+</tr>
+<tr>
+<td>100/s</td>
+<td>5 ms 70%, 20 ms 20%, 80 ms 8%, 250 ms 2%</td>
+<td>84 / 1,884 / 8,062</td>
+<td>98 / 1,920 / 8,080</td>
+<td>7,934 / 81,974 / 251,336</td>
+<td>0</td>
+</tr>
+<tr>
+<td>300/s</td>
+<td>same</td>
+<td>78 / 2,594 / 8,575</td>
+<td>121 / 28,089 / 41,418</td>
+<td>6,925 / 81,823 / 251,552</td>
+<td>0</td>
+</tr>
+<tr>
+<td>600/s (overload)</td>
+<td>same</td>
+<td>67 / 1,322 / 6,107</td>
+<td>653,742 / 777,748 / 799,030</td>
+<td>7,009 / 81,883 / 251,692</td>
+<td>1,512 of 4,800</td>
+</tr>
+</tbody>
+</table>
+<p>Reading it: the acknowledgement does not wait on the downstream (ack p99 stays
+in single-digit milliseconds while handler p99 is 250 ms). Past the worker
+capacity (about 420 per second for this mix) the queue fills, the start delay
+grows to hundreds of milliseconds and the excess is refused with 503 rather
+than buffered. The delay distribution is an assumption chosen to separate
+percentiles, not a measured service.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="allocation-counts-blocks-per-run-dhat">Allocation counts (blocks per run, <code dir="auto">dhat</code>)</h3><a class="sl-anchor-link" href="#allocation-counts-blocks-per-run-dhat"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Allocation counts (blocks per run, dhat)”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Workload</th>
+<th>Blocks</th>
+<th>Tolerance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read 8 published cards</td>
+<td>735</td>
+<td>5%</td>
+</tr>
+<tr>
+<td>Render a message with a mention</td>
+<td>16</td>
+<td>5%, at least 2</td>
+</tr>
+<tr>
+<td>Memory store put and get</td>
+<td>10</td>
+<td>5%, at least 2</td>
+</tr>
+<tr>
+<td>Webhook batch parse, 1 / 25 entries</td>
+<td>42 / 1,005</td>
+<td>5%</td>
+</tr>
+<tr>
+<td>Rich unwrap and open, 1 KiB</td>
+<td>12</td>
+<td>5%</td>
+</tr>
+<tr>
+<td>Inbound path per post (token, parse, de-dup, queue, handler)</td>
+<td>199</td>
+<td>25% (threads)</td>
+</tr>
+</tbody>
+</table>
+<p>The same test checks that live heap blocks after a bot’s whole life (build,
+traffic, shutdown, drop) do not climb across three lives: a leak or a cycle
+fails it (see Mutation results).</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="budgets">Budgets</h2><a class="sl-anchor-link" href="#budgets"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Budgets”</span></a></div>
+<p>Chosen from the observed data, for this machine class, as limits a regression
+should not cross without review:</p>
+<ul>
+<li>Acknowledgement p99 under 5 ms at 400 per second with an instant
+downstream (observed 5.8 ms on a loaded machine; the target is a quiet one).</li>
+<li>No allocation count above its stored baseline plus tolerance.</li>
+<li>Live resources after cancel and restart: tasks and descriptors at or below
+the starting level, every cycle.</li>
+<li>Shutdown within its grace period plus 3 seconds.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="capacity-of-the-default-in-memory-state">Capacity of the default in-memory state</h2><a class="sl-anchor-link" href="#capacity-of-the-default-in-memory-state"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Capacity of the default in-memory state”</span></a></div>
+<p>Each delivery leaves a de-duplication mark for the replay window (1 hour). The
+memory store holds 10,000 rows and one tenant may hold 90 per cent of them
+(9,000), so the default bot admits about 9,000 deliveries in a window and
+refuses the rest. That is a sustained rate of about 2.5 deliveries per second
+per hour; measured, 8,999 were admitted (one other row is a conversation
+reference) and the rest were refused. The refusal is <code dir="auto">503</code> with
+<code dir="auto">Retry-After: 30</code>, because the marks expire and the same delivery succeeds
+later; it was a <code dir="auto">500</code> before this task.</p>
+<p>A busier bot raises the bound with <code dir="auto">TeamsApp::memory_limits</code>:</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">use</span><span style="--0:#D6DEEB;--1:#403F53"> muss_teams</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#D6DEEB;--1:#403F53">MemoryLimits;</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">limits</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> MemoryLimits</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">default</span><span style="--0:#D6DEEB;--1:#403F53">()</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">entries</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#F78C6C;--1:#AA0982">100_000</span><span style="--0:#D6DEEB;--1:#403F53">)</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">tenant_share_percent</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#F78C6C;--1:#AA0982">100</span><span style="--0:#D6DEEB;--1:#403F53">);</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="use muss_teams::MemoryLimits;let limits = MemoryLimits::default().entries(100_000).tenant_share_percent(100);"><div></div></button></div></figure></div>
+<p>The bounds are checked when the app is built: rows 16 to 1,000,000, bytes
+64 KiB to 1 GiB, tenant share 1 to 100 per cent. A store that is full still
+refuses and never evicts a live row. The limits apply to the memory store;
+asking for them together with <code dir="auto">sqlite</code> is a configuration error, because
+SQLite is bounded by expiry and not by count (sweep it on a schedule).</p>
+<p>The tenant share is what keeps one tenant from starving the others: a tenant
+at its share is refused while the other tenants still write, and the store as
+a whole stays under its cap. Rows of every kind count: records, queued
+outbox entries and idempotent results, against both rows and bytes. At 100 per
+cent the tenants compete for the whole store. Pinned in
+<code dir="auto">tests/perf/capacity.rs</code>, <code dir="auto">tests/perf/retention.rs</code> and
+<code dir="auto">tests/state_memory.rs</code>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="leak-audit">Leak audit</h2><a class="sl-anchor-link" href="#leak-audit"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Leak audit”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LEAK-01 cycles</td>
+<td>No <code dir="auto">Weak</code> back-references exist and none were needed. Arc cycles are tested end to end by the live-block check across three bot lives.</td>
+</tr>
+<tr>
+<td>LEAK-02 leak APIs</td>
+<td>None in library code; <code dir="auto">leak_policy.rs</code> bans <code dir="auto">forget</code>, <code dir="auto">Box::leak</code>, <code dir="auto">ManuallyDrop</code>, <code dir="auto">into_raw</code>.</td>
+</tr>
+<tr>
+<td>LEAK-03 caches</td>
+<td>Token cache (32, LRU), key cache (1,024 keys, 1,024 unknown ids with expiry), pinned clients (cleared at cap), install memory (1,024), state stores (entry and byte caps), dispatcher and webhook queues (configured depth). Defects fixed below.</td>
+</tr>
+<tr>
+<td>LEAK-04 channels</td>
+<td>All <code dir="auto">mpsc</code> channels are bounded; <code dir="auto">unbounded_channel</code> is banned by test.</td>
+</tr>
+<tr>
+<td>LEAK-05 tasks</td>
+<td>Every spawn site is pinned in <code dir="auto">leak_policy.rs</code> with its owner. One defect fixed below.</td>
+</tr>
+</tbody>
+</table>
+<p>Defects found and fixed, each with a failing-first test:</p>
+<ol>
+<li>Memory state kept expired rows until the store filled (LEAK-03). A write
+now releases expired rows at most once a minute, so a dead row can hold
+its place in memory for up to one full sweep interval after it expires.
+The store still refuses a write when the table is full rather than
+evicting a live row.</li>
+<li><code dir="auto">CollectingSink</code> (telemetry) grew without bound (LEAK-03). Bounded to 1,024
+reports by default, counting what it drops.</li>
+<li><code dir="auto">FairScheduler</code> kept a slot for every tenant ever seen (LEAK-03) and
+scanned them linearly. It was fixed, then deleted with the rest of
+<code dir="auto">muss-core</code>’s fair queue, which nothing in the tree used.</li>
+<li>The meeting authorization hook was a detached task if the caller stopped
+waiting (LEAK-05). It now lives in a <code dir="auto">JoinSet</code>, which aborts on drop.</li>
+<li>A full state store answered <code dir="auto">500</code> (see Capacity above).</li>
+</ol>
+<p>Also noted: <code dir="auto">muss-core::adapters::secondary::queue</code> (<code dir="auto">FairQueue</code>,
+<code dir="auto">FairScheduler</code>, <code dir="auto">QueueHandle</code>) had no consumer in the library, the tests, the
+benches, the examples or <code dir="auto">perf_support</code>. The project rule is to delete such
+primitives, so the module and its tests were removed.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="hashing-audit-mem-13">Hashing audit (MEM-13)</h2><a class="sl-anchor-link" href="#hashing-audit-mem-13"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Hashing audit (MEM-13)”</span></a></div>
+<p>Every <code dir="auto">HashMap</code> and <code dir="auto">HashSet</code> in library code uses the standard <code dir="auto">RandomState</code>
+(keyed SipHash 1-3); <code dir="auto">BTreeMap</code> is used for key-id maps. No FxHash, ahash,
+fnv or fixed-key <code dir="auto">DefaultHasher</code> exists in source or in a manifest, and
+<code dir="auto">tests/hash_policy.rs</code> keeps it that way. <code dir="auto">rustc-hash</code> appears in <code dir="auto">Cargo.lock</code>
+only through a target-specific dependency that <code dir="auto">cargo tree</code> does not reach.
+<code dir="auto">dhat</code> (a test-only dependency) uses its own hasher internally; that is the
+profiler, not the SDK.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="mutation-results">Mutation results</h2><a class="sl-anchor-link" href="#mutation-results"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Mutation results”</span></a></div>
+<p>Each mutant compiled and was killed:</p>
+<table>
+<thead>
+<tr>
+<th>Mutant</th>
+<th>Killed by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sweep interval 60 s to about 2 years</td>
+<td><code dir="auto">state_memory</code>: both retention tests</td>
+</tr>
+<tr>
+<td>Dispatcher queue capacity x50</td>
+<td><code dir="auto">perf</code>: stalled-downstream test; <code dir="auto">perf_gauge_soak</code>: the soak test</td>
+</tr>
+<tr>
+<td>Per-request <code dir="auto">Box::leak</code> in <code dir="auto">BotEndpoint::handle</code></td>
+<td><code dir="auto">alloc_budget</code>: live blocks grew 354 to 434</td>
+</tr>
+<tr>
+<td>Four extra allocations in <code dir="auto">OutgoingMessage::render</code></td>
+<td><code dir="auto">alloc_budget</code>: 20 blocks against a baseline of 16</td>
+</tr>
+<tr>
+<td>Full-store status 503 changed to 500</td>
+<td><code dir="auto">perf</code>: capacity test</td>
+</tr>
+<tr>
+<td>Fair scheduler keeps drained tenants (before the fix)</td>
+<td>the <code dir="auto">queue</code> module’s drained-tenant test, which was removed with the module in <code dir="auto">66a8830</code>; the mutant can no longer be reproduced</td>
+</tr>
+<tr>
+<td>Hook task detached (before the fix)</td>
+<td><code dir="auto">reader</code>: caller-gives-up test</td>
+</tr>
+</tbody>
+</table>
+<p>Not mutated: webhook queue depth, the key-cache unknown cap, the token cache
+capacity.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="still-owed">Still owed</h2><a class="sl-anchor-link" href="#still-owed"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Still owed”</span></a></div>
+<ul>
+<li>T22 (SSO) and T23 (files) surfaces need baselines and soak coverage when
+they land: token exchange, SSO cache bounds, file upload and download
+streaming (IO-02).</li>
+<li>The keeper’s renewal path (needs an injectable clock), the SQLite store under
+soak, and <code dir="auto">notify_with_key</code> / outbox drain under churn.</li>
+<li>Windows MSVC and Linux runs of everything here, with their own baseline files.</li>
+<li>A baseline on a quiet machine.</li>
+</ul>
+</div><footer class="sl-flex astro-mjem5c2d"><div class="meta sl-flex astro-mjem5c2d"></div><div class="pagination-links print:hidden astro-wxozplkb" dir="ltr"><a href="/muss/reference/policies/" rel="prev" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span class="astro-wxozplkb">Previous<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">Platform policies and retirements</span></span></a><a href="/muss/reference/transport-and-observability/" rel="next" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-wxozplkb">Next<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">Transport and observability</span></span></a></div></footer></div></div></main></div></div></div></div></body></html>

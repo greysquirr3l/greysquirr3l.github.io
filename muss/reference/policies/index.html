@@ -1,0 +1,262 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-al2ilw4v"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Platform policies and retirements | muss</title><link rel="canonical" href="https://greysquirr3l.github.io/muss/reference/policies/"/><link rel="sitemap" href="/muss/sitemap-index.xml"/><link rel="shortcut icon" href="/muss/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v7.4.11"/><meta name="generator" content="Starlight v0.42.11"/><meta property="og:title" content="Platform policies and retirements"/><meta property="og:type" content="article"/><meta property="og:url" content="https://greysquirr3l.github.io/muss/reference/policies/"/><meta property="og:locale" content="en"/><meta property="og:description" content="What Microsoft is changing, what the SDK assumes today, and where those assumptions will break."/><meta property="og:site_name" content="muss"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="What Microsoft is changing, what the SDK assumes today, and where those assumptions will break."/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/muss/_astro/print.C9eyqPGL.css" media="print"><link rel="stylesheet" href="/muss/_astro/common.BnqPtuMD.css"><style>@layer starlight.components{svg:where(.astro-pqysdep7){color:var(--sl-icon-color);font-size:var(--sl-icon-size,1em);width:1em;height:1em;overflow:visible}}
+</style><script type="module" src="/muss/_astro/page.cNngjUgL.js"></script></head><body class="astro-al2ilw4v"><a class="sl-skip-link astro-o5hysztx" href="#_top">Skip to content</a><div class="page sl-flex astro-gh65ub26"><header class="header astro-gh65ub26"><div class="header astro-ozb2cxkm"><div class="title-wrapper sl-flex astro-ozb2cxkm"><a href="/muss/" class="site-title sl-flex astro-yhxfdlc4"><img class="light:sl-hidden print:hidden astro-yhxfdlc4" alt src="/muss/_astro/logo-dark.ChSVDRwB.svg" width="48" height="48"><img class="dark:sl-hidden print:block astro-yhxfdlc4" alt src="/muss/_astro/logo-light.DeCIlpuM.svg" width="48" height="48"><span class="astro-yhxfdlc4" translate="no">muss</span></a></div><div class="sl-flex print:hidden astro-ozb2cxkm"><site-search class="astro-ozb2cxkm astro-3h4fk2u5" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"><button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-3h4fk2u5"><svg aria-hidden="true" class="astro-3h4fk2u5 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-3h4fk2u5" aria-hidden="true">Search</span><kbd class="sl-hidden md:sl-flex astro-3h4fk2u5" style="display: none"><kbd class="astro-3h4fk2u5">Ctrl</kbd><kbd class="astro-3h4fk2u5">K</kbd></kbd></button><dialog style="padding: 0" aria-label="Search" class="astro-3h4fk2u5"><div class="dialog-frame sl-flex astro-3h4fk2u5"><button data-close-modal class="sl-flex md:sl-hidden astro-3h4fk2u5">Cancel</button><div class="search-container astro-3h4fk2u5"><div id="starlight__search" class="astro-3h4fk2u5"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/muss/_astro/Search.astro_astro_type_script_index_0_lang.CrDXzKXN.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-ozb2cxkm"><div class="sl-flex social-icons astro-ozb2cxkm"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script><script type="module">var e=class extends HTMLElement{constructor(){super();let e=this.querySelector(`select`);e&&(e.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=e.currentTarget.value)}),window.addEventListener(`pageshow`,t=>{if(!t.persisted)return;let n=e.querySelector(`option[selected]`)?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}};customElements.define(`starlight-lang-select`,e);</script></div></div></header><nav class="sidebar print:hidden astro-gh65ub26" aria-label="Main"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-creup77k"><svg aria-hidden="true" class="open-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-creup77k">Menu</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-gh65ub26"><div class="sidebar-content sl-flex astro-gh65ub26"><sl-sidebar-state-persist data-hash="1egna9r" class="astro-zzv2mkrn"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-mql6fjj4"><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Getting started</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/getting-started/configuration/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Configuration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/installation/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Installation</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/introduction/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">What muss is</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/quickstart/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Quickstart</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Guides</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/guides/card-actions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/cards/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Adaptive Cards</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/dialogs-and-extensions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/directory/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Directory and app installs</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/facade/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams facade</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/graph/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/meetings/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/notifications/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/routing/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Routing bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/sso/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams sign-in and delegated Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/state/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Tenant-scoped state</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Reference</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/public-api/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The locked v1 contract</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/error-taxonomy/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The error taxonomies</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/permissions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Permissions and consent</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/policies/" aria-current="page" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Platform policies and retirements</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/performance/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Performance and resource bounds</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/transport-and-observability/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Transport and observability</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/cli/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams command-line tool</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/changelog/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The changelog</span></a></li><li class="astro-mql6fjj4"><details class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Compatibility</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Supported-surface matrix</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/bot-framework/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound activity authentication</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/cards/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Cards and card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/connector/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound Connector messages</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/credentials/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound credentials and token issuance</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/dialogs/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and message extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/graph/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph surface</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/inbound-activities/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/meetings/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/proactive/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/sso/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams user sign-in</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/unverified/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Unverified surfaces</span></a></li></ul></details></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Operations</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/operations/ci/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Continuous integration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/recipes/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Offline recipes</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/troubleshooting/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Troubleshooting</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Architecture</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="5"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/architecture/decisions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture decisions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/overview/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture overview</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/workspace-layout/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Workspace layout</span></a></li></ul></details></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-ezdlrayc"><div class="social-icons astro-ezdlrayc"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-gh65ub26"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-4yguomvy"><aside class="right-sidebar-container print:hidden astro-4yguomvy"><div class="right-sidebar astro-4yguomvy"><div class="lg:sl-hidden astro-cnvahwco"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-b3z257xh"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-b3z257xh"><details id="starlight__mobile-toc" class="astro-b3z257xh"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-b3z257xh"><span class="toggle sl-flex astro-b3z257xh">On this page<svg aria-hidden="true" class="caret astro-b3z257xh astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-b3z257xh"></span></summary><div class="dropdown astro-b3z257xh"><ul class="isMobile astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#the-bot-framework-retirements-stated-exactly" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">The Bot Framework retirements, stated exactly</span></a><ul class="isMobile astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#workflows-is-a-different-product" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Workflows is a different product</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#client-and-card-compatibility" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Client and card compatibility</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#tenant-retention" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Tenant retention</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#upgrade-and-migration-policy" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Upgrade and migration policy</span></a></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/muss/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-cnvahwco"><div class="sl-container astro-cnvahwco"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#the-bot-framework-retirements-stated-exactly" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">The Bot Framework retirements, stated exactly</span></a><ul class="astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#workflows-is-a-different-product" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Workflows is a different product</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#client-and-card-compatibility" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Client and card compatibility</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#tenant-retention" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Tenant retention</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#upgrade-and-migration-policy" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Upgrade and migration policy</span></a></li></ul></nav></starlight-toc><script type="module" src="/muss/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane astro-4yguomvy"><main data-pagefind-body class="astro-al2ilw4v" lang="en" dir="ltr"><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><h1 id="_top" class="astro-qfythd7a">Platform policies and retirements</h1></div></div><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><div class="sl-markdown-content"><p>Four things a team adopting <code dir="auto">muss-teams</code> needs to know that are not about one
+capability: what the Microsoft retirements do and do not affect, how cards
+meet different clients, what the SDK keeps about a tenant and for how long,
+and how upgrades and migrations are handled.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="the-bot-framework-retirements-stated-exactly">The Bot Framework retirements, stated exactly</h2><a class="sl-anchor-link" href="#the-bot-framework-retirements-stated-exactly"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “The Bot Framework retirements, stated exactly”</span></a></div>
+<p>Two different things were retired or archived. They are easy to confuse, and
+the SDK depends on one and not on the other. Both pages below were read in
+full on 2026-11-12 (neither was truncated).</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>What Microsoft says</th>
+<th>What it means here</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bot Framework SDK and Bot Framework Emulator</td>
+<td>Archived on GitHub; “no longer updated or maintained”. Support tickets for the Bot Framework SDK are no longer serviced as of December 31, 2025. The page recommends the Microsoft 365 Agents SDK, the Teams SDK, or Microsoft Copilot Studio for new work.</td>
+<td><code dir="auto">muss-teams</code> does not use the Bot Framework SDK libraries and has no dependency on them. It implements the activity protocol and the Connector calls directly. The Emulator is not part of the workflow: the offline recipes use <code dir="auto">SimulatedTeams</code>, which signs requests the bot then verifies.</td>
+</tr>
+<tr>
+<td>Office 365 connectors in Teams, including connector-based Incoming Webhooks</td>
+<td>“Retired in May 2026.” To receive webhook requests and post messages, “use the Workflows app”.</td>
+<td><code dir="auto">muss-teams</code> never posted through an Incoming Webhook URL. It sends with the bot’s own credential through the Connector. Nothing in the SDK needs migrating off connector webhooks.</td>
+</tr>
+<tr>
+<td>Bot Framework Connector REST service</td>
+<td>Not retired. The Connector API reference is still published (its page was last updated on 2026-11-05) and says the REST API “isn’t equivalent to the SDK” and is provided for standard REST communication. The only retirement it mentions is the Bot Framework State service, in 2018.</td>
+<td>This is the service <code dir="auto">muss-teams</code> talks to for replies, updates, deletes, conversations and members. It is in scope.</td>
+</tr>
+</tbody>
+</table>
+<p>Sources:</p>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/azure/bot-service/what-is-new">What’s new for the Bot Framework SDKs</a>, verified 2026-11-12.</li>
+<li><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/connectors-using">Create and send messages</a>, verified 2026-11-12.</li>
+<li><a href="https://learn.microsoft.com/en-us/azure/bot-service/rest-api/bot-framework-rest-connector-api-reference?view=azure-bot-service-4.0">Bot Framework Connector service REST API reference</a>, verified 2026-11-12.</li>
+</ul>
+<p>The matrix rows with these facts, from 2026-11-03, are in
+<a href="compatibility/index.md">the compatibility matrix</a>.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="workflows-is-a-different-product">Workflows is a different product</h3><a class="sl-anchor-link" href="#workflows-is-a-different-product"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Workflows is a different product”</span></a></div>
+<p>The Workflows app (Power Automate) is Microsoft’s replacement for connector
+webhooks: a flow with the “When a Teams webhook request is received” trigger
+posts a message to a chat or channel. Microsoft’s page notes that a workflow is
+linked to its owners, not to a team or channel, that it can become orphaned if
+its owner leaves, that it supports private channels, and that a <code dir="auto">MessageCard</code>
+payload renders but cannot carry interactive HTTP POST buttons.</p>
+<p>It is not the SDK’s bot transport and <code dir="auto">muss-teams</code> does not call it. Use
+Workflows when a system that cannot hold a bot credential needs to post one
+message; use <code dir="auto">muss-teams</code> when you need a bot identity, interactive cards that
+call back into your code, conversations that persist, or the other
+capabilities in <a href="../operations/recipes.md">the offline recipes</a>. The same page suggests proactive bot
+messages as the path for an app that already has a Teams app. That is the
+<code dir="auto">standalone-notify</code> recipe.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="client-and-card-compatibility">Client and card compatibility</h2><a class="sl-anchor-link" href="#client-and-card-compatibility"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Client and card compatibility”</span></a></div>
+<p>The SDK builds and checks Adaptive Card JSON. It does not render, and
+Microsoft’s pages do not give a per-client support table for every element.</p>
+<ul>
+<li>The builder declares the lowest card version that carries what the card
+uses: 1.0 for text only, 1.3 once a label is added, 1.4 for an <code dir="auto">execute</code>
+action. The highest version it lets a bot card declare is 1.6 (see
+<a href="../guides/cards.md#the-version-is-worked-out-for-you">Adaptive Cards</a>).</li>
+<li>To keep an older client working, declare a lower version and give newer
+elements a <code dir="auto">fallback</code>. <code dir="auto">build()</code> names the JSON path of anything that needs a
+newer version than the card declares.</li>
+<li>A card over 100 KB, nested deeper than 32 levels, or declaring a version
+Teams does not render for a bot is refused before it is sent.</li>
+<li><code dir="auto">Action.Execute</code> is answered in the HTTP response of the same request.
+<code dir="auto">Action.Submit</code> arrives as a message, with no response channel. See
+<a href="../guides/card-actions.md">Card actions</a>.</li>
+<li>Not verified: how each Teams client shows a <code dir="auto">403</code>, <code dir="auto">409</code> or timeout error
+from a card action. Microsoft’s table covers only <code dir="auto">400</code>, <code dir="auto">401</code>, <code dir="auto">412</code> and
+<code dir="auto">500</code>. No press in any test came from a real client.</li>
+<li>Not verified: rendering on desktop, web and mobile. Test every card on the
+clients you support. Adaptive Cards in link unfurling are limited to 1.3,
+per <a href="compatibility/dialogs.md">the compatibility matrix</a>.</li>
+<li>Windows is a supported host for the SDK and the command-line tool; the CI
+workflows that would run the Windows build have not run on a runner yet.
+See <a href="../operations/ci.md">the CI runbook</a>.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="tenant-retention">Tenant retention</h2><a class="sl-anchor-link" href="#tenant-retention"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Tenant retention”</span></a></div>
+<p>Nothing is kept forever by default, and every stored row is keyed by tenant.</p>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Kept for</th>
+<th>Holds</th>
+<th>Removed by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conversation references and per-tenant records</td>
+<td>The store’s default of 24 hours, at most 30 days (a longer request is shortened)</td>
+<td>Identifiers needed to message again</td>
+<td>Expiry, <code dir="auto">sweep_expired</code>, <code dir="auto">purge_tenant</code></td>
+</tr>
+<tr>
+<td>Idempotent results</td>
+<td>7 days replayable</td>
+<td>The recorded result of a state-changing request</td>
+<td>Expiry, <code dir="auto">purge_tenant</code></td>
+</tr>
+<tr>
+<td>Notification attempt records</td>
+<td>The store’s default</td>
+<td>Identifiers and a digest, never message content</td>
+<td>Expiry, <code dir="auto">purge_tenant</code></td>
+</tr>
+<tr>
+<td>Outbox entries</td>
+<td>Until sent or abandoned</td>
+<td>The message itself, because it must be sent later</td>
+<td>Delivery, <code dir="auto">purge_tenant</code></td>
+</tr>
+<tr>
+<td>Graph poison records</td>
+<td>7 days (<code dir="auto">poison_retention</code>)</td>
+<td>The failed notification’s identity</td>
+<td>Expiry</td>
+</tr>
+<tr>
+<td>Graph rich notifications awaiting verification</td>
+<td>24 hours (<code dir="auto">quarantine_retention</code>)</td>
+<td>The item, held unverified</td>
+<td>Verification, then expiry</td>
+</tr>
+<tr>
+<td>Subscription records</td>
+<td>The subscription’s remaining lifetime plus a short grace period</td>
+<td>The resource, its plan and the client state, which is a secret</td>
+<td>Expiry, <code dir="auto">purge_tenant</code></td>
+</tr>
+</tbody>
+</table>
+<p>An uninstall or a privacy request is <code dir="auto">Retention::purge_tenant</code>, which deletes
+every row held for that tenant and returns the count. The in-memory store is
+lost when the process ends. The SQLite store persists until you delete the file
+or run the sweep; it is bounded by expiry and not by a row count, so run
+<code dir="auto">SqliteState::sweep_all_expired</code> on a schedule.</p>
+<p>Payloads are stored in the clear. Never put tokens, client secrets or keys in
+the state store; use a secret store. The client state in a subscription record
+is a secret and the store holding it must be protected like a credential.
+Details in <a href="../guides/state.md#retention-and-deletion">tenant-scoped state</a>.</p>
+<p>The SDK does not control the tenant’s own retention. Messages that people post
+in Teams are governed by the organisation’s Microsoft Purview retention
+policies, which the SDK neither reads nor changes.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="upgrade-and-migration-policy">Upgrade and migration policy</h2><a class="sl-anchor-link" href="#upgrade-and-migration-policy"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Upgrade and migration policy”</span></a></div>
+<p>The workspace is at version 0.1.0. No crate has been published, so no upgrade
+path has been exercised by a user yet. The policy below is what the code is
+built to honour.</p>
+<ul>
+<li><strong>Toolchain.</strong> Rust 1.99.1, edition 2024, pinned in <code dir="auto">rust-toolchain.toml</code>
+with <code dir="auto">rust-version</code> set in the manifest. A change of the baseline is a
+deliberate, recorded change and is never done by an unpinned update.</li>
+<li><strong>Before 1.0.</strong> A minor version may change the public API. Each such change
+is listed with the reason in the commit that makes it, and the examples and
+<a href="public-api.md">the locked v1 contract</a> change in the same commit.</li>
+<li><strong>From 1.0.</strong> The facade follows semantic versioning. Feature names and the
+names in <a href="public-api.md">the locked v1 contract</a> are the contract; a rename is a
+breaking change. <code dir="auto">MussError</code> and <code dir="auto">TeamsError</code> are <code dir="auto">#[non_exhaustive]</code>, so a
+new variant is not breaking for a caller who matches with a wildcard arm.</li>
+<li><strong>Stored state.</strong> The SQLite schema version is in <code dir="auto">PRAGMA user_version</code>.
+Migrations apply in order, each in a transaction. A shipped migration is
+never edited; one is appended. A database written by a newer library is
+refused with <code dir="auto">SchemaTooNew</code>, so a rollback cannot silently corrupt it. Keep a
+copy of the file before you upgrade.</li>
+<li><strong>Subscriptions.</strong> A subscription record written by an older version keeps
+its client state and plan. An upgrade does not recreate subscriptions;
+restart the process and the next <code dir="auto">sweep</code> renews what is due.</li>
+<li><strong>Manifest.</strong> The SDK validates against manifest schema 1.29. <code dir="auto">muss-teams manifest validate</code> reports a field the schema does not know. Re-run it after
+upgrading before you upload a package.</li>
+<li><strong>Microsoft’s side.</strong> Each row in <a href="compatibility/index.md">the compatibility matrix</a> has a
+verification date. A release that changes a row re-reads its source page and
+updates the date in the same commit. A page that drops a cloud or adds a
+<code dir="auto">beta</code> marker is a breaking change to the SDK’s promise.</li>
+<li><strong>Migrating from the Bot Framework SDK.</strong> The activity protocol is shared.
+A message handler becomes <code dir="auto">on_message</code>, a card action becomes
+<code dir="auto">on_card_action</code>, and a proactive message uses a stored
+<code dir="auto">ConversationReference</code>; the handler bodies still have to be rewritten
+against the typed contexts. Dialogs, extensions and meeting events have typed
+handlers in <a href="../operations/recipes.md">the offline recipes</a>. State that the old SDK kept in its own
+storage has to move to your store; the Bot Framework State service was
+retired in 2018 and the SDK does not read from it.</li>
+</ul>
+</div><footer class="sl-flex astro-mjem5c2d"><div class="meta sl-flex astro-mjem5c2d"></div><div class="pagination-links print:hidden astro-wxozplkb" dir="ltr"><a href="/muss/reference/permissions/" rel="prev" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span class="astro-wxozplkb">Previous<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">Permissions and consent</span></span></a><a href="/muss/reference/performance/" rel="next" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-wxozplkb">Next<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">Performance and resource bounds</span></span></a></div></footer></div></div></main></div></div></div></div></body></html>

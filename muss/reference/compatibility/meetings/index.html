@@ -1,0 +1,607 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-al2ilw4v"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Meetings and presence | muss</title><link rel="canonical" href="https://greysquirr3l.github.io/muss/reference/compatibility/meetings/"/><link rel="sitemap" href="/muss/sitemap-index.xml"/><link rel="shortcut icon" href="/muss/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v7.4.11"/><meta name="generator" content="Starlight v0.42.11"/><meta property="og:title" content="Meetings and presence"/><meta property="og:type" content="article"/><meta property="og:url" content="https://greysquirr3l.github.io/muss/reference/compatibility/meetings/"/><meta property="og:locale" content="en"/><meta property="og:description" content="Meeting events, participant reads, presence subscriptions and the resource-specific consent permissions behind them."/><meta property="og:site_name" content="muss"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Meeting events, participant reads, presence subscriptions and the resource-specific consent permissions behind them."/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/muss/_astro/print.C9eyqPGL.css" media="print"><link rel="stylesheet" href="/muss/_astro/common.BnqPtuMD.css"><style>@layer starlight.components{svg:where(.astro-pqysdep7){color:var(--sl-icon-color);font-size:var(--sl-icon-size,1em);width:1em;height:1em;overflow:visible}}
+</style><script type="module" src="/muss/_astro/page.cNngjUgL.js"></script></head><body class="astro-al2ilw4v"><a class="sl-skip-link astro-o5hysztx" href="#_top">Skip to content</a><div class="page sl-flex astro-gh65ub26"><header class="header astro-gh65ub26"><div class="header astro-ozb2cxkm"><div class="title-wrapper sl-flex astro-ozb2cxkm"><a href="/muss/" class="site-title sl-flex astro-yhxfdlc4"><img class="light:sl-hidden print:hidden astro-yhxfdlc4" alt src="/muss/_astro/logo-dark.ChSVDRwB.svg" width="48" height="48"><img class="dark:sl-hidden print:block astro-yhxfdlc4" alt src="/muss/_astro/logo-light.DeCIlpuM.svg" width="48" height="48"><span class="astro-yhxfdlc4" translate="no">muss</span></a></div><div class="sl-flex print:hidden astro-ozb2cxkm"><site-search class="astro-ozb2cxkm astro-3h4fk2u5" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"><button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-3h4fk2u5"><svg aria-hidden="true" class="astro-3h4fk2u5 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-3h4fk2u5" aria-hidden="true">Search</span><kbd class="sl-hidden md:sl-flex astro-3h4fk2u5" style="display: none"><kbd class="astro-3h4fk2u5">Ctrl</kbd><kbd class="astro-3h4fk2u5">K</kbd></kbd></button><dialog style="padding: 0" aria-label="Search" class="astro-3h4fk2u5"><div class="dialog-frame sl-flex astro-3h4fk2u5"><button data-close-modal class="sl-flex md:sl-hidden astro-3h4fk2u5">Cancel</button><div class="search-container astro-3h4fk2u5"><div id="starlight__search" class="astro-3h4fk2u5"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/muss/_astro/Search.astro_astro_type_script_index_0_lang.CrDXzKXN.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-ozb2cxkm"><div class="sl-flex social-icons astro-ozb2cxkm"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script><script type="module">var e=class extends HTMLElement{constructor(){super();let e=this.querySelector(`select`);e&&(e.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=e.currentTarget.value)}),window.addEventListener(`pageshow`,t=>{if(!t.persisted)return;let n=e.querySelector(`option[selected]`)?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}};customElements.define(`starlight-lang-select`,e);</script></div></div></header><nav class="sidebar print:hidden astro-gh65ub26" aria-label="Main"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-creup77k"><svg aria-hidden="true" class="open-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-creup77k">Menu</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-gh65ub26"><div class="sidebar-content sl-flex astro-gh65ub26"><sl-sidebar-state-persist data-hash="1egna9r" class="astro-zzv2mkrn"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-mql6fjj4"><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Getting started</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/getting-started/configuration/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Configuration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/installation/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Installation</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/introduction/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">What muss is</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/quickstart/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Quickstart</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Guides</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/guides/card-actions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/cards/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Adaptive Cards</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/dialogs-and-extensions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/directory/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Directory and app installs</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/facade/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams facade</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/graph/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/meetings/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/notifications/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/routing/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Routing bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/sso/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams sign-in and delegated Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/state/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Tenant-scoped state</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Reference</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/public-api/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The locked v1 contract</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/error-taxonomy/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The error taxonomies</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/permissions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Permissions and consent</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/policies/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Platform policies and retirements</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/performance/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Performance and resource bounds</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/transport-and-observability/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Transport and observability</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/cli/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams command-line tool</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/changelog/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The changelog</span></a></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Compatibility</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Supported-surface matrix</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/bot-framework/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound activity authentication</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/cards/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Cards and card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/connector/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound Connector messages</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/credentials/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound credentials and token issuance</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/dialogs/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and message extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/graph/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph surface</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/inbound-activities/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/meetings/" aria-current="page" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/proactive/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/sso/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams user sign-in</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/unverified/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Unverified surfaces</span></a></li></ul></details></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Operations</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/operations/ci/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Continuous integration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/recipes/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Offline recipes</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/troubleshooting/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Troubleshooting</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Architecture</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="5"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/architecture/decisions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture decisions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/overview/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture overview</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/workspace-layout/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Workspace layout</span></a></li></ul></details></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-ezdlrayc"><div class="social-icons astro-ezdlrayc"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-gh65ub26"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-4yguomvy"><aside class="right-sidebar-container print:hidden astro-4yguomvy"><div class="right-sidebar astro-4yguomvy"><div class="lg:sl-hidden astro-cnvahwco"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-b3z257xh"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-b3z257xh"><details id="starlight__mobile-toc" class="astro-b3z257xh"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-b3z257xh"><span class="toggle sl-flex astro-b3z257xh">On this page<svg aria-hidden="true" class="caret astro-b3z257xh astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-b3z257xh"></span></summary><div class="dropdown astro-b3z257xh"><ul class="isMobile astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#meeting-events-inbound-bot-connector" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Meeting events (inbound, Bot Connector)</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#presence-reads" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Presence reads</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#presence-subscriptions" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Presence subscriptions</span></a><ul class="isMobile astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#presence-change-notifications" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Presence change notifications</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#out-of-scope" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Out of scope</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#not-verified" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Not verified</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#resource-specific-consent" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Resource-specific consent</span></a></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/muss/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-cnvahwco"><div class="sl-container astro-cnvahwco"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#meeting-events-inbound-bot-connector" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Meeting events (inbound, Bot Connector)</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#presence-reads" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Presence reads</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#presence-subscriptions" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Presence subscriptions</span></a><ul class="astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#presence-change-notifications" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Presence change notifications</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#out-of-scope" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Out of scope</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#not-verified" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Not verified</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#resource-specific-consent" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Resource-specific consent</span></a></li></ul></nav></starlight-toc><script type="module" src="/muss/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane astro-4yguomvy"><main data-pagefind-body class="astro-al2ilw4v" lang="en" dir="ltr"><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><h1 id="_top" class="astro-qfythd7a">Meetings and presence</h1></div></div><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><div class="sl-markdown-content"><p>Meeting events arrive over the Bot Connector, and the reads that follow are Connector calls too; presence is Graph. This page records both, and the resource-specific consent permissions that decide what a bot may read in a meeting. No call has been made to a real tenant.</p>
+<p>Everything in this section was read from the pages named, on 2026-11-11, in
+the public cloud with a work or school account. No call was made to a real
+tenant: every body in the tests and the example is a sample from those pages,
+served by a loopback server. See <a href="../../guides/meetings.md">meetings and presence</a> for the
+guide.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="meeting-events-inbound-bot-connector">Meeting events (inbound, Bot Connector)</h2><a class="sl-anchor-link" href="#meeting-events-inbound-bot-connector"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Meeting events (inbound, Bot Connector)”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Event or read (SDK name)</th>
+<th>Surface</th>
+<th>Permission type</th>
+<th>Permission</th>
+<th>Cloud</th>
+<th>Account type</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">meeting.events.start-end</code></td>
+<td><code dir="auto">event</code> activity named <code dir="auto">application/vnd.microsoft.meetingStart</code> or <code dir="auto">application/vnd.microsoft.meetingEnd</code>; manifest needs <code dir="auto">webApplicationInfo</code></td>
+<td>Application (resource-specific consent)</td>
+<td><code dir="auto">OnlineMeeting.ReadBasic.Chat</code> (scheduled meetings) or <code dir="auto">ChannelMeeting.ReadBasic.Group</code> (channel meetings); with either, the bot receives the events automatically</td>
+<td>Public cloud</td>
+<td>Work or school; scheduled and channel meetings only</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/apps-in-teams-meetings/meeting-apps-apis">Meeting apps APIs</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">meeting.events.participants</code></td>
+<td><code dir="auto">event</code> activity named <code dir="auto">application/vnd.microsoft.meetingParticipantJoin</code> or <code dir="auto">application/vnd.microsoft.meetingParticipantLeave</code></td>
+<td>Application (resource-specific consent)</td>
+<td><code dir="auto">OnlineMeetingParticipant.Read.Chat</code>, and a subscription made in Developer Portal under “Meeting event subscriptions”</td>
+<td>Public cloud</td>
+<td>Work or school; scheduled meetings only; the bot must be in the meeting before the participant joins or leaves</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/apps-in-teams-meetings/meeting-apps-apis">Meeting apps APIs</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">meeting.details</code></td>
+<td><code dir="auto">GET {serviceUrl}/v1/meetings/{meetingId}</code></td>
+<td>Application (resource-specific consent)</td>
+<td><code dir="auto">OnlineMeeting.ReadBasic.Chat</code> for a private meeting, <code dir="auto">ChannelMeeting.ReadBasic.Group</code> for a channel meeting</td>
+<td>Public cloud</td>
+<td>Work or school; scheduled private and channel meetings, instant meetings, one-on-one and group calls in the desktop and mobile clients</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/apps-in-teams-meetings/meeting-apps-apis">Meeting apps APIs</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">meeting.participant</code></td>
+<td><code dir="auto">GET {serviceUrl}/v1/meetings/{meetingId}/participants/{participantId}?tenantId={tenantId}</code></td>
+<td>Application (the bot’s Connector token)</td>
+<td><strong>None stated</strong> on the Get participant section</td>
+<td>Public cloud</td>
+<td>Work or school; rosters of fewer than 350 participants only</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/apps-in-teams-meetings/meeting-apps-apis">Meeting apps APIs</a></td>
+<td>2026-11-11</td>
+</tr>
+</tbody>
+</table>
+<p>The reads have no Graph API version: they are Bot Connector calls under the
+activity’s service URL, authenticated with the bot’s Connector token, and
+use the same destination check and pinned addresses as a send. The RSC
+permission names are in the
+<a href="https://learn.microsoft.com/en-us/microsoftteams/platform/graph-api/rsc/resource-specific-consent">RSC catalog</a>
+(read 2026-11-11), which describes <code dir="auto">OnlineMeeting.ReadBasic.Chat</code> and
+<code dir="auto">OnlineMeetingParticipant.Read.Chat</code> as app-only or delegated-or-app-only and
+<code dir="auto">ChannelMeeting.ReadBasic.Group</code> as app-only.</p>
+<p>Facts the SDK relies on, and how:</p>
+<ul>
+<li><strong>The meeting id is <code dir="auto">channelData.meeting.id</code>.</strong> The page says “Do not use
+conversation ID as meeting ID” and “Do not use meeting ID from meeting
+events payload <code dir="auto">activity.value</code>”. The start and end samples on the page
+carry <code dir="auto">value.Id</code> and no <code dir="auto">channelData.meeting</code>, so an event built from them
+names no meeting id and a read from it fails with <code dir="auto">MeetingIdMissing</code>.</li>
+<li><strong>Response codes</strong> for the participant read: 200 retrieved, 401 invalid
+token, 403 “Get participant information isn’t shared with the app. If the
+app isn’t installed in the meeting, it triggers the error response 403. If
+the admin disables or blocks the app”, 404 “the meeting has either expired
+or participants aren’t available”. The details section lists none, and the
+SDK reads the same statuses the same way.</li>
+<li><strong>Do not cache participant roles</strong>: the organizer can change them at any
+time. The SDK holds none.</li>
+<li><strong>No retry.</strong> A read is not repeated. A 429 returns <code dir="auto">Throttled</code> with the
+delay the service asked for.</li>
+</ul>
+<p>Inconsistencies in the pages, and how the SDK reads them:</p>
+<table>
+<thead>
+<tr>
+<th>Inconsistency</th>
+<th>Reading</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The start and end sample value uses Pascal case (<code dir="auto">Title</code>, <code dir="auto">JoinUrl</code>, <code dir="auto">MeetingType</code>, <code dir="auto">StartTime</code>, <code dir="auto">EndTime</code>); the TypeScript sample on the same page reads camel case</td>
+<td>Both spellings are accepted.</td>
+</tr>
+<tr>
+<td><code dir="auto">value.Id</code> of the event versus <code dir="auto">channelData.meeting.id</code></td>
+<td>Only <code dir="auto">channelData.meeting.id</code> is a meeting id; <code dir="auto">value.Id</code> is not read.</td>
+</tr>
+<tr>
+<td>The one-to-one call sample has the key <code dir="auto">"organizer  "</code> and the participant sample <code dir="auto">"role "</code>, each with trailing spaces</td>
+<td>Read as typos and not matched: the organizer or role is absent, never guessed. Unverified against a live answer.</td>
+</tr>
+<tr>
+<td>The page describes the join and leave payload <code dir="auto">value.members[0]</code> only</td>
+<td>Every member is read, up to 256. A list that is absent, empty or longer is refused.</td>
+</tr>
+<tr>
+<td>The bot’s own join event has no <code dir="auto">aadObjectId</code> (the TypeScript sample skips it for that reason)</td>
+<td>A member without a directory id is delivered; the handler tells the bot from a person by it.</td>
+</tr>
+</tbody>
+</table>
+<p>Transcripts and recordings are <strong>not offered</strong>. The Graph
+<a href="https://learn.microsoft.com/en-us/graph/api/calltranscript-get?view=graph-rest-1.0">Get callTranscript</a>
+page (read 2026-11-11) shows the read needs <code dir="auto">OnlineMeetingTranscript.Read.All</code>
+(or <code dir="auto">OnlineMeetingTranscript.Read.Chat</code> for scheduled private chat meetings,
+application only), an application access policy that a tenant administrator
+creates and grants to a user, and two further tenant administrator settings
+that decide which transcript formats may be read (<code dir="auto">text/vtt</code> fails with 403
+<code dir="auto">SpeakerAttributionNotAllowed</code> where speaker attribution is disallowed). The
+SDK cannot check or grant any of these, and a live tenant was not available to
+prove the reads, so it offers no operation rather than an unverified one. The
+recording read has its own page, which was not read.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="presence-reads">Presence reads</h2><a class="sl-anchor-link" href="#presence-reads"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Presence reads”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Capability (SDK name)</th>
+<th>Endpoint</th>
+<th>API version</th>
+<th>Permission type</th>
+<th>Permission</th>
+<th>Cloud</th>
+<th>Account type</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">presence.get.user</code></td>
+<td><code dir="auto">GET /users/{id}/presence</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">Presence.Read.All</code> (higher: <code dir="auto">Presence.ReadWrite.All</code>)</td>
+<td>Global, GCC, GCC-High; not 21Vianet (the SDK uses the public cloud only)</td>
+<td>Work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/presence-get?view=graph-rest-1.0">Get presence</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">presence.get.user</code></td>
+<td><code dir="auto">GET /users/{id}/presence</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">Presence.Read.All</code> for another user (the page’s second example); the least privileged delegated permission <code dir="auto">Presence.Read</code> is the signed-in user’s own</td>
+<td>same</td>
+<td>Personal Microsoft account: not supported</td>
+<td>same</td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">presence.get.me</code></td>
+<td><code dir="auto">GET /me/presence</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">Presence.Read</code> (higher: <code dir="auto">Presence.Read.All</code>)</td>
+<td>same</td>
+<td>Personal Microsoft account: not supported</td>
+<td>same</td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">presence.get.me</code></td>
+<td><code dir="auto">GET /me/presence</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td>Not supported (“You can’t use application permissions to access APIs under the <code dir="auto">/me</code> path”)</td>
+<td>same</td>
+<td>n/a</td>
+<td>same</td>
+<td>2026-11-11</td>
+</tr>
+</tbody>
+</table>
+<p>The request rate is 1,500 requests in 30 seconds per application per tenant.
+The page’s third example, <code dir="auto">GET /communications/presences/{id}</code>, shows its
+answer as a <code dir="auto">value</code> array while the other two show one object; the SDK does
+not offer that form. <code dir="auto">POST /communications/getPresencesByUserId</code> (up to 650
+ids) is not offered either: the SDK never repeats a <code dir="auto">POST</code>, which is the wrong
+rule for a read. The presence status message, work location and the write
+operations (set, clear) are not modelled.</p>
+<p>The availability values the page lists are <code dir="auto">Available</code>, <code dir="auto">Away</code>, <code dir="auto">BeRightBack</code>,
+<code dir="auto">Busy</code>, <code dir="auto">DoNotDisturb</code>, <code dir="auto">Focusing</code>, <code dir="auto">InACall</code>, <code dir="auto">InAMeeting</code>, <code dir="auto">Offline</code>,
+<code dir="auto">Presenting</code> and <code dir="auto">PresenceUnknown</code>; the activity values are <code dir="auto">Available</code>,
+<code dir="auto">Away</code>, <code dir="auto">BeRightBack</code>, <code dir="auto">Busy</code>, <code dir="auto">DoNotDisturb</code>, <code dir="auto">Offline</code>, <code dir="auto">OutOfOffice</code> and
+<code dir="auto">PresenceUnknown</code>. The page’s own example shows the activity <code dir="auto">Presenting</code>, so
+neither set is closed: a value the SDK does not name is kept as <code dir="auto">Other</code>.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="presence-subscriptions">Presence subscriptions</h2><a class="sl-anchor-link" href="#presence-subscriptions"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Presence subscriptions”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Operation (SDK name)</th>
+<th>Endpoint</th>
+<th>API version</th>
+<th>Permission type</th>
+<th>Permission</th>
+<th>Cloud</th>
+<th>Account type</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">subscriptions.create.presence</code></td>
+<td><code dir="auto">POST /subscriptions</code>, resource <code dir="auto">/communications/presences/{user-id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">Presence.Read.All</code>; application permissions are not supported</td>
+<td>Global only (the change-notification page marks US Government and 21Vianet as not available)</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-post-subscriptions?view=graph-rest-1.0">Create subscription</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.renew.presence</code></td>
+<td><code dir="auto">PATCH /subscriptions/{id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">Presence.Read.All</code>; application not supported</td>
+<td>same</td>
+<td>same</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-update?view=graph-rest-1.0">Update subscription</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.get.presence</code></td>
+<td><code dir="auto">GET /subscriptions/{id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><strong>Not stated on the page.</strong> The permissions table has no presence row, so the contract names no permission (<code dir="auto">PermissionNeed::NotStated</code>) and a 403 says so.</td>
+<td>same</td>
+<td>same</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-get?view=graph-rest-1.0">Get subscription</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.delete.presence</code></td>
+<td><code dir="auto">DELETE /subscriptions/{id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><strong>Not stated on the page.</strong> Same as get.</td>
+<td>same</td>
+<td>same</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-delete?view=graph-rest-1.0">Delete subscription</a></td>
+<td>2026-11-11</td>
+</tr>
+</tbody>
+</table>
+<p>The get and delete pages carry a presence paragraph (when <code dir="auto">includeResourceData</code>
+is <code dir="auto">true</code>, encryption is required and creation fails without
+<code dir="auto">encryptionCertificate</code> and <code dir="auto">encryptionCertificateId</code>) but no permissions row. The SDK does not borrow
+<code dir="auto">Presence.Read.All</code> from the create and update pages for them (re-read
+2026-11-11); the delegated client is still required before anything is sent.</p>
+<p>Facts from
+<a href="https://learn.microsoft.com/en-us/graph/changenotifications-for-presence">Get change notifications for presence updates</a>
+and the
+<a href="https://learn.microsoft.com/en-us/graph/api/resources/subscription?view=graph-rest-1.0">subscription resource type</a>
+(read 2026-11-11):</p>
+<ul>
+<li><strong>Lifetime: 60 minutes.</strong> A single user may have one presence subscription
+per application. A subscription is renewed with the update call before it
+expires, or created again after it does. The keeper plans a renewal half
+way through the hour, because its lead time is capped at half the
+remaining life, and a renewal asks for another 60 minutes.</li>
+<li><strong>Resource: one user.</strong> <code dir="auto">communications/presences/{id}</code>, where <code dir="auto">{id}</code> is the
+user’s GUID. The bulk form
+<code dir="auto">communications/presences?$filter=id in (...)</code> (650 users) is not offered.</li>
+<li><strong>Change type: <code dir="auto">updated</code> only.</strong></li>
+<li><strong>Lifecycle URL.</strong> The <code dir="auto">lifecycleNotificationUrl</code> is required for Teams
+resources when the expiration is more than one hour away. A presence
+subscription never is, so the URL is optional; set it anyway to hear of a
+<code dir="auto">reauthorizationRequired</code> notification. <code dir="auto">subscriptionRemoved</code> is listed for
+Outlook and Teams <code dir="auto">chatMessage</code> only, so the SDK does not expect it for
+presence; a lapsed presence subscription is found by its expiry or by a 404
+on renewal.</li>
+<li><strong>Resource data: advised, enforced locally.</strong> What Learn says, re-read
+2026-11-11. The create page’s presence section: “Subscriptions on
+<strong>presence</strong> require any resource data included in a change notification to
+be encrypted. Always specify the <strong>encryptionCertificate</strong> parameter when
+creating a subscription to avoid failure.” The update, get and delete pages
+say, under a presence heading: “In that case [<code dir="auto">includeResourceData</code> set to
+<code dir="auto">true</code>], encryption is required and the subscription creation fails if an
+<strong>encryptionCertificate</strong> and <strong>encryptionCertificateId</strong> aren’t
+specified.” So the failure Learn states is conditional on
+<code dir="auto">includeResourceData: true</code>; the create page’s advice to always specify the
+certificate is not worded as a rule. The presence notification page
+documents a basic notification (the user, no state) and says to set
+<code dir="auto">includeResourceData</code> to <code dir="auto">true</code> with both certificate fields “to subscribe
+to rich notifications”. A basic presence subscription is therefore
+documented; the SDK still <strong>refuses to create one</strong>
+(<code dir="auto">SubscriptionError::ResourceDataRequired</code>, before anything is sent),
+because the create page advises always specifying the certificate “to
+avoid failure” and a wrong guess would only show up against a live tenant.
+This is the SDK’s conservative choice, not a stated service rule, and no
+live tenant has tried a basic presence subscription. The SDK creates the
+subscription with <code dir="auto">includeResourceData</code>, the certificate and its id; the id
+is stored on the subscription record and bound when notifications are
+opened. Rotating means creating the subscription again with the new
+certificate. Basic presence notifications that arrive are still delivered.</li>
+<li><strong>Delegated only.</strong> A client that is not delegated is refused before
+anything is sent (<code dir="auto">UnsupportedCapability</code>). The keeper renews with the
+delegated client it was built over, so the user’s token has to be
+available every time a renewal is due. In the facade, give the webhook
+that token with <code dir="auto">TeamsApp::graph_delegated_tokens</code>; without it
+<code dir="auto">GraphWebhooks::watch</code> refuses a presence subscription
+(<code dir="auto">WatchError::DelegatedClientNotConfigured</code>) and a lifecycle notification
+for one is reported to the recovery hook as blocked.</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="presence-change-notifications">Presence change notifications</h3><a class="sl-anchor-link" href="#presence-change-notifications"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Presence change notifications”</span></a></div>
+<p>Source: <a href="https://learn.microsoft.com/en-us/graph/changenotifications-for-presence">Get change notifications for presence updates</a>
+(read in full 2026-11-11; the fetch was not truncated).</p>
+<table>
+<thead>
+<tr>
+<th>Fact</th>
+<th>What the page says</th>
+<th>What the SDK does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Resource</td>
+<td><code dir="auto">communications/presences/{id}</code>, change type <code dir="auto">Updated</code>; bulk <code dir="auto">communications/presences?$filter=id in (...)</code> (650 ids)</td>
+<td>Binds <code dir="auto">communications/presences/{id}</code> (leading slash optional, GUID compared without case). The <code dir="auto">users('{id}')/presence</code> form appears only as <code dir="auto">resourceData["@odata.id"]</code>, never as <code dir="auto">resource</code>, so it is not bound. Bulk is not offered.</td>
+</tr>
+<tr>
+<td>Permission</td>
+<td>Delegated (work or school) <code dir="auto">Presence.Read.All</code>; personal account and application: not supported</td>
+<td>Delegated client required.</td>
+</tr>
+<tr>
+<td>Lifetime</td>
+<td>One subscription per user per application, at most an hour</td>
+<td>60 minutes, renewed by the keeper.</td>
+</tr>
+<tr>
+<td>Basic notification</td>
+<td><code dir="auto">value[]</code> with <code dir="auto">subscriptionId</code>, <code dir="auto">clientState</code>, <code dir="auto">changeType</code>, <code dir="auto">tenantId</code>, <code dir="auto">resource</code>, <code dir="auto">subscriptionExpirationDateTime</code>, <code dir="auto">resourceData</code> (<code dir="auto">@odata.id</code>, <code dir="auto">@odata.type</code>, <code dir="auto">id</code>), <code dir="auto">organizationId</code>; no state</td>
+<td>Delivered to <code dir="auto">on_presence_change</code> with the user and no state. Supported although the SDK never creates a basic subscription.</td>
+</tr>
+<tr>
+<td>Rich notification</td>
+<td>Same plus <code dir="auto">encryptedContent</code>; body-level <code dir="auto">validationTokens</code>; “the availability and activity can be the same value”</td>
+<td>Quarantined, verified (tokens, certificate, data signature), decrypted; the plaintext <code dir="auto">id</code> must be the watched user (checked against <code dir="auto">resourceData.id</code> and against the resource path); then delivered with the availability and activity.</td>
+</tr>
+<tr>
+<td>Decrypted payload</td>
+<td><code dir="auto">@odata.id</code>, <code dir="auto">@odata.type</code>, <code dir="auto">id</code>, <code dir="auto">availability</code>, <code dir="auto">activity</code></td>
+<td>Read as a <code dir="auto">PresenceInfo</code>; values the SDK does not name are kept as <code dir="auto">Other</code>.</td>
+</tr>
+<tr>
+<td>Notification identifier</td>
+<td>The payload examples carry no top-level <code dir="auto">id</code></td>
+<td>Without one nothing recognises a repeat, and the SDK does not invent one: a repeat of an unidentified presence notification is delivered again. With an <code dir="auto">id</code> the existing delivered-marker skips the repeat.</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td>The lifecycle page lists <code dir="auto">reauthorizationRequired</code> for all resources, <code dir="auto">subscriptionRemoved</code> for Outlook and Teams <code dir="auto">chatMessage</code>, <code dir="auto">missed</code> for Outlook only</td>
+<td>The webhook routes any lifecycle item that matches the subscription to the keeper with the delegated client: <code dir="auto">reauthorizationRequired</code> renews, and a <code dir="auto">subscriptionRemoved</code> or <code dir="auto">missed</code> item (not documented for presence) still reaches the recovery hook instead of being dropped. A lifecycle URL is not required for an hour-long subscription; without one the service sends no lifecycle notification.</td>
+</tr>
+<tr>
+<td>Activity values</td>
+<td><code dir="auto">activity</code>: <code dir="auto">Available</code>, <code dir="auto">Away</code>, <code dir="auto">BeRightBack</code>, <code dir="auto">Busy</code>, <code dir="auto">DoNotDisturb</code>, <code dir="auto">Offline</code>, <code dir="auto">OutOfOffice</code>, <code dir="auto">PresenceUnknown</code>; <code dir="auto">availability</code>: the eleven in the presence reads</td>
+<td><code dir="auto">InACall</code> appears in the page’s availability/activity combinations and is kept as <code dir="auto">Other("InACall")</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Verified 2026-11-11 against
+<a href="https://learn.microsoft.com/en-us/graph/api/subscription-post-subscriptions?view=graph-rest-1.0">Create subscription</a>,
+<a href="https://learn.microsoft.com/en-us/graph/api/subscription-update?view=graph-rest-1.0">Update subscription</a>,
+<a href="https://learn.microsoft.com/en-us/graph/change-notifications-lifecycle-events">Reduce missing change notifications and removed subscriptions</a>
+and the
+<a href="https://learn.microsoft.com/en-us/graph/api/resources/presence?view=graph-rest-1.0">presence resource type</a>.
+Cloud: Global service only. The delivery path is covered by loopback tests
+with an OpenSSL-made payload; <strong>no live tenant</strong> has delivered a presence
+notification to it (see <a href="#not-verified">Not verified</a>).</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="out-of-scope">Out of scope</h2><a class="sl-anchor-link" href="#out-of-scope"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Out of scope”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Surface</th>
+<th>Why</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application-hosted real-time audio and video</td>
+<td>Needs the <code dir="auto">Microsoft.Graph.Communications.Calls.Media</code> .NET library on Windows; it is not a missing small endpoint and pure-Rust media capture is excluded</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/calls-and-meetings/requirements-considerations-application-hosted-media-bots">Application-hosted media bots</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Meeting transcripts and recordings</td>
+<td>See above: tenant policies the SDK can neither check nor grant, and no live tenant</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/calltranscript-get?view=graph-rest-1.0">Get callTranscript</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td>In-meeting notifications, real-time captions, share to stage</td>
+<td>Not built</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/apps-in-teams-meetings/meeting-apps-apis">Meeting apps APIs</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td>Sovereign clouds, personal accounts, cross-tenant meetings</td>
+<td>Not tested; the tenant of a read is the activity’s</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/deployments">Microsoft Graph national cloud deployments</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">beta</code> endpoints</td>
+<td>v1 advertises <code dir="auto">v1.0</code> only</td>
+<td>n/a</td>
+<td>2026-11-11</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="not-verified">Not verified</h2><a class="sl-anchor-link" href="#not-verified"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Not verified”</span></a></div>
+<ul>
+<li>No call was made to a real tenant, so none of the above is live evidence.
+The acceptance step that asks for the advertised paths in a configured
+tenant is <strong>blocked</strong>: no tenant, bot registration or meeting was
+available.</li>
+<li>The percent-encoding of <code dir="auto">+</code>, <code dir="auto">/</code> and <code dir="auto">=</code> in the meeting id path segment.
+Learn shows the path without one; the SDK encodes the three characters so
+the id stays one path segment. Not seen against a live service.</li>
+<li>Whether <code dir="auto">details.id</code> always equals the requested id. The SDK does not
+compare them.</li>
+<li>Whether Developer Portal’s “Meeting event subscriptions” has a manifest
+equivalent. The SDK cannot check it.</li>
+<li>The permission the participant read needs.</li>
+<li>Live delivery of presence notifications: the service was not asked to send
+one, so the rich payload’s field names beyond the page’s example, whether it
+ever sends a basic one to a subscription made with a certificate, and
+whether it sends an identifier are unconfirmed.</li>
+<li>The permission the get and delete subscription calls need for presence: the
+pages state none.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="resource-specific-consent">Resource-specific consent</h2><a class="sl-anchor-link" href="#resource-specific-consent"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Resource-specific consent”</span></a></div>
+<p>Resource-specific consent (RSC) permissions are app-only and consented at the
+resource, not by a tenant administrator. The scope of a team-scoped RSC
+permission extends to all of that team’s channels, except private and shared
+channels, where it extends only to channels where a user has explicitly added
+the app. Read from
+<a href="https://learn.microsoft.com/en-us/microsoftteams/platform/graph-api/rsc/resource-specific-consent">Resource-Specific Consent for Teams Agents and Apps</a>
+on 2026-11-03.</p>
+<table>
+<thead>
+<tr>
+<th>Permission</th>
+<th>Grants</th>
+<th>Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">TeamsActivity.Send.Group</code></td>
+<td>Send activity-feed notifications to users in this team</td>
+<td>Team</td>
+</tr>
+<tr>
+<td><code dir="auto">TeamsActivity.Send.Chat</code></td>
+<td>Send activity-feed notifications to users in this chat</td>
+<td>Chat</td>
+</tr>
+<tr>
+<td><code dir="auto">TeamsActivity.Send.User</code></td>
+<td>Send activity-feed notifications to the user</td>
+<td>User</td>
+</tr>
+<tr>
+<td><code dir="auto">ChannelMessage.Read.Group</code></td>
+<td>Read and receive all of this team’s channel messages</td>
+<td>Team</td>
+</tr>
+<tr>
+<td><code dir="auto">ChannelMessage.Send.Group</code></td>
+<td>Send messages to this team’s channels</td>
+<td>Team</td>
+</tr>
+<tr>
+<td><code dir="auto">ChatMessage.Read.Chat</code></td>
+<td>Read and receive all of this chat’s messages</td>
+<td>Chat</td>
+</tr>
+<tr>
+<td><code dir="auto">TeamMember.Read.Group</code></td>
+<td>Read this team’s members</td>
+<td>Team</td>
+</tr>
+<tr>
+<td><code dir="auto">TeamsAppInstallation.Read.Chat</code></td>
+<td>Read the apps that are installed in this chat</td>
+<td>Chat</td>
+</tr>
+</tbody>
+</table>
+<p>Three details recorded on the same page, read 2026-11-03:</p>
+<ul>
+<li><code dir="auto">TeamsActivity.Send.Group</code>, <code dir="auto">TeamsActivity.Send.Chat</code> and
+<code dir="auto">TeamsActivity.Send.User</code> are the “basic” RSC permissions: any user consents
+to them simply by installing the app.</li>
+<li>The <code dir="auto">TeamsActivity.Send</code> RSC application permission is always enabled at the
+tenant level; app users do not need administrator consent for it.</li>
+<li>App-only RSC requires app manifest version 1.6 or later.</li>
+</ul>
+<p>The <code dir="auto">ChannelMessage.Read.Group</code> and <code dir="auto">ChatMessage.Read.Chat</code> permissions are the
+ones that let an app receive messages it was not mentioned in. Without them, a
+bot in a channel sees only the messages that mention it. Read from
+<a href="https://learn.microsoft.com/en-us/microsoftteams/platform/agents-in-teams/enable-receive-all-chat-messages">Configure an Agent to Receive All Messages in Group Chats and Channels</a>
+on 2026-11-03.</p>
+</div><footer class="sl-flex astro-mjem5c2d"><div class="meta sl-flex astro-mjem5c2d"></div><div class="pagination-links print:hidden astro-wxozplkb" dir="ltr"><a href="/muss/reference/compatibility/inbound-activities/" rel="prev" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span class="astro-wxozplkb">Previous<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">Inbound bot activities</span></span></a><a href="/muss/reference/compatibility/proactive/" rel="next" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-wxozplkb">Next<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">Proactive notifications</span></span></a></div></footer></div></div></main></div></div></div></div></body></html>

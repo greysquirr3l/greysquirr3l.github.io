@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-al2ilw4v"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Teams user sign-in | muss</title><link rel="canonical" href="https://greysquirr3l.github.io/muss/reference/compatibility/sso/"/><link rel="sitemap" href="/muss/sitemap-index.xml"/><link rel="shortcut icon" href="/muss/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v7.4.11"/><meta name="generator" content="Starlight v0.42.11"/><meta property="og:title" content="Teams user sign-in"/><meta property="og:type" content="article"/><meta property="og:url" content="https://greysquirr3l.github.io/muss/reference/compatibility/sso/"/><meta property="og:locale" content="en"/><meta property="og:description" content="The sign-in invokes a Teams bot receives, the token the SDK exchanges, and the claims it checks before it keeps anything."/><meta property="og:site_name" content="muss"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="The sign-in invokes a Teams bot receives, the token the SDK exchanges, and the claims it checks before it keeps anything."/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/muss/_astro/print.C9eyqPGL.css" media="print"><link rel="stylesheet" href="/muss/_astro/common.BnqPtuMD.css"><style>@layer starlight.components{svg:where(.astro-pqysdep7){color:var(--sl-icon-color);font-size:var(--sl-icon-size,1em);width:1em;height:1em;overflow:visible}}
+</style><script type="module" src="/muss/_astro/page.cNngjUgL.js"></script></head><body class="astro-al2ilw4v"><a class="sl-skip-link astro-o5hysztx" href="#_top">Skip to content</a><div class="page sl-flex astro-gh65ub26"><header class="header astro-gh65ub26"><div class="header astro-ozb2cxkm"><div class="title-wrapper sl-flex astro-ozb2cxkm"><a href="/muss/" class="site-title sl-flex astro-yhxfdlc4"><img class="light:sl-hidden print:hidden astro-yhxfdlc4" alt src="/muss/_astro/logo-dark.ChSVDRwB.svg" width="48" height="48"><img class="dark:sl-hidden print:block astro-yhxfdlc4" alt src="/muss/_astro/logo-light.DeCIlpuM.svg" width="48" height="48"><span class="astro-yhxfdlc4" translate="no">muss</span></a></div><div class="sl-flex print:hidden astro-ozb2cxkm"><site-search class="astro-ozb2cxkm astro-3h4fk2u5" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"><button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-3h4fk2u5"><svg aria-hidden="true" class="astro-3h4fk2u5 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-3h4fk2u5" aria-hidden="true">Search</span><kbd class="sl-hidden md:sl-flex astro-3h4fk2u5" style="display: none"><kbd class="astro-3h4fk2u5">Ctrl</kbd><kbd class="astro-3h4fk2u5">K</kbd></kbd></button><dialog style="padding: 0" aria-label="Search" class="astro-3h4fk2u5"><div class="dialog-frame sl-flex astro-3h4fk2u5"><button data-close-modal class="sl-flex md:sl-hidden astro-3h4fk2u5">Cancel</button><div class="search-container astro-3h4fk2u5"><div id="starlight__search" class="astro-3h4fk2u5"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/muss/_astro/Search.astro_astro_type_script_index_0_lang.CrDXzKXN.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-ozb2cxkm"><div class="sl-flex social-icons astro-ozb2cxkm"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script><script type="module">var e=class extends HTMLElement{constructor(){super();let e=this.querySelector(`select`);e&&(e.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=e.currentTarget.value)}),window.addEventListener(`pageshow`,t=>{if(!t.persisted)return;let n=e.querySelector(`option[selected]`)?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}};customElements.define(`starlight-lang-select`,e);</script></div></div></header><nav class="sidebar print:hidden astro-gh65ub26" aria-label="Main"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-creup77k"><svg aria-hidden="true" class="open-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-creup77k">Menu</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-gh65ub26"><div class="sidebar-content sl-flex astro-gh65ub26"><sl-sidebar-state-persist data-hash="1egna9r" class="astro-zzv2mkrn"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-mql6fjj4"><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Getting started</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/getting-started/configuration/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Configuration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/installation/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Installation</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/introduction/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">What muss is</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/quickstart/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Quickstart</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Guides</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/guides/card-actions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/cards/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Adaptive Cards</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/dialogs-and-extensions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/directory/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Directory and app installs</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/facade/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams facade</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/graph/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/meetings/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/notifications/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/routing/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Routing bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/sso/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams sign-in and delegated Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/state/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Tenant-scoped state</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Reference</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/public-api/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The locked v1 contract</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/error-taxonomy/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The error taxonomies</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/permissions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Permissions and consent</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/policies/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Platform policies and retirements</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/performance/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Performance and resource bounds</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/transport-and-observability/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Transport and observability</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/cli/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams command-line tool</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/changelog/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The changelog</span></a></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Compatibility</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Supported-surface matrix</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/bot-framework/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound activity authentication</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/cards/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Cards and card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/connector/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound Connector messages</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/credentials/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound credentials and token issuance</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/dialogs/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and message extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/graph/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph surface</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/inbound-activities/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/meetings/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/proactive/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/sso/" aria-current="page" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams user sign-in</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/unverified/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Unverified surfaces</span></a></li></ul></details></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Operations</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/operations/ci/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Continuous integration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/recipes/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Offline recipes</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/troubleshooting/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Troubleshooting</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Architecture</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="5"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/architecture/decisions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture decisions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/overview/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture overview</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/workspace-layout/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Workspace layout</span></a></li></ul></details></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-ezdlrayc"><div class="social-icons astro-ezdlrayc"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-gh65ub26"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-4yguomvy"><aside class="right-sidebar-container print:hidden astro-4yguomvy"><div class="right-sidebar astro-4yguomvy"><div class="lg:sl-hidden astro-cnvahwco"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-b3z257xh"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-b3z257xh"><details id="starlight__mobile-toc" class="astro-b3z257xh"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-b3z257xh"><span class="toggle sl-flex astro-b3z257xh">On this page<svg aria-hidden="true" class="caret astro-b3z257xh astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-b3z257xh"></span></summary><div class="dropdown astro-b3z257xh"><ul class="isMobile astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#what-the-sdk-does-about-each" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">What the SDK does about each</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#inconsistencies-in-the-published-pages" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Inconsistencies in the published pages</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#not-verified" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Not verified</span></a></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/muss/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-cnvahwco"><div class="sl-container astro-cnvahwco"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#what-the-sdk-does-about-each" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">What the SDK does about each</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#inconsistencies-in-the-published-pages" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Inconsistencies in the published pages</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#not-verified" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Not verified</span></a></li></ul></nav></starlight-toc><script type="module" src="/muss/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane astro-4yguomvy"><main data-pagefind-body class="astro-al2ilw4v" lang="en" dir="ltr"><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><h1 id="_top" class="astro-qfythd7a">Teams user sign-in</h1></div></div><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><div class="sl-markdown-content"><p>Teams sign-in reaches your bot as an invoke: a token to exchange, or a code to verify. This page records the invokes, the token the SDK exchanges on your behalf, and every claim it checks before it keeps anything. Nothing here was run against a tenant, a registration, a bot or a Teams client.</p>
+<p>Recorded 2026-11-12. Everything in this section was read from Microsoft Learn
+that day; <strong>nothing was run against a tenant, a registration, a bot or a Teams
+client</strong>. Cloud: <strong>Global</strong> only. <code dir="auto">login.microsoftonline.com</code> is the only
+authority the SDK builds; a sovereign cloud’s authority is not offered.
+Account type: <strong>work or school accounts of the one configured tenant</strong>. The SDK
+requires the token’s <code dir="auto">tid</code> to be that tenant, so personal Microsoft accounts
+(<code dir="auto">tid</code> <code dir="auto">9188040d-6c67-4c5b-b112-36a304b66dad</code>) and other tenants are refused.
+Permission type for the token calls: <strong>Delegated</strong>. The SDK requests <strong>no
+permission by default</strong>: the scopes are the ones the application names, and a
+<code dir="auto">.default</code> scope is refused.</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Endpoint</th>
+<th>API version</th>
+<th>Permission type</th>
+<th>Permission</th>
+<th>Cloud</th>
+<th>Account type</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Teams offers its token</td>
+<td>Invoke <code dir="auto">signin/tokenExchange</code>; <code dir="auto">value</code> is <code dir="auto">{ id, connectionName, token }</code>; the answer is <code dir="auto">{ status, body: { id, connectionName, failureDetail } }</code>, <code dir="auto">200</code> meaning signed in and any other status or no answer meaning Teams shows the OAuth card. Teams checks the OAuth card for <code dir="auto">tokenExchangeResource</code>, and the token’s audience “must be the same as <code dir="auto">TokenExchangeResource.Uri</code>”</td>
+<td>Bot Framework activity schema (no version stated)</td>
+<td>none (the activity is authenticated by the inbound rows)</td>
+<td>n/a</td>
+<td>Global</td>
+<td>work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/tabs/how-to/authentication/tab-sso-troubleshooting">Troubleshoot SSO authentication in Teams</a></td>
+<td>2026-11-12</td>
+</tr>
+<tr>
+<td>SSO is supported in</td>
+<td>one-on-one and group chat, <strong>not channel</strong> scope</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>Global</td>
+<td>work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/bots/how-to/authentication/bot-sso-overview">Enable SSO for your app</a></td>
+<td>2026-11-12</td>
+</tr>
+<tr>
+<td>Teams reports a failed exchange</td>
+<td>Invoke <code dir="auto">signin/failure</code>; the fields are <code dir="auto">code</code> and <code dir="auto">message</code> (the Teams SDK examples read <code dir="auto">activity.value</code>)</td>
+<td>as above</td>
+<td>none</td>
+<td>n/a</td>
+<td>Global</td>
+<td>work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/bots/how-to/authentication/bot-sso-code">Add code to enable SSO in your bot app</a></td>
+<td>2026-11-12</td>
+</tr>
+<tr>
+<td>The person returns a verification code</td>
+<td>Invoke <code dir="auto">signin/verifyState</code>; the bot “receives an invoke message with <code dir="auto">name = signin/verifyState</code>” carrying the string passed to <code dir="auto">notifySuccess()</code>; the Teams SDK reference names the field <code dir="auto">state</code></td>
+<td>as above</td>
+<td>none</td>
+<td>n/a</td>
+<td>Global</td>
+<td>work or school</td>
+<td><a href="https://github.com/MicrosoftDocs/msteams-docs/blob/master/msteams-platform/bots/how-to/authentication/auth-flow-bot.md">Authentication flow for bots</a>; <a href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.teams.apps.oauth.signinverifystatevalue.state?view=msteams-sdk-dotnet-latest">SignInVerifyStateValue.State</a></td>
+<td>2026-11-12</td>
+</tr>
+<tr>
+<td>Manifest</td>
+<td><code dir="auto">webApplicationInfo.id</code> is the SSO registration’s client id and <code dir="auto">webApplicationInfo.resource</code> the application ID URI (<code dir="auto">api://botid-&lt;BOT_ID&gt;</code>, or <code dir="auto">api://&lt;domain&gt;/botid-&lt;BOT_ID&gt;</code> with a tab); manifest version 1.5 or later; <code dir="auto">validDomains</code> must carry the redirect page’s host (Learn also names <code dir="auto">https://token.botframework.com</code>, which only the Token Service route needs)</td>
+<td>manifest 1.5+</td>
+<td>none</td>
+<td>n/a</td>
+<td>Global</td>
+<td>work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/bots/how-to/authentication/bot-sso-manifest">Update app manifest for SSO</a></td>
+<td>2026-11-12</td>
+</tr>
+<tr>
+<td>Registration</td>
+<td>Expose an API; application ID URI; scope; authorized client ids (<code dir="auto">1fec8e78-bce4-4aaf-ab1b-5451cc387264</code>, <code dir="auto">5e3ce6c0-2b1f-4285-8d4b-75ee78787346</code>, <code dir="auto">4765445b-32c6-49b0-83e6-1d93765276ca</code>, <code dir="auto">0ec893e0-5785-4de6-99da-4ed124e5296c</code>, <code dir="auto">d3590ed6-52b3-4102-aeff-aad2292ab01c</code>, <code dir="auto">bc59ab01-8403-45c6-8796-ac3ef710b3e3</code>, <code dir="auto">27922004-5251-4030-b22d-91ecd9a37ea4</code>, <code dir="auto">c0ab8ce9-e9a0-42e7-b064-33d422df41f1</code>); <code dir="auto">requestedAccessTokenVersion</code> = 2; a client secret</td>
+<td>identity platform v2.0</td>
+<td>Delegated</td>
+<td>the scope the registration exposes (<code dir="auto">access_as_user</code> by SDK default; Learn’s tutorial uses <code dir="auto">openid profile User.Read User.ReadBasic.All</code> as its example)</td>
+<td>Global</td>
+<td>work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/bots/how-to/authentication/bot-sso-register-aad">Configure your app in Microsoft Entra ID</a></td>
+<td>2026-11-12</td>
+</tr>
+<tr>
+<td>The SSO token’s claims</td>
+<td>version 2.0 access token: <code dir="auto">aud</code> is “always the client ID of the API” in v2.0 tokens; <code dir="auto">iss</code> ends in <code dir="auto">/v2.0</code>; <code dir="auto">scp</code> is “only included for user tokens”; <code dir="auto">tid</code>, <code dir="auto">oid</code>, <code dir="auto">sub</code>, <code dir="auto">ver</code> are read; <code dir="auto">azp</code> (which Learn lists for v2.0 tokens) is <strong>not read</strong> (see “What the SDK does about each” below). Validation: tie <code dir="auto">tid</code> to <code dir="auto">iss</code>, “validate that the <code dir="auto">tid</code> claim is a GUID and the <code dir="auto">iss</code> claim is of the form <code dir="auto">https://login.microsoftonline.com/{tid}/v2.0</code>”</td>
+<td>v2.0</td>
+<td>Delegated</td>
+<td>n/a</td>
+<td>Global</td>
+<td>work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/entra/identity-platform/access-tokens">Access tokens</a>; <a href="https://learn.microsoft.com/en-us/entra/identity-platform/access-token-claims-reference">Access token claims reference</a></td>
+<td>2026-11-12</td>
+</tr>
+<tr>
+<td>The tenant’s signing keys</td>
+<td><code dir="auto">GET https://login.microsoftonline.com/{tenant}/discovery/v2.0/keys</code> (the SDK’s address; the metadata document <code dir="auto">.../common/v2.0/.well-known/openid-configuration</code> names <code dir="auto">https://login.microsoftonline.com/common/discovery/v2.0/keys</code> as <code dir="auto">jwks_uri</code>, and the tenant form answered <code dir="auto">200</code> with 6 keys in 9,720 bytes on 2026-11-12)</td>
+<td>v2.0</td>
+<td>none (public keys)</td>
+<td>n/a</td>
+<td>Global</td>
+<td>work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/entra/identity-platform/access-tokens">Access tokens</a></td>
+<td>2026-11-12</td>
+</tr>
+<tr>
+<td>On-behalf-of exchange</td>
+<td><code dir="auto">POST https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token</code>, form: <code dir="auto">grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer</code>, <code dir="auto">client_id</code>, <code dir="auto">client_secret</code> (or <code dir="auto">client_assertion_type</code> + <code dir="auto">client_assertion</code> for a certificate), <code dir="auto">assertion</code> (the token), <code dir="auto">scope</code>, <code dir="auto">requested_token_use=on_behalf_of</code>. The assertion “must have an audience (<code dir="auto">aud</code>) claim of the app making this OBO request”. Success: <code dir="auto">token_type</code>, <code dir="auto">scope</code>, <code dir="auto">expires_in</code>, <code dir="auto">access_token</code>, and <code dir="auto">refresh_token</code> “only provided if the <code dir="auto">offline_access</code> scope was requested”. Failure: <code dir="auto">error</code>, <code dir="auto">error_description</code>, <code dir="auto">error_codes</code>, <code dir="auto">claims</code>; a Conditional Access challenge answers <code dir="auto">interaction_required</code></td>
+<td>v2.0</td>
+<td>Delegated</td>
+<td>the scopes asked for; “only uses delegated scopes and not application roles”</td>
+<td>Global</td>
+<td>work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-on-behalf-of-flow">On-behalf-of flow</a></td>
+<td>2026-11-12</td>
+</tr>
+<tr>
+<td>Authorization code flow</td>
+<td><code dir="auto">GET https://login.microsoftonline.com/{tenant}/oauth2/v2.0/authorize</code> with <code dir="auto">client_id</code>, <code dir="auto">response_type=code</code>, <code dir="auto">redirect_uri</code>, <code dir="auto">response_mode=query</code>, <code dir="auto">scope</code>, <code dir="auto">state</code>, <code dir="auto">nonce</code>, <code dir="auto">code_challenge</code>, <code dir="auto">code_challenge_method=S256</code>; then <code dir="auto">POST .../token</code> with <code dir="auto">grant_type=authorization_code</code>, <code dir="auto">code</code>, <code dir="auto">redirect_uri</code>, <code dir="auto">code_verifier</code>, <code dir="auto">scope</code>. PKCE is “recommended for all application types”</td>
+<td>v2.0</td>
+<td>Delegated</td>
+<td>the scopes asked for, plus <code dir="auto">openid</code> and <code dir="auto">profile</code> (OIDC scopes, “translates to the <strong>Sign you in</strong> permission”; no admin consent), plus <code dir="auto">offline_access</code> when the application asks for refresh tokens</td>
+<td>Global</td>
+<td>work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-auth-code-flow">OAuth 2.0 authorization code flow</a></td>
+<td>2026-11-12</td>
+</tr>
+<tr>
+<td>The id token returned with the code</td>
+<td><code dir="auto">id_token</code> in the token response, “Only provided if <code dir="auto">openid</code> scope was requested”. Claims read: <code dir="auto">aud</code> (the app’s Application ID, “should be validated”), <code dir="auto">iss</code> (ends in <code dir="auto">/v2.0</code>, names the tenant by GUID), <code dir="auto">tid</code>, <code dir="auto">oid</code> (“the profile scope is required to receive this claim”), <code dir="auto">nonce</code> (“matches the parameter included in the original authorize request … If it doesn’t match, your application should reject the token”), <code dir="auto">nbf</code>, <code dir="auto">exp</code>, <code dir="auto">ver</code>. “To correctly store information per-user, use <code dir="auto">sub</code> or <code dir="auto">oid</code> alone … <code dir="auto">oid</code> and <code dir="auto">tid</code> is best”. <code dir="auto">sub</code> is pairwise per application and is not used. Validation: signature (public key cryptography, key set at <code dir="auto">/discovery/v2.0/keys</code>) plus the claims above</td>
+<td>v2.0</td>
+<td>Delegated</td>
+<td><code dir="auto">openid profile</code></td>
+<td>Global</td>
+<td>work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/entra/identity-platform/v2-protocols-oidc">OpenID Connect on the Microsoft identity platform</a> (full page read, 2026-11-12; updated 2026-10-06); <a href="https://learn.microsoft.com/en-us/entra/identity-platform/id-token-claims-reference">ID token claims reference</a> (full page read; updated 2026-06-15); <a href="https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-auth-code-flow">OAuth 2.0 authorization code flow</a> (full page read; updated 2026-06-15)</td>
+<td>2026-11-12</td>
+</tr>
+<tr>
+<td>Refresh</td>
+<td><code dir="auto">POST .../token</code> with <code dir="auto">grant_type=refresh_token</code>, <code dir="auto">refresh_token</code>, <code dir="auto">scope</code>, and the client credential</td>
+<td>v2.0</td>
+<td>Delegated</td>
+<td>the scopes asked for</td>
+<td>Global</td>
+<td>work or school</td>
+<td>the same</td>
+<td>2026-11-12</td>
+</tr>
+<tr>
+<td>Admin consent address</td>
+<td><code dir="auto">https://login.microsoftonline.com/{tenant}/v2.0/adminconsent?client_id=&amp;scope=&amp;redirect_uri=</code>; <code dir="auto">redirect_uri</code> is required and must match a registered one; “use the admin consent endpoint to grant permissions to an entire tenant”</td>
+<td>v2.0</td>
+<td>Delegated (granted by an administrator)</td>
+<td>the scopes asked for</td>
+<td>Global</td>
+<td>work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/entra/identity-platform/v2-admin-consent">Admin consent</a></td>
+<td>2026-11-12</td>
+</tr>
+<tr>
+<td>Error codes</td>
+<td><code dir="auto">65001</code> (consent), <code dir="auto">50076</code>, <code dir="auto">50079</code>, <code dir="auto">50158</code> (multifactor or another challenge), <code dir="auto">50173</code> (grant revoked), <code dir="auto">70008</code>, <code dir="auto">700082</code> (refresh token expired), <code dir="auto">500133</code> (assertion not in its valid time range), <code dir="auto">70011</code> (invalid scope), <code dir="auto">7000215</code>, <code dir="auto">7000222</code>, <code dir="auto">7000218</code> (client credential)</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>Global</td>
+<td>work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/entra/identity-platform/reference-error-codes">Authentication and authorization error codes</a></td>
+<td>2026-11-12</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="what-the-sdk-does-about-each">What the SDK does about each</h2><a class="sl-anchor-link" href="#what-the-sdk-does-about-each"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “What the SDK does about each”</span></a></div>
+<ul>
+<li><strong>Typed and parsed once.</strong> The primary adapter reads each sign-in <code dir="auto">value</code>
+into <code dir="auto">TokenExchangeRequest</code>, <code dir="auto">VerifyStateRequest</code> or <code dir="auto">SignInFailure</code> through
+newtypes (<code dir="auto">ExchangeId</code>, <code dir="auto">ConnectionName</code>, <code dir="auto">SsoAssertion</code>,
+<code dir="auto">VerificationCode</code>). A <code dir="auto">value</code> that does not parse is answered <code dir="auto">400</code> and
+nothing else runs. The invoke names are matched exactly.</li>
+<li><strong>The answer.</strong> The HTTP status is the invoke response’s <code dir="auto">status</code> and the
+body is the <code dir="auto">{ id, connectionName, failureDetail }</code> object Learn shows.
+<code dir="auto">412</code> is the SDK’s choice for “not signed in”; Learn says any status other
+than <code dir="auto">200</code> makes the client show the card. <code dir="auto">failureDetail</code> is a fixed
+sentence chosen by the SDK.</li>
+<li><strong>Person.</strong> The tenant is the one the trust model approved for the activity
+and the user is the sender’s <code dir="auto">aadObjectId</code>. The token must agree with both.</li>
+<li><strong>Audience.</strong> Learn says a v2.0 token’s <code dir="auto">aud</code> is the API’s client id and its
+tokenExchangeResource page says the token’s audience is the resource <code dir="auto">uri</code>
+(the application ID URI). The SDK accepts exactly those two values.</li>
+<li><strong>Version.</strong> Only version 2.0 tokens are accepted, because Learn’s setup sets
+<code dir="auto">requestedAccessTokenVersion</code> to 2.</li>
+<li><strong>The authority.</strong> Built from the cloud and the configured tenant when the
+app is built. A hostile <code dir="auto">iss</code>, <code dir="auto">tid</code> or <code dir="auto">aud</code> is refused before any request
+is made; a test sends a token naming another authority and asserts the token
+endpoint saw nothing. Redirects from the token endpoint are refused, because
+the request body carries the secret; a test asserts a redirect target
+receives nothing.</li>
+<li><strong>No token passthrough.</strong> The SSO token is the <code dir="auto">assertion</code> of the
+on-behalf-of request and goes nowhere else. A test asserts Graph never sees
+it, and that Graph receives the delegated token.</li>
+<li><strong>Duplicates.</strong> Learn is silent. The SDK’s rule: exchanges for one person run
+one at a time; a finished <code dir="auto">id</code> is answered again with its first answer (a
+remembered <code dir="auto">200</code> only while the session exists); three failures in ten
+minutes make the SDK answer <code dir="auto">412</code> without calling the identity platform or
+the application’s hook.</li>
+<li><strong>State, nonce and PKCE.</strong> The fallback uses <code dir="auto">state</code> (256 random bits, single
+use, ten minutes, tied to the person who started it), a <code dir="auto">nonce</code> (see “Who
+signed in” below) and PKCE <code dir="auto">S256</code>. Learn’s “Authentication flow for bots” requires the
+<code dir="auto">state</code> check and a verification code check against a <em>provisional</em> token;
+the SDK does both.</li>
+<li><strong>Who signed in.</strong> Learn’s flow pages do not say how to tell that the
+browser’s account is the account in the chat; a code is redeemed whoever
+signs in. The SDK adds the OpenID Connect check: it asks for <code dir="auto">openid profile</code> (and <code dir="auto">offline_access</code> when the application keeps refresh tokens),
+sends a separate <code dir="auto">nonce</code> (256 random bits, one per sign-in, kept
+server side), and before it keeps anything verifies the returned id token:
+signature against the tenant’s key set, <code dir="auto">iss</code> built from the token’s <code dir="auto">tid</code>,
+<code dir="auto">tid</code> equal to the configured tenant, <code dir="auto">aud</code> equal to the client id, <code dir="auto">nbf</code> and
+<code dir="auto">exp</code> with 60 seconds of skew, <code dir="auto">nonce</code> equal to the one sent, and <code dir="auto">oid</code> and
+<code dir="auto">tid</code> equal to the person who started the sign-in. Any failure stores nothing
+and answers one fixed sentence (<code dir="auto">CallbackRefusal::WrongAccount</code>). The
+<code dir="auto">/authorize</code> request is still <code dir="auto">response_type=code</code> (no <code dir="auto">id_token</code> response
+type), so no implicit-grant setting is needed.</li>
+<li><strong><code dir="auto">azp</code> is not read.</strong> The id token and access token claims references list
+<code dir="auto">azp</code> for v2.0 tokens (the client that requested the token). The SDK does
+not check it: the access token’s <code dir="auto">azp</code> is the Teams client that acquired it,
+and Entra already restricts which clients may obtain a token for the
+application through the “authorized client applications” list in the
+registration (the setup step in <a href="../../guides/sso.md">the SSO guide</a>); a second list in the SDK
+would drift from the registration and add no protection the registration
+does not give. For the id token the client is the application itself, whose
+credential redeemed the code. Row “The SSO token’s claims” lists <code dir="auto">azp</code> as a
+claim Learn names, not one the SDK enforces.</li>
+<li><strong>Failure counts are per route.</strong> <code dir="auto">signin/tokenExchange</code> and
+<code dir="auto">signin/verifyState</code> each count three failures in ten minutes
+independently. A shared count let routine consent failures on the silent
+route (which is why the card offers the fallback) block <code dir="auto">verifyState</code> for
+ten minutes. Learn is silent on any of this; the rule is the SDK’s.</li>
+<li><strong>The hook runs on every use.</strong> The authorization hook is asked on every use
+and renewal of a session, so withdrawing a person’s access takes effect on
+their next use (see <a href="../../guides/sso.md#withdrawing-access">withdrawing access</a>). Learn says nothing
+of it; it is the SDK’s authorization rule, not a protocol claim.</li>
+<li><strong>A timed-out exchange</strong> is answered <code dir="auto">412</code> with the documented
+<code dir="auto">{ id, connectionName, failureDetail }</code> body and a fixed sentence.</li>
+<li><strong>Bounds the SDK chose.</strong> See the table in <a href="../../guides/sso.md#limits-and-protections">limits and protections</a>.
+None is a Microsoft limit.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="inconsistencies-in-the-published-pages">Inconsistencies in the published pages</h2><a class="sl-anchor-link" href="#inconsistencies-in-the-published-pages"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Inconsistencies in the published pages”</span></a></div>
+<ul>
+<li>The current Teams bot SSO pages describe the <strong>Bot Framework Token Service</strong>
+route (an OAuth connection on the Azure Bot resource, <code dir="auto">token.botframework.com</code>
+in <code dir="auto">validDomains</code>), in which the bot never sees the token. The SDK instead
+validates and exchanges the token itself, following the Microsoft Entra
+on-behalf-of page. Both start from the same <code dir="auto">signin/tokenExchange</code> invoke.</li>
+<li>The pages do not state the <code dir="auto">signin/verifyState</code> payload. The field name
+<code dir="auto">state</code> comes from the Teams SDK reference for <code dir="auto">SignInVerifyStateValue</code>.</li>
+<li>Learn’s access-token page says a v2.0 token’s <code dir="auto">aud</code> is the client id, and the
+Teams pages say the token’s audience matches the <code dir="auto">tokenExchangeResource.uri</code>
+(the application ID URI). Both are accepted.</li>
+<li>The Learn page for the SSO troubleshooting is at the tab authentication path
+(<code dir="auto">tabs/how-to/authentication/tab-sso-troubleshooting</code>); the bot SSO pages link
+to it. Its bot section is where the invoke payloads are.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="not-verified">Not verified</h2><a class="sl-anchor-link" href="#not-verified"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Not verified”</span></a></div>
+<ul>
+<li>No live run. Live acceptance (a configured nonproduction tenant, a
+registration, a Teams client) is <strong>blocked</strong>; no row above is a measurement.</li>
+<li>Whether Teams offers its token for an OAuth card the bot sends itself, and
+how it renders a card that carries <code dir="auto">tokenExchangeResource</code> without a
+Token Service sign-in link.</li>
+<li>Whether Teams answers or retries a <code dir="auto">412</code> to <code dir="auto">signin/verifyState</code>.</li>
+<li>The time Teams waits for the exchange answer. The SDK’s ten seconds is a
+choice.</li>
+<li>Personal Microsoft accounts, other tenants and sovereign clouds: refused, not
+tested.</li>
+<li>Revocation: the SDK deletes its own session on sign-out; it does not call
+the identity platform to revoke refresh tokens.</li>
+<li>Whether the id token the <strong>token endpoint</strong> returns for a plain
+<code dir="auto">response_type=code</code> request carries the <code dir="auto">nonce</code> sent to <code dir="auto">/authorize</code>.
+Learn requires <code dir="auto">nonce</code> for the hybrid flow and says the claim matches the
+authorize parameter; OpenID Connect Core says it is echoed when sent; no
+page states it for the code-redemption id token. If it is absent the SDK
+refuses every fallback sign-in (fail closed).</li>
+<li>The refresh-token page calls the id token it returns “unsigned” and shows
+<code dir="auto">alg: none</code>; the SDK’s fallback reads only the id token from code
+redemption, expects <code dir="auto">RS256</code>, and refuses anything else.</li>
+<li>The <code dir="auto">exp</code> of the id token is judged with 60 seconds of skew like the SSO
+token; Learn states no skew.</li>
+</ul>
+</div><footer class="sl-flex astro-mjem5c2d"><div class="meta sl-flex astro-mjem5c2d"></div><div class="pagination-links print:hidden astro-wxozplkb" dir="ltr"><a href="/muss/reference/compatibility/proactive/" rel="prev" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span class="astro-wxozplkb">Previous<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">Proactive notifications</span></span></a><a href="/muss/reference/compatibility/unverified/" rel="next" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-wxozplkb">Next<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">Unverified surfaces</span></span></a></div></footer></div></div></main></div></div></div></div></body></html>

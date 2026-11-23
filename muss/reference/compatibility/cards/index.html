@@ -1,0 +1,449 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-al2ilw4v"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Cards and card actions | muss</title><link rel="canonical" href="https://greysquirr3l.github.io/muss/reference/compatibility/cards/"/><link rel="sitemap" href="/muss/sitemap-index.xml"/><link rel="shortcut icon" href="/muss/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v7.4.11"/><meta name="generator" content="Starlight v0.42.11"/><meta property="og:title" content="Cards and card actions"/><meta property="og:type" content="article"/><meta property="og:url" content="https://greysquirr3l.github.io/muss/reference/compatibility/cards/"/><meta property="og:locale" content="en"/><meta property="og:description" content="The Adaptive Card surfaces: the card-action responses the bot returns, the card builders, message extensions and the browser-side surfaces the SDK leaves out."/><meta property="og:site_name" content="muss"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="The Adaptive Card surfaces: the card-action responses the bot returns, the card builders, message extensions and the browser-side surfaces the SDK leaves out."/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/muss/_astro/print.C9eyqPGL.css" media="print"><link rel="stylesheet" href="/muss/_astro/common.BnqPtuMD.css"><style>@layer starlight.components{svg:where(.astro-pqysdep7){color:var(--sl-icon-color);font-size:var(--sl-icon-size,1em);width:1em;height:1em;overflow:visible}}
+</style><script type="module" src="/muss/_astro/page.cNngjUgL.js"></script></head><body class="astro-al2ilw4v"><a class="sl-skip-link astro-o5hysztx" href="#_top">Skip to content</a><div class="page sl-flex astro-gh65ub26"><header class="header astro-gh65ub26"><div class="header astro-ozb2cxkm"><div class="title-wrapper sl-flex astro-ozb2cxkm"><a href="/muss/" class="site-title sl-flex astro-yhxfdlc4"><img class="light:sl-hidden print:hidden astro-yhxfdlc4" alt src="/muss/_astro/logo-dark.ChSVDRwB.svg" width="48" height="48"><img class="dark:sl-hidden print:block astro-yhxfdlc4" alt src="/muss/_astro/logo-light.DeCIlpuM.svg" width="48" height="48"><span class="astro-yhxfdlc4" translate="no">muss</span></a></div><div class="sl-flex print:hidden astro-ozb2cxkm"><site-search class="astro-ozb2cxkm astro-3h4fk2u5" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"><button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-3h4fk2u5"><svg aria-hidden="true" class="astro-3h4fk2u5 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-3h4fk2u5" aria-hidden="true">Search</span><kbd class="sl-hidden md:sl-flex astro-3h4fk2u5" style="display: none"><kbd class="astro-3h4fk2u5">Ctrl</kbd><kbd class="astro-3h4fk2u5">K</kbd></kbd></button><dialog style="padding: 0" aria-label="Search" class="astro-3h4fk2u5"><div class="dialog-frame sl-flex astro-3h4fk2u5"><button data-close-modal class="sl-flex md:sl-hidden astro-3h4fk2u5">Cancel</button><div class="search-container astro-3h4fk2u5"><div id="starlight__search" class="astro-3h4fk2u5"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/muss/_astro/Search.astro_astro_type_script_index_0_lang.CrDXzKXN.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-ozb2cxkm"><div class="sl-flex social-icons astro-ozb2cxkm"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script><script type="module">var e=class extends HTMLElement{constructor(){super();let e=this.querySelector(`select`);e&&(e.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=e.currentTarget.value)}),window.addEventListener(`pageshow`,t=>{if(!t.persisted)return;let n=e.querySelector(`option[selected]`)?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}};customElements.define(`starlight-lang-select`,e);</script></div></div></header><nav class="sidebar print:hidden astro-gh65ub26" aria-label="Main"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-creup77k"><svg aria-hidden="true" class="open-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-creup77k">Menu</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-gh65ub26"><div class="sidebar-content sl-flex astro-gh65ub26"><sl-sidebar-state-persist data-hash="1egna9r" class="astro-zzv2mkrn"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-mql6fjj4"><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Getting started</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/getting-started/configuration/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Configuration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/installation/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Installation</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/introduction/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">What muss is</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/quickstart/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Quickstart</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Guides</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/guides/card-actions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/cards/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Adaptive Cards</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/dialogs-and-extensions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/directory/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Directory and app installs</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/facade/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams facade</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/graph/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/meetings/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/notifications/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/routing/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Routing bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/sso/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams sign-in and delegated Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/state/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Tenant-scoped state</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Reference</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/public-api/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The locked v1 contract</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/error-taxonomy/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The error taxonomies</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/permissions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Permissions and consent</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/policies/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Platform policies and retirements</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/performance/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Performance and resource bounds</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/transport-and-observability/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Transport and observability</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/cli/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams command-line tool</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/changelog/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The changelog</span></a></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Compatibility</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Supported-surface matrix</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/bot-framework/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound activity authentication</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/cards/" aria-current="page" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Cards and card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/connector/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound Connector messages</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/credentials/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound credentials and token issuance</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/dialogs/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and message extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/graph/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph surface</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/inbound-activities/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/meetings/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/proactive/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/sso/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams user sign-in</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/unverified/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Unverified surfaces</span></a></li></ul></details></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Operations</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/operations/ci/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Continuous integration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/recipes/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Offline recipes</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/troubleshooting/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Troubleshooting</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Architecture</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="5"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/architecture/decisions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture decisions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/overview/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture overview</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/workspace-layout/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Workspace layout</span></a></li></ul></details></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-ezdlrayc"><div class="social-icons astro-ezdlrayc"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-gh65ub26"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-4yguomvy"><aside class="right-sidebar-container print:hidden astro-4yguomvy"><div class="right-sidebar astro-4yguomvy"><div class="lg:sl-hidden astro-cnvahwco"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-b3z257xh"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-b3z257xh"><details id="starlight__mobile-toc" class="astro-b3z257xh"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-b3z257xh"><span class="toggle sl-flex astro-b3z257xh">On this page<svg aria-hidden="true" class="caret astro-b3z257xh astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-b3z257xh"></span></summary><div class="dropdown astro-b3z257xh"><ul class="isMobile astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#card-actions" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Card actions</span></a><ul class="isMobile astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#what-the-sdk-does-about-each" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">What the SDK does about each</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#inconsistencies-in-the-published-pages" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Inconsistencies in the published pages</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#not-verified" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Not verified</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#adaptive-cards-and-card-actions" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Adaptive Cards and card actions</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#adaptive-card-builders" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Adaptive Card builders</span></a><ul class="isMobile astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#what-the-sdk-checks-and-what-it-does-not" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">What the SDK checks, and what it does not</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#inconsistencies-in-the-published-pages-and-how-the-sdk-reads-them" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Inconsistencies in the published pages, and how the SDK reads them</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#not-verified-1" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Not verified</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#message-extensions" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Message extensions</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#browser-side-surfaces" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Browser-side surfaces</span></a></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/muss/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-cnvahwco"><div class="sl-container astro-cnvahwco"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#card-actions" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Card actions</span></a><ul class="astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#what-the-sdk-does-about-each" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">What the SDK does about each</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#inconsistencies-in-the-published-pages" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Inconsistencies in the published pages</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#not-verified" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Not verified</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#adaptive-cards-and-card-actions" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Adaptive Cards and card actions</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#adaptive-card-builders" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Adaptive Card builders</span></a><ul class="astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#what-the-sdk-checks-and-what-it-does-not" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">What the SDK checks, and what it does not</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#inconsistencies-in-the-published-pages-and-how-the-sdk-reads-them" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Inconsistencies in the published pages, and how the SDK reads them</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#not-verified-1" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Not verified</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#message-extensions" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Message extensions</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#browser-side-surfaces" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Browser-side surfaces</span></a></li></ul></nav></starlight-toc><script type="module" src="/muss/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane astro-4yguomvy"><main data-pagefind-body class="astro-al2ilw4v" lang="en" dir="ltr"><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><h1 id="_top" class="astro-qfythd7a">Cards and card actions</h1></div></div><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><div class="sl-markdown-content"><p>A card is data, and a card action is an HTTP response your bot writes while handling an inbound request. This page holds the card-action surface, the Adaptive Card builders and their version rules, the message-extension models, and the browser-side surfaces the SDK does not implement. No card has been rendered by a Teams client.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="card-actions">Card actions</h2><a class="sl-anchor-link" href="#card-actions"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Card actions”</span></a></div>
+<p>Recorded 2026-11-05. These rows are the bot’s <em>answers</em> to a card: the SDK
+receives activities Teams sends and writes a response in the HTTP response of
+the same request. There is no Graph call, no token and no permission involved,
+so the permission type is <strong>none</strong>; the request is authenticated by the
+<a href="bot-framework.md">inbound authentication rows</a>. Cloud: <strong>Global</strong> only. Account type: single-tenant registration.</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Request</th>
+<th>Response</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">Action.Execute</code></td>
+<td>Invoke <code dir="auto">adaptiveCard/action</code>, <code dir="auto">value.action</code> = <code dir="auto">{ type: "Action.Execute", id, verb, data }</code>, <code dir="auto">value.trigger</code> = <code dir="auto">manual</code> or <code dir="auto">automatic</code></td>
+<td>HTTP <code dir="auto">200</code> and a body <code dir="auto">{ statusCode, type, value }</code></td>
+<td><a href="https://learn.microsoft.com/en-us/adaptive-cards/authoring-cards/universal-action-model">https://learn.microsoft.com/en-us/adaptive-cards/authoring-cards/universal-action-model</a> (Request format, Response format), read 2026-11-05</td>
+</tr>
+<tr>
+<td>Replace the card</td>
+<td>as above</td>
+<td><code dir="auto">200</code>, <code dir="auto">application/vnd.microsoft.card.adaptive</code>, an Adaptive Card</td>
+<td>the same page, “Supported status codes”</td>
+</tr>
+<tr>
+<td>Show a message</td>
+<td>as above</td>
+<td><code dir="auto">200</code>, <code dir="auto">application/vnd.microsoft.activity.message</code>, a string</td>
+<td>the same page</td>
+</tr>
+<tr>
+<td>Fail</td>
+<td>as above</td>
+<td><code dir="auto">400</code> or <code dir="auto">500</code>, <code dir="auto">application/vnd.microsoft.error</code>, an error object <code dir="auto">{ code, message, innerHttpError: { statusCode, body: { error } } }</code></td>
+<td>the table above; the object shape from the server-handler samples at <a href="https://learn.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/cards/cards-actions">https://learn.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/cards/cards-actions</a></td>
+</tr>
+<tr>
+<td><code dir="auto">Action.Submit</code></td>
+<td>A <strong>message</strong> activity whose <code dir="auto">value</code> holds the data</td>
+<td>none (reply with a new message)</td>
+<td><a href="https://learn.microsoft.com/en-us/azure/bot-service/bot-builder-howto-add-media-attachments">https://learn.microsoft.com/en-us/azure/bot-service/bot-builder-howto-add-media-attachments</a>: “the message the Adaptive Card generates will have a value property”</td>
+</tr>
+<tr>
+<td>Dynamic <code dir="auto">Input.ChoiceSet</code></td>
+<td>Invoke <code dir="auto">application/search</code>, <code dir="auto">value</code> = <code dir="auto">{ queryText, queryOptions: { skip, top }, dataset }</code></td>
+<td>HTTP <code dir="auto">200</code>, <code dir="auto">{ type: "application/vnd.microsoft.search.searchResponse", value: { results: [{ title, value }] } }</code>; at most 15 choices</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/cards/dynamic-search">https://learn.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/cards/dynamic-search</a>, read 2026-11-05</td>
+</tr>
+<tr>
+<td>Refresh and user-specific views</td>
+<td><code dir="auto">adaptiveCard/action</code> with <code dir="auto">trigger: "automatic"</code>; <code dir="auto">userIds</code> in the card’s <code dir="auto">refresh</code>, at most 60</td>
+<td>a card, as above</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/cards/universal-actions-for-adaptive-cards/user-specific-views">https://learn.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/cards/universal-actions-for-adaptive-cards/user-specific-views</a> and <code dir="auto">.../work-with-universal-actions-for-adaptive-cards</code>, read 2026-11-05</td>
+</tr>
+</tbody>
+</table>
+<p>The envelope’s own words: “An HTTP response status code of 200 does NOT
+necessarily mean the Bot was able to successfully process the request. A client
+application MUST always look at the statusCode property in the response’s body.”
+The SDK answers HTTP <code dir="auto">200</code> whenever its code ran.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="what-the-sdk-does-about-each">What the SDK does about each</h3><a class="sl-anchor-link" href="#what-the-sdk-does-about-each"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “What the SDK does about each”</span></a></div>
+<ul>
+<li><strong>Authorization is the application’s, and the default is no.</strong> Documented
+guidance asks the bot to treat the data as client-supplied; the SDK goes
+further and runs no handler without an allow from the application’s hook.
+Tests: a missing hook, a tampered object id, an identity claimed in the data,
+a failing hook, a replay and a race.</li>
+<li><strong>Bounds the SDK chose.</strong> Action data is capped at 64 KiB, a verb at 128
+characters, an action id at 256, search text at 512, a data set name at 128,
+<code dir="auto">skip</code> at 10,000, response text at 1,000 characters. These are the SDK’s, not
+Teams limits. The 15-choice cap is Teams’s.</li>
+<li><strong>Deadline.</strong> 10 seconds, configurable, applied to the hook and the handler
+together.</li>
+<li><strong>Cancellation.</strong> The hook and handler run in one task that is aborted when
+it passes the deadline or when the request is dropped; the task holds its
+concurrency permit until it is gone. Cancellation happens at an <code dir="auto">.await</code>, so
+a handler can stop between two non-atomic effects, and a task or blocking
+call it spawned is not cancelled.</li>
+<li><strong>How long a decision is remembered.</strong> The idempotent result lives for 7 days
+(<code dir="auto">result_ttl</code>), in memory unless the application opts into SQLite, so it is
+lost on restart and not shared between instances. The key is the verb and an
+application-chosen string, not the actor: a second authorized person
+pressing the same decision gets the replay.</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="inconsistencies-in-the-published-pages">Inconsistencies in the published pages</h3><a class="sl-anchor-link" href="#inconsistencies-in-the-published-pages"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Inconsistencies in the published pages”</span></a></div>
+<ul>
+<li>The type of a card-replacement response is spelled
+<code dir="auto">application/vnd.microsoft.card.adaptive</code> in the response table and in the
+Node and Python samples, and <code dir="auto">application/vnd.microsoft.adaptive.card</code> in the
+.NET sample on the user-specific-views page. The SDK uses the table’s
+spelling.</li>
+<li>The response table’s rows for <code dir="auto">401</code> and <code dir="auto">412</code> still carry “TODO: needs
+link” for the error object. The SDK sends the error object the server-handler
+samples show.</li>
+<li>The Universal Action Model page is the Adaptive Cards site’s, not Teams’s.
+The Teams page for Action.Execute defers to it for the request and response
+formats.</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="not-verified">Not verified</h3><a class="sl-anchor-link" href="#not-verified"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Not verified”</span></a></div>
+<ul>
+<li><strong>The time budget.</strong> None of the pages read states how long Teams waits for
+an <code dir="auto">adaptiveCard/action</code> response. The SDK’s 10 seconds is a choice.</li>
+<li><strong>Statuses outside the table.</strong> <code dir="auto">403</code> (denied) and <code dir="auto">409</code> (replay with
+different data) are not in the documented table (<code dir="auto">400</code>, <code dir="auto">401</code>, <code dir="auto">412</code>, <code dir="auto">500</code>
+plus <code dir="auto">200</code>). The envelope says <code dir="auto">statusCode</code> mirrors HTTP status codes in
+<code dir="auto">200-599</code>; how each client displays them is not verified. The <code dir="auto">Timeout</code> code
+is the SDK’s own, sent with <code dir="auto">500</code>.</li>
+<li><strong>The search error response.</strong> The documented search response is the <code dir="auto">200</code>
+body. A denied or failed search is answered with the error envelope and the
+matching HTTP status (<code dir="auto">400</code>, <code dir="auto">403</code>, <code dir="auto">500</code>); how Teams shows that is not
+verified.</li>
+<li><strong><code dir="auto">msteams</code> Submit variants.</strong> The pages read describe plain <code dir="auto">Action.Submit</code>
+only. <code dir="auto">imBack</code>, <code dir="auto">messageBack</code>, <code dir="auto">invoke</code> and <code dir="auto">signin</code> are not routed
+specially, and what invoke name an <code dir="auto">invoke</code>-typed submit carries is not
+confirmed.</li>
+<li><strong>A submit’s <code dir="auto">text</code>.</strong> That a plain <code dir="auto">Action.Submit</code> message has no <code dir="auto">text</code> is
+inferred from the samples; a message that has text is treated as a message.</li>
+<li><strong>Refresh end to end.</strong> The request shapes come from the documentation. No
+client has refreshed a card against this SDK.</li>
+<li><strong>Per-user cache limits.</strong> Learn says the client caches the 50 latest cards
+per user and refreshes only if the last invoke is older than a minute. The
+SDK does nothing about either.</li>
+<li><strong>Group chats.</strong> Dynamic search in a group chat needs the <code dir="auto">groupChat</code> scope
+in the manifest (the page says <code dir="auto">groupchat</code>); not tested.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="adaptive-cards-and-card-actions">Adaptive Cards and card actions</h2><a class="sl-anchor-link" href="#adaptive-cards-and-card-actions"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Adaptive Cards and card actions”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Endpoint or identifier</th>
+<th>Version</th>
+<th>Notes</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Card action processed server-side</td>
+<td>Invoke activity name <code dir="auto">adaptiveCard/action</code></td>
+<td>Adaptive Cards schema 1.4 or greater</td>
+<td>The <code dir="auto">Action.Execute</code> action sends data to the bot as a <code dir="auto">card.action</code> activity</td>
+<td><a href="https://learn.microsoft.com/en-us/adaptive-cards/authoring-cards/universal-action-model">Universal Action Model</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Card action data submitted</td>
+<td>Invoke activity name <code dir="auto">message/submit</code></td>
+<td>Any</td>
+<td><code dir="auto">Action.Submit</code> is the legacy action type; the same page recommends <code dir="auto">Action.Execute</code> for new work</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/cards/cards-actions">Card actions</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Backward-compatible fallback</td>
+<td><code dir="auto">fallback</code> property on an <code dir="auto">Action.Execute</code></td>
+<td>Any</td>
+<td><code dir="auto">Action.Execute</code> without a <code dir="auto">fallback</code> may not render on older Teams clients; <code dir="auto">Action.Submit</code> as the <code dir="auto">fallback</code> is the documented remedy</td>
+<td><a href="https://learn.microsoft.com/en-us/adaptive-cards/authoring-cards/universal-action-model">Universal Action Model</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Dialog (task module) fetch</td>
+<td>Invoke activity name <code dir="auto">task/fetch</code></td>
+<td>Any</td>
+<td>Invoked through <code dir="auto">Action.Execute</code> or a <code dir="auto">TaskFetchAction</code> button</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/task-modules/task-modules-bots">Use dialogs with bots</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Card response to an <code dir="auto">Action.Execute</code></td>
+<td>HTTP <code dir="auto">200</code> with the card payload as the body</td>
+<td>Any</td>
+<td>The bot must return <code dir="auto">200</code> with a body formatted as the documented response when it processed an <code dir="auto">adaptiveCard/action</code> invoke</td>
+<td><a href="https://learn.microsoft.com/en-us/adaptive-cards/authoring-cards/universal-action-model">Universal Action Model</a></td>
+<td>2026-11-03</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="adaptive-card-builders">Adaptive Card builders</h2><a class="sl-anchor-link" href="#adaptive-card-builders"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Adaptive Card builders”</span></a></div>
+<p>Verified 2026-11-05 against the pages and schema below. This section covers
+what the card builders (<a href="../../guides/cards.md">the card builders guide</a>) check and emit.
+Sending a card uses <a href="connector.md">outbound Connector messages</a>: permission type <strong>Bot
+credential</strong>, audience <code dir="auto">https://api.botframework.com</code>, cloud <strong>Global</strong>.
+Nothing here is a Graph permission.</p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Value</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Newest schema version Teams renders for a bot card</td>
+<td>1.6 (also for action-based message extensions, search extensions, unfurling and dialogs; the Teams mobile app is documented up to 1.6)</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/cards/cards-reference">Cards reference</a></td>
+</tr>
+<tr>
+<td><code dir="auto">Action.Execute</code> and <code dir="auto">refresh</code></td>
+<td>need version 1.4. Below 1.4 Outlook does not honour them, and Teams may not, depending on the client</td>
+<td><a href="https://learn.microsoft.com/en-us/adaptive-cards/authoring-cards/universal-action-model">Universal Action Model</a></td>
+</tr>
+<tr>
+<td>Keeping a lower version</td>
+<td>declare a lower version and give the <code dir="auto">Action.Execute</code> a <code dir="auto">fallback</code> that is an <code dir="auto">Action.Submit</code>; wrap it in an <code dir="auto">ActionSet</code> because older Teams clients ignore <code dir="auto">fallback</code> outside one</td>
+<td>Universal Action Model</td>
+</tr>
+<tr>
+<td>Automatic refresh</td>
+<td><code dir="auto">refresh.userIds</code> lists the users (MRIs) to refresh for, maximum 60; without it Teams shows a manual refresh button</td>
+<td>Universal Action Model</td>
+</tr>
+<tr>
+<td>Message size</td>
+<td>100 KB for a bot message (28 KB applies to incoming webhooks only); the Connector page counts UTF-16 and advises under 80 KB</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/cards/cards-format">Cards format</a>, <a href="connector.md">Outbound Connector messages</a></td>
+</tr>
+<tr>
+<td>Primary actions</td>
+<td>six are shown; the rest go to an overflow menu; <code dir="auto">mode</code> is <code dir="auto">primary</code> or <code dir="auto">secondary</code></td>
+<td>Cards format</td>
+</tr>
+<tr>
+<td>Not supported in Teams</td>
+<td>positive or destructive action styling; <code dir="auto">isEnabled</code> on <code dir="auto">Action.Submit</code>; file or image upload in a card</td>
+<td>Cards reference</td>
+</tr>
+<tr>
+<td>Images</td>
+<td>PNG, JPEG or GIF, at most 1024 by 1024 pixels and 1 MB; no animated GIF or SVG; a redirect in the image address is not supported</td>
+<td>Cards reference, Cards format</td>
+</tr>
+<tr>
+<td>Text</td>
+<td>Markdown works in <code dir="auto">TextBlock</code> and <code dir="auto">Fact</code> title and value; HTML does not; set <code dir="auto">wrap</code> on every <code dir="auto">TextBlock</code> because text does not wrap by default</td>
+<td>Cards format, <a href="https://learn.microsoft.com/en-us/microsoftteams/platform/task-modules-and-cards/cards/design-effective-cards">Design effective cards</a></td>
+</tr>
+<tr>
+<td>Full width</td>
+<td><code dir="auto">msteams.width</code> set to <code dir="auto">Full</code></td>
+<td>Cards format</td>
+</tr>
+<tr>
+<td>Mentions</td>
+<td><code dir="auto">&lt;at&gt;name&lt;/at&gt;</code> in <code dir="auto">TextBlock</code> and <code dir="auto">FactSet</code> plus <code dir="auto">msteams.entities</code>; channel and team mentions are not supported in bot messages</td>
+<td>Cards format</td>
+</tr>
+</tbody>
+</table>
+<p>Minimum versions per property come from the schema the Adaptive Cards project
+publishes at <code dir="auto">https://adaptivecards.io/schemas/adaptive-card.json</code>, whose
+properties carry a <code dir="auto">version</code> annotation. The builder and the checker use:
+<code dir="auto">ActionSet</code>, <code dir="auto">Action.ToggleVisibility</code>, <code dir="auto">isVisible</code>, <code dir="auto">requires</code>, <code dir="auto">fallback</code>,
+action <code dir="auto">style</code>, <code dir="auto">inlineAction</code>, <code dir="auto">bleed</code>, <code dir="auto">minHeight</code>: 1.2. Input <code dir="auto">label</code>,
+<code dir="auto">isRequired</code>, <code dir="auto">errorMessage</code>, <code dir="auto">regex</code>, <code dir="auto">associatedInputs</code>: 1.3. <code dir="auto">Action.Execute</code>,
+<code dir="auto">refresh</code>: 1.4. Text style <code dir="auto">heading</code>, action <code dir="auto">tooltip</code>, <code dir="auto">mode</code>, <code dir="auto">isEnabled</code>,
+<code dir="auto">Table</code>: 1.5. <code dir="auto">Media</code>, <code dir="auto">selectAction</code>, <code dir="auto">iconUrl</code>: 1.1.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="what-the-sdk-checks-and-what-it-does-not">What the SDK checks, and what it does not</h3><a class="sl-anchor-link" href="#what-the-sdk-checks-and-what-it-does-not"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “What the SDK checks, and what it does not”</span></a></div>
+<p>It checks structure, <code dir="auto">https</code> links, identifiers, the version rules above, size
+and nesting. The walk reaches into <code dir="auto">ImageSet</code>, <code dir="auto">RichTextBlock</code> runs, <code dir="auto">Table</code>
+rows and cells, every form of <code dir="auto">backgroundImage</code> and <code dir="auto">fallback</code> bodies (on elements, columns,
+table rows and table cells), and an
+id must be unique across all of them (a <code dir="auto">fallback</code> may reuse its own element’s
+id). It does not look inside a <code dir="auto">Table</code>’s column definitions or an unknown
+element type. A link with surrounding whitespace or a control character is
+refused because the URL parser would otherwise trim or encode it silently. The
+SDK has no element-count limit: the 1 MiB input cap and the 100 KB card cap
+bound the walk. It keeps every property it does not understand and says so in
+<code dir="auto">Card::notices()</code>. It does not render a card, so it makes no claim about how
+a card looks on desktop, web or mobile.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="inconsistencies-in-the-published-pages-and-how-the-sdk-reads-them">Inconsistencies in the published pages, and how the SDK reads them</h3><a class="sl-anchor-link" href="#inconsistencies-in-the-published-pages-and-how-the-sdk-reads-them"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Inconsistencies in the published pages, and how the SDK reads them”</span></a></div>
+<ul>
+<li>Microsoft’s samples write the schema address both as <code dir="auto">http://adaptivecards.io/...</code>
+and <code dir="auto">https://adaptivecards.io/...</code>. A built card writes the <code dir="auto">http</code> form the
+Teams sample uses; both are accepted.</li>
+<li>Two Cards format samples write <code dir="auto">"version": "1.0.0"</code>. The SDK reads
+<code dir="auto">major.minor</code> and also <code dir="auto">major.minor.patch</code>, drops the patch for its own
+decisions, and keeps the text as written.</li>
+<li>Some samples have no <code dir="auto">version</code> (an <code dir="auto">actions</code>-only fragment). The schema
+requires one, so the SDK refuses them and says what to add.</li>
+<li>The Universal Action Model sample writes <code dir="auto">"fallback": "Action.Submit"</code> as a
+string, while its backward-compatibility sample writes an object. The builder
+writes the object form; a string <code dir="auto">fallback</code> in JSON you supply is kept.</li>
+<li>The Cards format page shows elements newer than 1.6 (<code dir="auto">CodeBlock</code>, <code dir="auto">Icon</code>,
+<code dir="auto">Rating</code>, <code dir="auto">CompoundButton</code>) in version 1.5 samples. The SDK keeps them as
+unknown elements with a notice and does not claim they render.</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="not-verified-1">Not verified</h3><a class="sl-anchor-link" href="#not-verified-1"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Not verified”</span></a></div>
+<ul>
+<li><strong>Rendering on any client.</strong> No card was shown in a Teams desktop, web or
+mobile client. Nothing here is a statement about layout or truncation.</li>
+<li><strong><code dir="auto">Media</code> in Teams.</strong> The schema defines it from 1.1; the pages read do not
+say whether Teams renders it. Cards carry a notice.</li>
+<li><strong>The UTF-16 byte count of a card inside an activity.</strong> The 100 KB figure is
+documented for a bot message; the SDK applies it to the card alone and the
+Connector client applies it again to the whole activity.</li>
+<li><strong>Behaviour of a 1.2-declared card with <code dir="auto">Action.Execute</code> on current Teams
+clients.</strong> The Universal Action Model page describes it; it was not run.</li>
+<li><strong><code dir="auto">Action.ShowCard</code> inside Teams.</strong> The schema defines it; the pages read do
+not list it for bot cards.</li>
+<li><strong>Whether an <code dir="auto">Input.*</code> value comes back under its <code dir="auto">id</code> for every client.</strong></li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="message-extensions">Message extensions</h2><a class="sl-anchor-link" href="#message-extensions"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Message extensions”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Model</th>
+<th>Notes</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bot-based message extension</td>
+<td>Bot Framework messaging schema, served by a bot</td>
+<td>Uses the Bot Framework’s messaging schema and secure communication</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/messaging-extensions/build-bot-based-message-extension">Build message extensions using Bot Framework</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>API-based message extension</td>
+<td>OpenAPI description, no bot required</td>
+<td>A separate model from the bot-based one; <code dir="auto">muss-teams</code> does not claim it</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/messaging-extensions/api-based-overview">Create API-based Message Extension</a></td>
+<td>2026-11-03</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="browser-side-surfaces">Browser-side surfaces</h2><a class="sl-anchor-link" href="#browser-side-surfaces"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Browser-side surfaces”</span></a></div>
+<p>These are not server-side APIs, and <code dir="auto">muss-teams</code> does not implement them. They
+are listed so the boundary is explicit rather than implied.</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Version floor</th>
+<th>Notes</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TeamsJS client library</td>
+<td>TeamsJS v2.19.0 or later for new app submissions; manifest version 1.13 or later for apps extended across Outlook and Microsoft 365</td>
+<td>TeamsJS v1.13.0 receives no new features; v2.31.0 and later are fully tree-shakable</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/tabs/how-to/using-teams-client-library">Teams JavaScript client library</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Tab context</td>
+<td>Not versioned here</td>
+<td>Read from the tab’s own host; the API surface differs by host</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/tabs/how-to/access-teams-context">Get Contextual Information for Tabs</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>TeamsJS host support across Microsoft 365</td>
+<td>Not versioned here</td>
+<td>Per-host capability matrix</td>
+<td><a href="https://learn.microsoft.com/en-us/microsoftteams/platform/m365-apps/teamsjs-support-m365">TeamsJS Support across Microsoft 365</a></td>
+<td>2026-11-03</td>
+</tr>
+</tbody>
+</table>
+</div><footer class="sl-flex astro-mjem5c2d"><div class="meta sl-flex astro-mjem5c2d"></div><div class="pagination-links print:hidden astro-wxozplkb" dir="ltr"><a href="/muss/reference/compatibility/bot-framework/" rel="prev" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span class="astro-wxozplkb">Previous<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">Inbound activity authentication</span></span></a><a href="/muss/reference/compatibility/connector/" rel="next" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-wxozplkb">Next<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">Outbound Connector messages</span></span></a></div></footer></div></div></main></div></div></div></div></body></html>

@@ -1,0 +1,73 @@
+# muss
+
+> Approachable Rust crates for Microsoft 365. The first crate, muss-teams,
+> is a framework-neutral Teams SDK: one dependency, one facade, ordinary
+> async functions. Where Microsoft's documentation leaves a question open,
+> the SDK records the reading it chose, and marks what no live tenant has
+> confirmed.
+
+A Cargo workspace of Rust crates for building Microsoft 365 integrations.
+`muss-teams` is the product: a framework-neutral Teams SDK covering
+authenticated bot activities, interactive Adaptive Cards, proactive
+messages, Graph notifications, dialogs, message extensions and sign-in, all
+behind one facade. `muss-core` holds the M365-generic primitives.
+`muss-teams-cli` is an optional companion binary. Sign-in and the Graph
+clients sit behind feature flags and are off by default.
+
+## Landing
+- [muss](https://greysquirr3l.github.io/muss/): Project overview, the one-dependency promise, and where to next.
+
+## Getting started
+- [Introduction](https://greysquirr3l.github.io/muss/getting-started/introduction/): What muss is, the three crates, what the SDK deliberately does not do.
+- [Installation](https://greysquirr3l.github.io/muss/getting-started/installation/): Dependency lines, feature flags, the pinned toolchain, installing the CLI.
+- [Quickstart](https://greysquirr3l.github.io/muss/getting-started/quickstart/): A bot in nine lines, the three environment variables, and the prerequisites no library does for you.
+- [Configuration](https://greysquirr3l.github.io/muss/getting-started/configuration/): Environment variables, credential sources, TLS, and what a missing variable does.
+
+## Guides
+- [The facade](https://greysquirr3l.github.io/muss/guides/facade/): TeamsApp, BuiltApp and TeamsClient, configuration, lifecycle and shutdown.
+- [Routing](https://greysquirr3l.github.io/muss/guides/routing/): The pipeline from request to handler, every handler kind, admission, repeats, the bounded dispatcher.
+- [Adaptive Cards](https://greysquirr3l.github.io/muss/guides/cards/): The fluent card builder, sending and reading cards, schema versions, errors that name a JSON path.
+- [Card actions](https://greysquirr3l.github.io/muss/guides/card-actions/): Action.Execute and Action.Submit, deny by default, running a decision once, the deadline.
+- [Sign-in](https://greysquirr3l.github.io/muss/guides/sso/): Silent SSO, the sign-in fallback with state and PKCE, consent errors, the delegated token feed.
+- [Proactive notifications](https://greysquirr3l.github.io/muss/guides/notifications/): Targets, the authorization hook, ambiguous outcomes, many targets, the outbox.
+- [State](https://greysquirr3l.github.io/muss/guides/state/): Tenant-scoped storage, compare-and-set, idempotent execution, the outbox and its at-least-once limit, retention.
+- [Dialogs and extensions](https://greysquirr3l.github.io/muss/guides/dialogs-and-extensions/): Search extensions, selection, task modules, the authorization hook, deadlines.
+- [Microsoft Graph](https://greysquirr3l.github.io/muss/guides/graph/): Application and delegated clients, activity-feed notifications, change subscriptions, bounded paging.
+- [Directory](https://greysquirr3l.github.io/muss/guides/directory/): Read-only directory lookups, members, installed apps, app installs and the approval they need.
+- [Meetings and presence](https://greysquirr3l.github.io/muss/guides/meetings/): Meeting events, meeting reads, presence and presence subscriptions.
+
+## Reference
+- [Public API](https://greysquirr3l.github.io/muss/reference/public-api/): The locked v1 contract, feature flags and defaults, the re-exported paths.
+- [CLI](https://greysquirr3l.github.io/muss/reference/cli/): init, manifest validate, package, setup, doctor — what each writes and whether it touches the cloud.
+- [Error taxonomy](https://greysquirr3l.github.io/muss/reference/error-taxonomy/): The shared and Teams taxonomies, redaction, typed identifiers, the idempotency key.
+- [Permissions](https://greysquirr3l.github.io/muss/reference/permissions/): Permission and consent matrices, the three kinds of authority, private and shared channels.
+- [Policies](https://greysquirr3l.github.io/muss/reference/policies/): Bot Framework retirements, client and card compatibility, retention, upgrade and migration.
+- [Transport and observability](https://greysquirr3l.github.io/muss/reference/transport-and-observability/): The pooled bounded transport, the retry policy, Retry-After, tracing hooks.
+- [Performance](https://greysquirr3l.github.io/muss/reference/performance/): Resource bounds, state capacity, profiling, the leak and hashing audits.
+
+## Compatibility
+- [Index](https://greysquirr3l.github.io/muss/reference/compatibility/): The supported-surface matrix and how to read a row.
+- [Bot Framework](https://greysquirr3l.github.io/muss/reference/compatibility/bot-framework/): The Bot Framework surface and inbound activity authentication.
+- [Inbound activities](https://greysquirr3l.github.io/muss/reference/compatibility/inbound-activities/): What Teams sends, delivery, replay handling, what is not verified.
+- [Connector](https://greysquirr3l.github.io/muss/reference/compatibility/connector/): Outbound Connector messages, how an answer is read, the destination pin.
+- [Proactive](https://greysquirr3l.github.io/muss/reference/compatibility/proactive/): The proactive notification surface and its authorization hook.
+- [Cards](https://greysquirr3l.github.io/muss/reference/compatibility/cards/): Card actions, the card builders, message extensions, browser-side surfaces.
+- [Dialogs](https://greysquirr3l.github.io/muss/reference/compatibility/dialogs/): Dialogs, message extensions, and the application manifest.
+- [Graph](https://greysquirr3l.github.io/muss/reference/compatibility/graph/): The Microsoft Graph surface, endpoint by endpoint.
+- [Meetings](https://greysquirr3l.github.io/muss/reference/compatibility/meetings/): Meetings, presence, and resource-specific consent.
+- [Sign-in](https://greysquirr3l.github.io/muss/reference/compatibility/sso/): Teams user sign-in.
+- [Credentials](https://greysquirr3l.github.io/muss/reference/compatibility/credentials/): Outbound credentials and token issuance, including managed identity.
+- [Not verified](https://greysquirr3l.github.io/muss/reference/compatibility/unverified/): Every row no live tenant has confirmed, in one register.
+
+## Operations
+- [Troubleshooting](https://greysquirr3l.github.io/muss/operations/troubleshooting/): Symptom, cause and fix for each failure mode.
+- [CI](https://greysquirr3l.github.io/muss/operations/ci/): What each workflow runs, what each check proves, and the setup cost.
+- [Recipes](https://greysquirr3l.github.io/muss/operations/recipes/): The offline recipes that run with no cloud account, and what a simulation does not prove.
+
+## Architecture
+- [Overview](https://greysquirr3l.github.io/muss/architecture/overview/): The collapsed hexagonal layout and the rules that keep it.
+- [Workspace layout](https://greysquirr3l.github.io/muss/architecture/workspace-layout/): The three crates and what belongs in each.
+- [Decisions](https://greysquirr3l.github.io/muss/architecture/decisions/): The six architecture decisions and their reasoning.
+
+## Optional
+- [Source on GitHub](https://github.com/Smart-Offices-Inc/muss): Repository, issues, and the engineering docs behind this site.

@@ -1,0 +1,574 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-al2ilw4v"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Teams sign-in and delegated Graph | muss</title><link rel="canonical" href="https://greysquirr3l.github.io/muss/guides/sso/"/><link rel="sitemap" href="/muss/sitemap-index.xml"/><link rel="shortcut icon" href="/muss/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v7.4.11"/><meta name="generator" content="Starlight v0.42.11"/><meta property="og:title" content="Teams sign-in and delegated Graph"/><meta property="og:type" content="article"/><meta property="og:url" content="https://greysquirr3l.github.io/muss/guides/sso/"/><meta property="og:locale" content="en"/><meta property="og:description" content="Getting a token for the person you are talking to, with the silent exchange, the sign-in fallback, consent failures and where the tokens live."/><meta property="og:site_name" content="muss"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Getting a token for the person you are talking to, with the silent exchange, the sign-in fallback, consent failures and where the tokens live."/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/muss/_astro/print.C9eyqPGL.css" media="print"><link rel="stylesheet" href="/muss/_astro/common.BnqPtuMD.css"><style>@layer starlight.components{svg:where(.astro-pqysdep7){color:var(--sl-icon-color);font-size:var(--sl-icon-size,1em);width:1em;height:1em;overflow:visible}}
+</style><script type="module" src="/muss/_astro/page.cNngjUgL.js"></script></head><body class="astro-al2ilw4v"><a class="sl-skip-link astro-o5hysztx" href="#_top">Skip to content</a><div class="page sl-flex astro-gh65ub26"><header class="header astro-gh65ub26"><div class="header astro-ozb2cxkm"><div class="title-wrapper sl-flex astro-ozb2cxkm"><a href="/muss/" class="site-title sl-flex astro-yhxfdlc4"><img class="light:sl-hidden print:hidden astro-yhxfdlc4" alt src="/muss/_astro/logo-dark.ChSVDRwB.svg" width="48" height="48"><img class="dark:sl-hidden print:block astro-yhxfdlc4" alt src="/muss/_astro/logo-light.DeCIlpuM.svg" width="48" height="48"><span class="astro-yhxfdlc4" translate="no">muss</span></a></div><div class="sl-flex print:hidden astro-ozb2cxkm"><site-search class="astro-ozb2cxkm astro-3h4fk2u5" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"><button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-3h4fk2u5"><svg aria-hidden="true" class="astro-3h4fk2u5 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-3h4fk2u5" aria-hidden="true">Search</span><kbd class="sl-hidden md:sl-flex astro-3h4fk2u5" style="display: none"><kbd class="astro-3h4fk2u5">Ctrl</kbd><kbd class="astro-3h4fk2u5">K</kbd></kbd></button><dialog style="padding: 0" aria-label="Search" class="astro-3h4fk2u5"><div class="dialog-frame sl-flex astro-3h4fk2u5"><button data-close-modal class="sl-flex md:sl-hidden astro-3h4fk2u5">Cancel</button><div class="search-container astro-3h4fk2u5"><div id="starlight__search" class="astro-3h4fk2u5"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/muss/_astro/Search.astro_astro_type_script_index_0_lang.CrDXzKXN.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-ozb2cxkm"><div class="sl-flex social-icons astro-ozb2cxkm"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script><script type="module">var e=class extends HTMLElement{constructor(){super();let e=this.querySelector(`select`);e&&(e.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=e.currentTarget.value)}),window.addEventListener(`pageshow`,t=>{if(!t.persisted)return;let n=e.querySelector(`option[selected]`)?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}};customElements.define(`starlight-lang-select`,e);</script></div></div></header><nav class="sidebar print:hidden astro-gh65ub26" aria-label="Main"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-creup77k"><svg aria-hidden="true" class="open-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-creup77k">Menu</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-gh65ub26"><div class="sidebar-content sl-flex astro-gh65ub26"><sl-sidebar-state-persist data-hash="1egna9r" class="astro-zzv2mkrn"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-mql6fjj4"><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Getting started</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/getting-started/configuration/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Configuration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/installation/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Installation</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/introduction/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">What muss is</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/quickstart/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Quickstart</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Guides</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/guides/card-actions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/cards/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Adaptive Cards</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/dialogs-and-extensions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/directory/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Directory and app installs</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/facade/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams facade</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/graph/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/meetings/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/notifications/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/routing/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Routing bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/sso/" aria-current="page" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams sign-in and delegated Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/state/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Tenant-scoped state</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Reference</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/public-api/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The locked v1 contract</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/error-taxonomy/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The error taxonomies</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/permissions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Permissions and consent</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/policies/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Platform policies and retirements</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/performance/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Performance and resource bounds</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/transport-and-observability/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Transport and observability</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/cli/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams command-line tool</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/changelog/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The changelog</span></a></li><li class="astro-mql6fjj4"><details class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Compatibility</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Supported-surface matrix</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/bot-framework/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound activity authentication</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/cards/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Cards and card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/connector/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound Connector messages</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/credentials/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound credentials and token issuance</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/dialogs/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and message extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/graph/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph surface</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/inbound-activities/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/meetings/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/proactive/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/sso/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams user sign-in</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/unverified/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Unverified surfaces</span></a></li></ul></details></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Operations</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/operations/ci/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Continuous integration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/recipes/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Offline recipes</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/troubleshooting/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Troubleshooting</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Architecture</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="5"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/architecture/decisions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture decisions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/overview/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture overview</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/workspace-layout/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Workspace layout</span></a></li></ul></details></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-ezdlrayc"><div class="social-icons astro-ezdlrayc"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-gh65ub26"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-4yguomvy"><aside class="right-sidebar-container print:hidden astro-4yguomvy"><div class="right-sidebar astro-4yguomvy"><div class="lg:sl-hidden astro-cnvahwco"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-b3z257xh"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-b3z257xh"><details id="starlight__mobile-toc" class="astro-b3z257xh"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-b3z257xh"><span class="toggle sl-flex astro-b3z257xh">On this page<svg aria-hidden="true" class="caret astro-b3z257xh astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-b3z257xh"></span></summary><div class="dropdown astro-b3z257xh"><ul class="isMobile astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#three-identities-that-stay-apart" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Three identities that stay apart</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#set-it-up-once" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Set it up once</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#the-shortest-program" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">The shortest program</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#what-happens-silently" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">What happens, silently</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#what-happens-with-the-fallback" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">What happens, with the fallback</span></a><ul class="isMobile astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#the-account-that-signs-in-must-be-the-person-who-is-chatting" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">The account that signs in must be the person who is chatting</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#consent-and-step-up-are-typed-outcomes" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Consent and step-up are typed outcomes</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#where-tokens-live" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Where tokens live</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#withdrawing-access" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Withdrawing access</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#limits-and-protections" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Limits and protections</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#testing-without-a-tenant" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Testing without a tenant</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#not-verified" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Not verified</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#not-covered" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Not covered</span></a></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/muss/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-cnvahwco"><div class="sl-container astro-cnvahwco"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#three-identities-that-stay-apart" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Three identities that stay apart</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#set-it-up-once" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Set it up once</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#the-shortest-program" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">The shortest program</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#what-happens-silently" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">What happens, silently</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#what-happens-with-the-fallback" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">What happens, with the fallback</span></a><ul class="astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#the-account-that-signs-in-must-be-the-person-who-is-chatting" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">The account that signs in must be the person who is chatting</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#consent-and-step-up-are-typed-outcomes" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Consent and step-up are typed outcomes</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#where-tokens-live" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Where tokens live</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#withdrawing-access" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Withdrawing access</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#limits-and-protections" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Limits and protections</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#testing-without-a-tenant" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Testing without a tenant</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#not-verified" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Not verified</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#not-covered" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Not covered</span></a></li></ul></nav></starlight-toc><script type="module" src="/muss/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane astro-4yguomvy"><main data-pagefind-body class="astro-al2ilw4v" lang="en" dir="ltr"><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><h1 id="_top" class="astro-qfythd7a">Teams sign-in and delegated Graph</h1></div></div><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><div class="sl-markdown-content"><p>Sometimes a bot has to act as the person it is talking to: read their profile,
+their calendar, their files. That needs a token for that person, not the bot’s
+own. <code dir="auto">muss-teams</code> gets one in the way Teams documents: Teams already holds a
+Microsoft Entra token for the person and offers it to the bot, and the bot
+exchanges it for a delegated token with the on-behalf-of flow. When that
+silent route is not available, the bot sends a sign-in card and runs an
+authorization code flow with PKCE.</p>
+<p>Sign-in is <strong>opt-in</strong> and <strong>denies by default</strong>. Nothing is exchanged until
+the application registers an authorization hook that says the person may
+sign in, and the SDK asks for the scopes you name, never a broad default.</p>
+<p>Turn it on with the <code dir="auto">sso</code> feature. The delegated Graph client it feeds
+(<code dir="auto">UserSession::graph</code>) needs <code dir="auto">graph</code> as well.</p>
+<div class="expressive-code"><link rel="stylesheet" href="/muss/_astro/ec.w36nc.css"><script type="module" src="/muss/_astro/ec.0vx5m.js"></script><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="toml"><code><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">muss-teams</span><span style="--0:#D6DEEB;--1:#403F53"> = { </span><span style="--0:#C5E478;--1:#3B61B0">version</span><span style="--0:#D6DEEB;--1:#403F53"> = </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">0.1</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#C5E478;--1:#3B61B0">features</span><span style="--0:#D6DEEB;--1:#403F53"> = [</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">sso</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">graph</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">] }</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="muss-teams = { version = &quot;0.1&quot;, features = [&quot;sso&quot;, &quot;graph&quot;] }"><div></div></button></div></figure></div>
+<div class="sl-heading-wrapper level-h2"><h2 id="three-identities-that-stay-apart">Three identities that stay apart</h2><a class="sl-anchor-link" href="#three-identities-that-stay-apart"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Three identities that stay apart”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Identity</th>
+<th>What proves it</th>
+<th>What it is used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The application</td>
+<td>The bot’s client secret or certificate</td>
+<td>Asking the identity platform for a delegated token</td>
+</tr>
+<tr>
+<td>The channel</td>
+<td>The signed Bot Framework token on every activity</td>
+<td>Saying who is chatting, in which tenant</td>
+</tr>
+<tr>
+<td>The person</td>
+<td>The SSO token, then the delegated tokens issued for it</td>
+<td>Acting as that person, and only that person</td>
+</tr>
+</tbody>
+</table>
+<p>The SDK never mixes them. The SSO token is verified and then exchanged; it is
+never sent to Microsoft Graph. The bot’s Connector token is never used for a
+person. A decoded token is not proof: its signature is checked against the
+tenant’s published keys before any claim is read.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="set-it-up-once">Set it up once</h2><a class="sl-anchor-link" href="#set-it-up-once"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Set it up once”</span></a></div>
+<p>This part is configuration in your tenant. The SDK does none of it for you,
+and nothing here has been run against a live tenant (see
+<a href="#not-verified">Not verified</a>).</p>
+<ol>
+<li>
+<p><strong>Register an app in Microsoft Entra ID.</strong> It is the same registration as
+the bot, or a separate one if the bot runs on a managed identity. The
+application ID URI is <code dir="auto">api://botid-&lt;bot id&gt;</code>.</p>
+</li>
+<li>
+<p><strong>Add the delegated permission</strong> your Graph calls need, and grant admin
+consent where the scope needs it.</p>
+</li>
+<li>
+<p><strong>Expose an API</strong> on the registration with the application ID URI as its
+scope, and allow the delegated permission for that scope.</p>
+</li>
+<li>
+<p><strong>Give the bot a credential</strong>: a client secret, or a certificate
+(<code dir="auto">ClientAuth::certificate</code>). A secret read from the environment is
+<code dir="auto">ClientAuth::secret_from_env("NAME")</code>. It is never written in source.</p>
+</li>
+<li>
+<p><strong>For the fallback</strong>, register a redirect URI of type <em>Web</em> for a page
+your application serves over HTTPS.</p>
+</li>
+<li>
+<p><strong>Update the app manifest.</strong> Add <code dir="auto">webApplicationInfo</code> with <code dir="auto">id</code> set to the
+registration’s client id and <code dir="auto">resource</code> set to the application ID URI, and
+add the host of your redirect page to <code dir="auto">validDomains</code>:</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"webApplicationInfo"</span><span style="--0:#D6DEEB;--1:#403F53">: {</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">&lt;SSO_APP_CLIENT_ID&gt;</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">"resource"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">api://botid-&lt;BOT_ID&gt;</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">  </span></span><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;webApplicationInfo&quot;: {    &quot;id&quot;: &quot;<SSO_APP_CLIENT_ID>&quot;,    &quot;resource&quot;: &quot;api://botid-<BOT_ID>&quot;  }}"><div></div></button></div></figure></div>
+<p><code dir="auto">webApplicationInfo</code> needs manifest version 1.5 or later. SSO for a bot
+works in personal and group chat, not in a channel.</p>
+</li>
+</ol>
+<p>The bot pages Microsoft publishes describe a setup that also creates an <em>OAuth
+connection</em> on the Azure Bot resource and lets the Bot Framework Token Service
+do the exchange. <code dir="auto">muss-teams</code> does not use the Token Service: the bot
+exchanges the token itself with the identity platform, so the Azure Bot OAuth
+connection and <code dir="auto">https://token.botframework.com</code> in <code dir="auto">validDomains</code> are not
+needed. The tradeoff is that the bot holds a client secret and you own token
+storage.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="the-shortest-program">The shortest program</h2><a class="sl-anchor-link" href="#the-shortest-program"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “The shortest program”</span></a></div>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">use</span><span style="--0:#D6DEEB;--1:#403F53"> muss_teams</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#D6DEEB;--1:#403F53">{</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">Decision, HandlerError, MessageContext, SignInStatus, Sso, SsoAccess, SsoConfig, TeamsApp,</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">};</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">sso</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> Sso</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">new</span><span style="--0:#D6DEEB;--1:#403F53">(</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">SsoConfig</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">new</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">api://botid-00000000-0000-0000-0000-000000000000</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">)</span><span style="--0:#7FDBCA;--1:#096E72">?</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">scopes</span><span style="--0:#D6DEEB;--1:#403F53">([</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">User.Read</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">])</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#919F9F;--1:#5D6376">// Every sign-in is refused until this says otherwise.</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">authorize</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C792EA;--1:#8844AE">|</span><span style="--0:#C5E478;--1:#3B61B0">access</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> SsoAccess</span><span style="--0:#C792EA;--1:#8844AE">|</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">async</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">move</span><span style="--0:#D6DEEB;--1:#403F53"> {</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">            </span></span><span style="--0:#D6DEEB;--1:#403F53">Ok</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#D6DEEB;--1:#403F53">&lt;</span><span style="--0:#C5E478;--1:#3B61B0">_</span><span style="--0:#D6DEEB;--1:#403F53">, HandlerError&gt;(Decision</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">from</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">access</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">actor</span><span style="--0:#D6DEEB;--1:#403F53">()</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">directory_id</span><span style="--0:#D6DEEB;--1:#403F53">()</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">is_some</span><span style="--0:#D6DEEB;--1:#403F53">()))</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">        </span></span><span style="--0:#D6DEEB;--1:#403F53">}),</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">)</span><span style="--0:#7FDBCA;--1:#096E72">?</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div><div class="ec-line"><div class="code">
+</div></div><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">signer</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">sso</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">clone</span><span style="--0:#D6DEEB;--1:#403F53">();</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">TeamsApp</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">from_env</span><span style="--0:#D6DEEB;--1:#403F53">()</span><span style="--0:#7FDBCA;--1:#096E72">?</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">with_sso</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#7FDBCA;--1:#096E72">&amp;</span><span style="--0:#C5E478;--1:#3B61B0">sso</span><span style="--0:#D6DEEB;--1:#403F53">)</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">on_message</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C792EA;--1:#8844AE">move</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">|</span><span style="--0:#C5E478;--1:#3B61B0">ctx</span><span style="--0:#7FDBCA;--1:#096E72">:</span><span style="--0:#D6DEEB;--1:#403F53"> MessageContext</span><span style="--0:#C792EA;--1:#8844AE">|</span><span style="--0:#D6DEEB;--1:#403F53"> {</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">signer</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">signer</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">clone</span><span style="--0:#D6DEEB;--1:#403F53">();</span></div></div><div class="ec-line"><div class="code"><span class="indent">        </span><span style="--0:#C792EA;--1:#8844AE">async</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">move</span><span style="--0:#D6DEEB;--1:#403F53"> {</span></div></div><div class="ec-line"><div class="code"><span class="indent">            </span><span style="--0:#C792EA;--1:#8844AE">match</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">signer</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">sign_in</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#7FDBCA;--1:#096E72">&amp;</span><span style="--0:#C5E478;--1:#3B61B0">ctx</span><span style="--0:#D6DEEB;--1:#403F53">)</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#C792EA;--1:#8844AE">await</span><span style="--0:#7FDBCA;--1:#096E72">?</span><span style="--0:#D6DEEB;--1:#403F53"> {</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">                </span></span><span style="--0:#D6DEEB;--1:#403F53">SignInStatus</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#82AAFF;--1:#3B61B0">Ready</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">session</span><span style="--0:#D6DEEB;--1:#403F53">) </span><span style="--0:#7FDBCA;--1:#096E72">=&gt;</span><span style="--0:#D6DEEB;--1:#403F53"> {</span></div></div><div class="ec-line"><div class="code"><span class="indent">                    </span><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">me</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">session</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">graph</span><span style="--0:#D6DEEB;--1:#403F53">()</span><span style="--0:#7FDBCA;--1:#096E72">?.</span><span style="--0:#82AAFF;--1:#3B61B0">me</span><span style="--0:#D6DEEB;--1:#403F53">()</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#C792EA;--1:#8844AE">await</span><span style="--0:#7FDBCA;--1:#096E72">?</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div><div class="ec-line"><div class="code"><span class="indent">                    </span><span style="--0:#C5E478;--1:#3B61B0">ctx</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">reply</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#82AAFF;--1:#3B61B0">format!</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">You are {}</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#C5E478;--1:#3B61B0">me</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#D6DEEB;--1:#403F53">display_name</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">unwrap_or_default</span><span style="--0:#D6DEEB;--1:#403F53">()))</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#C792EA;--1:#8844AE">await</span><span style="--0:#7FDBCA;--1:#096E72">?</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">                </span></span><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code"><span class="indent">                </span><span style="--0:#919F9F;--1:#5D6376">// The sign-in card was sent. The person answers it, and the</span></div></div><div class="ec-line"><div class="code"><span class="indent">                </span><span style="--0:#919F9F;--1:#5D6376">// next message finds them signed in.</span></div></div><div class="ec-line"><div class="code"><span class="indent">                </span><span style="--0:#C5E478;--1:#3B61B0">_</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#7FDBCA;--1:#096E72">=&gt;</span><span style="--0:#D6DEEB;--1:#403F53"> {}</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">            </span></span><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">            </span></span><span style="--0:#D6DEEB;--1:#403F53">Ok</span><span style="--0:#7FDBCA;--1:#096E72">::</span><span style="--0:#D6DEEB;--1:#403F53">&lt;</span><span style="--0:#C5E478;--1:#3B61B0">_</span><span style="--0:#D6DEEB;--1:#403F53">, HandlerError&gt;(())</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">        </span></span><span style="--0:#D6DEEB;--1:#403F53">}</span></div></div><div class="ec-line"><div class="code"><span class="indent"><span style="--0:#D6DEEB;--1:#403F53">    </span></span><span style="--0:#D6DEEB;--1:#403F53">})</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">run</span><span style="--0:#D6DEEB;--1:#403F53">()</span></div></div><div class="ec-line"><div class="code"><span class="indent">    </span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#C792EA;--1:#8844AE">await</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="use muss_teams::{    Decision, HandlerError, MessageContext, SignInStatus, Sso, SsoAccess, SsoConfig, TeamsApp,};let sso = Sso::new(    SsoConfig::new(&quot;api://botid-00000000-0000-0000-0000-000000000000&quot;)?        .scopes([&quot;User.Read&quot;])        // Every sign-in is refused until this says otherwise.        .authorize(|access: SsoAccess| async move {            Ok::<_, HandlerError>(Decision::from(access.actor().directory_id().is_some()))        }),)?;let signer = sso.clone();TeamsApp::from_env()?    .with_sso(&amp;sso)    .on_message(move |ctx: MessageContext| {        let signer = signer.clone();        async move {            match signer.sign_in(&amp;ctx).await? {                SignInStatus::Ready(session) => {                    let me = session.graph()?.me().await?;                    ctx.reply(format!(&quot;You are {}&quot;, me.display_name.unwrap_or_default())).await?;                }                // The sign-in card was sent. The person answers it, and the                // next message finds them signed in.                _ => {}            }            Ok::<_, HandlerError>(())        }    })    .run()    .await"><div></div></button></div></figure></div>
+<p><code dir="auto">examples/sso.rs</code> is a complete, compiled program, and <code dir="auto">tests/example_sso.rs</code>
+runs it against a simulated Teams, a token endpoint and Graph on the loopback
+interface.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="what-happens-silently">What happens, silently</h2><a class="sl-anchor-link" href="#what-happens-silently"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “What happens, silently”</span></a></div>
+<ol>
+<li>
+<p>The person messages the bot. <code dir="auto">sign_in</code> finds no session, checks the
+authorization hook, and sends an OAuth card. The card names a
+<code dir="auto">connectionName</code> and a <code dir="auto">tokenExchangeResource</code> whose <code dir="auto">uri</code> is your
+application ID URI.</p>
+</li>
+<li>
+<p>Teams sees the resource, gets an Entra token for the person with
+audience your application, and sends <code dir="auto">signin/tokenExchange</code>:</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"type"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">invoke</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"name"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">signin/tokenExchange</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">,</span></div></div><div class="ec-line"><div class="code"><span class="indent">  </span><span style="--0:#7FDBCA;--1:#096E72">"value"</span><span style="--0:#D6DEEB;--1:#403F53">: { </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">&lt;unique id&gt;</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"connectionName"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">muss-teams-sso</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"token"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">&lt;token&gt;</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> } }</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{ &quot;type&quot;: &quot;invoke&quot;, &quot;name&quot;: &quot;signin/tokenExchange&quot;,  &quot;value&quot;: { &quot;id&quot;: &quot;<unique id>&quot;, &quot;connectionName&quot;: &quot;muss-teams-sso&quot;, &quot;token&quot;: &quot;<token>&quot; } }"><div></div></button></div></figure></div>
+</li>
+<li>
+<p>The SDK reads the invoke, finds the person from the <strong>signed activity</strong>
+(not from the invoke), and checks, in this order, and stops at the first
+that fails:</p>
+<ol>
+<li>the authorization hook says yes (no hook, no);</li>
+<li>the connection name is the one on the card;</li>
+<li>the token is a well-formed <code dir="auto">RS256</code> JWT whose <code dir="auto">kid</code> names a key the
+tenant publishes, and the signature verifies against that key;</li>
+<li>it is a version 2.0 token, issued by
+<code dir="auto">https://login.microsoftonline.com/&lt;tid&gt;/v2.0</code> where <code dir="auto">&lt;tid&gt;</code> is the
+configured tenant, and <code dir="auto">tid</code> is the configured tenant;</li>
+<li><code dir="auto">aud</code> is this application’s client id or its application ID URI;</li>
+<li>it has not expired and is not yet valid (60 seconds of clock skew);</li>
+<li><code dir="auto">scp</code> carries <code dir="auto">access_as_user</code> (or the scope you set);</li>
+<li>its tenant and <code dir="auto">oid</code> are the activity’s tenant and sender. A genuine
+token for somebody else is not exchanged.</li>
+</ol>
+</li>
+<li>
+<p>One on-behalf-of request goes to the <strong>fixed</strong> authority of the configured
+tenant (<code dir="auto">https://login.microsoftonline.com/&lt;tenant&gt;/oauth2/v2.0/token</code>)
+with the application’s own credential, asking for the scopes you named.
+The token is the request’s <code dir="auto">assertion</code>. Redirects are refused: a token
+request carries the secret in its body.</p>
+</li>
+<li>
+<p>The delegated tokens are sealed and stored. Teams is answered <code dir="auto">200</code>:</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="json"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">{ </span><span style="--0:#7FDBCA;--1:#096E72">"id"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">&lt;unique id&gt;</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"connectionName"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#C789D6;--1:#7C5686">muss-teams-sso</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#7FDBCA;--1:#096E72">"failureDetail"</span><span style="--0:#D6DEEB;--1:#403F53">: </span><span style="--0:#FF6A83;--1:#A24848">null</span><span style="--0:#D6DEEB;--1:#403F53"> }</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{ &quot;id&quot;: &quot;<unique id>&quot;, &quot;connectionName&quot;: &quot;muss-teams-sso&quot;, &quot;failureDetail&quot;: null }"><div></div></button></div></figure></div>
+<p>On any failure the answer is <code dir="auto">412</code> with the same body and a <code dir="auto">failureDetail</code>
+that is a fixed sentence chosen by the SDK. Teams then shows the card’s
+sign-in button. The sentence never holds the identity platform’s text.</p>
+</li>
+</ol>
+<div class="sl-heading-wrapper level-h2"><h2 id="what-happens-with-the-fallback">What happens, with the fallback</h2><a class="sl-anchor-link" href="#what-happens-with-the-fallback"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “What happens, with the fallback”</span></a></div>
+<p>When the silent route does not answer <code dir="auto">200</code> (the person has not consented, or
+a step-up is needed), Teams shows the card’s <strong>Sign in</strong> button. This is the
+flow Microsoft calls “Authentication flow for bots”:</p>
+<ol>
+<li><code dir="auto">sign_in</code> made a <code dir="auto">state</code> (256 random bits, kept server side, good for ten
+minutes, usable <strong>once</strong>), a <code dir="auto">nonce</code> (256 more, also kept server side) and
+a PKCE verifier (kept server side), and put the authorize address in the
+card’s button. The request asks for <code dir="auto">openid profile</code> as well as your
+scopes, so the token endpoint returns an id token that says who signed in.
+With <code dir="auto">keep_refresh_tokens()</code> it asks for <code dir="auto">offline_access</code> too, so the
+session outlives its access token.</li>
+<li>The person signs in at the identity platform. It returns the browser to
+your redirect page with <code dir="auto">code</code> and <code dir="auto">state</code>.</li>
+<li>Your page calls <code dir="auto">Sso::complete_callback(code, state)</code>. The SDK consumes
+the <code dir="auto">state</code>, redeems the code with the verifier, and <strong>checks who signed
+in before it keeps anything</strong> (next section). Then it holds the token as
+<strong>provisional</strong>: tied to the person who started the sign-in, and unusable.
+You get a verification code.</li>
+<li>Your page calls <code dir="auto">notifySuccess(&lt;verification code&gt;)</code>. Teams closes the
+window and sends <code dir="auto">signin/verifyState</code> with <code dir="auto">{ "state": "&lt;code&gt;" }</code>.</li>
+<li>The SDK compares the code with the one stored for <strong>this person</strong>. A match
+turns the provisional token into a session. Anything else deletes the
+provisional token. Either way the code works once, and it times out after
+five minutes.</li>
+</ol>
+<div class="sl-heading-wrapper level-h3"><h3 id="the-account-that-signs-in-must-be-the-person-who-is-chatting">The account that signs in must be the person who is chatting</h3><a class="sl-anchor-link" href="#the-account-that-signs-in-must-be-the-person-who-is-chatting"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “The account that signs in must be the person who is chatting”</span></a></div>
+<p>A browser may be signed in to a different account from the one in the Teams
+chat (a shared machine, a second profile). Without a check, that account’s
+code would be redeemed and its delegated token stored for the person who asked
+for the card. So the id token that comes back with the code is verified, and
+each of these must hold, or <strong>nothing is stored</strong>:</p>
+<ul>
+<li>its signature verifies (<code dir="auto">RS256</code>) against the tenant’s published keys, by
+<code dir="auto">kid</code>;</li>
+<li>it is a version 2.0 token issued by
+<code dir="auto">https://login.microsoftonline.com/&lt;tid&gt;/v2.0</code>, where <code dir="auto">&lt;tid&gt;</code> is its own
+<code dir="auto">tid</code> and is the configured tenant;</li>
+<li><code dir="auto">aud</code> is this application’s client id (in an id token the audience is the
+app’s Application ID);</li>
+<li>it has not expired and is not yet valid (60 seconds of clock skew);</li>
+<li><code dir="auto">nonce</code> is the one this sign-in sent. Each sign-in has its own, so a token
+minted for another sign-in is refused;</li>
+<li><code dir="auto">oid</code> and <code dir="auto">tid</code> are the person who started the sign-in: the sender of the
+Teams activity that asked for the card.</li>
+</ul>
+<p>Every failure (another account, another tenant, a missing, forged, expired or
+replayed token) gives the same typed answer,
+<code dir="auto">SsoError::Callback(CallbackRefusal::WrongAccount)</code>, and the same sentence for
+your page to show: “the account that signed in is not the account chatting in
+Teams; sign out of the other account in the browser and start again”. It
+names no account and no check. The one exception is a key set that cannot be
+read, which is the identity platform’s trouble and is <code dir="auto">Unavailable</code>. The
+authorization code has been spent by then and nothing waits for Teams.</p>
+<p><code dir="auto">azp</code> is <strong>not</strong> read. For a version 2.0 id token it names the client that
+asked for the token, and Entra only issues a code to the client id in the
+request and only redeems it for the same client with its credential, so the
+application’s own redemption is already the proof.</p>
+<p>Your page is small. The Rust side is one call:</p>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="rust"><code><div class="ec-line"><div class="code"><span style="--0:#C792EA;--1:#8844AE">let</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">outcome</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C792EA;--1:#8844AE">=</span><span style="--0:#D6DEEB;--1:#403F53"> </span><span style="--0:#C5E478;--1:#3B61B0">sso</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">complete_callback</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">code</span><span style="--0:#D6DEEB;--1:#403F53">, </span><span style="--0:#C5E478;--1:#3B61B0">state</span><span style="--0:#D6DEEB;--1:#403F53">)</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#C792EA;--1:#8844AE">await</span><span style="--0:#7FDBCA;--1:#096E72">?</span><span style="--0:#D6DEEB;--1:#403F53">;</span></div></div><div class="ec-line"><div class="code"><span style="--0:#C5E478;--1:#3B61B0">authentication</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">notifySuccess</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#C5E478;--1:#3B61B0">outcome</span><span style="--0:#7FDBCA;--1:#096E72">.</span><span style="--0:#82AAFF;--1:#3B61B0">verification_code</span><span style="--0:#D6DEEB;--1:#403F53">());</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="let outcome = sso.complete_callback(code, state).await?;authentication.notifySuccess(outcome.verification_code());"><div></div></button></div></figure></div>
+<p>If the page cannot finish, call <code dir="auto">authentication.notifyFailure("reason")</code>.</p>
+<p>Without <code dir="auto">redirect_uri</code> the fallback is off: the card has no button, and only
+silent SSO works.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="consent-and-step-up-are-typed-outcomes">Consent and step-up are typed outcomes</h2><a class="sl-anchor-link" href="#consent-and-step-up-are-typed-outcomes"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Consent and step-up are typed outcomes”</span></a></div>
+<p>A refused sign-in is never a silent fallback. The person is told a fixed
+sentence; your application hears the reason as a typed value through
+<code dir="auto">on_sign_in_refused</code>:</p>
+<table>
+<thead>
+<tr>
+<th><code dir="auto">SsoError</code></th>
+<th>The identity platform said</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">ConsentRequired(need)</code></td>
+<td>AADSTS65001, <code dir="auto">consent_required</code></td>
+<td>The person signs in with the card’s button and accepts. For scopes only an administrator can approve, <code dir="auto">need.admin_consent_url()</code> is the address an administrator uses. It grants those permissions to the whole tenant, so the SDK shows it to you and never sends anyone there.</td>
+</tr>
+<tr>
+<td><code dir="auto">InteractionRequired</code></td>
+<td><code dir="auto">interaction_required</code>, AADSTS50076, <code dir="auto">50079</code>, <code dir="auto">50158</code></td>
+<td>A step such as multifactor authentication is needed. Send the card again.</td>
+</tr>
+<tr>
+<td><code dir="auto">SessionEnded</code></td>
+<td>AADSTS50173, <code dir="auto">70008</code>, <code dir="auto">700082</code>, <code dir="auto">500133</code></td>
+<td>The refresh token is revoked or lapsed. Send the card again.</td>
+</tr>
+<tr>
+<td><code dir="auto">ApplicationCredential</code></td>
+<td><code dir="auto">invalid_client</code>, AADSTS7000215, <code dir="auto">7000222</code>, <code dir="auto">7000218</code></td>
+<td>A deployment problem: the client secret or certificate is wrong or expired. It is also reported to the failure observer.</td>
+</tr>
+<tr>
+<td><code dir="auto">InvalidScope</code></td>
+<td>AADSTS70011</td>
+<td>The scopes do not match the registration. Reported to the failure observer.</td>
+</tr>
+<tr>
+<td><code dir="auto">Refused(_)</code></td>
+<td>(the SSO token itself)</td>
+<td>The token’s audience, tenant, signature, lifetime, scope or user was wrong. The reason names the check.</td>
+</tr>
+<tr>
+<td><code dir="auto">Callback(_)</code></td>
+<td>(the fallback)</td>
+<td>The <code dir="auto">state</code> was unknown, used or expired; there was no code; the verification code did not match; nothing was waiting; or the account that signed in is not the person chatting (<code dir="auto">WrongAccount</code>).</td>
+</tr>
+<tr>
+<td><code dir="auto">Denied</code></td>
+<td>(your hook)</td>
+<td>The authorization hook said no, failed or ran out of time. When it says no for a session that exists, the session is deleted.</td>
+</tr>
+<tr>
+<td><code dir="auto">TooManyAttempts</code></td>
+<td>(the SDK)</td>
+<td>See below.</td>
+</tr>
+</tbody>
+</table>
+<p>None of these carries a token, a code or the identity platform’s
+<code dir="auto">error_description</code>, which holds trace identifiers.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="where-tokens-live">Where tokens live</h2><a class="sl-anchor-link" href="#where-tokens-live"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Where tokens live”</span></a></div>
+<ul>
+<li><strong>Sealed first.</strong> Every session is sealed with AES-256-GCM before it goes
+to the store, with a fresh random nonce each time and the tenant,
+application, person and scopes as authenticated data. A record copied into
+another person’s slot, another application’s or another scope set does not
+open.</li>
+<li><strong>Memory by default.</strong> The default vault is in memory, bounded to 10,000
+sessions, and forgets everything on restart. A restart signs everyone out.
+That is deliberate: a refresh token is a long-lived secret, and an
+in-memory store leaves none on disk.</li>
+<li><strong>A vault of your own.</strong> For sessions that survive a restart, implement
+<code dir="auto">SessionVault</code> (<code dir="auto">put</code>, <code dir="auto">get</code>, <code dir="auto">delete</code>; every call carries the
+<code dir="auto">AuthContext</code> and must be scoped to its tenant) and give it to
+<code dir="auto">SsoConfig::vault</code>. The vault holds ciphertext only. What it must protect
+is availability and integrity, and it must forget at <code dir="auto">ttl</code>. Give
+<code dir="auto">SsoConfig::seal_with</code> a <code dir="auto">SealingKey</code> from your secret store
+(<code dir="auto">SealingKey::from_env("NAME")</code> reads 32 bytes of base64), or after a
+restart the sessions will not open. Persistent secrets belong in an OS
+keyring or a secret manager, not a generic JSON column.</li>
+<li><strong>Rotating the sealing key.</strong> Each sealed record starts with a version and
+the id of the key that sealed it (the first four bytes of a SHA-256 over a
+label and the key, which reveals nothing usable). To rotate without signing
+anyone out, give the new key to <code dir="auto">seal_with</code> and keep the old one with
+<code dir="auto">SsoConfig::previous_seal_key</code>: records under either key open, and new ones
+(and renewed ones) are sealed under the new key. Drop the previous key once
+a session’s longest life, 24 hours, has passed. Without the previous key a
+record under the old key fails to open, is removed and the person signs in
+again, which is the safe failure. <code dir="auto">previous_seal_key</code> without <code dir="auto">seal_with</code> is
+a configuration error.</li>
+<li><strong>Refresh tokens are opt-in.</strong> <code dir="auto">keep_refresh_tokens()</code> adds <code dir="auto">offline_access</code>
+to both routes: the silent exchange and the sign-in fallback. Without it a
+session lasts as long as its access token (about an hour), and an expired
+session ends.</li>
+<li><strong>No token reaches you.</strong> <code dir="auto">UserSession</code> holds no token and has no accessor
+for one; <code dir="auto">DelegatedToken</code> can be built by you but only the SDK can read it.
+The delegated Graph client asks for a fresh token before each call, and the
+SDK renews a token with less than 60 seconds left, once for any number of
+concurrent callers.</li>
+<li><strong>Nothing prints one.</strong> <code dir="auto">Debug</code> and <code dir="auto">Display</code> of every type here show
+placeholders. A test formats the whole flow and looks for each secret.</li>
+<li><strong>Plaintext copies.</strong> The decrypted record and its buffers are wiped when
+they are dropped, as is the sealing key. The token strings the rest of the
+flow holds are <code dir="auto">muss-core</code>’s <code dir="auto">Redacted&lt;String&gt;</code> and the Graph client’s token
+value, which do not zeroize on drop, and a token also passes through the
+HTTP client’s request buffers. The SDK keeps these copies short lived but
+does not wipe them; a core dump or swap file of the process can hold a token
+that was in use. Treat the host as holding live tokens.</li>
+<li><code dir="auto">sign_out</code> deletes the session. Revoking the tokens at the identity platform
+is the administrator’s tool (revoke sessions), not this SDK’s.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="withdrawing-access">Withdrawing access</h2><a class="sl-anchor-link" href="#withdrawing-access"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Withdrawing access”</span></a></div>
+<p>A session is only as good as the authorization behind it, so <strong>the hook is
+asked again every time a session is used or renewed</strong>, not just when it is
+created. The hook gets <code dir="auto">AccessPurpose::Use</code> and the same <code dir="auto">SsoAccess</code> (the
+authenticated activity, the person, the scopes) it gets at sign-in.</p>
+<table>
+<thead>
+<tr>
+<th>Use</th>
+<th>The hook is asked</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">Sso::sign_in</code> finds an existing session</td>
+<td>once, before the session is returned</td>
+</tr>
+<tr>
+<td><code dir="auto">Sso::session</code></td>
+<td>once, before the session is returned</td>
+</tr>
+<tr>
+<td><code dir="auto">UserSession::ready</code></td>
+<td>once per call</td>
+</tr>
+<tr>
+<td><code dir="auto">UserSession::graph</code> (every Graph call it makes)</td>
+<td>once per call, before the token is fetched</td>
+</tr>
+<tr>
+<td>A renewal (a refresh token redeemed)</td>
+<td>before it, as part of the use that needs it</td>
+</tr>
+</tbody>
+</table>
+<p>Nothing is cached between calls: the hook is the source of truth, and a person
+removed from your directory or your allow list stops working on their next use.
+The price is one hook call per use, bounded by the sign-in timeout
+(<code dir="auto">SsoConfig::timeout</code>, 10 seconds by default). Keep the hook cheap, or cache
+inside the hook, where you can judge how stale an answer may be.</p>
+<ul>
+<li>If the hook says <strong>no</strong>, the use fails with <code dir="auto">SsoError::Denied</code> and the
+person’s sealed session (with its refresh token) is <strong>deleted</strong>. Allowing
+the person again does not bring it back; they sign in again. A denied person
+has no refresh token redeemed.</li>
+<li>If the hook <strong>fails or times out</strong>, the use fails with <code dir="auto">SsoError::Denied</code>
+but the session is kept: an outage in your directory is not a revocation.</li>
+<li>A session that nobody uses is never asked about. It sits sealed in the
+vault until its time to live (24 hours with refresh tokens, otherwise the
+access token’s life), and nothing can read it without a signed activity from
+that person, whose first use asks the hook.</li>
+<li>The SDK does not call the identity platform to revoke refresh tokens; an
+administrator does that when a person leaves.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="limits-and-protections">Limits and protections</h2><a class="sl-anchor-link" href="#limits-and-protections"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Limits and protections”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>Bound</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Concurrent sign-in invokes</td>
+<td>16 (1 to 1,024); more get <code dir="auto">503</code></td>
+<td>Backpressure, not buffering</td>
+</tr>
+<tr>
+<td>Time for one invoke</td>
+<td>10 seconds (1 to 60); late work is cancelled and its slot freed</td>
+<td>Teams waits on the answer</td>
+</tr>
+<tr>
+<td>Exchanges in flight per person</td>
+<td>1</td>
+<td>A duplicate waits and then gets the first answer</td>
+</tr>
+<tr>
+<td>A finished exchange <code dir="auto">id</code></td>
+<td>Remembered 10 minutes (2,048 ids)</td>
+<td>A duplicate costs no second exchange; a remembered <code dir="auto">200</code> is repeated only while the session exists</td>
+</tr>
+<tr>
+<td>Failures per person</td>
+<td>3 in 10 minutes <strong>per route</strong> (<code dir="auto">signin/tokenExchange</code> and <code dir="auto">signin/verifyState</code> each have their own count), then <code dir="auto">412</code> with no call to the identity platform or your hook</td>
+<td>Loop protection. Routine consent failures on the silent route must not lock out the fallback that exists to fix them, and wrong verification codes must not lock out the silent route</td>
+</tr>
+<tr>
+<td>A timed-out exchange</td>
+<td><code dir="auto">412</code> with the <code dir="auto">{ id, connectionName, failureDetail }</code> body and the sentence “Sign-in took too long. Try again.”</td>
+<td>The documented body; <code dir="auto">verifyState</code> has none</td>
+</tr>
+<tr>
+<td>Authorization hook</td>
+<td>Bounded by the invoke timeout on every call</td>
+<td>A hook that hangs must not hang a Graph call</td>
+</tr>
+<tr>
+<td>Fallback sign-ins in progress</td>
+<td>1,024; 4 per person; 10 minutes each</td>
+<td>Bounded table</td>
+</tr>
+<tr>
+<td>Waiting verification</td>
+<td>5 minutes, one per person</td>
+<td></td>
+</tr>
+<tr>
+<td>Sessions in the default vault</td>
+<td>10,000</td>
+<td></td>
+</tr>
+<tr>
+<td>Token size</td>
+<td>16 KiB in, 32 KiB out</td>
+<td></td>
+</tr>
+<tr>
+<td>Scopes</td>
+<td>1 to 16, named; <code dir="auto">.default</code> is refused</td>
+<td>No broad request by default</td>
+</tr>
+</tbody>
+</table>
+<p>Teams can send the same <code dir="auto">signin/tokenExchange</code> more than once, for example
+from a second client of the same person. The Microsoft pages do not describe
+the behaviour, so the SDK’s rule is the one in the table: the first one runs,
+the others get its answer.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="testing-without-a-tenant">Testing without a tenant</h2><a class="sl-anchor-link" href="#testing-without-a-tenant"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Testing without a tenant”</span></a></div>
+<p>With the <code dir="auto">test-utils</code> feature, <code dir="auto">SsoConfig::test_keys</code> supplies the keys SSO
+tokens are checked against and <code dir="auto">SsoConfig::test_authority</code> points the token
+endpoint at a loopback server. Verification still runs in full; only where
+keys and the endpoint come from changes. <code dir="auto">tests/sso/</code> is the suite:
+every invoke, every refusal above, replay, cross-person reuse, tampering and
+leaks.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="not-verified">Not verified</h2><a class="sl-anchor-link" href="#not-verified"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Not verified”</span></a></div>
+<p>No tenant, registration, bot or Teams client was used. Everything is checked
+against Microsoft’s published payloads and against loopback stand-ins, which
+prove the SDK’s behaviour, not Microsoft’s. In particular nothing confirms:</p>
+<ul>
+<li>that Teams offers its token to a bot whose OAuth card does not come from
+the Bot Framework Token Service, and that the client then treats <code dir="auto">200</code> as
+signed in;</li>
+<li>the <code dir="auto">signin/verifyState</code> payload beyond <code dir="auto">state</code> as a string (Microsoft’s
+pages name the invoke and the code; the field name is from the Teams SDK
+reference), and that Teams answers a <code dir="auto">412</code> to it as the SDK expects;</li>
+<li>the exact <code dir="auto">aud</code> of the token Teams sends (the application’s client id for a
+version 2.0 token, or the application ID URI; the SDK accepts both);</li>
+<li>what the identity platform answers for each consent case in a real tenant;</li>
+<li>that the id token returned by the <strong>token endpoint</strong> for a plain
+<code dir="auto">response_type=code</code> request carries the <code dir="auto">nonce</code> sent to <code dir="auto">/authorize</code>.
+Microsoft requires <code dir="auto">nonce</code> for the hybrid flow and says the claim “matches
+the parameter included in the original authorize request”, and OpenID
+Connect Core says the nonce is echoed whenever it was sent; no page states
+it for the token endpoint’s id token. If it is absent in a real tenant the
+SDK fails closed (every fallback sign-in is refused as <code dir="auto">WrongAccount</code>), which
+would show on the first live run;</li>
+<li>that <code dir="auto">profile</code> is what makes <code dir="auto">oid</code> appear in the id token (the claims
+reference says so; the SDK asks for <code dir="auto">openid profile</code>);</li>
+<li>that the id token is signed <code dir="auto">RS256</code> with a key of the tenant’s key set
+when redeemed at the token endpoint. Microsoft’s refresh-token example shows
+an unsigned (<code dir="auto">alg: none</code>) id token and calls it “unsigned”, which the SDK
+refuses; the code-redemption page shows a signed one’s claims.</li>
+</ul>
+<p>Live acceptance is <strong>blocked</strong>: no configured nonproduction tenant exists.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="not-covered">Not covered</h2><a class="sl-anchor-link" href="#not-covered"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Not covered”</span></a></div>
+<ul>
+<li><strong>Message extension sign-in.</strong> A search extension that answers
+<code dir="auto">composeExtension: { type: "auth" }</code>, and the <code dir="auto">config</code> response, are not
+built. The sign-in here is for the bot conversation. An extension can still
+read a session with <code dir="auto">Sso::session(ctx.activity())</code>.</li>
+<li><strong><code dir="auto">401</code> sign-in responses to <code dir="auto">Action.Execute</code>.</strong> The card action pipeline
+does not answer with a login response; a handler can send the sign-in card
+with <code dir="auto">Sso::sign_in</code> from a message.</li>
+<li><strong>Tab SSO</strong> (<code dir="auto">getAuthToken</code> in a tab). That is a browser flow with a
+different token audience; this feature is for the bot.</li>
+<li><strong>Several tenants, personal accounts and sovereign clouds.</strong> Refused.</li>
+<li><strong>Channel scope.</strong> Microsoft’s pages say SSO for a bot is not supported
+there.</li>
+<li><strong>Revoking tokens at the identity platform</strong> on sign-out.</li>
+</ul>
+</div><footer class="sl-flex astro-mjem5c2d"><div class="meta sl-flex astro-mjem5c2d"></div><div class="pagination-links print:hidden astro-wxozplkb" dir="ltr"><a href="/muss/guides/routing/" rel="prev" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span class="astro-wxozplkb">Previous<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">Routing bot activities</span></span></a><a href="/muss/guides/state/" rel="next" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-wxozplkb">Next<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">Tenant-scoped state</span></span></a></div></footer></div></div></main></div></div></div></div></body></html>

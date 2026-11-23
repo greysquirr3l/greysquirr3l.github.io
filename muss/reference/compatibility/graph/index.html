@@ -1,0 +1,2320 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-al2ilw4v"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Microsoft Graph surface | muss</title><link rel="canonical" href="https://greysquirr3l.github.io/muss/reference/compatibility/graph/"/><link rel="sitemap" href="/muss/sitemap-index.xml"/><link rel="shortcut icon" href="/muss/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v7.4.11"/><meta name="generator" content="Starlight v0.42.11"/><meta property="og:title" content="Microsoft Graph surface"/><meta property="og:type" content="article"/><meta property="og:url" content="https://greysquirr3l.github.io/muss/reference/compatibility/graph/"/><meta property="og:locale" content="en"/><meta property="og:description" content="Every Microsoft Graph endpoint, version and permission muss-teams uses: messaging, notifications, subscriptions, directory reads and app installs."/><meta property="og:site_name" content="muss"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Every Microsoft Graph endpoint, version and permission muss-teams uses: messaging, notifications, subscriptions, directory reads and app installs."/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/muss/_astro/print.C9eyqPGL.css" media="print"><link rel="stylesheet" href="/muss/_astro/common.BnqPtuMD.css"><style>@layer starlight.components{svg:where(.astro-pqysdep7){color:var(--sl-icon-color);font-size:var(--sl-icon-size,1em);width:1em;height:1em;overflow:visible}}
+</style><script type="module" src="/muss/_astro/page.cNngjUgL.js"></script></head><body class="astro-al2ilw4v"><a class="sl-skip-link astro-o5hysztx" href="#_top">Skip to content</a><div class="page sl-flex astro-gh65ub26"><header class="header astro-gh65ub26"><div class="header astro-ozb2cxkm"><div class="title-wrapper sl-flex astro-ozb2cxkm"><a href="/muss/" class="site-title sl-flex astro-yhxfdlc4"><img class="light:sl-hidden print:hidden astro-yhxfdlc4" alt src="/muss/_astro/logo-dark.ChSVDRwB.svg" width="48" height="48"><img class="dark:sl-hidden print:block astro-yhxfdlc4" alt src="/muss/_astro/logo-light.DeCIlpuM.svg" width="48" height="48"><span class="astro-yhxfdlc4" translate="no">muss</span></a></div><div class="sl-flex print:hidden astro-ozb2cxkm"><site-search class="astro-ozb2cxkm astro-3h4fk2u5" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"><button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-3h4fk2u5"><svg aria-hidden="true" class="astro-3h4fk2u5 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-3h4fk2u5" aria-hidden="true">Search</span><kbd class="sl-hidden md:sl-flex astro-3h4fk2u5" style="display: none"><kbd class="astro-3h4fk2u5">Ctrl</kbd><kbd class="astro-3h4fk2u5">K</kbd></kbd></button><dialog style="padding: 0" aria-label="Search" class="astro-3h4fk2u5"><div class="dialog-frame sl-flex astro-3h4fk2u5"><button data-close-modal class="sl-flex md:sl-hidden astro-3h4fk2u5">Cancel</button><div class="search-container astro-3h4fk2u5"><div id="starlight__search" class="astro-3h4fk2u5"></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/muss/_astro/Search.astro_astro_type_script_index_0_lang.CrDXzKXN.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group astro-ozb2cxkm"><div class="sl-flex social-icons astro-ozb2cxkm"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script><script type="module">var e=class extends HTMLElement{constructor(){super();let e=this.querySelector(`select`);e&&(e.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=e.currentTarget.value)}),window.addEventListener(`pageshow`,t=>{if(!t.persisted)return;let n=e.querySelector(`option[selected]`)?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}};customElements.define(`starlight-lang-select`,e);</script></div></div></header><nav class="sidebar print:hidden astro-gh65ub26" aria-label="Main"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-creup77k"><svg aria-hidden="true" class="open-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-creup77k astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-creup77k">Menu</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-gh65ub26"><div class="sidebar-content sl-flex astro-gh65ub26"><sl-sidebar-state-persist data-hash="1egna9r" class="astro-zzv2mkrn"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level astro-mql6fjj4"><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Getting started</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/getting-started/configuration/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Configuration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/installation/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Installation</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/introduction/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">What muss is</span></a></li><li class="astro-mql6fjj4"><a href="/muss/getting-started/quickstart/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Quickstart</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Guides</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/guides/card-actions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/cards/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Adaptive Cards</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/dialogs-and-extensions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/directory/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Directory and app installs</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/facade/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams facade</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/graph/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/meetings/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/notifications/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/routing/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Routing bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/sso/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams sign-in and delegated Graph</span></a></li><li class="astro-mql6fjj4"><a href="/muss/guides/state/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Tenant-scoped state</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Reference</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/public-api/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The locked v1 contract</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/error-taxonomy/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The error taxonomies</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/permissions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Permissions and consent</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/policies/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Platform policies and retirements</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/performance/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Performance and resource bounds</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/transport-and-observability/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Transport and observability</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/cli/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The muss-teams command-line tool</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/changelog/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">The changelog</span></a></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Compatibility</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Supported-surface matrix</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/bot-framework/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound activity authentication</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/cards/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Cards and card actions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/connector/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound Connector messages</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/credentials/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Outbound credentials and token issuance</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/dialogs/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Dialogs and message extensions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/graph/" aria-current="page" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Microsoft Graph surface</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/inbound-activities/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Inbound bot activities</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/meetings/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Meetings and presence</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/proactive/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Proactive notifications</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/sso/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Teams user sign-in</span></a></li><li class="astro-mql6fjj4"><a href="/muss/reference/compatibility/unverified/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Unverified surfaces</span></a></li></ul></details></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Operations</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/operations/ci/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Continuous integration</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/recipes/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Offline recipes</span></a></li><li class="astro-mql6fjj4"><a href="/muss/operations/troubleshooting/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Troubleshooting</span></a></li></ul></details></li><li class="astro-mql6fjj4"><details open class="astro-mql6fjj4"><summary class="astro-mql6fjj4"><span class="group-label astro-mql6fjj4"><span class="large astro-mql6fjj4">Architecture</span></span><svg aria-hidden="true" class="caret astro-mql6fjj4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="5"></sl-sidebar-restore><ul class="astro-mql6fjj4"><li class="astro-mql6fjj4"><a href="/muss/architecture/decisions/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture decisions</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/overview/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Architecture overview</span></a></li><li class="astro-mql6fjj4"><a href="/muss/architecture/workspace-layout/" class="astro-mql6fjj4"><span class="astro-mql6fjj4">Workspace layout</span></a></li></ul></details></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-ezdlrayc"><div class="social-icons astro-ezdlrayc"><a href="https://github.com/Smart-Offices-Inc/muss" rel="me" class="sl-flex astro-czu3caz3"><span class="sr-only astro-czu3caz3">GitHub</span><svg aria-hidden="true" class="astro-czu3caz3 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select><label style="--sl-select-width: 6.25em" class="astro-nhizaqw4"><span class="sr-only astro-nhizaqw4">Select theme</span><svg aria-hidden="true" class="icon label-icon astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg><select autocomplete="off" class="astro-nhizaqw4"><option value="dark" class="astro-nhizaqw4">Dark</option><option value="light" class="astro-nhizaqw4">Light</option><option value="auto" selected class="astro-nhizaqw4">Auto</option></select><svg aria-hidden="true" class="icon caret astro-nhizaqw4 astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>
+	StarlightThemeProvider.updatePickers();
+</script></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-gh65ub26"><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex astro-4yguomvy"><aside class="right-sidebar-container print:hidden astro-4yguomvy"><div class="right-sidebar astro-4yguomvy"><div class="lg:sl-hidden astro-cnvahwco"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-b3z257xh"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-b3z257xh"><details id="starlight__mobile-toc" class="astro-b3z257xh"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-b3z257xh"><span class="toggle sl-flex astro-b3z257xh">On this page<svg aria-hidden="true" class="caret astro-b3z257xh astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-b3z257xh"></span></summary><div class="dropdown astro-b3z257xh"><ul class="isMobile astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#messaging" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Messaging</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#activity-feed-notifications" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Activity-feed notifications</span></a><ul class="isMobile astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#what-the-request-body-carries" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">What the request body carries</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#what-the-sdk-checks-before-it-sends" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">What the SDK checks before it sends</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#not-verified" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Not verified</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#change-notifications-graph-resource-changes" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Change notifications (Graph resource changes)</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#subscription-lifetimes" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Subscription lifetimes</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#subscription-endpoint-version-and-permission-selection" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Subscription endpoint, version and permission selection</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#rich-notifications-validation-tokens-and-encrypted-resource-data" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Rich notifications (validation tokens and encrypted resource data)</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#subscription-lifecycle-notifications" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Subscription lifecycle notifications</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#webhook-ingress-verified-delivery" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Webhook ingress (verified delivery)</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#directory-and-installation-reads" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Directory and installation reads</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#permission-identifiers-the-sdk-carries" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Permission identifiers the SDK carries</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#meetings" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Meetings</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#files" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Files</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#graph-client-foundation-typed-operations-and-transport-rules" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Graph client foundation (typed operations and transport rules)</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#directory-conversation-and-app-install-helpers" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Directory, conversation and app-install helpers</span></a><ul class="isMobile astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#not-verified-1" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Not verified</span></a></li></ul></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/muss/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-cnvahwco"><div class="sl-container astro-cnvahwco"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-53mrkeos" style="--depth: 0;"><li style="--depth: 0;" class="astro-53mrkeos"><a href="#_top" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Overview</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#messaging" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Messaging</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#activity-feed-notifications" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Activity-feed notifications</span></a><ul class="astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#what-the-request-body-carries" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">What the request body carries</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#what-the-sdk-checks-before-it-sends" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">What the SDK checks before it sends</span></a></li><li style="--depth: 1;" class="astro-53mrkeos"><a href="#not-verified" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Not verified</span></a></li></ul></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#change-notifications-graph-resource-changes" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Change notifications (Graph resource changes)</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#subscription-lifetimes" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Subscription lifetimes</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#subscription-endpoint-version-and-permission-selection" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Subscription endpoint, version and permission selection</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#rich-notifications-validation-tokens-and-encrypted-resource-data" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Rich notifications (validation tokens and encrypted resource data)</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#subscription-lifecycle-notifications" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Subscription lifecycle notifications</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#webhook-ingress-verified-delivery" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Webhook ingress (verified delivery)</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#directory-and-installation-reads" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Directory and installation reads</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#permission-identifiers-the-sdk-carries" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Permission identifiers the SDK carries</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#meetings" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Meetings</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#files" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Files</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#graph-client-foundation-typed-operations-and-transport-rules" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Graph client foundation (typed operations and transport rules)</span></a></li><li style="--depth: 0;" class="astro-53mrkeos"><a href="#directory-conversation-and-app-install-helpers" style="--depth: 0;" class="astro-53mrkeos"><span style="--depth: 0;" class="astro-53mrkeos">Directory, conversation and app-install helpers</span></a><ul class="astro-53mrkeos" style="--depth: 1;"><li style="--depth: 1;" class="astro-53mrkeos"><a href="#not-verified-1" style="--depth: 1;" class="astro-53mrkeos"><span style="--depth: 1;" class="astro-53mrkeos">Not verified</span></a></li></ul></li></ul></nav></starlight-toc><script type="module" src="/muss/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane astro-4yguomvy"><main data-pagefind-body class="astro-al2ilw4v" lang="en" dir="ltr"><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><h1 id="_top" class="astro-qfythd7a">Microsoft Graph surface</h1></div></div><div class="content-panel astro-zzp7ia2v"><div class="sl-container astro-zzp7ia2v"><div class="sl-markdown-content"><p>Microsoft Graph is a separate service from the Bot Connector, with its own permissions, and the two do not imply each other. This page records every Graph endpoint, version and permission the SDK uses: messaging, activity-feed notifications, change notifications, subscriptions, directory reads and app installs. No live Graph endpoint has been called.</p>
+<p>Every Graph row below is <code dir="auto">v1.0</code>. No <code dir="auto">beta</code> endpoint is advertised in v1.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="messaging">Messaging</h2><a class="sl-anchor-link" href="#messaging"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Messaging”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Endpoint</th>
+<th>API version</th>
+<th>Permission type</th>
+<th>Permission</th>
+<th>Cloud</th>
+<th>Account type</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Send a channel message</td>
+<td><code dir="auto">POST /teams/{team-id}/channels/{channel-id}/messages</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">ChannelMessage.Send</code> (higher: <code dir="auto">Group.ReadWrite.All</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chatmessage-post?view=graph-rest-1.0">Send chatMessage in a channel or a chat</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Send a channel message (app-only)</td>
+<td><code dir="auto">POST /teams/{team-id}/channels/{channel-id}/messages</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">Teamwork.Migrate.All</code> only, and only for data migration; no other application permission is available</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chatmessage-post?view=graph-rest-1.0">Send chatMessage in a channel or a chat</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Send a chat message</td>
+<td><code dir="auto">POST /chats/{chat-id}/messages</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">ChannelMessage.Send</code> (higher: <code dir="auto">Group.ReadWrite.All</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chatmessage-post?view=graph-rest-1.0">Send chatMessage in a channel or a chat</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Send a chat message (app-only)</td>
+<td><code dir="auto">POST /chats/{chat-id}/messages</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">Teamwork.Migrate.All</code> only, and only for data migration; no other application permission is available</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chatmessage-post?view=graph-rest-1.0">Send chatMessage in a channel or a chat</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>List channel messages</td>
+<td><code dir="auto">GET /teams/{team-id}/channels/{channel-id}/messages</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">ChannelMessage.Read.All</code> (higher: <code dir="auto">Group.Read.All</code>, <code dir="auto">Group.ReadWrite.All</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/channel-list-messages?view=graph-rest-1.0">List channel messages</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>List channel messages (app-only)</td>
+<td><code dir="auto">GET /teams/{team-id}/channels/{channel-id}/messages</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">ChannelMessage.Read.Group</code> (resource-specific consent; higher: <code dir="auto">ChannelMessage.Read.All</code>, <code dir="auto">Group.Read.All</code>, <code dir="auto">Group.ReadWrite.All</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/channel-list-messages?view=graph-rest-1.0">List channel messages</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>List chat messages</td>
+<td><code dir="auto">GET /chats/{chat-id}/messages</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">Chat.Read</code> (higher: <code dir="auto">Chat.ReadWrite</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-list-messages?view=graph-rest-1.0">List messages in a chat</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>List chat messages (app-only)</td>
+<td><code dir="auto">GET /chats/{chat-id}/messages</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">ChatMessage.Read.Chat</code> (higher: <code dir="auto">Chat.Read.All</code>, <code dir="auto">Chat.ReadWrite.All</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-list-messages?view=graph-rest-1.0">List messages in a chat</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Create a channel</td>
+<td><code dir="auto">POST /teams/{team-id}/channels</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">Channel.Create</code> (higher: <code dir="auto">Directory.ReadWrite.All</code>, <code dir="auto">Group.ReadWrite.All</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/channel-post?view=graph-rest-1.0">Create channel</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Create a channel (app-only)</td>
+<td><code dir="auto">POST /teams/{team-id}/channels</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">Channel.Create.Group</code> (resource-specific consent; higher: <code dir="auto">Channel.Create</code>, <code dir="auto">Directory.ReadWrite.All</code>, <code dir="auto">Group.ReadWrite.All</code>, <code dir="auto">Teamwork.Migrate.All</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/channel-post?view=graph-rest-1.0">Create channel</a></td>
+<td>2026-11-03</td>
+</tr>
+</tbody>
+</table>
+<p>The app-only send row is the one that most often gets assumed away. On this
+page, <code dir="auto">Teamwork.Migrate.All</code> is documented as the only application permission
+for sending a message, and it is documented as being for migration only. There
+is no app-only permission for “post a message to a channel as this bot” on this
+surface, which is why the bot-messaging path in <code dir="auto">muss-teams</code> uses the Connector
+service and not Graph.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="activity-feed-notifications">Activity-feed notifications</h2><a class="sl-anchor-link" href="#activity-feed-notifications"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Activity-feed notifications”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Endpoint</th>
+<th>API version</th>
+<th>Permission type</th>
+<th>Permission</th>
+<th>Cloud</th>
+<th>Account type</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Activity-feed alert in a team</td>
+<td><code dir="auto">POST /teams/{teamId}/sendActivityNotification</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsActivity.Send</code>; no higher delegated permission available</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/team-sendactivitynotification?view=graph-rest-1.0">team: sendActivityNotification</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Activity-feed alert in a team (app-only)</td>
+<td><code dir="auto">POST /teams/{teamId}/sendActivityNotification</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsActivity.Send.Group</code> (resource-specific consent; higher: <code dir="auto">TeamsActivity.Send</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/team-sendactivitynotification?view=graph-rest-1.0">team: sendActivityNotification</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Activity-feed alert in a chat</td>
+<td><code dir="auto">POST /chats/{chatId}/sendActivityNotification</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsActivity.Send</code>; no higher delegated permission available</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-sendactivitynotification?view=graph-rest-1.0">chat: sendActivityNotification</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Activity-feed alert in a chat (app-only)</td>
+<td><code dir="auto">POST /chats/{chatId}/sendActivityNotification</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsActivity.Send.Chat</code> (resource-specific consent; higher: <code dir="auto">TeamsActivity.Send</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-sendactivitynotification?view=graph-rest-1.0">chat: sendActivityNotification</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Activity-feed alert to recipients</td>
+<td><code dir="auto">POST /teamwork/sendActivityNotificationToRecipients</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsActivity.Send</code>; no higher delegated permission available</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/teamwork-sendactivitynotificationtorecipients?view=graph-rest-1.0">teamwork: sendActivityNotificationToRecipients</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Activity-feed alert to recipients (app-only)</td>
+<td><code dir="auto">POST /teamwork/sendActivityNotificationToRecipients</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsActivity.Send.User</code> (resource-specific consent; higher: <code dir="auto">TeamsActivity.Send</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/teamwork-sendactivitynotificationtorecipients?view=graph-rest-1.0">teamwork: sendActivityNotificationToRecipients</a></td>
+<td>2026-11-03</td>
+</tr>
+</tbody>
+</table>
+<p>These three endpoints send to the Teams activity feed. They do not post a
+message into a conversation, and they do not deliver a bot reply.</p>
+<p>A fourth endpoint, <code dir="auto">POST /users/{userId}/teamwork/sendActivityNotification</code>,
+sends to one user. It is listed with the typed operations below because it is
+the one the SDK calls; the recipients endpoint takes a body of recipients
+rather than one user and is not implemented.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="what-the-request-body-carries">What the request body carries</h3><a class="sl-anchor-link" href="#what-the-request-body-carries"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “What the request body carries”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Where it comes from</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">activityType</code></td>
+<td>yes</td>
+<td>A name the manifest declares under <code dir="auto">activities.activityTypes</code>, or the reserved <code dir="auto">systemDefault</code>. The reserved type must not be declared in the manifest.</td>
+</tr>
+<tr>
+<td><code dir="auto">topic</code></td>
+<td>yes</td>
+<td>The resource the notification is about. <code dir="auto">source</code> is <code dir="auto">entityUrl</code> with the resource URL, or <code dir="auto">text</code> with a title and a <code dir="auto">webUrl</code>. The <code dir="auto">webUrl</code> is required when the source is <code dir="auto">text</code>.</td>
+</tr>
+<tr>
+<td><code dir="auto">previewText</code></td>
+<td>yes</td>
+<td><code dir="auto">{"content": "..."}</code>. Teams shows only the first 150 characters, so the SDK refuses a longer one.</td>
+</tr>
+<tr>
+<td><code dir="auto">templateParameters</code></td>
+<td>no</td>
+<td>The values for the placeholders the activity type’s <code dir="auto">templateText</code> declares. <code dir="auto">actor</code> is filled in by the service and is not asked of the caller.</td>
+</tr>
+<tr>
+<td><code dir="auto">chainId</code></td>
+<td>no</td>
+<td>A 64-bit number. Sending again under the same number overrides the earlier notification rather than adding another.</td>
+</tr>
+<tr>
+<td><code dir="auto">teamsAppId</code></td>
+<td>no</td>
+<td>Disambiguates when several installed apps share one Entra app identifier.</td>
+</tr>
+<tr>
+<td><code dir="auto">recipient</code></td>
+<td>team and chat only</td>
+<td>Team: <code dir="auto">aadUserNotificationRecipient</code>, <code dir="auto">teamMembersNotificationRecipient</code> or <code dir="auto">channelMembersNotificationRecipient</code>. Chat: <code dir="auto">aadUserNotificationRecipient</code> or <code dir="auto">chatMembersNotificationRecipient</code>. Any other type for the target is refused before a request is built. The user endpoint names its recipient in the path and takes none.</td>
+</tr>
+</tbody>
+</table>
+<p>The recipient types are read from the resource pages
+(<a href="https://learn.microsoft.com/en-us/graph/api/resources/aadusernotificationrecipient?view=graph-rest-1.0">aadUser</a>,
+<a href="https://learn.microsoft.com/en-us/graph/api/resources/teammembersnotificationrecipient?view=graph-rest-1.0">teamMembers</a>,
+<a href="https://learn.microsoft.com/en-us/graph/api/resources/chatmembersnotificationrecipient?view=graph-rest-1.0">chatMembers</a>,
+<a href="https://learn.microsoft.com/en-us/graph/api/resources/channelmembersnotificationrecipient?view=graph-rest-1.0">channelMembers</a>,
+verified 2026-11-10) and the two endpoint pages’ own recipient rows:</p>
+<table>
+<thead>
+<tr>
+<th>Recipient type</th>
+<th>Properties</th>
+<th>Accepted by</th>
+<th>Where the SDK gets the identifiers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">aadUserNotificationRecipient</code></td>
+<td><code dir="auto">userId</code></td>
+<td>team, chat</td>
+<td>The caller’s <code dir="auto">ActivityRecipient::User</code>.</td>
+</tr>
+<tr>
+<td><code dir="auto">teamMembersNotificationRecipient</code></td>
+<td><code dir="auto">teamId</code></td>
+<td>team</td>
+<td>The <code dir="auto">team_id</code> argument of <code dir="auto">to_team</code>, so the body and the path cannot disagree.</td>
+</tr>
+<tr>
+<td><code dir="auto">chatMembersNotificationRecipient</code></td>
+<td><code dir="auto">chatId</code></td>
+<td>chat</td>
+<td>The <code dir="auto">chat_id</code> argument of <code dir="auto">to_chat</code>.</td>
+</tr>
+<tr>
+<td><code dir="auto">channelMembersNotificationRecipient</code></td>
+<td><code dir="auto">channelId</code>, <code dir="auto">teamId</code></td>
+<td>team</td>
+<td><code dir="auto">channelId</code> from <code dir="auto">ActivityRecipient::channel_members</code>; <code dir="auto">teamId</code> from <code dir="auto">to_team</code>. Implemented: the resource page and the team endpoint page both list it.</td>
+</tr>
+</tbody>
+</table>
+<p>The pages do not say whether the service checks that a channel belongs to the
+<code dir="auto">teamId</code>, so the SDK does not claim to; a wrong channel is the service’s answer.</p>
+<p>The <code dir="auto">entityUrl</code> resources differ per endpoint, and none is inferred from
+another: a team takes <code dir="auto">team</code>, <code dir="auto">channel</code>, <code dir="auto">chatMessage</code> or <code dir="auto">teamsTab</code>; a chat
+takes <code dir="auto">chat</code> or <code dir="auto">chatMessage</code>; a user takes <code dir="auto">teamsAppInstallation</code> or
+<code dir="auto">teamsCatalogApp</code>. For a team and a chat the pages say the URL must be the
+resource in the request path or a child of it, and the app must be installed
+in it. The SDK enforces the first part before any request: the URL must be
+<code dir="auto">https://graph.microsoft.com/v1.0/...</code> (the global host only; no port,
+credentials, query or fragment; a national cloud is not advertised), and its
+decoded path segments must begin with <code dir="auto">teams/{teamId}</code> or <code dir="auto">chats/{chatId}</code>
+for the identifier in the call. For a user the pages state no relation to the
+user in the path, so the SDK requires only the supported shapes,
+<code dir="auto">users/{id}/teamwork/installedApps/{id}</code> or <code dir="auto">appCatalogs/teamsApps/{id}</code>. The
+installation requirement is the service’s to enforce; the SDK does not
+install the app or probe for it, and an absent installation reaches the caller
+as the service’s error. The Graph-level test for that case uses a fixture
+response written by the test, not a recorded one.</p>
+<p>The reserved <code dir="auto">systemDefault</code> type takes one template parameter,
+<code dir="auto">systemDefaultText</code>, which carries the free text shown in the Actor+Reason
+line (<a href="https://learn.microsoft.com/en-us/graph/teams-send-activityfeednotifications">Send Teams activity notifications, example 8 and “Reserved activity
+types”</a>,
+verified 2026-11-10). The SDK requires that parameter, non-blank, and refuses
+any other parameter for this type. The overview page does not state a length
+limit for the text, so none is invented here beyond the SDK’s own 1024-character
+value bound.</p>
+<p>Not implemented: <code dir="auto">POST /teamwork/sendActivityNotificationToRecipients</code>, and the
+beta-only custom <code dir="auto">iconId</code> path. Both are out of scope for this task.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="what-the-sdk-checks-before-it-sends">What the SDK checks before it sends</h3><a class="sl-anchor-link" href="#what-the-sdk-checks-before-it-sends"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “What the SDK checks before it sends”</span></a></div>
+<p>The manifest is the source of truth for the activity type. An activity type
+the manifest does not declare is refused before any request goes out, as is a
+template parameter set that does not match the template the activity type
+declares. A deep link is refused unless it is an HTTPS address on
+<code dir="auto">teams.microsoft.com</code> and has one of the shapes Teams publishes: <code dir="auto">/l/chat/</code>,
+<code dir="auto">/l/message/</code>, <code dir="auto">/l/channel/</code>, <code dir="auto">/l/team/</code>, <code dir="auto">/l/loopthread/</code> or
+<code dir="auto">/l/entity/teamsapp/</code>. The activity-feed page
+(<a href="https://learn.microsoft.com/en-us/graph/teams-send-activityfeednotifications">Send activity feed notifications</a>,
+fetched in full 2026-11-11) states only that <code dir="auto">webUrl</code> must start with the
+Teams domain, and its examples use <code dir="auto">/l/message/</code> and <code dir="auto">/l/loopthread/</code>. The
+Teams deep-link page
+(<a href="https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/build-and-test/deep-link-teams">Deep link to a Teams chat</a>,
+fetched in full 2026-11-11) documents <code dir="auto">/l/chat/</code>, <code dir="auto">/l/channel/</code>, <code dir="auto">/l/team/</code>,
+<code dir="auto">/l/message/</code> and <code dir="auto">/l/file/</code>. No <code dir="auto">/l/meeting/</code> shape appears on either page, and
+<code dir="auto">/l/file/</code> is documented as a file link rather than an activity topic, so
+neither is accepted.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="not-verified">Not verified</h3><a class="sl-anchor-link" href="#not-verified"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Not verified”</span></a></div>
+<p>No live Graph endpoint was called. The SDK does not check that the app is
+installed for the recipient, does not install it, and does not request
+consent; the service answers that, and a <code dir="auto">403</code> names the permission the
+operation’s contract records.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="change-notifications-graph-resource-changes">Change notifications (Graph resource changes)</h2><a class="sl-anchor-link" href="#change-notifications-graph-resource-changes"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Change notifications (Graph resource changes)”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Endpoint</th>
+<th>API version</th>
+<th>Permission type</th>
+<th>Permission</th>
+<th>Cloud</th>
+<th>Account type</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create a subscription</td>
+<td><code dir="auto">POST /subscriptions</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Per resource; the resource decides, not the endpoint</td>
+<td>Per resource; the table below is the source of truth</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported for the Teams resources listed</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-post-subscriptions?view=graph-rest-1.0">Create subscription</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Receive a change notification (webhook)</td>
+<td><code dir="auto">POST</code> to the app’s notification URL</td>
+<td>Webhook delivery, not a versioned endpoint</td>
+<td>Per resource</td>
+<td>Per resource</td>
+<td>Same as the subscribed resource</td>
+<td>Same as the subscribed resource</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/change-notifications-delivery-webhooks">Receive change notifications through webhooks</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Receive a rich notification</td>
+<td><code dir="auto">POST</code> to the app’s notification URL, with encrypted resource data</td>
+<td>Webhook delivery</td>
+<td>Per resource</td>
+<td>Per resource</td>
+<td>Same as the subscribed resource</td>
+<td>Same as the subscribed resource</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/change-notifications-with-resource-data">Set up Microsoft Graph change notifications with resource data</a></td>
+<td>2026-11-03</td>
+</tr>
+</tbody>
+</table>
+<p>The permission is chosen by the resource being watched, not by the
+<code dir="auto">POST /subscriptions</code> endpoint. Read from
+<a href="https://learn.microsoft.com/en-us/graph/api/subscription-post-subscriptions?view=graph-rest-1.0">Create subscription</a>
+on 2026-11-03:</p>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Watched path</th>
+<th>Delegated (work or school)</th>
+<th>Application</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">chatMessage</code></td>
+<td><code dir="auto">/teams/{id}/channels/{id}/messages</code></td>
+<td><code dir="auto">ChannelMessage.Read.All</code></td>
+<td><code dir="auto">ChannelMessage.Read.Group</code>, <code dir="auto">ChannelMessage.Read.All</code></td>
+</tr>
+<tr>
+<td><code dir="auto">chatMessage</code></td>
+<td><code dir="auto">/chats/{id}/messages</code></td>
+<td><code dir="auto">Chat.Read</code>, <code dir="auto">Chat.ReadWrite</code></td>
+<td><code dir="auto">Chat.Read.All</code></td>
+</tr>
+<tr>
+<td><code dir="auto">chatMessage</code></td>
+<td><code dir="auto">/teams/getAllMessages</code></td>
+<td>Not supported</td>
+<td><code dir="auto">ChannelMessage.Read.All</code></td>
+</tr>
+<tr>
+<td><code dir="auto">chatMessage</code></td>
+<td><code dir="auto">/chats/getAllMessages</code></td>
+<td>Not supported</td>
+<td><code dir="auto">Chat.Read.All</code></td>
+</tr>
+<tr>
+<td><code dir="auto">chat</code></td>
+<td><code dir="auto">/chats/{id}</code></td>
+<td><code dir="auto">Chat.ReadBasic</code>, <code dir="auto">Chat.Read</code>, <code dir="auto">Chat.ReadWrite</code></td>
+<td><code dir="auto">ChatSettings.Read.Chat</code>, <code dir="auto">ChatSettings.ReadWrite.Chat</code>, <code dir="auto">Chat.Manage.Chat</code>, <code dir="auto">Chat.ReadBasic.All</code>, <code dir="auto">Chat.Read.All</code>, <code dir="auto">Chat.ReadWrite.All</code></td>
+</tr>
+<tr>
+<td><code dir="auto">channel</code></td>
+<td><code dir="auto">/teams/{id}/channels</code></td>
+<td><code dir="auto">Channel.ReadBasic.All</code>, <code dir="auto">ChannelSettings.Read.All</code></td>
+<td><code dir="auto">Channel.ReadBasic.All</code>, <code dir="auto">ChannelSettings.Read.All</code></td>
+</tr>
+<tr>
+<td><code dir="auto">conversationMember</code></td>
+<td><code dir="auto">/teams/{id}/members</code></td>
+<td><code dir="auto">TeamMember.Read.All</code></td>
+<td><code dir="auto">TeamMember.Read.All</code></td>
+</tr>
+<tr>
+<td><code dir="auto">conversationMember</code></td>
+<td><code dir="auto">/chats/{id}/members</code></td>
+<td><code dir="auto">ChatMember.Read</code>, <code dir="auto">ChatMember.ReadWrite</code>, <code dir="auto">Chat.ReadBasic</code>, <code dir="auto">Chat.Read</code>, <code dir="auto">Chat.ReadWrite</code></td>
+<td><code dir="auto">ChatMember.Read.Chat</code>, <code dir="auto">Chat.Manage.Chat</code>, <code dir="auto">ChatMember.Read.All</code>, <code dir="auto">ChatMember.ReadWrite.All</code>, <code dir="auto">Chat.ReadBasic.All</code>, <code dir="auto">Chat.Read.All</code>, <code dir="auto">Chat.ReadWrite.All</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code dir="auto">*</code> suffix on a permission name in the source table marks a
+resource-specific-consent permission. <code dir="auto">ChannelMessage.Read.Group</code> and the
+<code dir="auto">ChatSettings</code>/<code dir="auto">ChatMember</code> RSC permissions are the ones marked that way.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="subscription-lifetimes">Subscription lifetimes</h2><a class="sl-anchor-link" href="#subscription-lifetimes"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Subscription lifetimes”</span></a></div>
+<p>The service gives each resource a maximum lifetime, and refuses to create or
+renew a subscription beyond it. Read from
+<a href="https://learn.microsoft.com/en-us/graph/api/resources/subscription?view=graph-rest-1.0">subscription resource type</a>
+on 2026-11-10:</p>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Maximum lifetime</th>
+<th>What the SDK does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Teams <code dir="auto">chatMessage</code> (<code dir="auto">/teams/{id}/channels/{id}/messages</code>)</td>
+<td>4,320 minutes (three days)</td>
+<td>The default lifetime, and the ceiling it refuses to go past</td>
+</tr>
+<tr>
+<td>Teams <code dir="auto">chatMessage</code> (<code dir="auto">/chats/{id}/messages</code>)</td>
+<td>4,320 minutes (three days)</td>
+<td>The default lifetime, and the ceiling it refuses to go past</td>
+</tr>
+<tr>
+<td><code dir="auto">presence</code> (<code dir="auto">/communications/presences/{id}</code>)</td>
+<td>60 minutes</td>
+<td>The default lifetime, and the ceiling it refuses to go past; delegated clients only</td>
+</tr>
+</tbody>
+</table>
+<p>The SDK subscribes to those two paths and to one user’s presence only. The service documents many more
+resources (<code dir="auto">chat</code>, <code dir="auto">channel</code>, <code dir="auto">conversationMember</code>, <code dir="auto">team</code>,
+<code dir="auto">onlineMeeting</code>, the tenant-wide <code dir="auto">getAllMessages</code> paths); each has its own
+lifetime, permission table and lifecycle behaviour, and the SDK models one
+only once its contract has been read and tested. A path outside the three is
+refused before any request goes out, as is a <code dir="auto">$search</code> or <code dir="auto">$filter</code> query on
+them.</p>
+<p>Two request rules, from the same page and from
+<a href="https://learn.microsoft.com/en-us/graph/teams-changenotifications-chatmessage?view=graph-rest-1.0">Get change notifications for messages in Teams channels and chats</a>
+(read 2026-11-10):</p>
+<ul>
+<li>An expiration under <strong>45 minutes</strong> after the time of the request is moved
+up to 45 minutes by the service. The SDK refuses such a request rather
+than let the answer differ from the request.</li>
+<li>A Teams subscription whose expiration is <strong>more than one hour</strong> away
+requires a <code dir="auto">lifecycleNotificationUrl</code>, and the service fails the request
+with “lifecycleNotificationUrl is a required property for subscription
+creation on this resource when the expirationDateTime value is set to
+greater than 1 hour”. The SDK refuses it before sending. The URL cannot
+be added to an existing subscription by an update, so a subscription
+created without one is renewed for an hour at a time, not for the
+resource maximum. Exactly 60 minutes needs no lifecycle URL.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="subscription-endpoint-version-and-permission-selection">Subscription endpoint, version and permission selection</h2><a class="sl-anchor-link" href="#subscription-endpoint-version-and-permission-selection"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Subscription endpoint, version and permission selection”</span></a></div>
+<p>Chat messages and channel messages are not interchangeable. The selection
+the SDK makes, and why, read 2026-11-10 from
+<a href="https://learn.microsoft.com/en-us/graph/api/subscription-post-subscriptions?view=graph-rest-1.0">Create subscription</a>,
+<a href="https://learn.microsoft.com/en-us/graph/api/subscription-update?view=graph-rest-1.0">Update subscription</a>,
+<a href="https://learn.microsoft.com/en-us/graph/api/subscription-get?view=graph-rest-1.0">Get subscription</a>,
+<a href="https://learn.microsoft.com/en-us/graph/api/subscription-delete?view=graph-rest-1.0">Delete subscription</a>
+and the message page above:</p>
+<table>
+<thead>
+<tr>
+<th>Watched path</th>
+<th>Endpoint and version</th>
+<th>Application permission</th>
+<th>Delegated permission</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">/teams/{id}/channels/{id}/messages</code></td>
+<td><code dir="auto">v1.0</code> <code dir="auto">/subscriptions</code></td>
+<td><code dir="auto">ChannelMessage.Read.Group</code> (resource-specific consent), <code dir="auto">ChannelMessage.Read.All</code></td>
+<td><code dir="auto">ChannelMessage.Read.All</code></td>
+<td>The same on create, get, update and delete</td>
+</tr>
+<tr>
+<td><code dir="auto">/chats/{id}/messages</code></td>
+<td><code dir="auto">v1.0</code> <code dir="auto">/subscriptions</code></td>
+<td><code dir="auto">Chat.Read.All</code></td>
+<td>Create: <code dir="auto">Chat.Read</code>, <code dir="auto">Chat.ReadWrite</code>. Get, update, delete: not supported</td>
+<td>The Learn pages disagree on the delegated row: the create page and the message page list delegated permissions, the get, update and delete pages list none. Each SDK contract follows its own endpoint’s page.</td>
+</tr>
+</tbody>
+</table>
+<p><code dir="auto">ChatMessage.Read.Chat</code> (resource-specific consent, chat scope) is listed
+for chat messages <strong>in the beta version only</strong>, so it is not interchangeable
+with <code dir="auto">ChannelMessage.Read.Group</code>. The SDK selects <code dir="auto">v1.0</code> for both paths, does
+not select <code dir="auto">beta</code>, and therefore does not list <code dir="auto">ChatMessage.Read.Chat</code> in any
+contract; an app that relies on it needs a beta subscription this task does
+not offer. The tenant-wide, per-user and installed-app <code dir="auto">getAllMessages</code> paths
+need broader application permissions (<code dir="auto">ChannelMessage.Read.All</code>,
+<code dir="auto">Chat.Read.All</code>, <code dir="auto">Chat.Read.WhereInstalled</code>) and, with resource data, the
+encryption flow; they are not offered. A subscription asks for resource data
+only through <code dir="auto">SubscriptionRequest::with_resource_data</code> (see “Rich
+notifications” below).</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="rich-notifications-validation-tokens-and-encrypted-resource-data">Rich notifications (validation tokens and encrypted resource data)</h2><a class="sl-anchor-link" href="#rich-notifications-validation-tokens-and-encrypted-resource-data"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Rich notifications (validation tokens and encrypted resource data)”</span></a></div>
+<p>Read in full on 2026-11-11 (the mcptoon fetch server was not used; the pages
+were fetched whole with the web fetcher and none was truncated):
+<a href="https://learn.microsoft.com/en-us/graph/change-notifications-with-resource-data">Set up change notifications that include resource data</a>,
+<a href="https://learn.microsoft.com/en-us/graph/api/subscription-post-subscriptions?view=graph-rest-1.0">Create subscription</a>,
+<a href="https://learn.microsoft.com/en-us/graph/api/subscription-update?view=graph-rest-1.0">Update subscription</a>,
+<a href="https://learn.microsoft.com/en-us/graph/api/resources/subscription?view=graph-rest-1.0">subscription resource type</a>,
+<a href="https://learn.microsoft.com/en-us/graph/api/resources/changenotification?view=graph-rest-1.0">changeNotification</a>,
+<a href="https://learn.microsoft.com/en-us/graph/api/resources/changenotificationcollection?view=graph-rest-1.0">changeNotificationCollection</a>,
+<a href="https://learn.microsoft.com/en-us/graph/api/resources/changenotificationencryptedcontent?view=graph-rest-1.0">changeNotificationEncryptedContent</a>
+and <a href="https://learn.microsoft.com/en-us/graph/api/resources/chatmessage?view=graph-rest-1.0">chatMessage</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Endpoint</th>
+<th>Version</th>
+<th>Permission type</th>
+<th>Permission</th>
+<th>Cloud</th>
+<th>Account type</th>
+<th>Documentation</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create a resource-data subscription</td>
+<td><code dir="auto">POST /subscriptions</code> with <code dir="auto">includeResourceData: true</code>, <code dir="auto">encryptionCertificate</code>, <code dir="auto">encryptionCertificateId</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application (and delegated where the base row allows)</td>
+<td>The same as the plain subscription for the path: <code dir="auto">ChannelMessage.Read.Group</code>/<code dir="auto">ChannelMessage.Read.All</code> (channel messages), <code dir="auto">Chat.Read.All</code> (chat messages). The pages add no permission for resource data.</td>
+<td>Public (Global) only offered</td>
+<td>Work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-post-subscriptions?view=graph-rest-1.0">Create subscription</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td>Receive a rich notification</td>
+<td><code dir="auto">POST</code> to the app’s <code dir="auto">notificationUrl</code></td>
+<td>n/a</td>
+<td>n/a</td>
+<td>none on the receiving side; the app must be set up so the service principal is not blocked (<code dir="auto">appRoleAssignmentRequired</code> false, or the Microsoft Graph Change Tracking principal <code dir="auto">0bf30f3b-4a52-48df-9a82-234910c4a086</code> assigned a role), else <code dir="auto">validationTokens</code> is <code dir="auto">null</code></td>
+<td>Public</td>
+<td>Work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/change-notifications-with-resource-data">Rich notifications</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td>Fetch the signing keys for validation tokens</td>
+<td><code dir="auto">GET https://login.microsoftonline.com/common/discovery/v2.0/keys</code> (fixed address, no credentials)</td>
+<td>n/a</td>
+<td>none</td>
+<td>none</td>
+<td>Public only; sovereign clouds are not offered</td>
+<td>n/a</td>
+<td>The page’s JavaScript sample names this address; its discovery document is <code dir="auto">https://login.microsoftonline.com/common/.well-known/openid-configuration</code></td>
+<td>2026-11-11</td>
+</tr>
+</tbody>
+</table>
+<p>What the SDK checks, from the page’s “How to validate” and “Decrypting resource data”:</p>
+<ul>
+<li><strong>Origin.</strong> Every token in <code dir="auto">validationTokens</code> is read and every one must
+pass: RS256 only (<code dir="auto">none</code>, <code dir="auto">HS*</code>, every other algorithm refused before a key
+is looked up), the key named by <code dir="auto">kid</code> fetched from the fixed address above
+(never from the token: <code dir="auto">jku</code>, <code dir="auto">x5u</code>, <code dir="auto">jwk</code> are ignored, <code dir="auto">crit</code> refused),
+signature, <code dir="auto">exp</code>/<code dir="auto">nbf</code> (60 s skew) judged at the moment the notification was
+received, <code dir="auto">aud</code> equal to this app’s id, the caller identity (<code dir="auto">appid</code> for
+<code dir="auto">ver</code> 1.0, <code dir="auto">azp</code> for <code dir="auto">ver</code> 2.0) equal to <code dir="auto">0bf30f3b-4a52-48df-9a82-234910c4a086</code>,
+and <code dir="auto">iss</code> equal to <code dir="auto">https://sts.windows.net/{tid}/</code> or
+<code dir="auto">https://login.microsoftonline.com/{tid}/v2.0</code> for the token’s own <code dir="auto">tid</code>.
+One token’s <code dir="auto">tid</code> must equal the notification’s <code dir="auto">tenantId</code>. The page says
+a failing token makes the whole delivery suspicious, so one bad token drops
+every rich item of the request.</li>
+<li><strong>Client state first.</strong> The page’s step “validate clientState” for basic
+notifications still runs at intake, before anything is quarantined: a token
+is a bearer value a stranger could replay with forged items, the client
+state is the secret that ties an item to a subscription.</li>
+<li><strong>Certificate.</strong> <code dir="auto">encryptedContent.encryptionCertificateId</code> must equal the
+id the subscription was created with and name a key the app holds. Several
+keys can be held at once, which is the documented overlap during rotation.</li>
+<li><strong>Unwrap, verify, decrypt.</strong> <code dir="auto">dataKey</code> is unwrapped with RSA-OAEP, SHA-1,
+MGF1-SHA-1 (<code dir="auto">RSA/ECB/OAEPWithSHA1AndMGF1Padding</code>), must be 32 bytes; the
+HMAC-SHA256 of <code dir="auto">data</code> under it is compared in constant time with
+<code dir="auto">dataSignature</code> <strong>before</strong> anything is decrypted; then AES-256-CBC with
+PKCS#7 and an IV of the first 16 key bytes. The result must be a JSON
+object whose <code dir="auto">id</code> and <code dir="auto">@odata.type</code> agree with <code dir="auto">resourceData</code>.</li>
+<li><strong>Bounds.</strong> Standard strict base64; data is whole AES blocks and at most
+64 KiB (the queue record limit); the wrapped key is 256 to 512 bytes;
+at most 16 tokens of 8 KiB; cryptography runs on blocking threads, at most
+as many at once as handler workers.</li>
+</ul>
+<p>Live check of the key set on 2026-11-11 (public, unauthenticated <code dir="auto">GET</code>, no
+tenant involved): <code dir="auto">https://login.microsoftonline.com/common/discovery/v2.0/keys</code>
+returned 8 RSA keys with <code dir="auto">use: sig</code>, <code dir="auto">kid</code>, <code dir="auto">n</code>, <code dir="auto">e</code>, <code dir="auto">x5c</code>; the address the
+discovery document names (<code dir="auto">.../common/discovery/keys</code>) returned 6, all of
+which are also in the v2.0 set. The SDK uses the v2.0 address, the superset.</p>
+<p>Decisions and gaps, stated rather than hidden:</p>
+<ul>
+<li><strong>Rotation uses new subscriptions.</strong> The rich-notification page says to
+<code dir="auto">PATCH</code> <code dir="auto">encryptionCertificate</code> and <code dir="auto">encryptionCertificateId</code>; the update
+page lists only <code dir="auto">expirationDateTime</code> and <code dir="auto">notificationUrl</code> as updatable, and
+its request-body rule says one of those two must be present. The pages
+disagree, so the SDK does not send a certificate in an update. To rotate:
+hold both keys, create new subscriptions with the new certificate, and
+retire the old key once no notification names it.</li>
+<li><strong>SHA-1.</strong> The OAEP parameters are the service’s. Nothing else in the SDK
+uses SHA-1.</li>
+<li><strong>Validation tokens are not bound to the body.</strong> The page describes a token
+as proof the request came from the service for this app and tenant; nothing
+in it names the items it travels with. The <code dir="auto">clientState</code> check at intake is
+the only body binder, and the SDK keeps it first. A token replayed inside
+its lifetime (about one day) cannot be detected, because the SDK keeps no
+record of tokens seen.</li>
+<li><strong>One audience.</strong> Tokens must name this app’s id. A <code dir="auto">notificationUrl</code> shared
+by several apps, each with tokens for itself, is unsupported.</li>
+<li><strong>Thumbprint.</strong> <code dir="auto">DecryptionKeys::with_thumbprint</code> registers the certificate
+thumbprint with the key and a notification that reports a different one is
+refused. The subscription record stores none: the certificate id is the
+link to the subscription, and the thumbprint is checked against what was
+registered at key-load time. Not registering one leaves only the id check.</li>
+<li><strong>Key size.</strong> The SDK reads the RSA modulus length from the DER itself, for
+private keys (PKCS#8) and for certificates, so the bound does not depend on
+what the crypto library will load. A key of 512 to 2,047 bits is reported as
+<code dir="auto">KeySize</code> (certificates: <code dir="auto">UnsupportedKey</code>); the 2,048-bit minimum is tested
+at 1,024, 2,047 and 2,048 bits and the 4,096-bit ceiling at 4,096 and 4,608
+bits, all with OpenSSL-made fixtures, and the DER reader has synthetic
+tests for boundary sizes with leading zeros, trailing data, indefinite and
+over-long lengths, and lengths larger than the buffer. aws-lc then parses
+the key again, so a reader bug can only give a wrong error or a false
+refusal, never accept a key the library would not.</li>
+<li><strong>Size.</strong> A rich notification must fit the 64 KiB queue record with its
+tokens; a larger one is dropped and reported (<code dir="auto">Refusal::TooLargeToQueue</code>).
+The real size of a Teams message notification is <strong>not measured</strong>.</li>
+<li><strong>Scope.</strong> Teams <code dir="auto">chatMessage</code> on the two watched paths. The typed
+<code dir="auto">ChatMessage</code> view covers documented properties of the chatMessage page;
+everything else is in <code dir="auto">ResourceContent::json</code>.</li>
+<li><strong>Token <code dir="auto">ver</code> and issuer.</strong> The Learn samples show a v1.0 issuer
+(<code dir="auto">sts.windows.net</code>) in the C# sample and a v2.0 issuer in the example token.
+Both forms are accepted for the token’s own tenant; which a real token uses
+for this service is <strong>unverified</strong>.</li>
+<li><strong>Not verified against a live tenant.</strong> No real rich notification, real
+validation token or real certificate registration was used. The payload
+vector was made with the OpenSSL command line; the example tokens are
+minted locally. Unverified: that <code dir="auto">appRoleAssignmentRequired</code> handling
+behaves as the page says; the exact lifetime of a rich chatMessage
+subscription (the lifetime table gives 4,320 minutes and no separate rich
+value for Teams); the service’s refusal text for a certificate it rejects;
+Windows run.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="subscription-lifecycle-notifications">Subscription lifecycle notifications</h2><a class="sl-anchor-link" href="#subscription-lifecycle-notifications"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Subscription lifecycle notifications”</span></a></div>
+<p>Read 2026-11-10 from
+<a href="https://learn.microsoft.com/en-us/graph/change-notifications-lifecycle-events?view=graph-rest-1.0">Reduce missing change notifications and removed subscriptions</a>:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Sent for</th>
+<th>What the SDK does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">reauthorizationRequired</code></td>
+<td>All resources</td>
+<td>Renews with one <code dir="auto">PATCH /subscriptions/{id}</code>, which the page documents as reauthorizing and renewing in one request</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptionRemoved</code></td>
+<td>Outlook message, event, personal contact, and Teams <code dir="auto">chatMessage</code></td>
+<td>Marks the subscription removed and tells the recovery hook; the SDK does not recreate it</td>
+</tr>
+<tr>
+<td><code dir="auto">missed</code></td>
+<td>Outlook message, event, personal contact only</td>
+<td>Tells the recovery hook if one arrives; the service does not document it for Teams <code dir="auto">chatMessage</code></td>
+</tr>
+</tbody>
+</table>
+<p>The page asks that <code dir="auto">POST /subscriptions/{id}/reauthorize</code> and
+<code dir="auto">PATCH /subscriptions/{id}</code> are not both issued for one subscription within
+ten minutes. The SDK only ever sends the <code dir="auto">PATCH</code>, and sends no second write
+to a subscription inside ten minutes of the last accepted one. A
+reauthorization does not extend the subscription unless the <code dir="auto">PATCH</code> does, and
+the SDK’s <code dir="auto">PATCH</code> always does. The standalone reauthorize action is not
+implemented.</p>
+<p>The page says changes made while delivery was paused are lost, and suggests
+a delta query. These pages document no delta query for Teams message
+resources, so the SDK <strong>promises no replay or resync</strong>: it hands <code dir="auto">missed</code> and
+<code dir="auto">subscriptionRemoved</code> to the application’s recovery hook, which decides how
+to re-read the resource with the ordinary list calls.</p>
+<p>The renewal rules: 429 honours <code dir="auto">Retry-After</code> (capped at one hour), 401 and
+other transient failures back off from 30 seconds doubling to 15 minutes with
+up to 25 percent jitter, five failures stop the schedule and tell the hook,
+403 stops it at once as a missing permission, and 404 marks the subscription
+lapsed because it cannot be renewed. A renewal sets an absolute expiry, so
+repeating one whose result is unknown is safe.</p>
+<p>The delivery contract, read from
+<a href="https://learn.microsoft.com/en-us/graph/change-notifications-delivery-webhooks">Receive change notifications through webhooks</a>
+on 2026-11-03:</p>
+<ul>
+<li>The service considers a notification delivered once the endpoint returns a
+<code dir="auto">2xx</code> within <strong>3 seconds</strong>. A non-<code dir="auto">2xx</code> or a timeout inside that window
+starts a retry that continues for up to <strong>4 hours</strong>, with the retry request
+timeout extended to <strong>10 seconds</strong>.</li>
+<li>An endpoint is marked <em>slow</em> when more than <strong>10%</strong> of responses exceed the
+3-second allowance in a 10-minute window. New notifications are then delayed
+by 10 minutes.</li>
+<li>An endpoint is marked <em>drop</em> when more than <strong>15%</strong> of responses exceed the
+10-second retry allowance in a 10-minute window. Notifications are then
+dropped for a 10-minute window.</li>
+<li>Validation-token requests must be answered within <strong>10 seconds</strong>.</li>
+<li>If the access token expires, notifications are not delivered, and this does
+not count against the endpoint’s throttling state; Graph keeps retrying for
+up to 4 hours.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="webhook-ingress-verified-delivery">Webhook ingress (verified delivery)</h2><a class="sl-anchor-link" href="#webhook-ingress-verified-delivery"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Webhook ingress (verified delivery)”</span></a></div>
+<p>Read in full from the pages below on 2026-11-10 (fetched as HTML and stripped
+of tags, so nothing was truncated): the webhooks page, the <code dir="auto">changeNotification</code>
+and <code dir="auto">changeNotificationCollection</code> resource types, and the Teams chat-message
+change-notification page.</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Endpoint</th>
+<th>API version</th>
+<th>Permission type</th>
+<th>Permission</th>
+<th>Cloud</th>
+<th>Account type</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Answer the validation handshake</td>
+<td><code dir="auto">POST {notificationUrl}?validationToken={token}</code> and the same on <code dir="auto">lifecycleNotificationUrl</code>, served at <code dir="auto">/api/graph/notifications</code> and <code dir="auto">/api/graph/lifecycle</code></td>
+<td>Webhook delivery, not a versioned endpoint</td>
+<td>n/a: Graph presents no credential</td>
+<td>n/a</td>
+<td>Global</td>
+<td>Work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/change-notifications-delivery-webhooks">Receive change notifications through webhooks</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td>Receive a change notification</td>
+<td><code dir="auto">POST</code> to the same URLs, body a <code dir="auto">changeNotificationCollection</code></td>
+<td>Webhook delivery</td>
+<td>n/a: the subscription’s own permission was needed to create it</td>
+<td>n/a</td>
+<td>Global</td>
+<td>Work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/resources/changenotificationcollection">changeNotificationCollection resource type</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td>Read a change notification’s fields</td>
+<td><code dir="auto">changeNotification</code></td>
+<td>Webhook delivery</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>Global</td>
+<td>Work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/resources/changenotification">changeNotification resource type</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td>Teams message resource shapes</td>
+<td><code dir="auto">chats('{id}')/messages('{id}')</code>, <code dir="auto">teams('{id}')/channels('{id}')/messages('{id}')</code></td>
+<td>Webhook delivery</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>Global</td>
+<td>Work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/teams-changenotifications-chatmessage">Get change notifications for messages in Teams channels and chats</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td>Receive a lifecycle notification</td>
+<td><code dir="auto">POST</code> to <code dir="auto">lifecycleNotificationUrl</code> (here <code dir="auto">/api/graph/lifecycle</code>), same collection shape, <code dir="auto">lifecycleEvent</code> of <code dir="auto">reauthorizationRequired</code>, <code dir="auto">subscriptionRemoved</code> or <code dir="auto">missed</code>; <code dir="auto">tenantId</code> is in the documented payload</td>
+<td>Webhook delivery, not a versioned endpoint</td>
+<td>n/a: Graph presents no credential</td>
+<td>n/a</td>
+<td>Global</td>
+<td>Work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/change-notifications-lifecycle-events">Reduce missing change notifications and removed subscriptions</a></td>
+<td>2026-11-10</td>
+</tr>
+</tbody>
+</table>
+<p>Throttling, read 2026-11-10 from
+<a href="https://learn.microsoft.com/en-us/graph/change-notifications-delivery-webhooks#throttling">Receive change notifications through webhooks</a>:
+“An endpoint is marked ‘slow’ once more than 10% of responses take longer than
+the 3-second timeout allowance in a 10-minute window”, after which “any new
+notifications are sent on after a 10-minute delay”; it is marked “drop” once
+more than 15% of responses take longer than the 10-second retry timeout, and
+notifications are then dropped for 10 minutes. Dropped notifications cannot be
+recovered. This is why the SDK bounds what happens before the answer: the
+acceptance deadline defaults to 2.5 seconds, at most <code dir="auto">concurrent_requests</code>
+(8) requests persist at once and the rest are answered <code dir="auto">503</code> at once, and the
+body read is cut off at <code dir="auto">body_timeout</code> (5 seconds, <code dir="auto">408</code>). A <code dir="auto">503</code> is a
+non-<code dir="auto">2xx</code> answer inside the window, which Graph retries for up to 4 hours;
+the page does not say whether a <code dir="auto">503</code> counts toward the 10 percent, so the
+SDK cannot promise it does not. Not tested against a live service.</p>
+<p>The same page’s “Firewall configuration” section says: “You can configure the
+firewall that protects your endpoint to allow inbound connections only from
+Microsoft Graph, reducing further exposure to invalid change notifications.
+For a complete list of IP addresses used by Microsoft Graph to deliver change
+notifications, see additional endpoints for Microsoft 365”
+(<a href="https://learn.microsoft.com/en-us/graph/change-notifications-delivery-webhooks#firewall-configuration">source</a>,
+which links
+<a href="https://learn.microsoft.com/en-us/office365/enterprise/additional-office365-ip-addresses-and-urls">additional endpoints for Microsoft 365</a>,
+read in full 2026-11-10). The SDK recommends this allow-list beside
+<code dir="auto">concurrent_requests</code>; it does not enforce it, and the ranges themselves were
+not fetched or checked here. The host has no header-read timeout or
+connection cap, so an edge limit is expected in front of it.</p>
+<p>The ingress adds no permission and no beta resource. It receives what a
+subscription made under the contracts above delivers.</p>
+<p>What the pages say, and what the SDK does with it:</p>
+<ul>
+<li><strong>Handshake.</strong> <code dir="auto">POST ...?validationToken={opaque}</code>; the endpoint must answer
+within 10 seconds with <code dir="auto">200</code>, <code dir="auto">text/plain</code> and the URL-decoded token, which
+must not be encoded; the token is opaque and its format can change; “escaping
+any HTML or JavaScript is a good practice” but a returned token must be
+plain. The SDK returns the decoded token verbatim as
+<code dir="auto">text/plain; charset=utf-8</code>, with <code dir="auto">nosniff</code>, and bounds it (2 KiB token, 8 KiB
+query). Plus-as-space follows form decoding; the page does not say whether
+Graph encodes a space as <code dir="auto">+</code> or <code dir="auto">%20</code>, so both are handled. <strong>Not
+verified against a live Graph.</strong></li>
+<li><strong>Acknowledgment.</strong> A <code dir="auto">2xx</code> within 3 seconds is delivery; otherwise retries
+for up to 4 hours at a 10 second timeout; “validate and persist the
+notification in a queue … and return 202 Accepted within the 3-second
+window”; “return a 5xx class code” if it was not processed or queued. The SDK
+answers <code dir="auto">202</code> after the durable write, <code dir="auto">503</code> plus <code dir="auto">Retry-After</code> otherwise, and
+caps persistence at 2.5 seconds by default (never over 2.9).</li>
+<li><strong>Client state.</strong> “Validate the clientState property … If there’s a mismatch,
+don’t consider the change notification as valid.” The page gives the maximum
+length as 255 on the notification; the SDK accepts 128 on creation, so an
+echoed value over 128 cannot match and the item is dropped.</li>
+<li><strong>Fields.</strong> <code dir="auto">id</code> is optional, <code dir="auto">tenantId</code>, <code dir="auto">subscriptionId</code>, <code dir="auto">resource</code> and
+<code dir="auto">subscriptionExpirationDateTime</code> are required, <code dir="auto">changeType</code> and
+<code dir="auto">lifecycleEvent</code> are mutually exclusive, and <code dir="auto">unknownFutureValue</code> is a
+sentinel the SDK drops. <code dir="auto">validationTokens</code> appear only with resource data.
+The SDK requires <code dir="auto">tenantId</code> and <code dir="auto">resource</code> on a change item.</li>
+<li><strong>Inconsistency.</strong> The Teams page’s sample gives
+<code dir="auto">subscriptionExpirationDateTime</code> as <code dir="auto">2021-02-02T10:30:34.9097561-08:00</code>, with
+a numeric offset. The SDK reads only the <code dir="auto">Z</code> form and leaves the field out
+otherwise rather than refuse the notification or misread the instant.</li>
+<li><strong>Replies.</strong> The pages read show message resources only. The SDK also
+accepts <code dir="auto">.../messages('id')/replies('id')</code> under a watched channel; that form
+is <strong>not verified</strong>.</li>
+</ul>
+<p>Not verified: any live delivery; whether Graph encodes a space in the
+validation token as <code dir="auto">+</code> or <code dir="auto">%20</code>; how Graph treats a <code dir="auto">202</code> that arrives after
+3 seconds; the reply resource shape; the size of a real rich notification
+against the 64 KiB queue record limit (an item over it is dropped and
+reported, not truncated).</p>
+<p>Subscription quotas for the Teams resources, read from the change-notifications
+overview on 2026-11-03:</p>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Watched path</th>
+<th>Quota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">chat</code></td>
+<td><code dir="auto">/chats</code>, <code dir="auto">/chats/{id}</code></td>
+<td>1 per app and chat; 10,000 per organization</td>
+</tr>
+<tr>
+<td><code dir="auto">chatMessage</code></td>
+<td><code dir="auto">/teams/{id}/channels/{id}/messages</code>, <code dir="auto">/chats/{id}/messages</code></td>
+<td>1 per app and channel or chat; 10 per user for the “all chats a user is part of” form; 10,000 per organization</td>
+</tr>
+<tr>
+<td><code dir="auto">channel</code></td>
+<td><code dir="auto">/teams/getAllChannels</code>, <code dir="auto">/teams/{id}/channels</code></td>
+<td>1 per app and team; 10,000 per organization</td>
+</tr>
+<tr>
+<td><code dir="auto">conversationMember</code></td>
+<td><code dir="auto">/teams/{id}/members</code>, <code dir="auto">/chats/{id}/members</code></td>
+<td>1 per app and team; 10,000 per organization</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="directory-and-installation-reads">Directory and installation reads</h2><a class="sl-anchor-link" href="#directory-and-installation-reads"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Directory and installation reads”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Endpoint</th>
+<th>API version</th>
+<th>Permission type</th>
+<th>Permission</th>
+<th>Cloud</th>
+<th>Account type</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List a user’s joined teams</td>
+<td><code dir="auto">GET /me/joinedTeams</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">Team.ReadBasic.All</code> (higher: <code dir="auto">AgentIdUser.ReadWrite.All</code>, <code dir="auto">Directory.Read.All</code>, <code dir="auto">Directory.ReadWrite.All</code>, <code dir="auto">TeamSettings.Read.All</code>, <code dir="auto">TeamSettings.ReadWrite.All</code>, <code dir="auto">User.Read.All</code>, <code dir="auto">User.ReadWrite.All</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/user-list-joinedteams?view=graph-rest-1.0">List joinedTeams</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>List a user’s joined teams (app-only)</td>
+<td><code dir="auto">GET /me/joinedTeams</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">Team.ReadBasic.All</code> (higher: <code dir="auto">TeamSettings.Read.All</code>, <code dir="auto">TeamSettings.ReadWrite.All</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/user-list-joinedteams?view=graph-rest-1.0">List joinedTeams</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>List apps installed for a user</td>
+<td><code dir="auto">GET /users/{user-id}/teamwork/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsAppInstallation.ReadForUser</code></td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong></td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/userteamwork-list-installedapps?view=graph-rest-1.0">List apps installed for user</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>List apps installed for a user (app-only)</td>
+<td><code dir="auto">GET /users/{user-id}/teamwork/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsAppInstallation.ReadForUser.All</code></td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong></td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/userteamwork-list-installedapps?view=graph-rest-1.0">List apps installed for user</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>List apps installed in a team</td>
+<td><code dir="auto">GET /teams/{team-id}/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsAppInstallation.ReadForTeam</code></td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong></td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/team-list-installedapps?view=graph-rest-1.0">List apps in team</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>List apps installed in a team (app-only)</td>
+<td><code dir="auto">GET /teams/{team-id}/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsAppInstallation.Read.Group</code> (resource-specific consent)</td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong></td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/team-list-installedapps?view=graph-rest-1.0">List apps in team</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>List apps installed in a chat</td>
+<td><code dir="auto">GET /chats/{chat-id}/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsAppInstallation.ReadForChat</code></td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-list-installedapps?view=graph-rest-1.0">List apps in chat</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>List apps installed in a chat (app-only)</td>
+<td><code dir="auto">GET /chats/{chat-id}/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsAppInstallation.ReadForChat.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-list-installedapps?view=graph-rest-1.0">List apps in chat</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Get a user’s presence</td>
+<td><code dir="auto">GET /users/{user-id}/presence</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">Presence.Read</code> (higher: <code dir="auto">Presence.Read.All</code>)</td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong></td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/presence-get?view=graph-rest-1.0">Get presence</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Get a user’s presence (app-only)</td>
+<td><code dir="auto">GET /users/{user-id}/presence</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">Presence.Read.All</code> (higher: <code dir="auto">Presence.ReadWrite.All</code>)</td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong></td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/presence-get?view=graph-rest-1.0">Get presence</a></td>
+<td>2026-11-03</td>
+</tr>
+</tbody>
+</table>
+<p>Two constraints recorded on the same pages, both read 2026-11-03:</p>
+<ul>
+<li>Presence is rate limited to <strong>1,500 requests within a 30-second period, per
+application per tenant</strong>. Application permissions cannot be used with the
+<code dir="auto">/me</code> path.</li>
+<li>On the <strong>list</strong> page only, <code dir="auto">TeamsAppInstallation.ReadWriteSelfForUser.All</code>
+requires a <code dir="auto">webApplicationInfo</code> property in the app manifest, and the app id
+in that property must match the app id used to mint the access token, or the
+API returns an empty result. The install page states no such rule.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="permission-identifiers-the-sdk-carries">Permission identifiers the SDK carries</h2><a class="sl-anchor-link" href="#permission-identifiers-the-sdk-carries"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Permission identifiers the SDK carries”</span></a></div>
+<p>A setup helper has to name each permission by the identifier the app
+registration stores, not only by its display name. The SDK carries those
+identifiers as data so that a helper does not have to ask the tenant for
+them. They are read from the
+<a href="https://learn.microsoft.com/en-us/graph/permissions-reference">Microsoft Graph permissions reference</a>
+on 2026-11-03, which lists the application identifier of every Graph
+permission.</p>
+<table>
+<thead>
+<tr>
+<th>Permission</th>
+<th>Permission type</th>
+<th>Application identifier</th>
+<th>Resource app id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">User.Read.All</code></td>
+<td>Application</td>
+<td><code dir="auto">df021288-bdef-4463-88db-98f22de89214</code></td>
+<td><code dir="auto">00000003-0000-0000-c000-000000000000</code></td>
+</tr>
+<tr>
+<td><code dir="auto">User.Read</code></td>
+<td>Delegated</td>
+<td><code dir="auto">e1fe6dd8-ba31-4d61-89e7-88639da4683d</code></td>
+<td><code dir="auto">00000003-0000-0000-c000-000000000000</code></td>
+</tr>
+<tr>
+<td><code dir="auto">Team.ReadBasic.All</code></td>
+<td>Application</td>
+<td><code dir="auto">2280dda6-0bfd-44ee-a2f4-cb867cfc4c1e</code></td>
+<td><code dir="auto">00000003-0000-0000-c000-000000000000</code></td>
+</tr>
+<tr>
+<td><code dir="auto">Channel.ReadBasic.All</code></td>
+<td>Application</td>
+<td><code dir="auto">59a6b24b-4225-4393-8165-ebaec5f55d7a</code></td>
+<td><code dir="auto">00000003-0000-0000-c000-000000000000</code></td>
+</tr>
+<tr>
+<td><code dir="auto">ChannelMessage.Read.All</code></td>
+<td>Application</td>
+<td><code dir="auto">7b2449af-6ccd-4f4d-9f78-e550c193f0d1</code></td>
+<td><code dir="auto">00000003-0000-0000-c000-000000000000</code></td>
+</tr>
+<tr>
+<td><code dir="auto">Chat.Read.All</code></td>
+<td>Application</td>
+<td><code dir="auto">6b7d71aa-70aa-4810-a8d9-5d9fb2830017</code></td>
+<td><code dir="auto">00000003-0000-0000-c000-000000000000</code></td>
+</tr>
+<tr>
+<td><code dir="auto">TeamsAppInstallation.Read.All</code></td>
+<td>Application</td>
+<td><code dir="auto">0fdf35a5-82f8-41ff-9ded-0b761cc73512</code></td>
+<td><code dir="auto">00000003-0000-0000-c000-000000000000</code></td>
+</tr>
+</tbody>
+</table>
+<p>The resource-specific permissions the SDK names are listed under
+<a href="meetings.md#resource-specific-consent">resource-specific consent</a>; they carry no Graph identifier, because they are consented at the
+resource rather than on the registration.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="meetings">Meetings</h2><a class="sl-anchor-link" href="#meetings"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Meetings”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Endpoint</th>
+<th>API version</th>
+<th>Permission type</th>
+<th>Permission</th>
+<th>Cloud</th>
+<th>Account type</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Get an online meeting by id</td>
+<td><code dir="auto">GET /users/{userId}/onlineMeetings/{meetingId}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">OnlineMeetings.Read</code> (higher: <code dir="auto">OnlineMeetings.ReadWrite</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/onlineMeeting-get?view=graph-rest-1.0">Get onlineMeeting</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Get an online meeting by id (app-only)</td>
+<td><code dir="auto">GET /users/{userId}/onlineMeetings/{meetingId}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">OnlineMeetings.Read.All</code> (higher: <code dir="auto">OnlineMeetings.ReadWrite.All</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/onlineMeeting-get?view=graph-rest-1.0">Get onlineMeeting</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Get an online meeting as the signed-in user</td>
+<td><code dir="auto">GET /me/onlineMeetings/{meetingId}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">OnlineMeetings.Read</code> (higher: <code dir="auto">OnlineMeetings.ReadWrite</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/onlineMeeting-get?view=graph-rest-1.0">Get onlineMeeting</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Get an online meeting as the signed-in user (app-only)</td>
+<td><code dir="auto">GET /me/onlineMeetings/{meetingId}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td>Not supported</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/onlineMeeting-get?view=graph-rest-1.0">Get onlineMeeting</a></td>
+<td>2026-11-03</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="files">Files</h2><a class="sl-anchor-link" href="#files"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Files”</span></a></div>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Endpoint</th>
+<th>API version</th>
+<th>Permission type</th>
+<th>Permission</th>
+<th>Cloud</th>
+<th>Account type</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Get a channel’s files folder</td>
+<td><code dir="auto">GET /teams/{team-id}/channels/{channel-id}/filesFolder</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">Files.Read.All</code> (higher: <code dir="auto">Files.Read</code>, <code dir="auto">Files.ReadWrite</code>, <code dir="auto">Files.ReadWrite.All</code>, <code dir="auto">Group.Read.All</code>, <code dir="auto">Group.ReadWrite.All</code>, <code dir="auto">Sites.Read.All</code>, <code dir="auto">Sites.ReadWrite.All</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: <code dir="auto">Files.Read</code> (higher: <code dir="auto">Files.Read.All</code>, <code dir="auto">Files.ReadWrite</code>, <code dir="auto">Files.ReadWrite.All</code>)</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/channel-get-filesfolder?view=graph-rest-1.0">Get filesFolder</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Get a channel’s files folder (app-only)</td>
+<td><code dir="auto">GET /teams/{team-id}/channels/{channel-id}/filesFolder</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">Files.Read.All</code> (higher: <code dir="auto">File.Read.Group</code>, <code dir="auto">Files.ReadWrite.All</code>, <code dir="auto">Group.Read.All</code>, <code dir="auto">Group.ReadWrite.All</code>, <code dir="auto">Sites.Read.All</code>, <code dir="auto">Sites.ReadWrite.All</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Not applicable</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/channel-get-filesfolder?view=graph-rest-1.0">Get filesFolder</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Upload a file (upload session)</td>
+<td><code dir="auto">POST /drives/{drive-id}/items/{parentItemId}:/{fileName}:/createUploadSession</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">Files.ReadWrite</code> (higher: <code dir="auto">Files.ReadWrite.All</code>, <code dir="auto">Sites.ReadWrite.All</code>)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Personal Microsoft account: <code dir="auto">Files.ReadWrite</code> (higher: <code dir="auto">Files.ReadWrite.All</code>)</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/driveitem-createuploadsession?view=graph-rest-1.0">driveItem: createUploadSession</a></td>
+<td>2026-11-03</td>
+</tr>
+<tr>
+<td>Upload a file (upload session, app-only)</td>
+<td><code dir="auto">POST /drives/{drive-id}/items/{parentItemId}:/{fileName}:/createUploadSession</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">Sites.ReadWrite.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Not applicable</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/driveitem-createuploadsession?view=graph-rest-1.0">driveItem: createUploadSession</a></td>
+<td>2026-11-03</td>
+</tr>
+</tbody>
+</table>
+<div class="sl-heading-wrapper level-h2"><h2 id="graph-client-foundation-typed-operations-and-transport-rules">Graph client foundation (typed operations and transport rules)</h2><a class="sl-anchor-link" href="#graph-client-foundation-typed-operations-and-transport-rules"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Graph client foundation (typed operations and transport rules)”</span></a></div>
+<p>The optional <code dir="auto">graph</code> feature adds an application client, a delegated client,
+paging, and a path-only request escape hatch. The typed operations below are
+the ones shipped so far, and each row stands on its own page: no permission is
+copied from another endpoint’s table. Read 2026-11-06.</p>
+<table>
+<thead>
+<tr>
+<th>Operation (SDK name)</th>
+<th>Endpoint</th>
+<th>API version</th>
+<th>Permission type</th>
+<th>Least privileged permission (as the page lists it)</th>
+<th>Cloud</th>
+<th>Account type</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">users.get</code></td>
+<td><code dir="auto">GET /users/{id | userPrincipalName}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">User.Read.All</code></td>
+<td>Global only</td>
+<td>Work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0">Get a user</a></td>
+<td>2026-11-06</td>
+</tr>
+<tr>
+<td><code dir="auto">users.get</code></td>
+<td><code dir="auto">GET /users/{id | userPrincipalName}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">User.Read</code> reads only the signed-in user; another user needs <code dir="auto">User.ReadBasic.All</code> or higher</td>
+<td>Global only</td>
+<td>Work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0">Get a user</a></td>
+<td>2026-11-06</td>
+</tr>
+<tr>
+<td><code dir="auto">users.list</code></td>
+<td><code dir="auto">GET /users</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">User.Read.All</code></td>
+<td>Global only</td>
+<td>Work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/user-list?view=graph-rest-1.0">List users</a></td>
+<td>2026-11-06</td>
+</tr>
+<tr>
+<td><code dir="auto">users.list</code></td>
+<td><code dir="auto">GET /users</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">User.ReadBasic.All</code> (a personal Microsoft account is not supported; guests cannot call it)</td>
+<td>Global only</td>
+<td>Work or school</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/user-list?view=graph-rest-1.0">List users</a></td>
+<td>2026-11-06</td>
+</tr>
+<tr>
+<td><code dir="auto">me.get</code></td>
+<td><code dir="auto">GET /me</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated</td>
+<td><code dir="auto">User.Read</code></td>
+<td>Global only</td>
+<td>Work or school; the page also lists a personal Microsoft account for <code dir="auto">User.Read</code></td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0">Get a user</a></td>
+<td>2026-11-06</td>
+</tr>
+<tr>
+<td><code dir="auto">me.get</code></td>
+<td><code dir="auto">GET /me</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td>Not supported: “Calling the /me endpoint requires a signed-in user and therefore a delegated permission.”</td>
+<td>n/a</td>
+<td>n/a</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0">Get a user</a></td>
+<td>2026-11-06</td>
+</tr>
+<tr>
+<td><code dir="auto">activity.team</code></td>
+<td><code dir="auto">POST /teams/{teamId}/sendActivityNotification</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsActivity.Send.Group</code> (resource-specific consent; the broader <code dir="auto">TeamsActivity.Send</code> also works)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/team-sendactivitynotification?view=graph-rest-1.0">team: sendActivityNotification</a></td>
+<td>2026-11-06</td>
+</tr>
+<tr>
+<td><code dir="auto">activity.team</code></td>
+<td><code dir="auto">POST /teams/{teamId}/sendActivityNotification</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsActivity.Send</code>; no higher delegated permission is listed</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/team-sendactivitynotification?view=graph-rest-1.0">team: sendActivityNotification</a></td>
+<td>2026-11-06</td>
+</tr>
+<tr>
+<td><code dir="auto">activity.chat</code></td>
+<td><code dir="auto">POST /chats/{chatId}/sendActivityNotification</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsActivity.Send.Chat</code> (resource-specific consent; the broader <code dir="auto">TeamsActivity.Send</code> also works)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-sendactivitynotification?view=graph-rest-1.0">chat: sendActivityNotification</a></td>
+<td>2026-11-06</td>
+</tr>
+<tr>
+<td><code dir="auto">activity.chat</code></td>
+<td><code dir="auto">POST /chats/{chatId}/sendActivityNotification</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsActivity.Send</code>; no higher delegated permission is listed</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-sendactivitynotification?view=graph-rest-1.0">chat: sendActivityNotification</a></td>
+<td>2026-11-06</td>
+</tr>
+<tr>
+<td><code dir="auto">activity.user</code></td>
+<td><code dir="auto">POST /users/{userId | user-principal-name}/teamwork/sendActivityNotification</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsActivity.Send.User</code> (resource-specific consent; the broader <code dir="auto">TeamsActivity.Send</code> also works)</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/userteamwork-sendactivitynotification?view=graph-rest-1.0">userTeamwork: sendActivityNotification</a></td>
+<td>2026-11-06</td>
+</tr>
+<tr>
+<td><code dir="auto">activity.user</code></td>
+<td><code dir="auto">POST /users/{userId | user-principal-name}/teamwork/sendActivityNotification</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsActivity.Send</code>; no higher delegated permission is listed</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/userteamwork-sendactivitynotification?view=graph-rest-1.0">userTeamwork: sendActivityNotification</a></td>
+<td>2026-11-06</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.create.channel-messages</code></td>
+<td><code dir="auto">POST /subscriptions</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">ChannelMessage.Read.Group</code> (resource-specific consent), <code dir="auto">ChannelMessage.Read.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-post-subscriptions?view=graph-rest-1.0">Create subscription</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.create.channel-messages</code></td>
+<td><code dir="auto">POST /subscriptions</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">ChannelMessage.Read.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-post-subscriptions?view=graph-rest-1.0">Create subscription</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.create.chat-messages</code></td>
+<td><code dir="auto">POST /subscriptions</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">Chat.Read.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-post-subscriptions?view=graph-rest-1.0">Create subscription</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.create.chat-messages</code></td>
+<td><code dir="auto">POST /subscriptions</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">Chat.Read</code>, <code dir="auto">Chat.ReadWrite</code></td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-post-subscriptions?view=graph-rest-1.0">Create subscription</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.get.channel-messages</code></td>
+<td><code dir="auto">GET /subscriptions/{id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">ChannelMessage.Read.Group</code> (resource-specific consent), <code dir="auto">ChannelMessage.Read.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-get?view=graph-rest-1.0">Get subscription</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.get.channel-messages</code></td>
+<td><code dir="auto">GET /subscriptions/{id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">ChannelMessage.Read.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-get?view=graph-rest-1.0">Get subscription</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.get.chat-messages</code></td>
+<td><code dir="auto">GET /subscriptions/{id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">Chat.Read.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-get?view=graph-rest-1.0">Get subscription</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.get.chat-messages</code></td>
+<td><code dir="auto">GET /subscriptions/{id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td>Not supported on this page</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-get?view=graph-rest-1.0">Get subscription</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.renew.channel-messages</code></td>
+<td><code dir="auto">PATCH /subscriptions/{id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">ChannelMessage.Read.Group</code> (resource-specific consent), <code dir="auto">ChannelMessage.Read.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-update?view=graph-rest-1.0">Update subscription</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.renew.channel-messages</code></td>
+<td><code dir="auto">PATCH /subscriptions/{id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">ChannelMessage.Read.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-update?view=graph-rest-1.0">Update subscription</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.renew.chat-messages</code></td>
+<td><code dir="auto">PATCH /subscriptions/{id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">Chat.Read.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-update?view=graph-rest-1.0">Update subscription</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.renew.chat-messages</code></td>
+<td><code dir="auto">PATCH /subscriptions/{id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td>Not supported on this page</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-update?view=graph-rest-1.0">Update subscription</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.delete.channel-messages</code></td>
+<td><code dir="auto">DELETE /subscriptions/{id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">ChannelMessage.Read.Group</code> (resource-specific consent), <code dir="auto">ChannelMessage.Read.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-delete?view=graph-rest-1.0">Delete subscription</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.delete.channel-messages</code></td>
+<td><code dir="auto">DELETE /subscriptions/{id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">ChannelMessage.Read.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-delete?view=graph-rest-1.0">Delete subscription</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.delete.chat-messages</code></td>
+<td><code dir="auto">DELETE /subscriptions/{id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">Chat.Read.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-delete?view=graph-rest-1.0">Delete subscription</a></td>
+<td>2026-11-10</td>
+</tr>
+<tr>
+<td><code dir="auto">subscriptions.delete.chat-messages</code></td>
+<td><code dir="auto">DELETE /subscriptions/{id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td>Not supported on this page</td>
+<td>Global, GCC, GCC-High, 21Vianet</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/subscription-delete?view=graph-rest-1.0">Delete subscription</a></td>
+<td>2026-11-10</td>
+</tr>
+</tbody>
+</table>
+<p>What the pages say about the transport, and what the SDK does with it:</p>
+<table>
+<thead>
+<tr>
+<th>Fact</th>
+<th>Source</th>
+<th>What the SDK does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>An error is <code dir="auto">{"error": {"code", "message", "innerError": {"request-id", "date"}}}</code></td>
+<td><a href="https://learn.microsoft.com/en-us/graph/errors">Errors</a></td>
+<td>Reads <code dir="auto">code</code>, a clipped and scrubbed <code dir="auto">message</code> and <code dir="auto">innerError.request-id</code>; any other body gives empty fields. A <code dir="auto">code</code> is kept only when it is a plain identifier (letters, digits and <code dir="auto">_</code>, up to 64 characters, which is the shape Graph’s own codes such as <code dir="auto">Request_ResourceNotFound</code> have); anything else is dropped rather than printed, so a body cannot put a token or a control character into an error message.</td>
+</tr>
+<tr>
+<td><code dir="auto">429 Too Many Requests</code> carries <code dir="auto">Retry-After</code>; wait that long and retry; without it use exponential backoff</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/throttling">Throttling</a></td>
+<td>Waits the stated time up to 30 s (configurable, ceiling 120 s) and tries at most 3 times; a longer <code dir="auto">Retry-After</code> is returned to the caller as a throttle, unslept. Without the header it doubles from 1 s.</td>
+</tr>
+<tr>
+<td><code dir="auto">503</code> and <code dir="auto">504</code> mean the service is unavailable or timed out and may be repeated after a delay</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/errors">Errors</a></td>
+<td>A <strong>read</strong> is repeated. A <strong>write</strong> is never repeated after a server error: the change may have been applied, so it is an ambiguous write.</td>
+</tr>
+<tr>
+<td><code dir="auto">@odata.nextLink</code> is the whole URL of the next page; use it unchanged and do not pull out <code dir="auto">$skiptoken</code></td>
+<td><a href="https://learn.microsoft.com/en-us/graph/paging">Paging</a></td>
+<td>The link is followed unchanged, but only if it has the Graph root’s scheme, host and port, the request’s version, no userinfo and no fragment. Otherwise the walk ends with an error and no request is sent.</td>
+</tr>
+<tr>
+<td>Send a unique GUID in <code dir="auto">client-request-id</code> on every request and log it</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/best-practices-concept">Best practices</a></td>
+<td>A fresh version 4 UUID per attempt, recorded in the error.</td>
+</tr>
+<tr>
+<td><code dir="auto">$top</code> defaults to 100 and tops out at 999 for <code dir="auto">/users</code>; <code dir="auto">$skip</code> is not supported there</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/user-list?view=graph-rest-1.0">List users</a></td>
+<td><code dir="auto">users().list(Some(n))</code> clamps <code dir="auto">n</code> to 1..=999 and never sends <code dir="auto">$skip</code>.</td>
+</tr>
+<tr>
+<td>Beta APIs may break without notice and are unsupported in production</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/versioning-and-support">Versioning</a></td>
+<td><code dir="auto">v1.0</code> is the default. A <code dir="auto">beta</code> request needs <code dir="auto">allow_beta()</code> on the client; no typed operation uses beta.</td>
+</tr>
+<tr>
+<td>National clouds have their own hosts (<code dir="auto">graph.microsoft.us</code>, <code dir="auto">dod-graph.microsoft.us</code>, <code dir="auto">microsoftgraph.chinacloudapi.cn</code>) and their tokens are not interchangeable with the public cloud’s</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/deployments">National cloud deployments</a></td>
+<td>Only <code dir="auto">https://graph.microsoft.com</code> is used. Asking for a national cloud is an unsupported-capability error, not a fall back.</td>
+</tr>
+</tbody>
+</table>
+<p>The client’s own rules, which are the SDK’s and not Microsoft’s:</p>
+<ul>
+<li><strong>Destination.</strong> Requests go to the configured root only. A request holds a
+method, a version, a path and a query, so it cannot name a host. Redirects
+are refused, and the final URL’s origin is checked again before the token is
+attached.</li>
+<li><strong>Escape hatch paths.</strong> A path is <code dir="auto">/</code>-separated segments of
+<code dir="auto">A-Z a-z 0-9 . _ ~ - $ @ ( ) ' , =</code>, with no empty segment, no <code dir="auto">.</code> or <code dir="auto">..</code>,
+no <code dir="auto">%</code>, no <code dir="auto">:</code>, at most 1024 characters. This is the SDK’s restriction and is
+stricter than Graph’s: colon-delimited drive-item addressing is not
+reachable. A query name may not look like a credential (<code dir="auto">access_token</code>,
+<code dir="auto">token</code>, <code dir="auto">sig</code>, <code dir="auto">client_secret</code>, and so on); values are percent-encoded so a
+value cannot end its parameter.</li>
+<li><strong>No permission contract for raw requests.</strong> The SDK does not know what an
+endpoint sent through <code dir="auto">request</code> needs. A 403 from one says so, and the
+caller must read that endpoint’s own page.</li>
+<li><strong>Authority.</strong> The application client presents a token minted from the
+registration’s credential for the Graph audience. The delegated client
+presents the token its provider hands in, after checking only that it has not
+expired. The SDK never decodes a token, never requests consent and never
+widens a grant.</li>
+</ul>
+<p>Not verified (and not relied on):</p>
+<ul>
+<li><strong>A live Graph answer.</strong> Every body here is a sample from the Learn pages,
+served by a loopback server. Nothing has called <code dir="auto">graph.microsoft.com</code>.</li>
+<li><strong>Response headers.</strong> The pages fetched do not say that Graph returns
+<code dir="auto">request-id</code> or echoes <code dir="auto">client-request-id</code> as response headers. The SDK
+takes the request identifier from <code dir="auto">innerError.request-id</code> and from
+<code dir="auto">x-ms-request-id</code> / <code dir="auto">x-ms-correlation-id</code> when present, and records the
+<code dir="auto">client-request-id</code> it sent.</li>
+<li><strong>A throttle on a write.</strong> The throttling page says throttled requests
+“fail”; the SDK reads that as “not run” and repeats a write after a <code dir="auto">429</code>.
+If that reading is wrong for some service, a write could run twice.</li>
+<li><strong>A <code dir="auto">202 Accepted</code> from <code dir="auto">GET /users/{id}</code>.</strong> The page says the method can
+return it; whether it carries a user body is not stated. The SDK treats the
+body as it would a <code dir="auto">200</code>’s and reports a body it cannot read as accepted but
+unusable.</li>
+<li><strong>Permission names in a token.</strong> A delegated token’s scopes are not read, so
+a missing scope is found out by the service’s 403.</li>
+<li><strong>DNS pinning.</strong> The Graph host is a fixed public name resolved by the
+system; there is no address vetting to pin, because no request supplies a
+destination.</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="directory-conversation-and-app-install-helpers">Directory, conversation and app-install helpers</h2><a class="sl-anchor-link" href="#directory-conversation-and-app-install-helpers"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Directory, conversation and app-install helpers”</span></a></div>
+<p>The <code dir="auto">Directory</code> (read-only) and <code dir="auto">AppInstalls</code> (write) clients on the Graph
+feature. Every row was read from its own Learn page on 2026-11-11; no
+permission is copied from another endpoint’s table. The permission shown is
+the first (least privileged) one the page lists for that kind of client.
+<code dir="auto">directory.channels.list</code>, <code dir="auto">directory.team-members.list</code>,
+<code dir="auto">directory.channel-members.list</code>, <code dir="auto">directory.chat.get</code> and
+<code dir="auto">installs.team.list</code> name a resource-specific permission as the least
+privileged one; the tenant-wide alternative the page lists is in the note.
+The SDK requests no consent and holds no permission of its own: a missing
+permission comes back as a 403 that names the one in this table.</p>
+<table>
+<thead>
+<tr>
+<th>Operation (SDK name)</th>
+<th>Endpoint</th>
+<th>API version</th>
+<th>Permission type</th>
+<th>Least privileged permission (as the page lists it)</th>
+<th>Cloud</th>
+<th>Account type</th>
+<th>Source</th>
+<th>Verified</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="auto">directory.user.lookup</code></td>
+<td><code dir="auto">GET /users/{id | userPrincipalName}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">User.Read.All</code> (Delegated User.Read reads only the signed-in user; another user needs User.ReadBasic.All or higher. A guest’s principal name holds #EXT# and needs %23 in a path, so the SDK takes a guest by object id or by mail address instead.)</td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0">Get a user</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.user.lookup</code></td>
+<td><code dir="auto">GET /users/{id | userPrincipalName}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">User.ReadBasic.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0">Get a user</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.user.by-mail</code></td>
+<td><code dir="auto">GET /users?$filter=mail eq '{address}'&amp;$top=2</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">User.Read.All</code> (An equality filter on a single primitive property needs no advanced query. Guests cannot call this API. The SDK asks for two results to tell a unique address from an ambiguous one.)</td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/user-list?view=graph-rest-1.0">List users</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.user.by-mail</code></td>
+<td><code dir="auto">GET /users?$filter=mail eq '{address}'&amp;$top=2</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">User.ReadBasic.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/user-list?view=graph-rest-1.0">List users</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.user.deleted</code></td>
+<td><code dir="auto">GET /directory/deletedItems/{object-id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">User.Read.All</code> (The page lists a permission per resource type and names User.Read.All for a user. The object has to be a user; the SDK refuses a deleted group or application.)</td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/directory-deleteditems-get?view=graph-rest-1.0">Get deleted item</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.user.deleted</code></td>
+<td><code dir="auto">GET /directory/deletedItems/{object-id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">User.Read.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/directory-deleteditems-get?view=graph-rest-1.0">Get deleted item</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.teams.joined</code></td>
+<td><code dir="auto">GET /users/{id | userPrincipalName}/joinedTeams</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">Team.ReadBasic.All</code> (The page does not support OData query parameters on this request. It lists the teams of one named user, never the teams of the tenant.)</td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/user-list-joinedteams?view=graph-rest-1.0">List joinedTeams</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.teams.joined</code></td>
+<td><code dir="auto">GET /users/{id | userPrincipalName}/joinedTeams</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">Team.ReadBasic.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/user-list-joinedteams?view=graph-rest-1.0">List joinedTeams</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.channels.list</code></td>
+<td><code dir="auto">GET /teams/{team-id}/channels</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">ChannelSettings.Read.Group</code> (ChannelSettings.Read.Group uses resource-specific consent, so the manifest has to declare it. The tenant-wide alternative the page lists is Channel.ReadBasic.All.)</td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/channel-list?view=graph-rest-1.0">List channels</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.channels.list</code></td>
+<td><code dir="auto">GET /teams/{team-id}/channels</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">Channel.ReadBasic.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/channel-list?view=graph-rest-1.0">List channels</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.team-members.list</code></td>
+<td><code dir="auto">GET /teams/{team-id}/members</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamMember.Read.Group</code> (TeamMember.Read.Group uses resource-specific consent. The default page is 100 members and the maximum is 999.)</td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/team-list-members?view=graph-rest-1.0">List members of a team</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.team-members.list</code></td>
+<td><code dir="auto">GET /teams/{team-id}/members</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamMember.Read.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/team-list-members?view=graph-rest-1.0">List members of a team</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.channel-members.list</code></td>
+<td><code dir="auto">GET /teams/{team-id}/channels/{channel-id}/members</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">ChannelMember.Read.Group</code> (ChannelMember.Read.Group uses resource-specific consent. The default page is 100 members and the maximum is 999.)</td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/channel-list-members?view=graph-rest-1.0">List members of a channel</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.channel-members.list</code></td>
+<td><code dir="auto">GET /teams/{team-id}/channels/{channel-id}/members</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">ChannelMember.Read.All</code></td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/channel-list-members?view=graph-rest-1.0">List members of a channel</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.chat.get</code></td>
+<td><code dir="auto">GET /chats/{chat-id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">Chat.ReadBasic.WhereInstalled</code> (Chat.ReadBasic.WhereInstalled reads only chats the app is installed in. Chat.ReadBasic.All is the tenant-wide alternative the page lists.)</td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-get?view=graph-rest-1.0">Get chat</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.chat.get</code></td>
+<td><code dir="auto">GET /chats/{chat-id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">Chat.ReadBasic</code></td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-get?view=graph-rest-1.0">Get chat</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.chat-members.list</code></td>
+<td><code dir="auto">GET /chats/{chat-id}/members</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">ChatMember.Read.All</code> (The page lists ChatMember.Read.All as the least privileged application permission and ChatMember.Read.Chat, which is scoped to chats the app is installed in, among the higher ones. The page does not support OData query parameters on this request.)</td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-list-members?view=graph-rest-1.0">List members of a chat</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.chat-members.list</code></td>
+<td><code dir="auto">GET /chats/{chat-id}/members</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">Chat.ReadBasic</code></td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-list-members?view=graph-rest-1.0">List members of a chat</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.catalog.find</code></td>
+<td><code dir="auto">GET /appCatalogs/teamsApps?$filter=externalId eq '{manifest-id}' or id eq '{manifest-id}'</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">AppCatalog.Read.All</code> (Learn: the catalog id is the manifest id only when the distribution method is store, and externalId is empty for a store app; for other apps the service generates the id and stamps the manifest id as externalId. The page lists equal, not-equal, and, or and not as filter operations, so the SDK asks for externalId or id and checks each entry itself. A caller that already holds the catalog id does not need this call or this permission.)</td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong>; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/appcatalogs-list-teamsapps?view=graph-rest-1.0">List apps in catalog</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">directory.catalog.find</code></td>
+<td><code dir="auto">GET /appCatalogs/teamsApps?$filter=externalId eq '{manifest-id}' or id eq '{manifest-id}'</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">AppCatalog.Submit</code></td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong>; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/appcatalogs-list-teamsapps?view=graph-rest-1.0">List apps in catalog</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.user.list</code></td>
+<td><code dir="auto">GET /users/{id | userPrincipalName}/teamwork/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsAppInstallation.ReadForUser.All</code> (Supports $filter, $select and $expand. Example 3 filters on teamsApp/externalId, but Learn says externalId is empty for a store app, so the SDK sends no $filter: it expands teamsApp and teamsAppDefinition, walks the list within the page limits and matches externalId or, for a store app, teamsApp.id. Not available in 21Vianet.)</td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong>; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/userteamwork-list-installedapps?view=graph-rest-1.0">List apps installed for user</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.user.list</code></td>
+<td><code dir="auto">GET /users/{id | userPrincipalName}/teamwork/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsAppInstallation.ReadForUser</code></td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong>; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/userteamwork-list-installedapps?view=graph-rest-1.0">List apps installed for user</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.team.list</code></td>
+<td><code dir="auto">GET /teams/{team-id}/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsAppInstallation.Read.Group</code> (The page supports $filter, $select and $expand, and its Example 3 filters on teamsApp/externalId for sideloaded or organizational apps; it says externalId is empty for a store app, whose teamsApp.id is the manifest id. The SDK therefore sends no $filter, expands teamsApp and walks the list within the page limits, matching externalId or, for a store app, teamsApp.id.)</td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong>; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/team-list-installedapps?view=graph-rest-1.0">List apps in team</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.team.list</code></td>
+<td><code dir="auto">GET /teams/{team-id}/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsAppInstallation.ReadForTeam</code></td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong>; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/team-list-installedapps?view=graph-rest-1.0">List apps in team</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.chat.list</code></td>
+<td><code dir="auto">GET /chats/{chat-id}/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsAppInstallation.ReadForChat.All</code> (Supports $filter, $select and $expand. Example 3 filters on teamsApp/externalId, but Learn says (on the teamsApp resource) that externalId is empty for a store app, so the SDK sends no $filter and matches externalId or, for a store app, teamsApp.id, itself.)</td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-list-installedapps?view=graph-rest-1.0">List apps in chat</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.chat.list</code></td>
+<td><code dir="auto">GET /chats/{chat-id}/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsAppInstallation.ReadForChat</code></td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-list-installedapps?view=graph-rest-1.0">List apps in chat</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.user.install</code></td>
+<td><code dir="auto">POST /users/{id | userPrincipalName}/teamwork/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsAppInstallation.ReadWriteSelfForUser.All</code> (The page lists the Self permissions as least privileged and notes that to install, get, upgrade or remove an app for the user the TeamsAppInstallation.ReadWriteForUser permission is needed. It states no webApplicationInfo rule for the install (that appears only on the list page) and does not say what a delegated Self permission does for another user, so the SDK relies on the service’s 403 and reports the permission the contract names. The SDK never sends consentedPermissionSet; the page says the permissions may be omitted only when the app has just delegated resource-specific permissions.)</td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong>; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/userteamwork-post-installedapps?view=graph-rest-1.0">Install app for user</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.user.install</code></td>
+<td><code dir="auto">POST /users/{id | userPrincipalName}/teamwork/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsAppInstallation.ReadWriteSelfForUser</code></td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong>; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/userteamwork-post-installedapps?view=graph-rest-1.0">Install app for user</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.team.install</code></td>
+<td><code dir="auto">POST /teams/{team-id}/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsAppInstallation.ReadWriteSelfForTeam.All</code> (The page’s note says the Self and ReadWriteForTeam permissions cannot be used to install apps that require consent to resource-specific permissions. The SDK never sends consentedPermissionSet. The page’s response section says 200 OK and its Example 2 says 201 Created; the SDK accepts any 2xx.)</td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong>; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/team-post-installedapps?view=graph-rest-1.0">Add app to team</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.team.install</code></td>
+<td><code dir="auto">POST /teams/{team-id}/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsAppInstallation.ReadWriteSelfForTeam</code></td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong>; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/team-post-installedapps?view=graph-rest-1.0">Add app to team</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.chat.install</code></td>
+<td><code dir="auto">POST /chats/{chat-id}/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsAppInstallation.ReadWriteSelfForChat.All</code> (The page’s note says the Self and ReadWriteForChat permissions cannot be used to install apps that require consent to resource-specific permissions. The SDK never sends consentedPermissionSet.)</td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-post-installedapps?view=graph-rest-1.0">Add app to chat</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.chat.install</code></td>
+<td><code dir="auto">POST /chats/{chat-id}/installedApps</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsAppInstallation.ReadWriteSelfForChat</code></td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-post-installedapps?view=graph-rest-1.0">Add app to chat</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.user.uninstall</code></td>
+<td><code dir="auto">DELETE /users/{id | userPrincipalName}/teamwork/installedApps/{installation-id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsAppInstallation.ReadWriteSelfForUser.All</code> (Removes one installation. The page answers 204 No Content.)</td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong>; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/userteamwork-delete-installedapps?view=graph-rest-1.0">Remove app for user</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.user.uninstall</code></td>
+<td><code dir="auto">DELETE /users/{id | userPrincipalName}/teamwork/installedApps/{installation-id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsAppInstallation.ReadWriteSelfForUser</code></td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong>; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/userteamwork-delete-installedapps?view=graph-rest-1.0">Remove app for user</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.team.uninstall</code></td>
+<td><code dir="auto">DELETE /teams/{team-id}/installedApps/{installation-id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsAppInstallation.ReadWriteSelfForTeam.All</code> (Removes one installation. The page answers 204 No Content.)</td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong>; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/team-delete-installedapps?view=graph-rest-1.0">Remove app from team</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.team.uninstall</code></td>
+<td><code dir="auto">DELETE /teams/{team-id}/installedApps/{installation-id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsAppInstallation.ReadWriteSelfForTeam</code></td>
+<td>Global, GCC, GCC-High; <strong>not 21Vianet</strong>; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/team-delete-installedapps?view=graph-rest-1.0">Remove app from team</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.chat.uninstall</code></td>
+<td><code dir="auto">DELETE /chats/{chat-id}/installedApps/{installation-id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Application</td>
+<td><code dir="auto">TeamsAppInstallation.ReadWriteSelfForChat.All</code> (Removes one installation. The page answers 204 No Content.)</td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-delete-installedapps?view=graph-rest-1.0">Remove app from chat</a></td>
+<td>2026-11-11</td>
+</tr>
+<tr>
+<td><code dir="auto">installs.chat.uninstall</code></td>
+<td><code dir="auto">DELETE /chats/{chat-id}/installedApps/{installation-id}</code></td>
+<td><code dir="auto">v1.0</code></td>
+<td>Delegated (work or school)</td>
+<td><code dir="auto">TeamsAppInstallation.ReadWriteSelfForChat</code></td>
+<td>Global, GCC, GCC-High, 21Vianet; the SDK uses Global only</td>
+<td>Work or school; a personal Microsoft account is not supported</td>
+<td><a href="https://learn.microsoft.com/en-us/graph/api/chat-delete-installedapps?view=graph-rest-1.0">Remove app from chat</a></td>
+<td>2026-11-11</td>
+</tr>
+</tbody>
+</table>
+<p>What the SDK does about each, and what it leaves out:</p>
+<ul>
+<li><strong>No bulk enumeration.</strong> There is no call that lists every user, team or
+chat of the tenant. <code dir="auto">directory.user.by-mail</code> is a <code dir="auto">$filter</code> equality with
+<code dir="auto">$top=2</code>; <code dir="auto">directory.teams.joined</code> is one named user’s teams; the member
+and installed-app lists are of one team, channel, chat or scope. Every walk
+stops at the client’s page and item limits with an error.</li>
+<li><strong>Users.</strong> A user is named by object id or by user principal name, and the
+caller says which (<code dir="auto">UserRef</code>); a string is never guessed. A guest’s
+principal name holds <code dir="auto">#EXT#</code>, which Learn says needs <code dir="auto">%23</code> in a URL; the SDK
+builds paths from plain segments, so it refuses such a name and points to the
+object id and to the mail address. A name starting with <code dir="auto">$</code> is sent as
+<code dir="auto">users('&lt;name&gt;')</code>, the form the page gives. A soft-deleted user is not an
+active user: <code dir="auto">GET /users/{id}</code> answers 404, and <code dir="auto">deleted_user</code> reads
+<code dir="auto">/directory/deletedItems/{id}</code> and refuses an item that is not a user.
+<code dir="auto">userType</code> is read when present; a response without it and without <code dir="auto">#EXT#</code> is
+<code dir="auto">Unspecified</code>, not <code dir="auto">Member</code>.</li>
+<li><strong>Members.</strong> <code dir="auto">roles</code> holds <code dir="auto">owner</code> and <code dir="auto">guest</code> as the resource page says.
+Pages can repeat a membership when it changes mid-walk; the walk drops a
+membership id it already returned and reports the count. <code dir="auto">diff_memberships</code>
+compares two snapshots.</li>
+<li><strong>Identifiers.</strong> Entra application id (<code dir="auto">AppId</code>), manifest id
+(<code dir="auto">ManifestId</code>, Graph’s <code dir="auto">externalId</code>), catalog id (<code dir="auto">TeamsAppCatalogId</code>,
+Graph’s <code dir="auto">teamsApp.id</code>) and installation id (<code dir="auto">TeamsAppInstallationId</code>) are
+four types. The installation id is refused in GUID form. A Graph chat id
+(<code dir="auto">19:...@thread.v2</code>, <code dir="auto">@unq.gbl.spaces</code>) and a Graph channel id
+(<code dir="auto">19:...@thread.tacv2</code>) are <code dir="auto">ChatThreadId</code> and <code dir="auto">ChannelThreadId</code>, refuse each
+other, and are not Bot Framework conversation ids.</li>
+<li><strong>Install and uninstall.</strong> Only with an <code dir="auto">InstallApproval</code> made from the
+exact request, naming who approved, carrying an idempotency key and consumed
+by the call. The SDK sends only <code dir="auto">teamsApp@odata.bind</code>; it never sends
+<code dir="auto">consentedPermissionSet</code>, so it cannot grant resource-specific permissions.
+The write permissions are the least privileged ones the pages list (the
+<code dir="auto">Self</code> ones); the pages do not say they are limited to the calling app, and a
+403 for another user is the service’s answer, which the SDK reports. A write whose answer is lost is not repeated and its key is refused
+afterwards. The <code dir="auto">AppInstalls</code> memory is per client, in process, and holds at
+most 1,024 keys.</li>
+<li><strong>Not reachable from notify or doctor.</strong> The notifier, the Connector client
+and the CLI doctor hold no Graph client. Tests read their sources and the
+doctor’s Azure CLI calls.</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="not-verified-1">Not verified</h3><a class="sl-anchor-link" href="#not-verified-1"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Not verified”</span></a></div>
+<ul>
+<li>No call was made to a live tenant. The response shapes come from the Learn
+examples; the loopback tests prove the SDK’s requests and parsing, not the
+service’s behaviour.</li>
+<li>Learn does not document the error body of an install of an app that is
+already installed. The SDK reports any 409 as <code dir="auto">Conflict</code> and says what it
+does not know.</li>
+<li>Whether <code dir="auto">$select=userType</code> is returned with <code dir="auto">User.ReadBasic.All</code> is not
+documented, so the lookups send no <code dir="auto">$select</code>.</li>
+<li>Learn documents <code dir="auto">$filter=teamsApp/externalId eq</code> on the user, team and chat
+installed-apps pages (Example 3), but says <code dir="auto">externalId</code> is empty for a store
+app, whose <code dir="auto">teamsApp.id</code> is the manifest id. The SDK sends no <code dir="auto">$filter</code> on
+those lists: it walks them within the page limits and matches <code dir="auto">externalId</code> or
+<code dir="auto">teamsApp.id</code>. The catalog request uses <code dir="auto">externalId eq ... or id eq ...</code>,
+because the catalog page lists <code dir="auto">or</code> among the filter operations. Verified
+against the pages fetched in full on 2026-11-11 (not truncated).</li>
+<li><code dir="auto">externalId</code> is the manifest id chosen by the app author. A sideloaded or
+organisational app can declare the manifest id of another app, so an
+installed-apps match by <code dir="auto">externalId</code> shows what the app claims, not who
+published it. The SDK does not check <code dir="auto">distributionMethod</code> for installations
+(Learn defines it on the catalog <code dir="auto">teamsApp</code>). Before trusting a match,
+verify <code dir="auto">distributionMethod</code>, the catalog id and the publisher against the
+catalog entry that was approved; a mismatch means a different app.</li>
+<li>The team install page says <code dir="auto">200 OK</code>; the user and chat pages say <code dir="auto">201 Created</code>. The SDK accepts any 2xx.</li>
+<li>Installation ids with <code dir="auto">+</code> or <code dir="auto">/</code> would need percent-encoding the SDK does
+not do. The ids Learn shows hold letters, digits and <code dir="auto">=</code>.</li>
+<li>Upgrading an installed app and <code dir="auto">consentedPermissionSet</code> are out of scope.</li>
+</ul>
+</div><footer class="sl-flex astro-mjem5c2d"><div class="meta sl-flex astro-mjem5c2d"></div><div class="pagination-links print:hidden astro-wxozplkb" dir="ltr"><a href="/muss/reference/compatibility/dialogs/" rel="prev" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span class="astro-wxozplkb">Previous<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">Dialogs and message extensions</span></span></a><a href="/muss/reference/compatibility/inbound-activities/" rel="next" class="astro-wxozplkb"><svg aria-hidden="true" class="astro-wxozplkb astro-pqysdep7" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span class="astro-wxozplkb">Next<br class="astro-wxozplkb"><span class="link-title astro-wxozplkb">Inbound bot activities</span></span></a></div></footer></div></div></main></div></div></div></div></body></html>
